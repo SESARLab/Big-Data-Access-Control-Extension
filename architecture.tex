@@ -1,0 +1,34 @@
+\section{Architectural Deployment}\label{sec:architecture}
+We present the architectural deployment of our access control system discussing two possible approaches: \emph{i)} centralized deployment; \emph{ii)} decentralized deployment. The choice of the specific deployment has an impact on the way in which the coalition \coalition{} of organizations \org{i} is formed as discussed in the following of this section.
+
+\begin{figure*}[!t]
+    \begin{tabular}{cc}
+        \parbox[]{10cm}{~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\}&\parbox[]{10cm}{~\\~\\~\\~\\~\\~\\~\\~\\~\\~\\}\\
+        (a)&(b)\\
+    \end{tabular}
+    \caption{Centralized (a) and decentralized (b) deployment}
+\end{figure*}
+
+\subsection{Centralized Deployment}\label{sec:centralized}
+A centralized deployment implements a service orchestration, where an orchestrator \orc\ provides access control functionalities and mediates access from organization \org{i} in \coalition{} to a given dataset \dataset{}. A service orchestration can be formally defined as follows.
+
+\begin{definition}\label{def:orchestration}
+    Given a big data analytics pipeline \G(\V,\E) in Definition \ref{def:pipeline}, a coalition \coalition{} of organizations \org{i}$\in$\Org{} each implementing a job \job{i}, a dataset \dataset{}, and an orchestrator \orc{}, a service orchestration is a direct acyclic graph \G$^c$(\V$^c$,\E$^c$), where \V$^c$=\V$_I$$\cup$\orc{} and \E$^c$=\{\vi{i},\orc{}\}$\cup$\{\orc{},\vi{i}\}, with \vi{i}$\in$\V$^c$ modeling a job \job{i}. 
+\end{definition}
+
+We note that each communication between two subsequent jobs \job{i-1} and \job{i} in \coalition{} is mediated by the orchestrator, which enforces all applicable policies. We also note that vertices \vi{c} and \vi{m} of an alternative structure, as well as \vi{f} and \vi{j} of a parallel structure, are included in the orchestrator \orc{}. Two enforcement processes are implemented in the centralized deployment as follows.
+\begin{enumerate}
+    \item \textbf{Incoming enforcement.} Policy enforcement is done by the orchestrator before dataset \dataset{} is released to a specific (set of) job \job{i}. It is then executed for each edge \{\orc{},\job{i}\} and decrease or maintain the utility of the dataset (i.e., the enforcement has no impact on the dataset or remove some information).
+    \item \textbf{Outgoing enforcement.} Policy enforcement is done by the orchestrator after a resulting dataset \dataset{} is returned by a specific (set of) job \job{i}. It is then executed for each edge \{\job{i},\orc{}\} and aims to restore those data that were manipulated before access by \job{i-1}. In other words, once the resulting dataset is returned by \job{i-1}, orchestrator \orc{} restore those data that were not accessible by \job{i-1} (e.g., by deanonymizing it).
+\end{enumerate}
+
+We note that centralized deployment maximizes the utility of the dataset providing each job with the largest amount of data possible, meaning that data transformation assumes a non-monotonic behavior. It is a single point of failure and assumes all jobs to coexist in a single environment. Generalization to multiple environments is possible but outside the scope of this paper.
+
+\subsection{Decentralized Deployment}\label{sec:decentralized}
+A decentralized deployment implements a service choreography, where organization \org{i} in \coalition{} are directly connected and exchange data. A service choreography can be formally defined as follows.
+
+\begin{definition}\label{def:choreography}
+    Given a big data analytics pipeline \G(\V,\E) in Definition \ref{def:pipeline}, a coalition \coalition{} of organizations \org{i}$\in$\Org{} each implementing a job \job{i}, and a dataset \dataset{}, a service choreography is a direct acyclic graph \G$^d$(\V$^d$,\E$^d$), where \V$^d$=\V\ and \E$^d$=\{\vi{i},\vi{j}\} with \vi{i}$\in$\V$^d$ modeling a job \job{i}. 
+\end{definition}
+
+We note that each communication between two subsequent jobs \job{i-1} and \job{i} in \coalition{} is direct with no mediation. Each job is complemented with an external plugin enforcing all applicable policies. Policy enforcement is done by the plugin of \job{i-1} before dataset \dataset{} is released to job \job{i}. It is then executed for each edge \{\job{i-1},\job{i}\}, enforcing all applicable policies and decrease or maintain the utility of the dataset (i.e., the enforcement has no impact on the dataset or remove some information). We note that decentralized deployment provides a data transformation assuming a not-increasing monotonic behavior. Communications are distributed among different job platforms requiring data transfer during analytics. This choice could decrease performance when huge datasets must be distributed. 
