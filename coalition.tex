@@ -67,26 +67,56 @@ It allows for the prioritization of certain features or elements in the datasets
 This approach can be particularly useful when some elements in the dataset have more importance or relevance than others.
 By assigning weights to the elements, the weighted KL divergence can account for this importance and provide a more accurate measure of dissimilarity.
 
-\subsection{Euristics}
+
+\subsection{Metrica Composta tipo vikor}
+\subsection{Metrica Composta vikor wighted (TOPSIS)}
+
+\subsection{Problema}
 The metrics established will enable the quantification of data loss pre- and post-transformations.
 In the event of multiple service interactions, each with its respective transformation, efforts will be made to minimize the loss of information while upholding privacy and security standards.
 Due to the exponential increase in complexity as the number of services and transformations grow, identifying the optimal path is inherently an NP-hard problem.
 As such, we propose some heuristics to approximate the optimal path as closely as possible. To evaluate their efficacy, the heuristically generated paths will be compared against the optimal solution.
-\begin{description}
-    \item[Greedy] The greedy algorithm is a heuristic that can be used to minimize the quantity of information lost by making locally optimal choices at each step in the hope of achieving a globally optimal solution.
+\subsection{Prova di NP-hardness}
+
+\subsection{Euristics}
+
+\subsection*{Greedy}
+The greedy algorithm is a heuristic that can be used to minimize the quantity of information lost by making locally optimal choices at each step in the hope of achieving a globally optimal solution.
         For instance, in our service selection problem, the greedy algorithm can be used to select services in order of their information loss, starting with the service with the lowest information loss.
         This strategy ensures that services with lower information loss are selected first, minimizing the overall quantity of information lost.
-    \item[Sliding Window] The sliding window algorithm is a heuristic that can be used to minimize the quantity of information lost by considering a subset of the available services defined by a fixed or moving window.
+        Pseudo-code for the greedy algorithm is presented in Algorithm 1.
+        \begin{lstlisting}[frame=single]
+GreedyHeuristic(Set S):
+1. Initialize an empty set R to store the
+    selected nodes
+2. While S is not empty:
+    a. Calculate the metric for each
+        node in S
+    b. Select the node with the minimal
+        metric and add it to R
+    c. Remove the selected node from S
+3. Return R
+
+        \end{lstlisting}
+
+    \subsection{Sliding Window}
+
+    The sliding window algorithm is a heuristic that can be used to minimize the quantity of information lost by considering a subset of the available services defined by a fixed or moving window.
         For example, in our service selection problem where the quantity of information lost needs to be minimized, the sliding window algorithm can be used to select services composition that have the lowest information loss within a fixed-size window.
         This strategy ensures that only services with low information loss are selected, minimizing the overall quantity of information lost.
-\end{description}
+        Pseudo-code for the sliding window algorithm is presented in Algorithm 2.
+\begin{lstlisting}[frame=single]
+SlidingWindowHeuristic(Seq S, int k):
+1. Initialize an empty list R to store the
+    selected nodes
+2. For i from 0 to the length of S - k:
+    a. Find the node with the minimal metric
+        in the window from i to i+k
+    b. Add the selected node to R
+3. Return R
+
+
+\end{lstlisting}
 The utilization of heuristics in service selection can be enhanced through the incorporation of techniques derived from other algorithms, such as Ant Colony Optimization or Tabu Search.
 By integrating these approaches, it becomes feasible to achieve a more effective and efficient selection of services, with a specific focus on eliminating paths that have previously been deemed unfavorable.
-\subsubsection{pensieri di Ernesto}
-\begin{itemize}
-    \item In sede di ingestion, la valutazione sull'impatto dell'analitica la posso fare. Se privacy e valori numerici si può compiare epsilon e delta di differential privacy (noise addition o allargare la distribuzione di rumore sulla base del budget di privacy).
-    \item Metriche quantitative, come ricercar potrebbe essere interessante schema di budget di privacy per l'offuscamento di dati non numerici Quante volte il dato viene trasformato
-    \item Analitiche di statistica descrittiva per il 3sigma -> piattaforma di puliafito (Catania)
-    \item Anomaly detection con deviazione standard
-    \item Data sanitizzato fa il merge di due barre dell' istogramma è un' autoencoding, come cambia la deviazione standard
-\end{itemize}
+
