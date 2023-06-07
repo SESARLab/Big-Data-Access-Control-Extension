@@ -79,43 +79,76 @@ As such, we propose some heuristics to approximate the optimal path as closely a
 \subsection{Prova di NP-hardness}
 
 \subsection{Euristics}
-
+\lstset{ %
+    backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+    basicstyle=\footnotesize,        % the size of the fonts that are used for the code
+    breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+    breaklines=true,                 % sets automatic line breaking
+    captionpos=b,                    % sets the caption-position to bottom
+    commentstyle=\color{commentsColor}\textit,    % comment style
+    deletekeywords={list},            % if you want to delete keywords from the given language
+    escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+    extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+    frame=tb,	                   	   % adds a frame around the code
+    keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+    keywordstyle=\color{keywordsColor}\bfseries,       % keyword style
+    language=Python,                 % the language of the code (can be overrided per snippet)
+    otherkeywords={*,to,function, Seq, add,empty},           % if you want to add more keywords to the set
+    numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+    numbersep=5pt,                   % how far the line-numbers are from the code
+    numberstyle=\tiny\color{commentsColor}, % the style that is used for the line-numbers
+    rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+    showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+    showstringspaces=false,          % underline spaces within strings only
+    showtabs=false,                  % show tabs within strings adding particular underscores
+    stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+    stringstyle=\color{stringColor}, % string literal style
+    tabsize=2,	                   % sets default tabsize to 2 spaces
+    title=\lstname,                  % show the filename of files included with \lstinputlisting; also try caption instead of title
+    columns=fixed                    % Using fixed column width (for e.g. nice alignment)
+}
 \subsection*{Greedy}
 The greedy algorithm is a heuristic that can be used to minimize the quantity of information lost by making locally optimal choices at each step in the hope of achieving a globally optimal solution.
-        For instance, in our service selection problem, the greedy algorithm can be used to select services in order of their information loss, starting with the service with the lowest information loss.
-        This strategy ensures that services with lower information loss are selected first, minimizing the overall quantity of information lost.
-        Pseudo-code for the greedy algorithm is presented in Algorithm 1.
-        \begin{lstlisting}[frame=single]
-GreedyHeuristic(Set S):
-1. Initialize an empty set R to store the
-    selected nodes
-2. While S is not empty:
-    a. Calculate the metric for each
-        node in S
-    b. Select the node with the minimal
-        metric and add it to R
-    c. Remove the selected node from S
-3. Return R
+For instance, in our service selection problem, the greedy algorithm can be used to select services in order of their information loss, starting with the service with the lowest information loss.
+This strategy ensures that services with lower information loss are selected first, minimizing the overall quantity of information lost.
+Pseudo-code for the greedy algorithm is presented in Algorithm 1.
+\begin{lstlisting}[frame=single,caption={Greedy Heuristic Pseudocode},label={lst:greedy}]
+function GreedyHeuristic(Set nodes):
 
+  selectedNodes = empty
+  while nodes is not empty:
+    minMetricNode = None
+    minMetricValue = infinity
+    for node in nodes:
+      currentMetric = calculateMetric(node)
+      if currentMetric < minMetricValue:
+        minMetricValue = currentMetric
+        minMetricNode = node
+        add minMetricNode to selectedNodes
+        remove minMetricNode from nodes
+  return selectedNodes
         \end{lstlisting}
 
-    \subsection{Sliding Window}
+\subsection{Sliding Window}
 
-    The sliding window algorithm is a heuristic that can be used to minimize the quantity of information lost by considering a subset of the available services defined by a fixed or moving window.
-        For example, in our service selection problem where the quantity of information lost needs to be minimized, the sliding window algorithm can be used to select services composition that have the lowest information loss within a fixed-size window.
-        This strategy ensures that only services with low information loss are selected, minimizing the overall quantity of information lost.
-        Pseudo-code for the sliding window algorithm is presented in Algorithm 2.
-\begin{lstlisting}[frame=single]
-SlidingWindowHeuristic(Seq S, int k):
-1. Initialize an empty list R to store the
-    selected nodes
-2. For i from 0 to the length of S - k:
-    a. Find the node with the minimal metric
-        in the window from i to i+k
-    b. Add the selected node to R
-3. Return R
+The sliding window algorithm is a heuristic that can be used to minimize the quantity of information lost by considering a subset of the available services defined by a fixed or moving window.
+For example, in our service selection problem where the quantity of information lost needs to be minimized, the sliding window algorithm can be used to select services composition that have the lowest information loss within a fixed-size window.
+This strategy ensures that only services with low information loss are selected, minimizing the overall quantity of information lost.
+Pseudo-code for the sliding window algorithm is presented in Algorithm 2.
+\begin{lstlisting}[frame=single, caption={Sliding Window Heuristic} ,label={lst:slidingwindow}]
+function SlidingWindowHeuristic(Seq sequence, int windowSize):
 
-
+  selectedNodes = empty
+  for i from 0 to length(sequence) - windowSize:
+    minMetricNode = None
+    minMetricValue = infinity
+    for j from i to i + windowSize:
+      currentMetric = calculateMetric(sequence[j])
+      if currentMetric < minMetricValue:
+        minMetricValue = currentMetric
+        minMetricNode = sequence[j]
+    add minMetricNode to selectedNodes
+  return selectedNodes
 \end{lstlisting}
 The utilization of heuristics in service selection can be enhanced through the incorporation of techniques derived from other algorithms, such as Ant Colony Optimization or Tabu Search.
 By integrating these approaches, it becomes feasible to achieve a more effective and efficient selection of services, with a specific focus on eliminating paths that have previously been deemed unfavorable.
