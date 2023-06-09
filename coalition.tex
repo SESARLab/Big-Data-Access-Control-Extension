@@ -180,4 +180,63 @@ function SlidingWindowHeuristic(Seq sequence, int windowSize):
 The utilization of heuristics in service selection can be enhanced through the incorporation of techniques derived from other algorithms, such as Ant Colony Optimization or Tabu Search.
 By integrating these approaches, it becomes feasible to achieve a more effective and efficient selection of services, with a specific focus on eliminating paths that have previously been deemed unfavorable.
 
+\usetikzlibrary{positioning}
+\usetikzlibrary{backgrounds}
+\begin{figure}
+  \centering
+  \begin{tikzpicture}
+
+    % Nodes
+    \node[rectangle, draw, minimum width=1cm, minimum height=1cm, fill=blue!20] (node1) {Node 1};
+    \node[rectangle, draw, minimum width=1cm, minimum height=1cm, fill=blue!20, right=of node1] (node2) {Node 2};
+    \node[rectangle, draw, minimum width=1cm, minimum height=1cm, fill=blue!20, right=of node2] (node3) {Node 3};
+    \node[rectangle, draw, minimum width=1cm, minimum height=1cm, fill=blue!20, right=of node3] (node4) {Node 4};
+
+    % Windows
+    \begin{scope}[on background layer]
+      \draw[thick, dashed, fill=green!20, opacity=0.5] ([shift={(-0.2,-0.2)}]node1.south west) rectangle ([shift={(0.2,0.2)}]node2.north east);
+    \end{scope}
+
+  \end{tikzpicture}
+
+  \vspace{5pt}
+
+  \begin{tikzpicture}
+
+    % Nodes
+    \node[rectangle, draw, minimum width=1cm, minimum height=1cm, fill=blue!20] (node1) {Node 1};
+    \node[rectangle, draw, minimum width=1cm, minimum height=1cm, fill=blue!20, right=of node1] (node2) {Node 2};
+    \node[rectangle, draw, minimum width=1cm, minimum height=1cm, fill=blue!20, right=of node2] (node3) {Node 3};
+    \node[rectangle, draw, minimum width=1cm, minimum height=1cm, fill=blue!20, right=of node3] (node4) {Node 4};
+
+    % Windows
+    \begin{scope}[on background layer]
+      \draw[thick, dashed, fill=green!20, opacity=0.5] ([shift={(-0.2,-0.2)}]node2.south west) rectangle ([shift={(0.2,0.2)}]node3.north east);
+    \end{scope}
+
+
+  \end{tikzpicture}
+
+  \vspace{5pt}
+
+
+  \begin{tikzpicture}
+
+    % Nodes
+    \node[rectangle, draw, minimum width=1cm, minimum height=1cm, fill=blue!20] (node1) {Node 1};
+    \node[rectangle, draw, minimum width=1cm, minimum height=1cm, fill=blue!20, right=of node1] (node2) {Node 2};
+    \node[rectangle, draw, minimum width=1cm, minimum height=1cm, fill=blue!20, right=of node2] (node3) {Node 3};
+    \node[rectangle, draw, minimum width=1cm, minimum height=1cm, fill=blue!20, right=of node3] (node4) {Node 4};
+
+    % Windows
+    \begin{scope}[on background layer]
+      \draw[thick, dashed, fill=green!20, opacity=0.5] ([shift={(-0.2,-0.2)}]node3.south west) rectangle ([shift={(0.2,0.2)}]node4.north east);
+    \end{scope}
+  \end{tikzpicture}
+
+  \caption{Sliding Window Heuristic}
+  \label{fig:slidingwindow}
+\end{figure}
+
+
 \subsection*{title}
