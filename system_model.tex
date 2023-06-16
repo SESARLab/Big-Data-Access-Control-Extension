@@ -11,28 +11,34 @@ the requirements driving our work (Section \ref{sec:accesscontrol_req}),
 and our reference scenario (Section \ref{sec:reference}).
 
 \subsection{System Model}\label{sec:systemmodel}
+\AJ{
+  In our given context, the data owner, acting as a user, aims to implement a data pipeline to facilitate analysis or transformation procedures on their data. Policies governing the data are established, which can originate from the user, third-party entities, or regulatory frameworks.
+  For instance, a policy may restrict the execution of processing operations to a specific geographic region.
+  During the pipeline construction, the user is afforded the opportunity to select, for each step, from a collection of functionally equivalent candidate services that align with the specified policies.
+  These services are subsequently ranked based on their ability to retain the maximum amount of data while maintaining an equivalent level of privacy.
+  Underlying our investigation is the assumption that a greater quantity of preserved data corresponds to enhanced data quality.
+}
 \AJ{Our system model aims to achieve an optimal service composition to ensure privacy and data quality.
   Within this context, we contemplate an interconnected sequence of services, establishing a pipeline where individual nodes signify distinct services.
   Each stage within the pipeline undertakes the task of data transformation or processing, with the resulting output serving as the input for the subsequent service.
   This model encapsulates what we refer to as a template, visually presented in Figure \ref{fig:service_composition_template}.
-  In order to instantiate the template, the selection of services to be executed at each step of the pipeline becomes imperative. At each step, there exists a collection of functionally equivalent services that differ in terms of annotation and data transformation.
-  These services are annotated with a set of requirements, such as the owner's information, among others. The annotations play a pivotal role in the creation of policies that determine the eligibility of a service for deployment. For instance, a policy may restrict the usage of services to a specific owner within a particular dataflow. By enforcing such policies, the set of candidate services for a given step is significantly reduced.
-  The remaining services undergo evaluation based on their potential impact on the data transformation process. Preference is given to the service that maximizes data quality while ensuring an equal level of data privacy. This evaluation process aids in identifying the most suitable service for a particular step in the pipeline.
-  Upon the selection of the most appropriate service for each step, the instantiation of the pipeline is deemed complete. Consequently, the pipeline becomes ready for execution, with the assurance that the chosen services align with the specified requirements and optimize the desired outcomes.
+  In order to instantiate the template, the selection of services to be executed at each step of the pipeline becomes imperative.
+  At each step, there exists a collection of functionally equivalent services that differ in terms of annotation and data transformation.
+  These services are annotated with a set of requirements that encompass crucial details, including the owner's information, as well as other pertinent metadata such as the region of execution, for example.
+  The annotations play a pivotal role in the creation of policies that determine the eligibility of a service for deployment.
+  By enforcing such policies, the set of candidate services for a given step is reduced.
+  The remaining services undergo evaluation based on their potential impact on the data transformation process.
+  Preference is given to the service that maximizes data quality while ensuring an equal level of data privacy.
+  This evaluation process aids in identifying the most suitable service for a particular step in the pipeline.
+  Upon the selection of the most appropriate service for each step, the instantiation of the pipeline is deemed complete.
+  Consequently, the pipeline becomes ready for execution, with the assurance that the chosen services align with the specified requirements and optimize the desired outcomes.
 }
 
 
 
 
-Our system is a coalition of organizations that collaboratively execute a Big Data pipeline where
-\emph{i)} organizations join without necessarily integrating their cloud-based or on-premises ICT infrastructures,
-\emph{ii)} collaborative processes are carried out involving multi-party data collection and analytics,
-\emph{iii)} the pipeline can be executed in a centralized or distributed deployment.
 
-It includes 4 different parties:
-\emph{i)} the pipeline owners, executing Big Data analytics pipelines,
-\emph{ii)} the organizations, providing the different services composing a big data pipeline,
-\emph{iii)} the coalitions, as an orchestration of organizations providing all services at the basis of the Big Data analytics pipelines.
+
 
 A big data pipeline can be defined as a composition of services, each one implementing a job, which can be parallelized to exploit the big data infrastructure capabilities.
 It defines executable processes that consist of a set of jobs combined using different structures to form a coherent system.
