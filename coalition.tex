@@ -44,10 +44,13 @@ The features can be assigned either equal or varying weights, which enables the 
 \subsubsection{Jaqard coefficent}
 Let us consider two dataset X and Y of the same size.
 The Jaqard coefficent is defined as:\[J(X,Y) = \frac{|X \cap Y|}{|X \cup Y|}\]
+The coefficient is is computed by dividing the cardinality of the intersection of two sets by the cardinality of their union.
+It ranges from 0 to 1, where 0 indicates no similarity and 1 indicates complete similarity between the sets.
+
 The use of Jaccard coefficient has several advantages when applied to datasets.
 Unlike other similarity measures, such as Euclidean distance, Jaccard coefficient is not affected by the magnitude of the values in the dataset.
 This property makes it suitable for datasets with categorical variables or nominal data, where the values do not have a meaningful numerical interpretation.
-The coefficient ranges from 0 to 1, where 0 indicates no similarity and 1 indicates complete similarity between the sets.
+
 \subsubsection{Jaqard coefficent with weights} Let us consider two dataset X and Y of the same size. The Jaqard coefficent is defined as:\[J(X,Y) = \frac{\sum_{i=1}^{n}w_i(x_i \cap y_i)}{\sum_{i=1}^{n}w_i(x_i \cup y_i)}\]
 Weighted Jaccard similarity is a variant of the Jaccard coefficient that incorporates weights to the elements in the sets being compared.
 It allows for the prioritization of certain features or elements in the datasets.

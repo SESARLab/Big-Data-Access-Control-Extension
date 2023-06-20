@@ -12,9 +12,9 @@ and our reference scenario (Section \ref{sec:reference}).
 
 \subsection{System Model}\label{sec:systemmodel}
 \AJ{
-  In our given context, the data owner, acting as a user, aims to implement a data pipeline to facilitate analysis or transformation procedures on their data. Policies governing the data are established, which can originate from the user, third-party entities, or regulatory frameworks.
+  In our context, the data owner, acting as a user, aims to implement a data pipeline to facilitate analysis or transformation procedures on their data. Policies governing the data are established, which can originate from the user, third-party entities, or regulatory frameworks.
   For instance, a policy may restrict the execution of processing operations to a specific geographic region.
-  During the pipeline construction, the user is afforded the opportunity to select, for each step, from a collection of functionally equivalent candidate services that align with the specified policies.
+  During the pipeline construction, the user is given the opportunity to select, for each step of the pipeline, from a collection of functionally equivalent candidate services that align with the specified policies.
   These services are subsequently ranked based on their ability to retain the maximum amount of data while maintaining an equivalent level of privacy.
   Underlying our investigation is the assumption that a greater quantity of preserved data corresponds to enhanced data quality.
 }
@@ -34,23 +34,11 @@ and our reference scenario (Section \ref{sec:reference}).
   Consequently, the pipeline becomes ready for execution, with the assurance that the chosen services align with the specified requirements and optimize the desired outcomes.
 }
 
-
-
-
-
-
-
-A big data pipeline can be defined as a composition of services, each one implementing a job, which can be parallelized to exploit the big data infrastructure capabilities.
-It defines executable processes that consist of a set of jobs combined using different structures to form a coherent system.
-Depending on the scope, jobs can be roughly classified as
-  {\em i)}~\emph{ingestion jobs}, capturing and transforming data with the scope of saving it for further analysis, dealing with different data format (i.e., structured, unstructured, and semi-structured),
-{\em ii)}~\emph{analytics jobs}, executing specific analysis on data, which may include data preparation tasks (e.g., normalization, cleaning, selections) to make data suitable for specific analytics,
-{\em iii)~visualization jobs}, presenting the output of an analytics to users.
-
 We formally model a Big Data analytics pipeline as follows.
 
 \begin{definition}[Big Data Analytics Pipeline] \label{def:pipeline}
-  A Big Data Analytics pipeline \G(\V,\E) is a direct acyclic graph having a root \vi{r}$\in$\V, a vertex \vi{i}$\in$\V$_I$$\subseteq$\V\ for each job \job{i} invocation, two additional vertices \vi{c},\vi{m}$\in$\V$_{\otimes}$$\subset$\V\ for each alternative ($\otimes$) structure modeling the alternative execution (\emph{choice}) of operations and the retrieval (\emph{merge}) of the results, respectively, and two additional vertices \vi{f},\vi{j}$\in$\V$_{\oplus}$$\subset$\V\ for each parallel ($\oplus$) structure modeling the contemporary execution (\emph{fork}) of operations and the integration (\emph{join}) of their results, respectively.
+  A Big Data Analytics pipeline \G(\V,\E) is a direct acyclic graph having a root \vi{r}$\in$\V, a vertex \vi{i}$\in$\V$_I$$\subseteq$\V\ for each job \job{i} invocation, two additional vertices \vi{c},\vi{m}$\in$\V$_{\otimes}$$\subset$\V\ for each alternative ($\otimes$) structure modeling the alternative execution (\emph{choice}) of operations and the retrieval (\emph{merge}) of the results,
+    respectively, and two additional vertices \vi{f},\vi{j}$\in$\V$_{\oplus}$$\subset$\V\ for each parallel ($\oplus$) structure modeling the contemporary execution (\emph{fork}) of operations and the integration (\emph{join}) of their results, respectively.
 \end{definition}
 
 We note that each vertex \vi{i} model a job \job{i} provided by an organization \org{i}.
@@ -62,10 +50,6 @@ We also note that an analytics pipeline can be deployed following a centralized 
 \end{figure}
 
 Figure~\ref{fig:BDpipeline} shows an overview of our system model.
-In our model, organizations form coalitions, that is, collaborative networks of autonomous domains implementing a processing lineage of a given a Big Data analytics pipeline where resource sharing is achieved by the distribution of access permissions to coalition members based on negotiated resource-sharing agreements.
-A big Data pipeline can be constitute of a set of linear independent path (processing lineage) each of them implemented by coalition. In most cases, these coalitions are dynamic in nature, as changing conditions and trust relationships result in new missions and modifications to coalition membership.
-This scenario introduces a clear IT governance conflict: data should be compartmentalized to ensure strong protection, on one side, and shared to enable advanced analytics and key inter-organizational business processes, on the other side.
-This results in a set of strict requirements on existing access control systems that are discussed in the following section.
 
 %Solid arrows present the typical batch or analytics model generation flows. Dashed arrows present typical streaming or prediction flows. \CH{togliere dalla figura la linea che separa le due procedure e le scritte ingestion procedure e analytics procedure?}
 %The coalition creation is driven by missions including emergency and disaster management, humanitarian operations, or simply interdependent organizations.
