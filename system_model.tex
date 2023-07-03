@@ -9,15 +9,17 @@ In the following of this section,
 we present our system model (Section \ref{sec:systemmodel}),
 the requirements driving our work (Section \ref{sec:accesscontrol_req}),
 and our reference scenario (Section \ref{sec:reference}).
-
-\subsection{System Model}\label{sec:systemmodel}
 \AJ{
-  In our context, the data owner, acting as a user, aims to implement a data pipeline to facilitate analysis or transformation procedures on their data. Policies governing the data are established, which can originate from the user, third-party entities, or regulatory frameworks.
+  In our context, the data owner, acting as a user, aims to implement a data pipeline to facilitate analysis or transformation procedures on their data.
+  Policies governing the data are established, which can originate from the user, third-party entities, or regulatory frameworks.
   For instance, a policy may restrict the execution of processing operations to a specific geographic region.
-  During the pipeline construction, the user is given the opportunity to select, for each step of the pipeline, from a collection of functionally equivalent candidate services that align with the specified policies.
+  The user is provided with a set of pipeline templates. Each template represents a blank pipeline with the necessary steps but without the specific services.
+  To instantiate the template, the user is given the opportunity to choose, for each step of the pipeline, from a collection of candidate services that are functionally equivalent and comply with the specified policies.
   These services are subsequently ranked based on their ability to retain the maximum amount of data while maintaining an equivalent level of privacy.
   Underlying our investigation is the assumption that a greater quantity of preserved data corresponds to enhanced data quality.
 }
+\subsection{System Model}\label{sec:systemmodel}
+
 \AJ{Our system model aims to achieve an optimal service composition to ensure privacy and data quality.
   Within this context, we contemplate an interconnected sequence of services, establishing a pipeline where individual nodes signify distinct services.
   Each stage within the pipeline undertakes the task of data transformation or processing, with the resulting output serving as the input for the subsequent service.

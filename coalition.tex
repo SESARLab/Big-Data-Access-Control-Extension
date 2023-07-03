@@ -44,19 +44,24 @@ The features can be assigned either equal or varying weights, which enables the 
 \subsubsection{Jaqard coefficent}
 Let us consider two dataset X and Y of the same size.
 The Jaqard coefficent is defined as:\[J(X,Y) = \frac{|X \cap Y|}{|X \cup Y|}\]
-The coefficient is is computed by dividing the cardinality of the intersection of two sets by the cardinality of their union.
+And is computed by dividing the cardinality of the intersection of two sets by the cardinality of their union.
 It ranges from 0 to 1, where 0 indicates no similarity and 1 indicates complete similarity between the sets.
 
 The use of Jaccard coefficient has several advantages when applied to datasets.
 Unlike other similarity measures, such as Euclidean distance, Jaccard coefficient is not affected by the magnitude of the values in the dataset.
 This property makes it suitable for datasets with categorical variables or nominal data, where the values do not have a meaningful numerical interpretation.
 
-\subsubsection{Jaqard coefficent with weights} Let us consider two dataset X and Y of the same size. The Jaqard coefficent is defined as:\[J(X,Y) = \frac{\sum_{i=1}^{n}w_i(x_i \cap y_i)}{\sum_{i=1}^{n}w_i(x_i \cup y_i)}\]
-Weighted Jaccard similarity is a variant of the Jaccard coefficient that incorporates weights to the elements in the sets being compared.
-It allows for the prioritization of certain features or elements in the datasets.
+\subsubsection{Jaqard coefficent with weights} Let us consider two dataset X and Y of the same size.
+The Jaqard coefficent is defined as:\[J(X,Y) = \frac{\sum_{i=1}^{n}w_i(x_i \cap y_i)}{\sum_{i=1}^{n}w_i(x_i \cup y_i)}\]
+Which is computed by dividing the cardinality of the intersection of two sets by the cardinality of their union, weighted by the weights assigned to the elements in the sets.
+Weights allow for the prioritization of certain features or elements in the datasets.
 This approach can be particularly useful when some elements in the dataset have more importance or relevance than others.
 By assigning weights to the elements, the weighted Jaccard similarity can account for this importance and provide a more accurate measure of similarity.
-\subsubsection{Kullback-Leibler divergence} Let us consider two dataset X and Y of the same size. The KL divergence is defined as:\[KL(X,Y) = \sum_{i=1}^{n}x_i \log \frac{x_i}{y_i}\]
+
+\subsubsection{Kullback-Leibler divergence}
+Let us consider two dataset X and Y of the same size.
+The KL divergence is defined as:\[KL(X,Y) = \sum_{i=1}^{n}x_i \log \frac{x_i}{y_i}\]
+Which is computed by taking the sum of the product of each element in the first dataset and the logarithm of the ratio of the same element in the second dataset.
 The KL divergence is a measure of the difference between two probability distributions and is useful for comparing the dissimilarity of two datasets.
 
 
@@ -159,7 +164,15 @@ function GreedyHeuristic(Set nodes):
   return selectedNodes
         \end{lstlisting}
 
+The pseudocode and is made of one function, GreedyHeuristic, which takes a set of nodes as input and returns a set of selected nodes.
+The function starts by initializing an empty set of selected nodes.
+Then, while there are still nodes to be selected, the algorithm iterates over the nodes and selects the node with the lowest metric value.
+The selected node is then added to the set of selected nodes and removed from the set of nodes.
+Finally, the set of selected nodes is returned.
+
 \subsection*{Sliding Window}
+
+
 
 The sliding window algorithm is a heuristic that can be used to minimize the quantity of information lost by considering a subset of the available services defined by a fixed or moving window.
 For example, in our service selection problem where the quantity of information lost needs to be minimized, the sliding window algorithm can be used to select services composition that have the lowest information loss within a fixed-size window.
@@ -180,6 +193,13 @@ function SlidingWindowHeuristic(Seq sequence, int windowSize):
     add minMetricNode to selectedNodes
   return selectedNodes
 \end{lstlisting}
+The pseudocode is made of one function, SlidingWindowHeuristic, which takes a sequence of nodes and a window size as input and returns a set of selected nodes.
+The function starts by initializing an empty set of selected nodes.
+Then, for each node in the sequence, the algorithm iterates over the nodes in the window and selects the node with the lowest metric value.
+The selected node is then added to the set of selected nodes.
+Finally, the set of selected nodes is returned.
+
+
 The utilization of heuristics in service selection can be enhanced through the incorporation of techniques derived from other algorithms, such as Ant Colony Optimization or Tabu Search.
 By integrating these approaches, it becomes feasible to achieve a more effective and efficient selection of services, with a specific focus on eliminating paths that have previously been deemed unfavorable.
 
@@ -240,6 +260,3 @@ By integrating these approaches, it becomes feasible to achieve a more effective
   \caption{Sliding Window Heuristic}
   \label{fig:slidingwindow}
 \end{figure}
-
-
-\subsection*{title}
