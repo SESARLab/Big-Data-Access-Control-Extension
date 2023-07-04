@@ -6,7 +6,7 @@
     % Nodes
     \node[draw, circle, minimum size=1cm] (node1) at (0,0) {};
     \node[draw, circle, minimum size=1cm] (node2) at (2,0) {};
-    \node[draw, circle, minimum size=1cm] (node3) at (4,0) {X};
+    \node[draw, circle, minimum size=1cm] (node3) at (4,0) {$\otimes$};
     \node[draw, circle, minimum size=1cm] (node4) at (6,-1) {};
     \node[draw, circle, minimum size=1cm] (node5) at (6,1) {};
 
@@ -32,7 +32,7 @@
 
 \textbf{Parallel} ($\oplus$). It composes two service, $wsi$ and $wsj$, in parallel. $wsi\oplus wsj$ mimics a composition where both $wsi$ and $wsj$ are executed simultaneously.
 
-\textbf{Loop} ($\oslash$). It composes a service composition by iteratively executing the same composition. $\oslash wsi$ mimics a composition where the service $wsi$ is executed a given number of times. In the following, $\oslash$ is considered as a sequence of $\oslash$ services with the same composition $wsi$.
+% \textbf{Loop} ($\oslash$). It composes a service composition by iteratively executing the same composition. $\oslash wsi$ mimics a composition where the service $wsi$ is executed a given number of times. In the following, $\oslash$ is considered as a sequence of $\oslash$ services with the same composition $wsi$.
 
 % \textbf{Containment} ($\tau$). It composes two service, $wsi$ and $wsj$, in a containment relation. $wsi\tau wsj$ mimics a basic composition pattern where $wsj$ is called within $wsi$, meaning that $wsi$ assumes the role of a container and $wsj$ uses container-level functionalities (e.g., signature, encryption) to secure the message exchange. We note that the containment operator does not have a direct mapping to BPEL constructs because it is applied to a specific service before the BPEL process is even considered.
 \subsection{Instance}
@@ -42,14 +42,14 @@
   \begin{tikzpicture}
     % Nodes
     \node[draw, circle, minimum size=0.4cm, draw=gray, text opacity=0.5] (node11) at (0,1.2) {Sx};
-    \node[draw, circle, minimum size=1cm] (node1) at (0,0) {Sy};
+    \node[draw, circle, minimum size=1cm] (node1) at (0,0) {S1};
     \node[draw, circle, minimum size=0.4cm, draw=gray, text opacity=0.5] (node10) at (0,-1.2) {Sy};
 
     \node[draw, circle, minimum size=0.4cm, draw=gray, text opacity=0.5] (node22) at (2,1.2) {Sx};
     \node[draw, circle, minimum size=1cm] (node2) at (2,0) {S2};
     \node[draw, circle, minimum size=0.4cm, draw=gray, text opacity=0.5] (node21) at (2,-1.2) {Sy};
 
-    \node[draw, circle, minimum size=1cm] (node3) at (4,0) {X};
+    \node[draw, circle, minimum size=1cm] (node3) at (4,0) {$\otimes$};
 
     \node[draw, circle, minimum size=0.4cm, draw=gray, text opacity=0.5] (node42) at (5,-1.5) {Sx};
     \node[draw, circle, minimum size=1cm] (node4) at (6,-1.5) {S3};
