@@ -58,21 +58,21 @@ Weights allow for the prioritization of certain features or elements in the data
 This approach can be particularly useful when some elements in the dataset have more importance or relevance than others.
 By assigning weights to the elements, the weighted Jaccard similarity can account for this importance and provide a more accurate measure of similarity.
 
-\subsubsection{Kullback-Leibler divergence}
-Let us consider two dataset X and Y of the same size.
-The KL divergence is defined as:\[KL(X,Y) = \sum_{i=1}^{n}x_i \log \frac{x_i}{y_i}\]
-Which is computed by taking the sum of the product of each element in the first dataset and the logarithm of the ratio of the same element in the second dataset.
-The KL divergence is a measure of the difference between two probability distributions and is useful for comparing the dissimilarity of two datasets.
+% \subsubsection{Kullback-Leibler divergence}
+% Let us consider two dataset X and Y of the same size.
+% The KL divergence is defined as:\[KL(X,Y) = \sum_{i=1}^{n}x_i \log \frac{x_i}{y_i}\]
+% Which is computed by taking the sum of the product of each element in the first dataset and the logarithm of the ratio of the same element in the second dataset.
+% The KL divergence is a measure of the difference between two probability distributions and is useful for comparing the dissimilarity of two datasets.
 
 
-\subsubsection{Kullback-Leibler divergence with weights} Let us consider two dataset X and Y of the same size. The weighted KL divergence is defined as:
+% \subsubsection{Kullback-Leibler divergence with weights} Let us consider two dataset X and Y of the same size. The weighted KL divergence is defined as:
 
-\[KL(X,Y) = \sum_{i=1}^{n}w_i(x_i \log \frac{x_i}{y_i})\]
+% \[KL(X,Y) = \sum_{i=1}^{n}w_i(x_i \log \frac{x_i}{y_i})\]
 
-The weighted KL divergence is a variant of the KL divergence that incorporates weights to the elements in the datasets being compared.
-It allows for the prioritization of certain features or elements in the datasets.
-This approach can be particularly useful when some elements in the dataset have more importance or relevance than others.
-By assigning weights to the elements, the weighted KL divergence can account for this importance and provide a more accurate measure of dissimilarity.
+% The weighted KL divergence is a variant of the KL divergence that incorporates weights to the elements in the datasets being compared.
+% It allows for the prioritization of certain features or elements in the datasets.
+% This approach can be particularly useful when some elements in the dataset have more importance or relevance than others.
+% By assigning weights to the elements, the weighted KL divergence can account for this importance and provide a more accurate measure of dissimilarity.
 
 \subsubsection{Jensen-Shannon Divergence}
 
