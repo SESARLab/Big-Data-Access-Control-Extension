@@ -1,41 +1,110 @@
 \section{Service Composition}
-\subsection{Template}
+The focal point of our investigation centers on a service-based environment, characterized by the strategic amalgamation of services in accordance with policies tailored to meet the discernible needs of the service consumer. Within this context, we expound upon the higher level of abstraction pertaining to service composition, involving three principal actors:
+\begin{enumerate}
+  \item The \User:
+        The stakeholder within the service-based environment,
+        the service consumer assumes the role of the entity initiating the request for a particular service.
+        By choosing a template, the service consumer initiate the subsequent stages of the composition process.
+  \item The Service Template:
+        At the crux of effective service composition lies the pivotal role played by the service template.
+        Functioning as a high-level composition of services labeled with predefined policies,
+        the service template serves as a structured blueprint facilitating the decision-making process for the  \user.
+        \begin{definition}[Service Template] \label{def:pipeline}
+          A Service Template \T(\V,\E,$\lambda$), is a direct acyclic graph having a root \vi{r}$\in$\V, a vertex \vi{i}$\in$\V\ for each service $s_i$,
+          two additional vertices \vi{c},\vi{m}$\in$\V$_{\otimes}$$\subset$\V\ for each alternative ($\otimes$) structure modeling the alternative execution (\emph{choice}) of operations and the retrieval (\emph{merge}) of the results,
+                respectively, and two additional vertices \vi{f},\vi{j}$\in$\V$_{\oplus}$$\subset$\V\ for each parallel ($\oplus$) structure modeling the contemporary execution (\emph{fork}) of operations and the integration (\emph{join}) of their results, respectively. $\lambda$ is an annotation function, assigning to each vertex \vi{i}$\in$\V\ a set of policies \Pset{i}.
+        \end{definition}
+        We note that $\{$\vi{r}$\}$ $\cup S_\otimes\cup S_\oplus=S$\\
+  \item The Service Provider:
+        Central to the execution of service composition is the service provider,
+        serving as the responsible entity for delivering the requested service.
+        Tasked with adhering to the prescribed service template, the service provider execute the service requested by the \user.
+\end{enumerate}
+
+By selecting the most suitable service template from a range of available options,
+the \user ensures an alignment between the service composition and their distinctive demands.
+
+
+% More detail about the structure modeling the alternative and parallel follows :
+
+% \textbf{Sequence} ($\oplus$). It composes two service, $wsi$ and $wsj$, in a sequence. $wsi\oplus wsj$ mimics a composition where $wsj$ is executed after $wsi$.
+
+% \textbf{Alternative} ($\otimes$). It composes two service, $wsi$ and $wsj$, in an alternative. $wsi\otimes wsj$ mimics a composition where either $wsi$ or $wsj$ is executed.
+
+% \textbf{Parallel} ($\oplus$). It composes two service, $wsi$ and $wsj$, in parallel. $wsi\oplus wsj$ mimics a composition where both $wsi$ and $wsj$ are executed simultaneously.
+
 \begin{figure}[h!]
   \centering
   \begin{tikzpicture}
     % Nodes
-    \node[draw, circle, minimum size=1cm] (node1) at (0,0) {};
-    \node[draw, circle, minimum size=1cm] (node2) at (2,0) {};
-    \node[draw, circle, minimum size=1cm] (node3) at (4,0) {$\otimes$};
-    \node[draw, circle, minimum size=1cm] (node4) at (6,-1) {};
-    \node[draw, circle, minimum size=1cm] (node5) at (6,1) {};
-
+    \node[draw, circle] (node1) at (0,0) {$s_r$};
+    \node[draw, circle] (node2) at (1,0) {$s_1$};
+    \node[draw, circle] (node3) at (2,0) {$\otimes$};
+    \node[draw, circle] (node4) at (3,-1) {$s_2$};
+    \node[draw, circle] (node5) at (3,1) {$s_3$};
+    \node[draw, circle] (node6) at (4,0) {$\otimes$};
+    \node[draw, circle] (node65) at (5,0) {$s_4$};
+    \node[draw, circle] (node7) at (6,0) {$\oplus$};
+    \node[draw, circle] (node8) at (7,1) {$s_5$};
+    \node[draw, circle] (node9) at (7,-1) {$s_6$};
+    \node[draw, circle] (node10) at (8,0) {$\oplus$};
+    \node[draw, circle] (node11) at (9,0) {$s_7$};
     % Text on top
-    \node[above] at (node1.north) {\Large $\lambda$};
-    \node[above] at (node2.north) {\Large $\lambda$};
+    \node[above] at (node1.north) {\large $\lambda$};
+    \node[above] at (node2.north) {\large $\lambda$};
     \node[above] at (node3.north) {};
-    \node[above] at (node4.north) {\Large $\lambda$};
-    \node[above] at (node5.north) {\Large $\lambda$};
-
+    \node[above] at (node4.north) {\large $\lambda$};
+    \node[above] at (node5.north) {\large $\lambda$};
+    \node[above] at (node65.north) {\large $\lambda$};
+    \node[above] at (node8.north) {\large $\lambda$};
+    \node[above] at (node9.north) {\large $\lambda$};
+    \node[above] at (node11.north) {\large $\lambda$};
     % Connection
     \draw[->] (node1) -- (node2);
     \draw[->] (node2) -- (node3);
     \draw[->] (node3) -- (node4);
     \draw[->] (node3) -- (node5);
+    \draw[->] (node5) -- (node6);
+    \draw[->] (node4) -- (node6);
+    \draw[->] (node6) -- (node65);
+    \draw[->] (node65) -- (node7);
+    \draw[->] (node7) -- (node8);
+    \draw[->] (node7) -- (node9);
+    \draw[->] (node8) -- (node10);
+    \draw[->] (node9) -- (node10);
+    \draw[->] (node10) -- (node11);
   \end{tikzpicture}
   \caption{Service composition template}
   \label{fig:service_composition_template}
 \end{figure}
-\textbf{Sequence} ($\oplus$). It composes two service, $wsi$ and $wsj$, in a sequence. $wsi\oplus wsj$ mimics a composition where $wsj$ is executed after $wsi$.
 
-\textbf{Alternative} ($\otimes$). It composes two service, $wsi$ and $wsj$, in an alternative. $wsi\otimes wsj$ mimics a composition where either $wsi$ or $wsj$ is executed.
 
-\textbf{Parallel} ($\oplus$). It composes two service, $wsi$ and $wsj$, in parallel. $wsi\oplus wsj$ mimics a composition where both $wsi$ and $wsj$ are executed simultaneously.
+
 
 % \textbf{Loop} ($\oslash$). It composes a service composition by iteratively executing the same composition. $\oslash wsi$ mimics a composition where the service $wsi$ is executed a given number of times. In the following, $\oslash$ is considered as a sequence of $\oslash$ services with the same composition $wsi$.
 
 % \textbf{Containment} ($\tau$). It composes two service, $wsi$ and $wsj$, in a containment relation. $wsi\tau wsj$ mimics a basic composition pattern where $wsj$ is called within $wsi$, meaning that $wsi$ assumes the role of a container and $wsj$ uses container-level functionalities (e.g., signature, encryption) to secure the message exchange. We note that the containment operator does not have a direct mapping to BPEL constructs because it is applied to a specific service before the BPEL process is even considered.
 \subsection{Instance}
+
+
+Let \T(\V,\E,$\lambda$) be a Service Template, a Composite Service instance is \T'(\V',\E,$\lambda$) is a directed acyclic graph where:
+$s_r=s'_r$, for each vertex \vi{}$\in$\V$_{\otimes}$$\cup$\V$_{\oplus}$ it exists a corresponding vertex \vi{}'$\in$\V'$_{\otimes}$$\cup$\V'$_{\oplus}$,
+    and for each \vi{i}$\in$ \V\ it exists a corresponding \vi'{i}$\in$ \V'\ instantiated with a real service \vi{i} having a policy \Pset{i}, such that the following conditions hold:
+    \begin{itemize}
+      \item $s_i$ satisfies functional requirements in $G_{\lambda}(V,E,\lambda)$.
+      \item \Pset{i} satisfies $\lambda(v_i)$.
+    \end{itemize}
+
+    The Composite Service  instance  is generated by traversing the Service Template with a breadth-first search algorithm,
+    starting from the root vertex \vi{r}. Then for each vertex \vi{i} in the Service Template, the corresponding vertex \vi{i}'$\in$ \V'\ is generated.
+    Finally for each vertex  \vi{i}'$\in$ \V'\ a two step selection approach is applied as follows.
+\begin{itemize}
+  \item \textit{Selection Algorithm} - It matches requirements in $\lambda(v_i)$ with the policy $\Lambda_i$, and returns a set of services $S_i$ that satisfy the requirements.
+  \item \textit{Comparison Algorithm} - Upon retrieving a set of compatible services, it produces a ranking of these services according their scoring function.
+        The scoring function is calculated according some metrics, which evaluate the quality of the data resulting from the service execution. More details about the metrics are provided in Section \ref{sec:metrics}.
+\end{itemize}
+
+
 \begin{figure}[H]
   \centering
 

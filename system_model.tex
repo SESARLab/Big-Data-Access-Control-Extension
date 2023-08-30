@@ -1,6 +1,6 @@
 \section{Requirements and System Model}\label{sec:requirements}
 Big data is highly dependent on cloud-edge computing, which makes extensive use of multitenancy.
-Mul\-ti-te\-nan\-cy permits sharing one instance of infrastructures, platforms or applications by multiple tenants to optimize costs.
+Multitenancy permits sharing one instance of infrastructures, platforms or applications by multiple tenants to optimize costs.
 This leads to common scenarios where a service provider offers subscription-based analytics capabilities in the cloud,
 or a single data lake is accessed by multiple customers.
 Thus, it is a common situation to have a big data pipeline where data and services belong to various organizations,
@@ -9,7 +9,7 @@ In the following of this section,
 we present our system model (Section \ref{sec:systemmodel}),
 the requirements driving our work (Section \ref{sec:accesscontrol_req}),
 and our reference scenario (Section \ref{sec:reference}).
-\AJ{
+\AG{
   In our context, the data owner, acting as a user, aims to implement a data pipeline to facilitate analysis or transformation procedures on their data.
   Policies governing the data are established, which can originate from the user, third-party entities, or regulatory frameworks.
   For instance, a policy may restrict the execution of processing operations to a specific geographic region.
@@ -20,7 +20,18 @@ and our reference scenario (Section \ref{sec:reference}).
 }
 \subsection{System Model}\label{sec:systemmodel}
 
-\AJ{Our system model aims to achieve an optimal service composition to ensure privacy and data quality.
+\begin{itemize}
+  \item User owns some data and wants to perform some analytics on it
+  \item Choose a pipeline template and a wanted level of privacy
+  \item The template has lambda, signed
+  \item Policy is a set of rules
+  \item Match the policy with the lambda
+  \item Compares services that match the policy ranking them based on quality
+  \item Choose the best service
+  \item The composite service is executed
+\end{itemize}
+
+\AG{Our system model aims to achieve an optimal service composition to ensure privacy and data quality.
   Within this context, we contemplate an interconnected sequence of services, establishing a pipeline where individual nodes signify distinct services.
   Each stage within the pipeline undertakes the task of data transformation or processing, with the resulting output serving as the input for the subsequent service.
   This model encapsulates what we refer to as a template, visually presented in Figure \ref{fig:service_composition_template}.
@@ -36,15 +47,15 @@ and our reference scenario (Section \ref{sec:reference}).
   Consequently, the pipeline becomes ready for execution, with the assurance that the chosen services align with the specified requirements and optimize the desired outcomes.
 }
 
-We formally model a Big Data analytics pipeline as follows.
+% We formally model a Big Data analytics pipeline as follows.
 
-\begin{definition}[Big Data Analytics Pipeline] \label{def:pipeline}
-  A Big Data Analytics pipeline \G(\V,\E) is a direct acyclic graph having a root \vi{r}$\in$\V, a vertex \vi{i}$\in$\V$_I$$\subseteq$\V\ for each job \job{i} invocation, two additional vertices \vi{c},\vi{m}$\in$\V$_{\otimes}$$\subset$\V\ for each alternative ($\otimes$) structure modeling the alternative execution (\emph{choice}) of operations and the retrieval (\emph{merge}) of the results,
-    respectively, and two additional vertices \vi{f},\vi{j}$\in$\V$_{\oplus}$$\subset$\V\ for each parallel ($\oplus$) structure modeling the contemporary execution (\emph{fork}) of operations and the integration (\emph{join}) of their results, respectively.
-\end{definition}
+% \begin{definition}[Big Data Analytics Pipeline] \label{def:pipeline}
+%   A Big Data Analytics pipeline \G(\V,\E) is a direct acyclic graph having a root \vi{r}$\in$\V, a vertex \vi{i}$\in$\V$_I$$\subseteq$\V\ for each job \job{i} invocation, two additional vertices \vi{c},\vi{m}$\in$\V$_{\otimes}$$\subset$\V\ for each alternative ($\otimes$) structure modeling the alternative execution (\emph{choice}) of operations and the retrieval (\emph{merge}) of the results,
+%     respectively, and two additional vertices \vi{f},\vi{j}$\in$\V$_{\oplus}$$\subset$\V\ for each parallel ($\oplus$) structure modeling the contemporary execution (\emph{fork}) of operations and the integration (\emph{join}) of their results, respectively.
+% \end{definition}
 
-We note that each vertex \vi{i} model a job \job{i} provided by an organization \org{i}.
-We also note that an analytics pipeline can be deployed following a centralized or a decentralized approach as discussed in detail in Section \ref{sec:architecture}.
+% We note that each vertex \vi{i} model a job \job{i} provided by an organization \org{i}.
+% We also note that an analytics pipeline can be deployed following a centralized or a decentralized approach as discussed in detail in Section \ref{sec:architecture}.
 
 \begin{figure}[!t]
   \includegraphics[width=0.98\columnwidth]{generaleFig1.pdf}
@@ -58,7 +69,13 @@ Figure~\ref{fig:BDpipeline} shows an overview of our system model.
 %\CH{Qui ho introdotto solo il termine coalition, va spiegato anche il termine federation?}
 
 
+
 \section{Policy}
+
 \subsection{Annotations}
 \subsection{Transformation}
 \subsection{Policy}
+
+\subsubsection{Policy Decision/Policy Matching}
+\subsubsection{Policy Enforcement}
+\subsubsection{Policy Evaluation}

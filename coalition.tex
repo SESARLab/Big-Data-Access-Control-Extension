@@ -15,7 +15,7 @@ In the following we first present metrics to evaluate data quality across the da
 
 %\subsection{Data Quality metrics}
 %\subsection{Coalition Heuristics}
-\subsection{Metrics}
+\subsection{Metrics}\label{sec:metrics}
 
 Data quality is a largely studied topic for the database management research communities,
 and is in general focused on the quality of the data source rather then on the quality of the data outcomes or of the data while used in the processing pipeline.
@@ -80,7 +80,8 @@ Let us consider two datasets X and Y of the same size. The Jensen-Shannon diverg
 
 The JSD between X and Y can be calculated as follows:
 
-\[JSD(X, Y) = \frac{1}{2} \left( KL(X || M) + KL(Y || M) \right)\]
+\[JSD(X, Y) = \frac{1}{2} \left( KL(X || M)
+  + KL(Y || M) \right)\]
 
 where M = 0.5 * (X + Y) is the average distribution.
 
