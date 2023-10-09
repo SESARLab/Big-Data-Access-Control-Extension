@@ -1,4 +1,3 @@
-
 \section{Requirements and System Model}\label{sec:requirements}
 Big data is highly dependent on cloud-edge computing, which makes extensive use of multitenancy.
 Multitenancy permits sharing one instance of infrastructures, platforms or applications by multiple tenants to optimize costs.
@@ -20,7 +19,7 @@ The increase in data production has led to a split in scientific research priori
 First, researchers are exploring methods to optimize valuable data. Here, ensuring data quality is vital, and requires accuracy, reliability, and suitability for analytical purposes.
 Second, there is a need to prioritize data privacy and security. This involves safeguarding confidential information and complying with strict privacy regulations.
 These two directions are happening at the same time, but there are not many solutions that find a good balance between them.
-Our approach seeks to harmonize these objectives by establishing a framework that balances privacy and data quality.xw
+Our approach seeks to harmonize these objectives by establishing a framework that balances privacy and data quality.
 
 Our system model is composed by the following parties:
 
@@ -77,10 +76,12 @@ A visual representation of the flow is presented in Figure \ref{fig:service_comp
 
 
 \section{Service}
-\subsection{Service Definition}
-Within the framework, a service is defined as an entity that receives input data, processes it by applying a transformation function, and produces an output result.
-Each service essentially consists of the  service transformation function (\F{}).
-The transformation function can be of 4 main types:
+Services are essential to our pipeline, the following sections provide a detailed explanation of the single service operation (\cref{sec:service_definition})  and its composition within a service flow.
+The composition of services serves as the skeleton for the pipeline, upon which the template is initially built and later instantiated to its final form.
+
+\subsection{Service Definition}\label{sec:service_definition}
+A service is an entity that receives input data, processes it through a transformation function (\F{}), and produces an output result.
+The transformation function can belong to one of four main types.
 \begin{enumerate*}[label=\roman*)]
   \item \F{Empty} The function applies no transformation or processing on the data.
   \item \F{additive} The function expands the amount of data received, for example, by integrating it with data from other sources.
@@ -88,59 +89,99 @@ The transformation function can be of 4 main types:
   \item \F{domain change }  The function changes the domain of the data by applying e.g. PCA or K-means (will not be considered in the current work).
 \end{enumerate*}
 
-
 Each service can be chained with other services to form a service flow.
-A service flow is defined as a graph. G(\V, \E, \F{}) where \V is a set of vertices, \E is a set of edges, and F is a set of functions.
-Each vertex in V represents a service, and each edge in E represents a data flow between two services.
-Each function in F represents a transformation function that is applied to the data.
-
+A service flow is defined as a graph. G(\V, \E, \F{}) where \V\, is a set of vertices, \E\, is a set of edges, and \F{}\, is a set of functions.
+Each vertex in \V\, represents a service, and each edge in \E\, represents a data flow between two services.
+Each function in \F{}\, represents a transformation function that is applied to the data.
+Figure~\ref{fig:service_flow} shows an overview of a service flow.
+\def\s{s}
+\begin{figure}[h!]
+  \centering
+  \begin{tikzpicture}[scale=0.85]
+    % Nodes
+    \node[draw, circle] (node1) at (0,0) {$\s_r$};
+    \node[draw, circle] (node2) at (1,0) {$\s_1$};
+    \node[draw, circle] (node3) at (2,0) {$\timesOperator$};
+    \node[draw, circle] (node4) at (3,-1) {$\s_2$};
+    \node[draw, circle] (node5) at (3,1) {$\s_3$};
+    \node[draw, circle] (node6) at (4,0) {$\timesOperator$};
+    \node[draw, circle] (node65) at (5,0) {$\s_4$};
+    \node[draw, circle] (node7) at (6,0) {$\plusOperator$};
+    \node[draw, circle] (node8) at (7,1) {$\s_5$};
+    \node[draw, circle] (node9) at (7,-1) {$\s_6$};
+    \node[draw, circle] (node10) at (8,0) {$\plusOperator$};
+    \node[draw, circle] (node11) at (9,0) {$\s_7$};
+    % Text on top
+    \node[above] at (node1.north) { $\fChartFunction$};
+    \node[above] at (node2.north) { $\fChartFunction$};
+    \node[above] at (node3.north) {};
+    \node[above] at (node4.north) { $\fChartFunction$};
+    \node[above] at (node5.north) { $\fChartFunction$};
+    \node[above] at (node65.north) { $\fChartFunction$};
+    \node[above] at (node8.north) { $\fChartFunction$};
+    \node[above] at (node9.north) { $\fChartFunction$};
+    \node[above] at (node11.north) { $\fChartFunction$};
+    % Connection
+    \draw[->] (node1) -- (node2);
+    \draw[->] (node2) -- (node3);
+    \draw[->] (node3) -- (node4);
+    \draw[->] (node3) -- (node5);
+    \draw[->] (node5) -- (node6);
+    \draw[->] (node4) -- (node6);
+    \draw[->] (node6) -- (node65);
+    \draw[->] (node65) -- (node7);
+    \draw[->] (node7) -- (node8);
+    \draw[->] (node7) -- (node9);
+    \draw[->] (node8) -- (node10);
+    \draw[->] (node9) -- (node10);
+    \draw[->] (node10) -- (node11);
+  \end{tikzpicture}
+  \caption{Service flow}
+  \label{fig:service_flow}
+\end{figure}
+\begin{definition}[Service Flow] \label{def:service_flow}
+  A Service Flow S(\V,\E,$\fChartFunction$), is a direct acyclic graph having a root \vi{r}$\in$\V, a vertex \vi{i}$\in$\V\ for each service $s_i$,
+  two additional vertices \vi{c},\vi{m}$\in$\V$_{\timesOperator}$$\subset$\V\ for each alternative ($\timesOperator$) structure modeling the alternative execution (\emph{choice}) of operations and the retrieval (\emph{merge}) of the results,
+        respectively, and two additional vertices \vi{f},\vi{j}$\in$\V$_{\plusOperator}$$\subset$\V\ for each parallel ($\plusOperator$) structure modeling the contemporary execution (\emph{fork}) of operations and the integration (\emph{join}) of their results, respectively. $\fChartFunction{}$ is an annotation function, assigning to each vertex \vi{i}$\in$\V\ a transformation function \F{i}.
+\end{definition}
 % \begin{definition}[Big Data Analytics Pipeline] \label{def:pipeline}
-%   A Big Data Analytics pipeline \G(\V,\E) is a direct acyclic graph having a root \vi{r}$\in$\V, a vertex \vi{i}$\in$\V$_I$$\subseteq$\V\ for each job \job{i} invocation, two additional vertices \vi{c},\vi{m}$\in$\V$_{\otimes}$$\subset$\V\ for each alternative ($\otimes$) structure modeling the alternative execution (\emph{choice}) of operations and the retrieval (\emph{merge}) of the results,
-%     respectively, and two additional vertices \vi{f},\vi{j}$\in$\V$_{\oplus}$$\subset$\V\ for each parallel ($\oplus$) structure modeling the contemporary execution (\emph{fork}) of operations and the integration (\emph{join}) of their results, respectively.
+%   A Big Data Analytics pipeline \G(\V,\E) is a direct acyclic graph having a root \vi{r}$\fn$\V, a vertex \vi{i}$\fn$\V$_I$$\subseteq$\V\ for each job \job{i} invocation, two additional vertices \vi{c},\vi{m}$\fn$\V$_{\otimes}$$\subset$\V\ for each alternative ($\otimes$) structure modeling the alternative execution (\emph{choice}) of operations and the retrieval (\emph{merge}) of the results,
+%     respectively, and two additional vertices \vi{f},\vi{j}$\fn$\V$_{\oplus}$$\subset$\V\ for each parallel ($\oplus$) structure modeling the contemporary execution (\emph{fork}) of operations and the integration (\emph{join}) of their results, respectively.
 % \end{definition}
 
 % We note that each vertex \vi{i} model a job \job{i} provided by an organization \org{i}.
 % We also note that an analytics pipeline can be deployed following a centralized or a decentralized approach as discussed in detail in Section \ref{sec:architecture}.
 
-\begin{figure}[!t]
-  \includegraphics[width=0.98\columnwidth]{generaleFig1.pdf}
-  \caption{Big Data Analytics pipeline graphs with a coalition of organization for a given processing lineage.}\label{fig:BDpipeline}
-\end{figure}
+% \begin{figure}[!t]
+%   \fncludegraphics[width=0.98\columnwidth]{generaleFig1.pdf}
+%   \caption{Big Data Analytics pipeline graphs with a coalition of organization for a given processing lineage.}\label{fig:BDpipeline}
+% \end{figure}
 
-Figure~\ref{fig:BDpipeline} shows an overview of our system model.
+%
 
 %Solid arrows present the typical batch or analytics model generation flows. Dashed arrows present typical streaming or prediction flows. \CH{togliere dalla figura la linea che separa le due procedure e le scritte ingestion procedure e analytics procedure?}
 %The coalition creation is driven by missions including emergency and disaster management, humanitarian operations, or simply interdependent organizations.
-%\CH{Qui ho introdotto solo il termine coalition, va spiegato anche il termine federation?}
 
 
 
-
-
-\section{Service Template}
-\subsection{Definition}
+\section{Service Template}\label{sec:service_template}
 The main point of our investigation is a service-based environment where services are combined strategically with policies that cater to the specific needs of the user.
-Our focus is on service composition, which involves three main actors and operates at a higher level of abstraction.
-\begin{enumerate}
-  % \item The \User:
-  %       The stakeholder within the service-based environment,
-  %       the \user assumes the role of the entity initiating the request for a particular service.
-  %       By choosing a template, the \user initiate the subsequent stages of the composition process.
-  \item The Service Template:
-        At the crux of effective service composition lies the pivotal role played by the service template.
-        Functioning as a high-level composition of services labeled with predefined policies,
-        the service template serves as a structured blueprint facilitating the decision-making process for the  \user.
-        \begin{definition}[Service Template] \label{def:pipeline}
-          A Service Template \T(\V,\E,$\iChartFunction{}$), is a direct acyclic graph having a root \vi{r}$\in$\V, a vertex \vi{i}$\in$\V\ for each service $s_i$,
-          two additional vertices \vi{c},\vi{m}$\in$\V$_{\timesOperator}$$\subset$\V\ for each alternative ($\timesOperator$) structure modeling the alternative execution (\emph{choice}) of operations and the retrieval (\emph{merge}) of the results,
-                respectively, and two additional vertices \vi{f},\vi{j}$\in$\V$_{\plusOperator}$$\subset$\V\ for each parallel ($\plusOperator$) structure modeling the contemporary execution (\emph{fork}) of operations and the integration (\emph{join}) of their results, respectively. $\iChartFunction{}$ is an annotation function, assigning to each vertex \vi{i}$\in$\V\ a set of policies \Pset{i}.
-        \end{definition}
-        % We note that $\{$\vi{r}$\}$ $\cup S_\timesOperator\cup S_\plusOperator=S$\\
-  \item The Service Provider:
-        Central to the execution of service composition is the service provider,
-        serving as the responsible entity for delivering the requested service.
-        Tasked with adhering to the prescribed service template, the service provider execute the service requested by the \user.
-\end{enumerate}
+
+The service template enhances the service flow defined in \cref{sec:service_definition}, incorporating a policy function to each service.
+The policy function serves as a tag to select services within the framework.
+This approach allows for the elimination of services that do not meet the user's data treatment requirements.
+In addition, the policy directs the system on the necessary data transformations before entering a service.
+
+
+At the crux of effective service composition lies the pivotal role played by the service template.
+Functioning as a high-level composition of services labeled with predefined policies,
+the service template serves as a structured blueprint facilitating the decision-making process for the  \user.
+\begin{definition}[Service Template] \label{def:pipeline}
+  A Service Template \T(\V,\E,$\iChartFunction{}$), is a direct acyclic graph having a root \vi{r}$\in$\V, a vertex \vi{i}$\in$\V\ for each service $s_i$,
+  two additional vertices \vi{c},\vi{m}$\in$\V$_{\timesOperator}$$\subset$\V\ for each alternative ($\timesOperator$) structure modeling the alternative execution (\emph{choice}) of operations and the retrieval (\emph{merge}) of the results,
+        respectively, and two additional vertices \vi{f},\vi{j}$\in$\V$_{\plusOperator}$$\subset$\V\ for each parallel ($\plusOperator$) structure modeling the contemporary execution (\emph{fork}) of operations and the integration (\emph{join}) of their results, respectively. $\iChartFunction{}$ is an annotation function, assigning to each vertex \vi{i}$\in$\V\ a set of policies \Pset{i}.
+\end{definition}
+
 
 % More detail about the structure modeling the alternative and parallel follows :
 
@@ -149,22 +190,22 @@ Our focus is on service composition, which involves three main actors and operat
 % \textbf{Alternative} ($\timesOperator$). It composes two service, $wsi$ and $wsj$, in an alternative. $wsi\timesOperator wsj$ mimics a composition where either $wsi$ or $wsj$ is executed.
 
 % \textbf{Parallel} ($\plusOperator$). It composes two service, $wsi$ and $wsj$, in parallel. $wsi\plusOperator wsj$ mimics a composition where both $wsi$ and $wsj$ are executed simultaneously.
-\begin{figure}[h!]
+\begin{figure}[ht!]
   \centering
-  \begin{tikzpicture}
+  \begin{tikzpicture}[scale=0.9]
     % Nodes
-    \node[draw, circle] (node1) at (0,0) {$s_r$};
-    \node[draw, circle] (node2) at (1,0) {$s_1$};
+    \node[draw, circle] (node1) at (0,0) {$\s_r$};
+    \node[draw, circle] (node2) at (1,0) {$\s_1$};
     \node[draw, circle] (node3) at (2,0) {$\timesOperator$};
-    \node[draw, circle] (node4) at (3,-1) {$s_2$};
-    \node[draw, circle] (node5) at (3,1) {$s_3$};
+    \node[draw, circle] (node4) at (3,-1) {$\s_2$};
+    \node[draw, circle] (node5) at (3,1) {$\s_3$};
     \node[draw, circle] (node6) at (4,0) {$\timesOperator$};
-    \node[draw, circle] (node65) at (5,0) {$s_4$};
+    \node[draw, circle] (node65) at (5,0) {$\s_4$};
     \node[draw, circle] (node7) at (6,0) {$\plusOperator$};
-    \node[draw, circle] (node8) at (7,1) {$s_5$};
-    \node[draw, circle] (node9) at (7,-1) {$s_6$};
+    \node[draw, circle] (node8) at (7,1) {$\s_5$};
+    \node[draw, circle] (node9) at (7,-1) {$\s_6$};
     \node[draw, circle] (node10) at (8,0) {$\plusOperator$};
-    \node[draw, circle] (node11) at (9,0) {$s_7$};
+    \node[draw, circle] (node11) at (9,0) {$\s_7$};
     % Text on top
     \node[above] at (node1.north)  {$\tChartFunction$};
     \node[above] at (node2.north)  {$\tChartFunction$};
@@ -197,7 +238,48 @@ Our focus is on service composition, which involves three main actors and operat
 \subsection{Policy}
 % \subsubsection{Annotations}
 % \subsubsection{Transformation}
+The access control language proposed in this paper is a refinement of our previous work in \cite{MEDES2021}.
+It extends an attribute-based access control model that offers flexible fine-grained authorization capabilities and exploits XACML \cite{XACML} obligations to introduce preemptive data transformations.
+Indeed, in a collaborative big data scenario, preemptive data transformations are more suitable than denying access to data.
+For this reason, when a subject makes an access request to a resource, our access control filters the set of results according to the subject's privileges, obtaining data protection by removing or obfuscating sensitive attributes rather than denying access to full data.
 
+We tailor the common key elements of an attribute-based access control model to deal with the peculiarities of a big data scenario.
+The access control policy expresses access conditions based on key elements and their attributes as follows.
+
+\begin{definition}[Policy Condition]\label{def:policy_cond}
+  A \emph{Policy Condition} is a Boolean expression of the form $($\emph{attr\_name} op \emph{attr\_value}$)$, with op$\in$\{$<$,$>$,$=$,$\neq$,$\leq$,$\geq$\}, \emph{attr\_name} an attribute label, and \emph{attr\_value} the corresponding attribute value.
+\end{definition}
+
+A policy is then defined as follows.
+
+\begin{definition}[Policy]\label{def:policy_rule}
+  A {\it policy P} is 5-uple $<$\textit{subj}, \textit{obj}, \textit{action}, \textit{env}, \textit{datatrans}$>$, where:
+  \begin{itemize}
+    \item Subject \textit{subj} defines a user or the service provider of a job issuing access requests to perform operations on objects. It is of the form $<$\emph{id}, \emph{PC}$>$, where \emph{id} defines a class of users (e.g., policeman), and \emph{PC} is a set of \emph{Policy Conditions} on the subject, as defined in Definition \ref{def:policy_cond}. For instance, $<$\emph{user},\{(age $\geq$ 18)\}$>$ refers to a person of legal age.
+
+    \item Object \textit{obj} defines any data whose access is governed by the policy. It is of the form $<$\emph{type}, \emph{PC}$>$, where: \emph{type} defines the type of object, such as a file (e.g., a video, text file, image, etc.), a SQL or noSQL database, a table, a column, a row, or a cell of a table, and \emph{PC} is a set of \emph{Policy Conditions} defined on the object's attributes. For instance, $<$\emph{file},\{(creation\_date $<$ 2020/12/05)\}$>$ refers to a file created before 2020/12/05.
+
+    \item Action \textit{action} defines any operations that can be performed within a big data environment, from traditional atomic operations on databases (e.g, CRUD operations varying depending on the data model) to coarser operations, such as an Apache Spark Direct Acyclic Graph (DAG), an Hadoop MapReduce, an analytics function call, or an analytics pipeline.
+
+    \item Environment \textit{env} defines a set of conditions on contextual attributes, such as time of the day, location, IP address, risk level, weather condition, holiday/workday, emergency. It is a set \emph{PC} of
+          \emph{Policy Conditions} as defined in Definition \ref{def:policy_cond}.
+          For instance, \{(weather\_conditions $=$ red\_alert)\} refers to a red alert broadcasted for weather conditions.
+
+    \item Data Transformation \textit{datatrans} defines a set of security and privacy-aware transformations on \textit{obj}, focusing on compliance to regulations and standards, in addition to simple format conversions.
+  \end{itemize}
+\end{definition}
+
+More specifically, the data transformations in the policy include, but are not limited to, suppression or generalization of data, masking and encryption, distortion, and swapping. They are grouped in a taxonomy of functions used to sanitize the ingested data according to the security property they aim to guarantee. We consider the CIA triad defined by NIST \cite{nieles2017introduction} as the reference for our work as follows.
+
+\begin{itemize}
+  \item \textit{Confidentiality} describes the process of hiding information that may lead to personal identification or proprietary information, keeping users anonymous. The conventional security mechanisms used to protect data confidentiality are encryption or hashing \cite{ABE2:2006,IBE:2006,HOMOMEnc:2015}.
+  \item \textit{Integrity} ensures that data are non-repudiable, authentic and protected from modifications and deletions. Some of conventional security mechanisms used to ensure data integrity are encryption and signing \cite{ABE2:2006}\cite{IBE:2006}\cite{HOMOMEnc:2015}.
+  \item \textit{Availability} ensures that authorized parties should have constant and easy access to information. This includes correctly maintaining hardware, technological infrastructure, and systems that store and show data. Some of conventional security mechanisms used to ensure availability are replication, distribution, high availability and disaster recovery.
+\end{itemize}
+
+Data transformations can be further classified on the type of information that is sanitized. \textit{Temporal transformations} delay access to data. Data produced at a time $T$ will be accessible at a time $T+\delta$, with $\delta$ depending on the policy applied and the desired level of visibility. For example, as shown in Figure \ref{fig:temporal_transf}, a Policeman accesses data when produced (green segments), while an air quality control officer retrieves them with 1-hour delay (red segments).
+
+\textit{Spatial transformations} alter the granularity of geolocation information, making it more or less granular based on the applied policy and desired level of visibility. For example, in the smart city context, if an unexpected event occurs (e.g., fire, accident), law enforcement could have a more spatially accurate view, while citizens could be shown only the macro area where the event occurred.
 \subsubsection{Policy Decision/Policy Matching}
 \subsubsection{Policy Enforcement}
 \subsubsection{Policy Evaluation}

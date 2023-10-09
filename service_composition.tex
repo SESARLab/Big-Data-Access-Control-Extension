@@ -1,10 +1,10 @@
 \section{Service Instance}
 
-\begin{figure}[h!]
+\begin{figure}[ht!]
   \centering
   \begin{tikzpicture}
     % Nodes
-    \node[draw, circle] (node1) at (0,0) {$s^\prime_r$};
+    \node[draw, circle] (node1) at (0,0) {$\s^\prime_r$};
     \node[draw, circle] (node2) at (1,0) {$s^\prime_1$};
     \node[draw, circle] (node3) at (2,0) {$\timesOperator$};
     \node[draw, circle] (node4) at (3,-1) {$s^\prime_2$};
@@ -66,7 +66,7 @@ $s_r=s'_r$, for each vertex \vi{}$\in$\V$_{\timesOperator}$$\cup$\V$_{\plusOpera
     starting from the root vertex \vi{r}. Then for each vertex \vi{i} in the Service Template, the corresponding vertex \vi{i}'$\in$ \V'\ is generated.
     Finally for each vertex  \vi{i}'$\in$ \V'\ a two step selection approach is applied as follows.
 \begin{itemize}
-  \item \textit{Selection Algorithm} - It matches requirements in $\iChartFunction(v_i)$ with the policy $\iChartFunction_i$, and returns a set of services $S_i$ that satisfy the requirements.
+  \item \textit{Selection Algorithm} - It matches requirements in $\iChartFunction$ with the policy $\iChartFunction$, and returns a set of services $S_i$ that satisfy the requirements.
   \item \textit{Comparison Algorithm} - Upon retrieving a set of compatible services, it produces a ranking of these services according their scoring function.
         The scoring function is calculated according some metrics, which evaluate the quality of the data resulting from the service execution.
         More details about the metrics are provided in Section \ref{sec:metrics}.
