@@ -3,19 +3,19 @@ Services are essential to our pipeline, the following sections provide a detaile
 The composition of services serves as the skeleton for the pipeline, upon which the template is initially built and later instantiated to its final form.
 
 \subsection{Service Definition}\label{sec:service_definition}
-A service is an entity that receives input data, processes it through a transformation function (\F{}), and produces an output result.
+A service receives as input data, processes them through a transformation function (\F{}), and possibly produces a result as output.
 The transformation function can belong to one of four main types.
 \begin{enumerate*}[label=\roman*)]
-  \item \F{Empty} The function applies no transformation or processing on the data.
-  \item \F{additive} The function expands the amount of data received, for example, by integrating it with data from other sources.
-  \item \F{transformation} The function transforms some records in the dataset without altering the domain.
-  \item \F{domain change }  The function changes the domain of the data by applying e.g. PCA or K-means (will not be considered in the current work).
+  \item Function \F{Empty}, an empty function that applies no transformation or processing on the data.
+  \item Function \F{additive}, an additive function expands the amount of data received, for example, by integrating data from other sources.
+  \item Function \F{transformation}, a transformation function that transforms some records in the dataset without altering the domain.
+  \item Function \F{domain\_change}, a transformation function that changes the domain of the data by applying, for instance, PCA or K-means (out of the scope of this work).
 \end{enumerate*}
 
-Each service can be chained with other services to form a service flow.
-A service flow is defined as a graph. G(\V, \E, \F{}) where \V\, is a set of vertices, \E\, is a set of edges, and \F{}\, is a set of functions.
-Each vertex in \V\, represents a service, and each edge in \E\, represents a data flow between two services.
-Each function in \F{}\, represents a transformation function that is applied to the data.
+Each service can be composed with other services to form a service pipeline as follows.
+\hl{PARTE RIPETITIVA CON LA DEFINIZIONE CHE NON E' COERENTE COME SIMBOLI, MAGARI NON HO CAPITO}A service pipeline \hl{NON E' MEGLIO PIPELINE DI FLOW?} is defined as a graph G(\V, \E, \F{}), where \V\ is a set of vertices, \E\ is a set of edges, and \F{}\ is a set of functions.
+Each vertex in \V\ represents a service, and each edge in \E\ represents a data flow between two services.
+Each function in \F{}\ represents a transformation function that is applied to the data.
 Figure~\ref{fig:service_flow} shows an overview of a service flow.
 \def\s{s}
 \begin{figure}[h!]
@@ -65,7 +65,7 @@ Figure~\ref{fig:service_flow} shows an overview of a service flow.
 \begin{definition}[Service Flow] \label{def:service_flow}
   A Service Flow S(\V,\E,$\fChartFunction$), is a direct acyclic graph having a root \vi{r}$\in$\V, a vertex \vi{i}$\in$\V\ for each service $s_i$,
   two additional vertices \vi{c},\vi{m}$\in$\V$_{\timesOperator}$$\subset$\V\ for each alternative ($\timesOperator$) structure modeling the alternative execution (\emph{choice}) of operations and the retrieval (\emph{merge}) of the results,
-        respectively, and two additional vertices \vi{f},\vi{j}$\in$\V$_{\plusOperator}$$\subset$\V\ for each parallel ($\plusOperator$) structure modeling the contemporary execution (\emph{fork}) of operations and the integration (\emph{join}) of their results, respectively. \TP\,is an annotation function, assigning to each vertex \vi{i}$\in$\V\ a transformation function \TP.
+        respectively, and two additional vertices \vi{f},\vi{j}$\in$\V$_{\plusOperator}$$\subset$\V\ for each parallel ($\plusOperator$) structure modeling the contemporary execution (\emph{fork}) of operations and the integration (\emph{join}) of their results, respectively. \TP\,is an annotation function, assigning to each vertex \vi{i}$\in$\V\ a transformation function \TP.\hl{NON DOVREBBE ESSERE F LA TRANSFORMATION F? INOLTRE QUA DOVREMMO SPECIFICARE CHE E' LA F CHE MODELLA LA FUNCTIONAL TRANSFORMATION}
 \end{definition}
 % \begin{definition}[Big Data Analytics Pipeline] \label{def:pipeline}
 %   A Big Data Analytics pipeline \G(\V,\E) is a direct acyclic graph having a root \vi{r}$\fn$\V, a vertex \vi{i}$\fn$\V$_I$$\subseteq$\V\ for each job \job{i} invocation, two additional vertices \vi{c},\vi{m}$\fn$\V$_{\otimes}$$\subset$\V\ for each alternative ($\otimes$) structure modeling the alternative execution (\emph{choice}) of operations and the retrieval (\emph{merge}) of the results,
@@ -88,18 +88,19 @@ Figure~\ref{fig:service_flow} shows an overview of a service flow.
 
 
 \section{Service Template}\label{sec:service_template}
+\hl{L'ATTACCO DEVE SPIEGARE MEGLIO CHE L'OBIETTIVO E' ESTENDERE CON VINCOLI DI PRIVACY, CREARE TEMPLATE PREDEFINITI... A QUESTO PROPOSITO DOBBIAMO SPIEGARE BENE NELLA SEZIONE 4 CHE LA FUNZIONE E' LA FUNZIONE DI TRASFORMAZIONE DEL DATO FUNZIONALE.}
 The main point of our investigation is a service-based environment where services are combined strategically with policies that cater to the specific needs of the user.
 
-The service template enhances the service flow defined in \cref{sec:service_definition}, incorporating a policy function to each service.
-The policy function serves as a tag to select services within the framework.
-This approach allows for the elimination of services that do not meet the user's data treatment requirements.
-In addition, the policy directs the system on the necessary data transformations before entering a service.
-
+The service template enhances the service flow defined in \cref{sec:service_definition}, incorporating a policy to each service node, which drives service selection.
+The policy specifies who can access which data and under which data transformation. It serves as a tag to select services within the framework that comply with some data protection requirements.
+This approach filters out those services that do not meet the user's data protection requirements.
+In addition, the policy drives the system in enforcing the necessary data transformations before data enter a service.
 
 At the crux of effective service composition lies the pivotal role played by the service template.
 Functioning as a high-level composition of services labeled with predefined policies,
 the service template serves as a structured blueprint facilitating the decision-making process for the  \user.
 \begin{definition}[Service Template] \label{def:pipeline}
+  \hl{DA DEFINIRE PER DIFFERENZA CON IL SERVICE PIPELINE. QUI E NEL SERVICE PIPELINE METTERE POLITICA E FUNCTIONAL BEHAVIOR, NON LE TRASFORMAZIONI. DOPO LA DEFINIZIONE POTREMMO DIRE CHE CI RIFERIAMO A P e F COME LE LORO TRASFORMATIONI $T_P$ e $T_F$.}
   A Service Template \T(\V,\E,$\iChartFunction{}$), is a direct acyclic graph having a root \vi{r}$\in$\V, a vertex \vi{i}$\in$\V\ for each service $s_i$,
   two additional vertices \vi{c},\vi{m}$\in$\V$_{\timesOperator}$$\subset$\V\ for each alternative ($\timesOperator$) structure modeling the alternative execution (\emph{choice}) of operations and the retrieval (\emph{merge}) of the results,
         respectively, and two additional vertices \vi{f},\vi{j}$\in$\V$_{\plusOperator}$$\subset$\V\ for each parallel ($\plusOperator$) structure modeling the contemporary execution (\emph{fork}) of operations and the integration (\emph{join}) of their results, respectively. $\iChartFunction{}$ is an annotation function, assigning to each vertex \vi{i}$\in$\V\ a set of policies \Pset{i}.
@@ -161,13 +162,10 @@ the service template serves as a structured blueprint facilitating the decision-
 \subsection{Policy}
 % \subsubsection{Annotations}
 % \subsubsection{Transformation}
-The access control language proposed in this paper is taken from our previous work in \cite{}.
-It extends an attribute-based access control model that offers flexible fine-grained authorization capabilities and exploits XACML \cite{XACML} obligations to introduce preemptive data transformations.
-Indeed, in a collaborative big data scenario, preemptive data transformations are more suitable than denying access to data.
-For this reason, when a subject makes an access request to a resource, our access control filters the set of results according to the subject's privileges, obtaining data protection by removing or obfuscating sensitive attributes rather than denying access to full data.
+We consider XACML~\cite{XACML}, an attribute-based access control model that offers flexible fine-grained authorization capabilities, as the language for policy definition. XACML obligations are used to define preemptive data transformations for data protection.
+Indeed, in a collaborative big data scenario, preemptive data transformations are more suitable than denying access to data. For this reason, when a subject makes an access request to a resource, our access control filters the set of results out according to the subject's privileges, obtaining data protection by removing or obfuscating sensitive attributes, rather than granting/denying access to full data.
 
-We tailor the common key elements of an attribute-based access control model to deal with the peculiarities of a big data scenario.
-The access control policy expresses access conditions based on key elements and their attributes as follows.
+We tailor the common key elements of an attribute-based access control model to deal with the peculiarities of a big data scenario. The access control policy expresses access conditions based on key elements and their attributes as follows.
 
 \begin{definition}[Policy Condition]\label{def:policy_cond}
   A \emph{Policy Condition} is a Boolean expression of the form $($\emph{attr\_name} op \emph{attr\_value}$)$, with op$\in$\{$<$,$>$,$=$,$\neq$,$\leq$,$\geq$\}, \emph{attr\_name} an attribute label, and \emph{attr\_value} the corresponding attribute value.
@@ -188,7 +186,7 @@ A policy is then defined as follows.
           \emph{Policy Conditions} as defined in Definition \ref{def:policy_cond}.
           For instance, \{(weather\_conditions $=$ red\_alert)\} refers to a red alert broadcasted for weather conditions.
 
-    \item Data Transformation \textit{datatrans} defines a set of security and privacy-aware transformations on \textit{obj}, focusing on compliance to regulations and standards, in addition to simple format conversions.
+    \item Data Transformation \textit{datatrans} defines a set of security and privacy-aware transformations on \textit{obj}, focusing on compliance to regulations and standards, in addition to simple format conversions. \hl{USIAMO LA STESSA NOTAZIONE SIA QUI CHE NELLA DEFINIZIONE DI TEMPLATE}
   \end{itemize}
 \end{definition}
 
