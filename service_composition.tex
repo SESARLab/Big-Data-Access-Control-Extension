@@ -1,22 +1,34 @@
 \section{Service}
-Services are essential to our pipeline, the following sections provide a detailed explanation of the single service operation (\cref{sec:service_definition})  and its composition within a service flow.
+Services are essential to our pipeline, the following sections provide a detailed explanation of the single service operation (\cref{sec:service_definition})  and its composition within a service pipeline.
 The composition of services serves as the skeleton for the pipeline, upon which the template is initially built and later instantiated to its final form.
 
-\subsection{Service Definition}\label{sec:service_definition}
-A service receives as input data, processes them through a transformation function (\F{}), and possibly produces a result as output.
+\subsection{Service Pipeline}\label{sec:service_definition}
+A service pipeline is a graph defined as follows and depicted in \cref{fig:service_pipeline}.
+\begin{definition}[Service pipeline] \label{def:service_flow}
+  A service pipeline is as a direct acyclic graph G(\V,\E,$\fChartFunction$), where \V\ is a set of vertices, \E\ is a set of edges, and \myLambda is an annotation function.
+
+  The graph has a root \vi{r}$\in$\V, a vertex \vi{i}$\in$\V\ for each service $s_i$,
+  two additional vertices \vi{c},\vi{m}$\in$\V$_{\timesOperator}$$\subset$\V\ for each alternative ($\timesOperator$) structure modeling the alternative execution (\emph{choice}) of operations and the retrieval (\emph{merge}) of the results,
+        respectively, and two additional vertices \vi{f},\vi{j}$\in$\V$_{\plusOperator}$$\subset$\V\ for each parallel ($\plusOperator$) structure modeling the contemporary execution (\emph{fork}) of operations and the integration (\emph{join}) of their results, respectively.
+    $\lambda$ is an annotation function, assigning to each vertex \vi{i}$\in$\V\ a transformation function \F.
+\end{definition}
+A service receives as input data, processes them through the transformation function (\F{}), and possibly produces a result as output.
+In a big data service composition pipeline, the transformation function is a crucial component of each service.
+It processes, modifies, or transforms the data received by the service as part of the pipeline.
+These functions are applied to the data as it progresses through various stages of the pipeline, enabling each service to perform its designated tasks or operations on the data.
 The transformation function can belong to one of four main types.
 \begin{enumerate*}[label=\roman*)]
-  \item Function \F{Empty}, an empty function that applies no transformation or processing on the data.
-  \item Function \F{additive}, an additive function expands the amount of data received, for example, by integrating data from other sources.
-  \item Function \F{transformation}, a transformation function that transforms some records in the dataset without altering the domain.
-  \item Function \F{domain\_change}, a transformation function that changes the domain of the data by applying, for instance, PCA or K-means (out of the scope of this work).
+  \item Function \F{e}, an empty function that applies no transformation or processing on the data.
+  \item Function \F{a}, an additive function expands the amount of data received, for example, by integrating data from other sources.
+  \item Function \F{t}, a transformation function that transforms some records in the dataset without altering the domain.
+  \item Function \F{d}, a transformation function that changes the domain of the data by applying, for instance, PCA or K-means (out of the scope of this work).
 \end{enumerate*}
 
-Each service can be composed with other services to form a service pipeline as follows.
-\hl{PARTE RIPETITIVA CON LA DEFINIZIONE CHE NON E' COERENTE COME SIMBOLI, MAGARI NON HO CAPITO}A service pipeline \hl{NON E' MEGLIO PIPELINE DI FLOW?} is defined as a graph G(\V, \E, \F{}), where \V\ is a set of vertices, \E\ is a set of edges, and \F{}\ is a set of functions.
-Each vertex in \V\ represents a service, and each edge in \E\ represents a data flow between two services.
-Each function in \F{}\ represents a transformation function that is applied to the data.
-Figure~\ref{fig:service_flow} shows an overview of a service flow.
+% Each service can be composed with other services to form a service pipeline as follows.
+% \hl{PARTE RIPETITIVA CON LA DEFINIZIONE CHE NON E' COERENTE COME SIMBOLI, MAGARI NON HO CAPITO}
+% Each vertex in \V\ represents a service, and each edge in \E\ represents a data flow between two services.
+% Each function in \F{}\ represents a transformation function that is applied to the data.
+Figure~\ref{fig:service_pipeline} shows an overview of a Service pipeline.
 \def\s{s}
 \begin{figure}[h!]
   \centering
@@ -35,15 +47,15 @@ Figure~\ref{fig:service_flow} shows an overview of a service flow.
     \node[draw, circle] (node10) at (8,0) {$\plusOperator$};
     \node[draw, circle] (node11) at (9,0) {$\s_7$};
     % Text on top
-    \node[above] at (node1.north) { $\fChartFunction$};
-    \node[above] at (node2.north) { $\fChartFunction$};
+    \node[above] at (node1.north) { $\myLambda$};
+    \node[above] at (node2.north) { $\myLambda$};
     \node[above] at (node3.north) {};
-    \node[above] at (node4.north) { $\fChartFunction$};
-    \node[above] at (node5.north) { $\fChartFunction$};
-    \node[above] at (node65.north) { $\fChartFunction$};
-    \node[above] at (node8.north) { $\fChartFunction$};
-    \node[above] at (node9.north) { $\fChartFunction$};
-    \node[above] at (node11.north) { $\fChartFunction$};
+    \node[above] at (node4.north) { $\myLambda$};
+    \node[above] at (node5.north) { $\myLambda$};
+    \node[above] at (node65.north) { $\myLambda$};
+    \node[above] at (node8.north) { $\myLambda$};
+    \node[above] at (node9.north) { $\myLambda$};
+    \node[above] at (node11.north) { $\myLambda$};
     % Connection
     \draw[->] (node1) -- (node2);
     \draw[->] (node2) -- (node3);
@@ -59,14 +71,10 @@ Figure~\ref{fig:service_flow} shows an overview of a service flow.
     \draw[->] (node9) -- (node10);
     \draw[->] (node10) -- (node11);
   \end{tikzpicture}
-  \caption{Service flow}
-  \label{fig:service_flow}
+  \caption{Service pipeline}
+  \label{fig:service_pipeline}
 \end{figure}
-\begin{definition}[Service Flow] \label{def:service_flow}
-  A Service Flow S(\V,\E,$\fChartFunction$), is a direct acyclic graph having a root \vi{r}$\in$\V, a vertex \vi{i}$\in$\V\ for each service $s_i$,
-  two additional vertices \vi{c},\vi{m}$\in$\V$_{\timesOperator}$$\subset$\V\ for each alternative ($\timesOperator$) structure modeling the alternative execution (\emph{choice}) of operations and the retrieval (\emph{merge}) of the results,
-        respectively, and two additional vertices \vi{f},\vi{j}$\in$\V$_{\plusOperator}$$\subset$\V\ for each parallel ($\plusOperator$) structure modeling the contemporary execution (\emph{fork}) of operations and the integration (\emph{join}) of their results, respectively. \TP\,is an annotation function, assigning to each vertex \vi{i}$\in$\V\ a transformation function \TP.\hl{NON DOVREBBE ESSERE F LA TRANSFORMATION F? INOLTRE QUA DOVREMMO SPECIFICARE CHE E' LA F CHE MODELLA LA FUNCTIONAL TRANSFORMATION}
-\end{definition}
+\subsection{Service Template}
 % \begin{definition}[Big Data Analytics Pipeline] \label{def:pipeline}
 %   A Big Data Analytics pipeline \G(\V,\E) is a direct acyclic graph having a root \vi{r}$\fn$\V, a vertex \vi{i}$\fn$\V$_I$$\subseteq$\V\ for each job \job{i} invocation, two additional vertices \vi{c},\vi{m}$\fn$\V$_{\otimes}$$\subset$\V\ for each alternative ($\otimes$) structure modeling the alternative execution (\emph{choice}) of operations and the retrieval (\emph{merge}) of the results,
 %     respectively, and two additional vertices \vi{f},\vi{j}$\fn$\V$_{\oplus}$$\subset$\V\ for each parallel ($\oplus$) structure modeling the contemporary execution (\emph{fork}) of operations and the integration (\emph{join}) of their results, respectively.
@@ -87,23 +95,27 @@ Figure~\ref{fig:service_flow} shows an overview of a service flow.
 
 
 
-\section{Service Template}\label{sec:service_template}
-\hl{L'ATTACCO DEVE SPIEGARE MEGLIO CHE L'OBIETTIVO E' ESTENDERE CON VINCOLI DI PRIVACY, CREARE TEMPLATE PREDEFINITI... A QUESTO PROPOSITO DOBBIAMO SPIEGARE BENE NELLA SEZIONE 4 CHE LA FUNZIONE E' LA FUNZIONE DI TRASFORMAZIONE DEL DATO FUNZIONALE.}
-The main point of our investigation is a service-based environment where services are combined strategically with policies that cater to the specific needs of the user.
+The service template extends the pipeline by using a mapping function to link a policy function with each node, with the ultimate goal of integrating privacy constraints into the pipeline flow.
+The policy function plays a dual role.
+First the function serves as a filter, automatically discarding services that fail to meet policy requirements during service selection in the instantiation phase. Secondly
+it instructs the system about the data transformation to perform on data prior to entering a service for processing.
+The service template is defined as follows and is depicted in \cref{fig:service_composition_template}.
+% \hl{L'ATTACCO DEVE SPIEGARE MEGLIO CHE L'OBIETTIVO E' ESTENDERE CON VINCOLI DI PRIVACY, CREARE TEMPLATE PREDEFINITI... A QUESTO PROPOSITO DOBBIAMO SPIEGARE BENE NELLA SEZIONE 4 CHE LA FUNZIONE E' LA FUNZIONE DI TRASFORMAZIONE DEL DATO FUNZIONALE.}
+% The main point of our investigation is a service-based environment where services are combined strategically with policies that cater to the specific needs of the user.
 
-The service template enhances the service flow defined in \cref{sec:service_definition}, incorporating a policy to each service node, which drives service selection.
-The policy specifies who can access which data and under which data transformation. It serves as a tag to select services within the framework that comply with some data protection requirements.
-This approach filters out those services that do not meet the user's data protection requirements.
-In addition, the policy drives the system in enforcing the necessary data transformations before data enter a service.
+% The service template enhances the Service pipeline defined in \cref{sec:service_definition}, incorporating a policy to each service node, which drives service selection.
+% The policy specifies who can access which data and under which data transformation. It serves as a tag to select services within the framework that comply with some data protection requirements.
+% This approach filters out those services that do not meet the user's data protection requirements.
+% In addition, the policy drives the system in enforcing the necessary data transformations before data enter a service.
 
-At the crux of effective service composition lies the pivotal role played by the service template.
-Functioning as a high-level composition of services labeled with predefined policies,
-the service template serves as a structured blueprint facilitating the decision-making process for the  \user.
+% At the crux of effective service composition lies the pivotal role played by the service template.
+% Functioning as a high-level composition of services labeled with predefined policies,
+% the service template serves as a structured blueprint facilitating the decision-making process for the  \user.
+
 \begin{definition}[Service Template] \label{def:pipeline}
-  \hl{DA DEFINIRE PER DIFFERENZA CON IL SERVICE PIPELINE. QUI E NEL SERVICE PIPELINE METTERE POLITICA E FUNCTIONAL BEHAVIOR, NON LE TRASFORMAZIONI. DOPO LA DEFINIZIONE POTREMMO DIRE CHE CI RIFERIAMO A P e F COME LE LORO TRASFORMATIONI $T_P$ e $T_F$.}
-  A Service Template \T(\V,\E,$\iChartFunction{}$), is a direct acyclic graph having a root \vi{r}$\in$\V, a vertex \vi{i}$\in$\V\ for each service $s_i$,
-  two additional vertices \vi{c},\vi{m}$\in$\V$_{\timesOperator}$$\subset$\V\ for each alternative ($\timesOperator$) structure modeling the alternative execution (\emph{choice}) of operations and the retrieval (\emph{merge}) of the results,
-        respectively, and two additional vertices \vi{f},\vi{j}$\in$\V$_{\plusOperator}$$\subset$\V\ for each parallel ($\plusOperator$) structure modeling the contemporary execution (\emph{fork}) of operations and the integration (\emph{join}) of their results, respectively. $\iChartFunction{}$ is an annotation function, assigning to each vertex \vi{i}$\in$\V\ a set of policies \Pset{i}.
+
+  % \hl{DA DEFINIRE PER DIFFERENZA CON IL SERVICE PIPELINE. QUI E NEL SERVICE PIPELINE METTERE POLITICA E FUNCTIONAL BEHAVIOR, NON LE TRASFORMAZIONI. DOPO LA DEFINIZIONE POTREMMO DIRE CHE CI RIFERIAMO A P e F COME LE LORO TRASFORMATIONI $T_P$ e $T_F$.}
+  A Service Template is a pipeline defined as G(V,E,\myLambda,\myGamma).\myGamma is an annotation function, assigning to each vertex \vi{i}$\in$\V\ a policy $p_i\in\Pset{}$.
 \end{definition}
 
 
@@ -174,23 +186,31 @@ We tailor the common key elements of an attribute-based access control model to 
 A policy is then defined as follows.
 
 \begin{definition}[Policy]\label{def:policy_rule}
-  A {\it policy P} is 5-uple $<$\textit{subj}, \textit{obj}, \textit{action}, \textit{env}, \textit{datatrans}$>$, where:
+  A {\it policy P} is 5-uple $<$\textit{subj}, \textit{obj}, \textit{action}, \textit{env}, \textit{\TF}$>$, where:
   \begin{itemize}
-    \item Subject \textit{subj} defines a user or the service provider of a job issuing access requests to perform operations on objects. It is of the form $<$\emph{id}, \emph{PC}$>$, where \emph{id} defines a class of users (e.g., policeman), and \emph{PC} is a set of \emph{Policy Conditions} on the subject, as defined in Definition \ref{def:policy_cond}. For instance, $<$\emph{user},\{(age $\geq$ 18)\}$>$ refers to a person of legal age.
+    \item Subject \textit{subj} defines a user or the service provider of a job issuing access requests to perform operations on objects.
+          It is of the form $<$\emph{id}, \emph{PC}$>$, where \emph{id} defines a class of users (e.g., policeman), and \emph{PC} is a set of \emph{Policy Conditions} on the subject, as defined in Definition \ref{def:policy_cond}.
+          For instance, $<$\emph{user},\{(role $=$ "jailer")\}$>$ refers to a person with the role of jailer.
 
-    \item Object \textit{obj} defines any data whose access is governed by the policy. It is of the form $<$\emph{type}, \emph{PC}$>$, where: \emph{type} defines the type of object, such as a file (e.g., a video, text file, image, etc.), a SQL or noSQL database, a table, a column, a row, or a cell of a table, and \emph{PC} is a set of \emph{Policy Conditions} defined on the object's attributes. For instance, $<$\emph{file},\{(creation\_date $<$ 2020/12/05)\}$>$ refers to a file created before 2020/12/05.
+    \item Object \textit{obj} defines any data whose access is governed by the policy.
+          It is of the form $<$\emph{type}, \emph{PC}$>$, where: \emph{type} defines the type of object, such as a file (e.g., a video, text file, image, etc.), a SQL or noSQL database, a table, a column, a row, or a cell of a table, and \emph{PC} is a set of \emph{Policy Conditions} defined on the object's attributes.
+          For instance, $<$\emph{dataset},\{(region $=$ CT)\}$>$ refers to a dataset whose region is CT.
 
     \item Action \textit{action} defines any operations that can be performed within a big data environment, from traditional atomic operations on databases (e.g, CRUD operations varying depending on the data model) to coarser operations, such as an Apache Spark Direct Acyclic Graph (DAG), an Hadoop MapReduce, an analytics function call, or an analytics pipeline.
 
     \item Environment \textit{env} defines a set of conditions on contextual attributes, such as time of the day, location, IP address, risk level, weather condition, holiday/workday, emergency. It is a set \emph{PC} of
           \emph{Policy Conditions} as defined in Definition \ref{def:policy_cond}.
-          For instance, \{(weather\_conditions $=$ red\_alert)\} refers to a red alert broadcasted for weather conditions.
+          For instance, $<$\emph{env},\{(time $=$ "night")\}$>$ refers to a policy that is applicable only at night.
 
-    \item Data Transformation \textit{datatrans} defines a set of security and privacy-aware transformations on \textit{obj}, focusing on compliance to regulations and standards, in addition to simple format conversions. \hl{USIAMO LA STESSA NOTAZIONE SIA QUI CHE NELLA DEFINIZIONE DI TEMPLATE}
+    \item Data Transformation \textit{\TF} defines a set of security and privacy-aware transformations on \textit{obj}, focusing on compliance to regulations and standards, in addition to simple format conversions.
+          %\hl{USIAMO LA STESSA NOTAZIONE SIA QUI CHE NELLA DEFINIZIONE DI TEMPLATE}
   \end{itemize}
 \end{definition}
 
 \subsubsection{Policy Decision/Policy Matching}
+Policy decision is the process of determining whether a given access request is allowed or denied. It is based on the evaluation of a set of policies, which are matched against the access request. The matching process is based on the following elements.
+
+
 \subsubsection{Policy Enforcement}
 \subsubsection{Policy Evaluation}
 \section{Service Instance}
@@ -246,17 +266,18 @@ A policy is then defined as follows.
 
 % \textbf{Containment} ($\tau$). It composes two service, $wsi$ and $wsj$, in a containment relation. $wsi\tau wsj$ mimics a basic composition pattern where $wsj$ is called within $wsi$, meaning that $wsi$ assumes the role of a container and $wsj$ uses container-level functionalities (e.g., signature, encryption) to secure the message exchange. We note that the containment operator does not have a direct mapping to BPEL constructs because it is applied to a specific service before the BPEL process is even considered.
 \subsection{Instance}
-When the template is filled with the necessary services, it becomes an instance that reflects the actual implementation of those services. This instance follows the same flow as the template, but with the added function F that represents the transformation operations carried out by the service.
+When the template is filled with the necessary services, it becomes an instance that reflects the actual implementation of those services.
+This instance follows the same flow as the template, but but both \myLambda and \myGamma are replaced respectively by \iChartFunction~ which represent the transformation operations carried out by the service.
 
-Let \T(\V,\E,$\iChartFunction$) be a Service Template, a Composite Service instance is \T'(\V',\E,$\iChartFunction$,$\gamma$) is a directed acyclic graph where:
+Let \G(\V,\E,\myLambda,\myGamma) be a Service Template, a Service Instance \G'(\V',\E,$\iChartFunction$) is a directed acyclic graph where:
 $s_r=s'_r$, for each vertex \vi{}$\in$\V$_{\timesOperator}$$\cup$\V$_{\plusOperator}$ it exists a corresponding vertex \vi{}'$\in$\V'$_{\timesOperator}$$\cup$\V'$_{\plusOperator}$,
     and for each \vi{i}$\in$ \V\ it exists a corresponding \vi'{i}$\in$ \V'\ instantiated with a real service \vi{i} having a policy \Pset{i}, such that the following conditions hold:
     \begin{itemize}
-      \item $s_i$ satisfies functional requirements in $G_{\iChartFunction}(V,E,\iChartFunction)$.
+      \item $s_i$ satisfies functional requirements in $G(V,E,\iChartFunction)$.
       \item \Pset{i} satisfies $\iChartFunction(v_i)$.
     \end{itemize}
 
-    The Composite Service  instance  is generated by traversing the Service Template with a breadth-first search algorithm,
+    The Service  Instance  is generated by traversing the Service Template with a breadth-first search algorithm,
     starting from the root vertex \vi{r}. Then for each vertex \vi{i} in the Service Template, the corresponding vertex \vi{i}'$\in$ \V'\ is generated.
     Finally for each vertex  \vi{i}'$\in$ \V'\ a two step selection approach is applied as follows.
 \begin{itemize}
@@ -265,6 +286,8 @@ $s_r=s'_r$, for each vertex \vi{}$\in$\V$_{\timesOperator}$$\cup$\V$_{\plusOpera
         The scoring function is calculated according some metrics, which evaluate the quality of the data resulting from the service execution.
         More details about the metrics are provided in Section \ref{sec:metrics}.
 \end{itemize}
+
+
 
 
 % \begin{figure}[H]
@@ -305,5 +328,5 @@ $s_r=s'_r$, for each vertex \vi{}$\in$\V$_{\timesOperator}$$\cup$\V$_{\plusOpera
   \centering
   \includegraphics[width=\columnwidth]{serviceDetail.pdf}
   \caption{Service Detail}
-  \label{fig:service_detail}
+  \label{fig:service_detail}reinstall remote-ssh
 \end{figure}
