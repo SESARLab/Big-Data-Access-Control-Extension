@@ -76,7 +76,8 @@ The composition of services serves as the skeleton for the pipeline, upon which 
 % \end{figure}
 
 \subsection{Template Definition}
-The service template extends the service pipeline in Definition \ref{TOADD} by using a mapping function to link a policy function with each node, with the ultimate goal of integrating privacy constraints into the pipeline flow.
+The service template extends the service pipeline in \cref{def:service_flow} by using a mapping function to link a policy function with each node,
+with the ultimate goal of integrating privacy constraints into the pipeline flow.
 The policy function plays a dual role.
 First the function serves as a filter, automatically discarding services that fail to meet policy requirements during service selection in the instantiation phase. Secondly
 it instructs the system about the data transformation to perform on data prior to entering a service for processing.
@@ -111,18 +112,18 @@ The service template is defined as follows and is depicted in \cref{fig:service_
   \centering
   \begin{tikzpicture}[scale=0.9]
     % Nodes
-    \node[draw, circle] (node1) at (0,0) {$\s_r$};
-    \node[draw, circle] (node2) at (1,0) {$\s_1$};
+    \node[draw, circle] (node1) at (0,0) {$\s{r}$};
+    \node[draw, circle] (node2) at (1,0) {$\s{1}$};
     \node[draw, circle] (node3) at (2,0) {$\timesOperator$};
-    \node[draw, circle] (node4) at (3,-1) {$\s_2$};
-    \node[draw, circle] (node5) at (3,1) {$\s_3$};
+    \node[draw, circle] (node4) at (3,-1) {$\s{2}$};
+    \node[draw, circle] (node5) at (3,1) {$\s{3}$};
     \node[draw, circle] (node6) at (4,0) {$\timesOperator$};
-    \node[draw, circle] (node65) at (5,0) {$\s_4$};
+    \node[draw, circle] (node65) at (5,0) {$\s{4}$};
     \node[draw, circle] (node7) at (6,0) {$\plusOperator$};
-    \node[draw, circle] (node8) at (7,1) {$\s_5$};
-    \node[draw, circle] (node9) at (7,-1) {$\s_6$};
+    \node[draw, circle] (node8) at (7,1) {$\s{5}$};
+    \node[draw, circle] (node9) at (7,-1) {$\s{6}$};
     \node[draw, circle] (node10) at (8,0) {$\plusOperator$};
-    \node[draw, circle] (node11) at (9,0) {$\s_7$};
+    \node[draw, circle] (node11) at (9,0) {$\s{7}$};
     % Text on top
     \node[above] at (node1.north)  {$\tChartFunction$};
     \node[above] at (node2.north)  {$\tChartFunction$};
@@ -152,7 +153,7 @@ The service template is defined as follows and is depicted in \cref{fig:service_
   \label{fig:service_composition_template}
 \end{figure}
 
-\subsection{Data Trasformation}
+\subsection{Data Transformation}
 We also note that each service $s_i$ in \vi{i}$\in$\V\ receives a set of data as input, processes them according to data transformation \F\ annotated on , and possibly produces a result as output.
 In a big data service composition pipeline, the transformation function is a crucial component of each service.
 It processes, modifies, or transforms the data received by the service as part of the pipeline.
@@ -212,18 +213,18 @@ Policy decision is the process of determining whether a given access request is 
 \begin{figure}[ht!]
   \centering
   \begin{tikzpicture}[scale=0.85]
-    \node[draw, circle] (node1) at (0,0) {$\s^\prime_r$};
-    \node[draw, circle] (node2) at (1,0) {$\s^\prime_1$};
+    \node[draw, circle] (node1) at (0,0) {$s^\prime_r$};
+    \node[draw, circle] (node2) at (1,0) {$s^\prime_1$};
     \node[draw, circle] (node3) at (2,0) {$\timesOperator$};
-    \node[draw, circle] (node4) at (3,-1) {$\s^\prime_2$};
+    \node[draw, circle] (node4) at (3,-1) {$s^\prime_2$};
     \node[draw, circle] (node5) at (3,1) {$s^\prime_3$};
     \node[draw, circle] (node6) at (4,0) {$\timesOperator$};
-    \node[draw, circle] (node65) at (5,0) {$\s^\prime_4$};
+    \node[draw, circle] (node65) at (5,0) {$s^\prime_4$};
     \node[draw, circle] (node7) at (6,0) {$\plusOperator$};
-    \node[draw, circle] (node8) at (7,1) {$\s^\prime_5$};
-    \node[draw, circle] (node9) at (7,-1) {$\s^\prime_6$};
+    \node[draw, circle] (node8) at (7,1) {$s^\prime_5$};
+    \node[draw, circle] (node9) at (7,-1) {$s^\prime_6$};
     \node[draw, circle] (node10) at (8,0) {$\plusOperator$};
-    \node[draw, circle] (node11) at (9,0) {$\s^\prime_7$};
+    \node[draw, circle] (node11) at (9,0) {$s^\prime_7$};
     % Text on top
     \node[above] at (node1.north) { \footnotesize$\iChartFunction$};
     \node[above] at (node2.north) { \footnotesize$\iChartFunction$};
