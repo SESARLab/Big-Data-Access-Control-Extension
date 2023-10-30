@@ -1,101 +1,82 @@
-\section{Service}
+\section{Pipeline Template}
 Services are essential to our pipeline, the following sections provide a detailed explanation of the single service operation (\cref{sec:service_definition})  and its composition within a service pipeline.
 The composition of services serves as the skeleton for the pipeline, upon which the template is initially built and later instantiated to its final form.
 
-\subsection{Service Pipeline}\label{sec:service_definition}
-A service pipeline is a graph defined as follows and depicted in \cref{fig:service_pipeline}.
-\begin{definition}[Service pipeline] \label{def:service_flow}
-  A service pipeline is as a direct acyclic graph G(\V,\E,$\fChartFunction$), where \V\ is a set of vertices, \E\ is a set of edges, and \myLambda is an annotation function.
+% \subsection{Service Pipeline}\label{sec:service_definition}
+% A service pipeline is a graph defined as follows and depicted in \cref{fig:service_pipeline}.
+% \begin{definition}[Service pipeline] \label{def:service_flow}
+%   A service pipeline is as a direct acyclic graph G(\V,\E,$\fChartFunction$), where \V\ is a set of vertices, \E\ is a set of edges, and \myLambda is an annotation function.
 
-  The graph has a root \vi{r}$\in$\V, a vertex \vi{i}$\in$\V\ for each service $s_i$,
-  two additional vertices \vi{c},\vi{m}$\in$\V$_{\timesOperator}$$\subset$\V\ for each alternative ($\timesOperator$) structure modeling the alternative execution (\emph{choice}) of operations and the retrieval (\emph{merge}) of the results,
-        respectively, and two additional vertices \vi{f},\vi{j}$\in$\V$_{\plusOperator}$$\subset$\V\ for each parallel ($\plusOperator$) structure modeling the contemporary execution (\emph{fork}) of operations and the integration (\emph{join}) of their results, respectively.
-    $\lambda$ is an annotation function, assigning to each vertex \vi{i}$\in$\V\ a transformation function \F.
-\end{definition}
-A service receives as input data, processes them through the transformation function (\F{}), and possibly produces a result as output.
-In a big data service composition pipeline, the transformation function is a crucial component of each service.
-It processes, modifies, or transforms the data received by the service as part of the pipeline.
-These functions are applied to the data as it progresses through various stages of the pipeline, enabling each service to perform its designated tasks or operations on the data.
-The transformation function can belong to one of four main types.
-\begin{enumerate*}[label=\roman*)]
-  \item Function \F{e}, an empty function that applies no transformation or processing on the data.
-  \item Function \F{a}, an additive function expands the amount of data received, for example, by integrating data from other sources.
-  \item Function \F{t}, a transformation function that transforms some records in the dataset without altering the domain.
-  \item Function \F{d}, a transformation function that changes the domain of the data by applying, for instance, PCA or K-means (out of the scope of this work).
-\end{enumerate*}
-
-% Each service can be composed with other services to form a service pipeline as follows.
-% \hl{PARTE RIPETITIVA CON LA DEFINIZIONE CHE NON E' COERENTE COME SIMBOLI, MAGARI NON HO CAPITO}
-% Each vertex in \V\ represents a service, and each edge in \E\ represents a data flow between two services.
-% Each function in \F{}\ represents a transformation function that is applied to the data.
-Figure~\ref{fig:service_pipeline} shows an overview of a Service pipeline.
-\def\s{s}
-\begin{figure}[h!]
-  \centering
-  \begin{tikzpicture}[scale=0.85]
-    % Nodes
-    \node[draw, circle] (node1) at (0,0) {$\s_r$};
-    \node[draw, circle] (node2) at (1,0) {$\s_1$};
-    \node[draw, circle] (node3) at (2,0) {$\timesOperator$};
-    \node[draw, circle] (node4) at (3,-1) {$\s_2$};
-    \node[draw, circle] (node5) at (3,1) {$\s_3$};
-    \node[draw, circle] (node6) at (4,0) {$\timesOperator$};
-    \node[draw, circle] (node65) at (5,0) {$\s_4$};
-    \node[draw, circle] (node7) at (6,0) {$\plusOperator$};
-    \node[draw, circle] (node8) at (7,1) {$\s_5$};
-    \node[draw, circle] (node9) at (7,-1) {$\s_6$};
-    \node[draw, circle] (node10) at (8,0) {$\plusOperator$};
-    \node[draw, circle] (node11) at (9,0) {$\s_7$};
-    % Text on top
-    \node[above] at (node1.north) { $\myLambda$};
-    \node[above] at (node2.north) { $\myLambda$};
-    \node[above] at (node3.north) {};
-    \node[above] at (node4.north) { $\myLambda$};
-    \node[above] at (node5.north) { $\myLambda$};
-    \node[above] at (node65.north) { $\myLambda$};
-    \node[above] at (node8.north) { $\myLambda$};
-    \node[above] at (node9.north) { $\myLambda$};
-    \node[above] at (node11.north) { $\myLambda$};
-    % Connection
-    \draw[->] (node1) -- (node2);
-    \draw[->] (node2) -- (node3);
-    \draw[->] (node3) -- (node4);
-    \draw[->] (node3) -- (node5);
-    \draw[->] (node5) -- (node6);
-    \draw[->] (node4) -- (node6);
-    \draw[->] (node6) -- (node65);
-    \draw[->] (node65) -- (node7);
-    \draw[->] (node7) -- (node8);
-    \draw[->] (node7) -- (node9);
-    \draw[->] (node8) -- (node10);
-    \draw[->] (node9) -- (node10);
-    \draw[->] (node10) -- (node11);
-  \end{tikzpicture}
-  \caption{Service pipeline}
-  \label{fig:service_pipeline}
-\end{figure}
-\subsection{Service Template}
-% \begin{definition}[Big Data Analytics Pipeline] \label{def:pipeline}
-%   A Big Data Analytics pipeline \G(\V,\E) is a direct acyclic graph having a root \vi{r}$\fn$\V, a vertex \vi{i}$\fn$\V$_I$$\subseteq$\V\ for each job \job{i} invocation, two additional vertices \vi{c},\vi{m}$\fn$\V$_{\otimes}$$\subset$\V\ for each alternative ($\otimes$) structure modeling the alternative execution (\emph{choice}) of operations and the retrieval (\emph{merge}) of the results,
-%     respectively, and two additional vertices \vi{f},\vi{j}$\fn$\V$_{\oplus}$$\subset$\V\ for each parallel ($\oplus$) structure modeling the contemporary execution (\emph{fork}) of operations and the integration (\emph{join}) of their results, respectively.
+%   The graph has a root \vi{r}$\in$\V, a vertex \vi{i}$\in$\V\ for each service $s_i$,
+%   two additional vertices \vi{c},\vi{m}$\in$\V$_{\timesOperator}$$\subset$\V\ for each alternative ($\timesOperator$) structure modeling the alternative execution (\emph{choice}) of operations and the retrieval (\emph{merge}) of the results,
+%         respectively, and two additional vertices \vi{f},\vi{j}$\in$\V$_{\plusOperator}$$\subset$\V\ for each parallel ($\plusOperator$) structure modeling the contemporary execution (\emph{fork}) of operations and the integration (\emph{join}) of their results, respectively.
+%     $\lambda$ is an annotation function, assigning to each vertex \vi{i}$\in$\V\ a transformation function \F.
 % \end{definition}
+% A service receives as input data, processes them through the transformation function (\F{}), and possibly produces a result as output.
+% In a big data service composition pipeline, the transformation function is a crucial component of each service.
+% It processes, modifies, or transforms the data received by the service as part of the pipeline.
+% These functions are applied to the data as it progresses through various stages of the pipeline, enabling each service to perform its designated tasks or operations on the data.
+% The transformation function can belong to one of four main types.
+% \begin{enumerate*}[label=\roman*)]
+%   \item Function \F{e}, an empty function that applies no transformation or processing on the data.
+%   \item Function \F{a}, an additive function expands the amount of data received, for example, by integrating data from other sources.
+%   \item Function \F{t}, a transformation function that transforms some records in the dataset without altering the domain.
+%   \item Function \F{d}, a transformation function that changes the domain of the data by applying, for instance, PCA or K-means (out of the scope of this work).
+% \end{enumerate*}
 
-% We note that each vertex \vi{i} model a job \job{i} provided by an organization \org{i}.
-% We also note that an analytics pipeline can be deployed following a centralized or a decentralized approach as discussed in detail in Section \ref{sec:architecture}.
-
-% \begin{figure}[!t]
-%   \fncludegraphics[width=0.98\columnwidth]{generaleFig1.pdf}
-%   \caption{Big Data Analytics pipeline graphs with a coalition of organization for a given processing lineage.}\label{fig:BDpipeline}
+% % Each service can be composed with other services to form a service pipeline as follows.
+% % \hl{PARTE RIPETITIVA CON LA DEFINIZIONE CHE NON E' COERENTE COME SIMBOLI, MAGARI NON HO CAPITO}
+% % Each vertex in \V\ represents a service, and each edge in \E\ represents a data flow between two services.
+% % Each function in \F{}\ represents a transformation function that is applied to the data.
+% Figure~\ref{fig:service_pipeline} shows an overview of a Service pipeline.
+% \def\s{s}
+% \begin{figure}[h!]
+%   \centering
+%   \begin{tikzpicture}[scale=0.85]
+%     % Nodes
+%     \node[draw, circle] (node1) at (0,0) {$\s_r$};
+%     \node[draw, circle] (node2) at (1,0) {$\s_1$};
+%     \node[draw, circle] (node3) at (2,0) {$\timesOperator$};
+%     \node[draw, circle] (node4) at (3,-1) {$\s_2$};
+%     \node[draw, circle] (node5) at (3,1) {$\s_3$};
+%     \node[draw, circle] (node6) at (4,0) {$\timesOperator$};
+%     \node[draw, circle] (node65) at (5,0) {$\s_4$};
+%     \node[draw, circle] (node7) at (6,0) {$\plusOperator$};
+%     \node[draw, circle] (node8) at (7,1) {$\s_5$};
+%     \node[draw, circle] (node9) at (7,-1) {$\s_6$};
+%     \node[draw, circle] (node10) at (8,0) {$\plusOperator$};
+%     \node[draw, circle] (node11) at (9,0) {$\s_7$};
+%     % Text on top
+%     \node[above] at (node1.north) { $\myLambda$};
+%     \node[above] at (node2.north) { $\myLambda$};
+%     \node[above] at (node3.north) {};
+%     \node[above] at (node4.north) { $\myLambda$};
+%     \node[above] at (node5.north) { $\myLambda$};
+%     \node[above] at (node65.north) { $\myLambda$};
+%     \node[above] at (node8.north) { $\myLambda$};
+%     \node[above] at (node9.north) { $\myLambda$};
+%     \node[above] at (node11.north) { $\myLambda$};
+%     % Connection
+%     \draw[->] (node1) -- (node2);
+%     \draw[->] (node2) -- (node3);
+%     \draw[->] (node3) -- (node4);
+%     \draw[->] (node3) -- (node5);
+%     \draw[->] (node5) -- (node6);
+%     \draw[->] (node4) -- (node6);
+%     \draw[->] (node6) -- (node65);
+%     \draw[->] (node65) -- (node7);
+%     \draw[->] (node7) -- (node8);
+%     \draw[->] (node7) -- (node9);
+%     \draw[->] (node8) -- (node10);
+%     \draw[->] (node9) -- (node10);
+%     \draw[->] (node10) -- (node11);
+%   \end{tikzpicture}
+%   \caption{Service pipeline}
+%   \label{fig:service_pipeline}
 % \end{figure}
 
-%
-
-%Solid arrows present the typical batch or analytics model generation flows. Dashed arrows present typical streaming or prediction flows. \CH{togliere dalla figura la linea che separa le due procedure e le scritte ingestion procedure e analytics procedure?}
-%The coalition creation is driven by missions including emergency and disaster management, humanitarian operations, or simply interdependent organizations.
-
-
-
-The service template extends the pipeline by using a mapping function to link a policy function with each node, with the ultimate goal of integrating privacy constraints into the pipeline flow.
+\subsection{Template Definition}
+The service template extends the service pipeline in Definition \ref{TOADD} by using a mapping function to link a policy function with each node, with the ultimate goal of integrating privacy constraints into the pipeline flow.
 The policy function plays a dual role.
 First the function serves as a filter, automatically discarding services that fail to meet policy requirements during service selection in the instantiation phase. Secondly
 it instructs the system about the data transformation to perform on data prior to entering a service for processing.
@@ -113,9 +94,9 @@ The service template is defined as follows and is depicted in \cref{fig:service_
 % the service template serves as a structured blueprint facilitating the decision-making process for the  \user.
 
 \begin{definition}[Service Template] \label{def:pipeline}
-
-  % \hl{DA DEFINIRE PER DIFFERENZA CON IL SERVICE PIPELINE. QUI E NEL SERVICE PIPELINE METTERE POLITICA E FUNCTIONAL BEHAVIOR, NON LE TRASFORMAZIONI. DOPO LA DEFINIZIONE POTREMMO DIRE CHE CI RIFERIAMO A P e F COME LE LORO TRASFORMATIONI $T_P$ e $T_F$.}
   A Service Template is a pipeline defined as G(V,E,\myLambda,\myGamma).\myGamma is an annotation function, assigning to each vertex \vi{i}$\in$\V\ a policy $p_i\in\Pset{}$.
+
+  %A service pipeline is as a direct acyclic graph G(\V,\E), where \V\ is a set of vertices, one for each service $s_i$ in the pipeline, \E\ is a set of edges connecting two services $s_i$ and $s_j$, and \myLambda\ is an annotation function that assigns a label \myLambda(\vi{i}), corresponding to a data transformation \F\ implemented by the service $s_i$, for each vertex \vi{i}$\in$\V.
 \end{definition}
 
 
@@ -167,9 +148,22 @@ The service template is defined as follows and is depicted in \cref{fig:service_
     \draw[->] (node9) -- (node10);
     \draw[->] (node10) -- (node11);
   \end{tikzpicture}
-  \caption{Service composition template}
+  \caption{Pipeline Template}
   \label{fig:service_composition_template}
 \end{figure}
+
+\subsection{Data Trasformation}
+We also note that each service $s_i$ in \vi{i}$\in$\V\ receives a set of data as input, processes them according to data transformation \F\ annotated on , and possibly produces a result as output.
+In a big data service composition pipeline, the transformation function is a crucial component of each service.
+It processes, modifies, or transforms the data received by the service as part of the pipeline.
+These functions are applied to the data as it progresses through various stages of the pipeline, enabling each service to perform its designated tasks or operations on the data.
+The transformation function can belong to one of four main types.
+\begin{enumerate*}[label=\roman*)]
+  \item Function \F{e}, an empty function that applies no transformation or processing on the data.
+  \item Function \F{a}, an additive function expands the amount of data received, for example, by integrating data from other sources.
+  \item Function \F{t}, a transformation function that transforms some records in the dataset without altering the domain.
+  \item Function \F{d}, a transformation function that changes the domain of the data by applying, for instance, PCA or K-means (out of the scope of this work).
+\end{enumerate*}
 
 \subsection{Policy}
 % \subsubsection{Annotations}
