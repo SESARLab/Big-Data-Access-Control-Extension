@@ -1,113 +1,28 @@
 \section{Pipeline Template}
-Services are essential to our pipeline, the following sections provide a detailed explanation of the single service operation (\cref{sec:service_definition})  and its composition within a service pipeline.
-The composition of services serves as the skeleton for the pipeline, upon which the template is initially built and later instantiated to its final form.
+Given the pipeline definition in \cref{def:pipeline}, we use annotations to specify requirements for data protection and data transformation.
+The objective of this extension is to integrate data protection and data management into the pipeline using annotations.
+Annotations enable tracking of the data lifecycle by monitoring changes arising from both data manipulation and enforcement of data protection measures.
 
-% \subsection{Service Pipeline}\label{sec:service_definition}
-% A service pipeline is a graph defined as follows and depicted in \cref{fig:service_pipeline}.
-% \begin{definition}[Service pipeline] \label{def:service_flow}
-%   A service pipeline is as a direct acyclic graph G(\V,\E,$\fChartFunction$), where \V\ is a set of vertices, \E\ is a set of edges, and \myLambda is an annotation function.
+The section is structured as follows: In section 4.1, the template will be defined.
+Section 4.2 provides a brief explanation of the chosen policy model, and finally, in 4.3, the data transformation will be examined and an example of a pipeline template will be provided.
 
-%   The graph has a root \vi{r}$\in$\V, a vertex \vi{i}$\in$\V\ for each service $s_i$,
-%   two additional vertices \vi{c},\vi{m}$\in$\V$_{\timesOperator}$$\subset$\V\ for each alternative ($\timesOperator$) structure modeling the alternative execution (\emph{choice}) of operations and the retrieval (\emph{merge}) of the results,
-%         respectively, and two additional vertices \vi{f},\vi{j}$\in$\V$_{\plusOperator}$$\subset$\V\ for each parallel ($\plusOperator$) structure modeling the contemporary execution (\emph{fork}) of operations and the integration (\emph{join}) of their results, respectively.
-%     $\lambda$ is an annotation function, assigning to each vertex \vi{i}$\in$\V\ a transformation function \F.
-% \end{definition}
-% A service receives as input data, processes them through the transformation function (\F{}), and possibly produces a result as output.
-% In a big data service composition pipeline, the transformation function is a crucial component of each service.
-% It processes, modifies, or transforms the data received by the service as part of the pipeline.
-% These functions are applied to the data as it progresses through various stages of the pipeline, enabling each service to perform its designated tasks or operations on the data.
-% The transformation function can belong to one of four main types.
-% \begin{enumerate*}[label=\roman*)]
-%   \item Function \F{e}, an empty function that applies no transformation or processing on the data.
-%   \item Function \F{a}, an additive function expands the amount of data received, for example, by integrating data from other sources.
-%   \item Function \F{t}, a transformation function that transforms some records in the dataset without altering the domain.
-%   \item Function \F{d}, a transformation function that changes the domain of the data by applying, for instance, PCA or K-means (out of the scope of this work).
-% \end{enumerate*}
-
-% % Each service can be composed with other services to form a service pipeline as follows.
-% % \hl{PARTE RIPETITIVA CON LA DEFINIZIONE CHE NON E' COERENTE COME SIMBOLI, MAGARI NON HO CAPITO}
-% % Each vertex in \V\ represents a service, and each edge in \E\ represents a data flow between two services.
-% % Each function in \F{}\ represents a transformation function that is applied to the data.
-% Figure~\ref{fig:service_pipeline} shows an overview of a Service pipeline.
-% \def\s{s}
-% \begin{figure}[h!]
-%   \centering
-%   \begin{tikzpicture}[scale=0.85]
-%     % Nodes
-%     \node[draw, circle] (node1) at (0,0) {$\s_r$};
-%     \node[draw, circle] (node2) at (1,0) {$\s_1$};
-%     \node[draw, circle] (node3) at (2,0) {$\timesOperator$};
-%     \node[draw, circle] (node4) at (3,-1) {$\s_2$};
-%     \node[draw, circle] (node5) at (3,1) {$\s_3$};
-%     \node[draw, circle] (node6) at (4,0) {$\timesOperator$};
-%     \node[draw, circle] (node65) at (5,0) {$\s_4$};
-%     \node[draw, circle] (node7) at (6,0) {$\plusOperator$};
-%     \node[draw, circle] (node8) at (7,1) {$\s_5$};
-%     \node[draw, circle] (node9) at (7,-1) {$\s_6$};
-%     \node[draw, circle] (node10) at (8,0) {$\plusOperator$};
-%     \node[draw, circle] (node11) at (9,0) {$\s_7$};
-%     % Text on top
-%     \node[above] at (node1.north) { $\myLambda$};
-%     \node[above] at (node2.north) { $\myLambda$};
-%     \node[above] at (node3.north) {};
-%     \node[above] at (node4.north) { $\myLambda$};
-%     \node[above] at (node5.north) { $\myLambda$};
-%     \node[above] at (node65.north) { $\myLambda$};
-%     \node[above] at (node8.north) { $\myLambda$};
-%     \node[above] at (node9.north) { $\myLambda$};
-%     \node[above] at (node11.north) { $\myLambda$};
-%     % Connection
-%     \draw[->] (node1) -- (node2);
-%     \draw[->] (node2) -- (node3);
-%     \draw[->] (node3) -- (node4);
-%     \draw[->] (node3) -- (node5);
-%     \draw[->] (node5) -- (node6);
-%     \draw[->] (node4) -- (node6);
-%     \draw[->] (node6) -- (node65);
-%     \draw[->] (node65) -- (node7);
-%     \draw[->] (node7) -- (node8);
-%     \draw[->] (node7) -- (node9);
-%     \draw[->] (node8) -- (node10);
-%     \draw[->] (node9) -- (node10);
-%     \draw[->] (node10) -- (node11);
-%   \end{tikzpicture}
-%   \caption{Service pipeline}
-%   \label{fig:service_pipeline}
-% \end{figure}
 
 \subsection{Template Definition}
-The service template extends the service pipeline in \cref{def:service_flow} by using a mapping function to link a policy function with each node,
-with the ultimate goal of integrating privacy constraints into the pipeline flow.
-The policy function plays a dual role.
-First the function serves as a filter, automatically discarding services that fail to meet policy requirements during service selection in the instantiation phase. Secondly
-it instructs the system about the data transformation to perform on data prior to entering a service for processing.
+The template is a pipeline annotated.
+Each node is labeled two mapping functions, which will allow it to be linked to policies and the data transformation function, respectively.
+The policies will be intended to guide the enforcement of data protection while the data transformation function will characterize the functional aspect of each node.
+Must be noted that the template is a specification of the pipeline, and it is intended to be instantiated.
+At this stage, the template is not yet linked to any service, and it is not possible to determine the actual data transformation function.
+
 The service template is defined as follows and is depicted in \cref{fig:service_composition_template}.
-% \hl{L'ATTACCO DEVE SPIEGARE MEGLIO CHE L'OBIETTIVO E' ESTENDERE CON VINCOLI DI PRIVACY, CREARE TEMPLATE PREDEFINITI... A QUESTO PROPOSITO DOBBIAMO SPIEGARE BENE NELLA SEZIONE 4 CHE LA FUNZIONE E' LA FUNZIONE DI TRASFORMAZIONE DEL DATO FUNZIONALE.}
-% The main point of our investigation is a service-based environment where services are combined strategically with policies that cater to the specific needs of the user.
-
-% The service template enhances the Service pipeline defined in \cref{sec:service_definition}, incorporating a policy to each service node, which drives service selection.
-% The policy specifies who can access which data and under which data transformation. It serves as a tag to select services within the framework that comply with some data protection requirements.
-% This approach filters out those services that do not meet the user's data protection requirements.
-% In addition, the policy drives the system in enforcing the necessary data transformations before data enter a service.
-
-% At the crux of effective service composition lies the pivotal role played by the service template.
-% Functioning as a high-level composition of services labeled with predefined policies,
-% the service template serves as a structured blueprint facilitating the decision-making process for the  \user.
 
 \begin{definition}[Service Template] \label{def:pipeline}
-  A Service Template is a pipeline defined as G(V,E,\myLambda,\myGamma).\myGamma is an annotation function, assigning to each vertex \vi{i}$\in$\V\ a policy $p_i\in\Pset{}$.
-
-  %A service pipeline is as a direct acyclic graph G(\V,\E), where \V\ is a set of vertices, one for each service $s_i$ in the pipeline, \E\ is a set of edges connecting two services $s_i$ and $s_j$, and \myLambda\ is an annotation function that assigns a label \myLambda(\vi{i}), corresponding to a data transformation \F\ implemented by the service $s_i$, for each vertex \vi{i}$\in$\V.
+  Given a pipeline G(\V,\E), a Service Template  $G^{\myLambda,\myGamma}$(V,E,\myLambda,\myGamma) is a direct acyclic graph with two labeling functions:
+  \begin{enumerate*}[label=\roman*)]
+    \item \myLambda is an annotation function, assigning to each vertex \vi{i}$\in$\V\ a policy $p_i\in\Pset{}$.
+    \item \myGamma is an annotation function, assigning to each vertex \vi{i}$\in$\V\ a transformation function \F.
+  \end{enumerate*}
 \end{definition}
-
-
-% More detail about the structure modeling the alternative and parallel follows :
-
-% \textbf{Sequence} ($\plusOperator$). It composes two service, $wsi$ and $wsj$, in a sequence. $wsi\plusOperator wsj$ mimics a composition where $wsj$ is executed after $wsi$.
-
-% \textbf{Alternative} ($\timesOperator$). It composes two service, $wsi$ and $wsj$, in an alternative. $wsi\timesOperator wsj$ mimics a composition where either $wsi$ or $wsj$ is executed.
-
-% \textbf{Parallel} ($\plusOperator$). It composes two service, $wsi$ and $wsj$, in parallel. $wsi\plusOperator wsj$ mimics a composition where both $wsi$ and $wsj$ are executed simultaneously.
 \begin{figure}[ht!]
   \centering
   \begin{tikzpicture}[scale=0.9]
@@ -153,26 +68,40 @@ The service template is defined as follows and is depicted in \cref{fig:service_
   \label{fig:service_composition_template}
 \end{figure}
 
-\subsection{Data Transformation}
-We also note that each service $s_i$ in \vi{i}$\in$\V\ receives a set of data as input, processes them according to data transformation \F\ annotated on , and possibly produces a result as output.
-In a big data service composition pipeline, the transformation function is a crucial component of each service.
-It processes, modifies, or transforms the data received by the service as part of the pipeline.
-These functions are applied to the data as it progresses through various stages of the pipeline, enabling each service to perform its designated tasks or operations on the data.
-The transformation function can belong to one of four main types.
-\begin{enumerate*}[label=\roman*)]
-  \item Function \F{e}, an empty function that applies no transformation or processing on the data.
-  \item Function \F{a}, an additive function expands the amount of data received, for example, by integrating data from other sources.
-  \item Function \F{t}, a transformation function that transforms some records in the dataset without altering the domain.
-  \item Function \F{d}, a transformation function that changes the domain of the data by applying, for instance, PCA or K-means (out of the scope of this work).
-\end{enumerate*}
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}
+    % Nodes
+    \node[draw, circle,minimum size=1cm] (node1) at (0,0) {$\s{1}$};
+    \node[draw, circle,minimum size=1cm] (node2) at (2,0) {$\s{2}$};
+    \node[draw, circle,minimum size=1cm] (node3) at (4,0) {$\s{3}$};
 
+    \node[above] at (node1.north)  {$\tChartFunction$};
+    \node[above] at (node2.north)  {$\tChartFunction$};
+    \node[above] at (node3.north)  {$\tChartFunction$};
+
+    % Connection
+    \draw[->] (node1) -- (node2);
+    \draw[->] (node2) -- (node3);
+
+  \end{tikzpicture}
+  \caption{Pipeline Template Example}
+  \label{fig:temp}
+\end{figure}
 \subsection{Policy}
 % \subsubsection{Annotations}
 % \subsubsection{Transformation}
-We consider XACML~\cite{XACML}, an attribute-based access control model that offers flexible fine-grained authorization capabilities, as the language for policy definition. XACML obligations are used to define preemptive data transformations for data protection.
-Indeed, in a collaborative big data scenario, preemptive data transformations are more suitable than denying access to data. For this reason, when a subject makes an access request to a resource, our access control filters the set of results out according to the subject's privileges, obtaining data protection by removing or obfuscating sensitive attributes, rather than granting/denying access to full data.
+%We consider XACML~\cite{XACML}, an attribute-based access control model that offers flexible fine-grained authorization capabilities, as the language for policy definition. XACML obligations are used to define preemptive data transformations for data protection.
+We consider an attribute-based access control model that offers flexible fine-grained authorization capabilities, as the language for policy definition.
+In a collaborative scenario involving large
+data sets, it is more effective to perform preemptive data transformations than to deny access to data \cref{TOADD, cambiare la frase?}.
+than to restrict data access altogether.
+Therefore, when a user submits a resource access request, our access
+control filters the returned data based on the user's privileges.
+This approach ensures data protection by removing or obfuscating sensitive attributes instead of granting or denying access to the full data set.
 
-We tailor the common key elements of an attribute-based access control model to deal with the peculiarities of a big data scenario. The access control policy expresses access conditions based on key elements and their attributes as follows.
+We adapt the standard key components of an attribute-based access control model to address the unique characteristics of a big data environment.
+The access control policy outlines access requirements using key components and their corresponding attributes in the following manner.
 
 \begin{definition}[Policy Condition]\label{def:policy_cond}
   A \emph{Policy Condition} is a Boolean expression of the form $($\emph{attr\_name} op \emph{attr\_value}$)$, with op$\in$\{$<$,$>$,$=$,$\neq$,$\leq$,$\geq$\}, \emph{attr\_name} an attribute label, and \emph{attr\_value} the corresponding attribute value.
@@ -182,7 +111,7 @@ A policy is then defined as follows.
 
 \begin{definition}[Policy]\label{def:policy_rule}
   A {\it policy P} is 5-uple $<$\textit{subj}, \textit{obj}, \textit{action}, \textit{env}, \textit{\TF}$>$, where:
-  \begin{itemize}
+  \begin{description}
     \item Subject \textit{subj} defines a user or the service provider of a job issuing access requests to perform operations on objects.
           It is of the form $<$\emph{id}, \emph{PC}$>$, where \emph{id} defines a class of users (e.g., policeman), and \emph{PC} is a set of \emph{Policy Conditions} on the subject, as defined in Definition \ref{def:policy_cond}.
           For instance, $<$\emph{user},\{(role $=$ "jailer")\}$>$ refers to a person with the role of jailer.
@@ -198,16 +127,54 @@ A policy is then defined as follows.
           For instance, $<$\emph{env},\{(time $=$ "night")\}$>$ refers to a policy that is applicable only at night.
 
     \item Data Transformation \textit{\TF} defines a set of security and privacy-aware transformations on \textit{obj}, focusing on compliance to regulations and standards, in addition to simple format conversions.
-          %\hl{USIAMO LA STESSA NOTAZIONE SIA QUI CHE NELLA DEFINIZIONE DI TEMPLATE}
-  \end{itemize}
+  \end{description}
 \end{definition}
 
-\subsubsection{Policy Decision/Policy Matching}
-Policy decision is the process of determining whether a given access request is allowed or denied. It is based on the evaluation of a set of policies, which are matched against the access request. The matching process is based on the following elements.
+Policies are activated upon a service's request for data access. Subsequently, an evaluation and transformation of said policy follows in order to deliver the resultant execution to the service. The core function of policy execution is to safeguard the data through operations, such as obfuscation of partial or complete records, or filter row implementation. It's essential to note that policies always permit data access. However, in cases where the user lacks the authorization to read the data, an empty set is returned.
+
+% \subsubsection{Policy Decision/Policy Matching}
+% Policy decision is the process of determining whether a given access request is allowed or denied. It is based on the evaluation of a set of policies, which are matched against the access request. The matching process is based on the following elements.
 
 
-\subsubsection{Policy Enforcement}
-\subsubsection{Policy Evaluation}
+% \subsubsection{Policy Enforcement}
+% \subsubsection{Policy Evaluation}
+\subsection{Data Transformation}
+We also note that each service $s_i$ in \vi{i}$\in$\V\ receives a set of data as input, processes them according to data transformation \F\ annotated on , and possibly produces a result as output.
+In a big data service composition pipeline, the transformation function is a crucial component of each service.
+It processes, modifies, or transforms the data received by the service as part of the pipeline.
+These functions are applied to the data as it progresses through various stages of the pipeline, enabling each service to perform its designated tasks or operations on the data.
+The transformation function can belong to one of four main types.
+\begin{enumerate*}[label=\roman*)]
+  \item Function \F{e}, an empty function that applies no transformation or processing on the data.
+  \item Function \F{a}, an additive function expands the amount of data received, for example, by integrating data from other sources.
+  \item Function \F{t}, a transformation function that transforms some records in the dataset without altering the domain.
+  \item Function \F{d}, a transformation function that changes the domain of the data by applying, for instance, PCA or K-means (out of the scope of this work).
+\end{enumerate*}
+
+
+\begin{example}[Pipeline Template]\label{ex:pipeline}
+
+  As an example, let us consider a pipeline template G(\V,\E,\myLambda,\myGamma) with three nodes, as depicted in \cref{fig:service_composition_example}.
+  It includes three key stages: data anonymization, data enrichment, and data aggregation, each with its respective policy and transformation functions.
+  The actual pipeline in the reference scenario would likely have more nodes and complexity, but this example captures the essence of the data processing steps.
+
+  \begin{enumerate*}[label=n\arabic*)]
+    \item The first node in our example is responsible for anonymizing the data.
+          It specify the requirement of an anonymization policy ($\myLambda(v_1)$) to protect sensitive information, such as personally identifiable information (PII) in the dataset.
+          The transformation function ($\myGamma(v_1)$) is required as an empty function, as no transformation is required for anonymization.
+    \item The second node focuses on data enrichment, where additional information from the states of New York and New Hampshire is integrated into the dataset.
+          It requires a data enrichment policy ($\myLambda(v_2)$) to ensure that the added data is relevant and compliant with privacy regulations.
+          The transformation function (($\myGamma(v_2$) needed for this node is an additive function ($F_a$), which merges and integrates the external data with the existing dataset.
+    \item The third node is responsible for aggregating data, including statistical measures like averages, medians, and some more statistics.
+          It follows an aggregation policy ($\myLambda(v_3)$) to define how the aggregation should be performed and ensure compliance with privacy and security regulations.
+          The transformation function (($\myGamma(v_3)$) for this node is a transformation function ($F_t$), which computes the required statistics and aggregates the data.
+  \end{enumerate*}
+
+
+
+  %A service pipeline is as a direct acyclic graph G(\V,\E), where \V\ is a set of vertices, one for each service $s_i$ in the pipeline, \E\ is a set of edges connecting two services $s_i$ and $s_j$, and \myLambda\ is an annotation function that assigns a label \myLambda(\vi{i}), corresponding to a data transformation \F\ implemented by the service $s_i$, for each vertex \vi{i}$\in$\V.
+\end{example}
+
 \section{Service Instance}
 
 \begin{figure}[ht!]
