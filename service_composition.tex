@@ -1,18 +1,17 @@
 \section{Pipeline Template}
-Given the pipeline definition in \cref{def:pipeline}, we use annotations to specify requirements for data protection and data transformation.
-The objective of this extension is to integrate data protection and data management into the pipeline using annotations.
-Annotations enable tracking of the data lifecycle by monitoring changes arising from both data manipulation and enforcement of data protection measures.
+Our approach integrates data protection and data management into the service pipeline using annotations.
+To this aim, we extend the service pipeline in \cref{def:pipeline} with: \emph{i)} functional annotations expressing data manipulations that result from services execution, \emph{ii)} data protection annotations expressing transformations on data to enforce data protection requirements.
+These annotations permit to implement an advance data lineage, tracking the entire data lifecycle by monitoring changes arising from functional service execution and data protection requirements.
 
-The section is structured as follows: In section 4.1, the template will be defined.
-Section 4.2 provides a brief explanation of the chosen policy model, and finally, in 4.3, the data transformation will be examined and an example of a pipeline template will be provided.
+In the following, we first introduce the annotated service pipeline, pipeline template in Section \ref{sec:templatedefinition}. We then present functional annotations (Section \ref{sec:funcannotation}) and data protection annotations (Section \ref{sec:nonfuncannotation}). We finally provide an example of a pipeline template (Section \ref{sec:example}).
 
 
-\subsection{Template Definition}
+\subsection{Template Definition}\label{sec:templatedefinition}
+\hl{FORMALIZZARE LE DUE FUNZIONI DI ANNOTAZIONI COSI CHE SI CAPISCA COSA VIENE DOPO.} 
 The template is a pipeline annotated.
-Each node is labeled two mapping functions, which will allow it to be linked to policies and the data transformation function, respectively.
+\hl{Each node is labeled two mapping functions, which will allow it to be linked to policies and the data transformation function, respectively. QUESTA FRASE VA INGLOBATO IN QUELLA DOPO PER FAR CAPIRE IL LETTORE, NON USARE IL FUTURO SE NON NECESSARIO.}
 The policies will be intended to guide the enforcement of data protection while the data transformation function will characterize the functional aspect of each node.
 Must be noted that the template is a specification of the pipeline, and it is intended to be instantiated.
-At this stage, the template is not yet linked to any service, and it is not possible to determine the actual data transformation function.
 
 The service template is defined as follows and is depicted in \cref{fig:service_composition_template}.
 
@@ -23,6 +22,11 @@ The service template is defined as follows and is depicted in \cref{fig:service_
     \item \myGamma is an annotation function, assigning to each vertex \vi{i}$\in$\V\ a transformation function \F.
   \end{enumerate*}
 \end{definition}
+
+We note that, at this stage, the template is not yet linked to any services, nor it is possible to determine the specific policy-based data protection function.
+\hl{AGGIUNGERE FRASETTA DI COLLEGAMENTO A QUANTO SOTTO.}
+
+
 \begin{figure}[ht!]
   \centering
   \begin{tikzpicture}[scale=0.9]
@@ -88,13 +92,24 @@ The service template is defined as follows and is depicted in \cref{fig:service_
   \caption{Pipeline Template Example}
   \label{fig:temp}
 \end{figure}
-\subsection{Policy}
-% \subsubsection{Annotations}
-% \subsubsection{Transformation}
-%We consider XACML~\cite{XACML}, an attribute-based access control model that offers flexible fine-grained authorization capabilities, as the language for policy definition. XACML obligations are used to define preemptive data transformations for data protection.
+
+\subsection{Functional Transformation}\label{sec:funcannotation}
+\hl{SPIEGARE MEGLIO L'OBIETTIVO FUNZIONALE} We also note that each service $s_i$ in \vi{i}$\in$\V\ receives a set of data as input, processes them according to transformation function \F\ annotated on \hl{MANCA LA PAROLA}, and possibly produces a result as output.
+Function \F\ models the functional behavior of each service, in terms of modifications applied to the data received as input by the service as part of the pipeline.
+These functions are applied to the data throughout the various stages of the pipeline, enabling each service to perform its designated tasks or operations on the data.
+A transformation function can be classified according to four types.
+\begin{enumerate*}[label=\roman*)]
+  \item Function \F{e}, an empty function that applies no transformation or processing on the data.
+  \item Function \F{a}, an additive function that expands the amount of data received, for example, by integrating data from other sources.
+  \item Function \F{t}, a transformation function that transforms some records in the dataset without altering the domain.
+  \item Function \F{d}, a transformation function that changes the domain of the data by applying, for instance, PCA or K-means (out of the scope of this work).
+\end{enumerate*}
+
+\subsection{Policy}\ref{sec:nonfuncannotation}
+\hl{SPIEGARE MEGLIO L'OBIETTIVO DELLE POLITICHE} 
 We consider an attribute-based access control model that offers flexible fine-grained authorization capabilities, as the language for policy definition.
 In a collaborative scenario involving large
-data sets, it is more effective to perform preemptive data transformations than to deny access to data \cref{TOADD, cambiare la frase?}.
+data sets, it is more effective to perform preemptive data transformations than to deny access to data \cref{TOADD, cambiare la frase? SI}.
 than to restrict data access altogether.
 Therefore, when a user submits a resource access request, our access
 control filters the returned data based on the user's privileges.
@@ -118,7 +133,7 @@ A policy is then defined as follows.
 
     \item Object \textit{obj} defines any data whose access is governed by the policy.
           It is of the form $<$\emph{type}, \emph{PC}$>$, where: \emph{type} defines the type of object, such as a file (e.g., a video, text file, image, etc.), a SQL or noSQL database, a table, a column, a row, or a cell of a table, and \emph{PC} is a set of \emph{Policy Conditions} defined on the object's attributes.
-          For instance, $<$\emph{dataset},\{(region $=$ CT)\}$>$ refers to a dataset whose region is CT.
+          For instance, $<$\emph{dataset},\{(region $=$ CT)\}$>$ refers to a dataset whose region is Connecticut.
 
     \item Action \textit{action} defines any operations that can be performed within a big data environment, from traditional atomic operations on databases (e.g, CRUD operations varying depending on the data model) to coarser operations, such as an Apache Spark Direct Acyclic Graph (DAG), an Hadoop MapReduce, an analytics function call, or an analytics pipeline.
 
@@ -126,54 +141,31 @@ A policy is then defined as follows.
           \emph{Policy Conditions} as defined in Definition \ref{def:policy_cond}.
           For instance, $<$\emph{env},\{(time $=$ "night")\}$>$ refers to a policy that is applicable only at night.
 
-    \item Data Transformation \textit{\TF} defines a set of security and privacy-aware transformations on \textit{obj}, focusing on compliance to regulations and standards, in addition to simple format conversions.
+    \item Data Transformation \textit{\TF} defines a set of security and privacy-aware transformations on \textit{obj}, focusing on data protection, as well as compliance to regulations and standards, in addition to simple format conversions.
   \end{description}
 \end{definition}
 
-Policies are activated upon a service's request for data access. Subsequently, an evaluation and transformation of said policy follows in order to deliver the resultant execution to the service. The core function of policy execution is to safeguard the data through operations, such as obfuscation of partial or complete records, or filter row implementation. It's essential to note that policies always permit data access. However, in cases where the user lacks the authorization to read the data, an empty set is returned.
+Policies are activated upon a service's request for data access. Subsequently, policy evaluation and enforcement are executed to prepare data according to data transformation \TF\ and deliver them to the service. The core function of policy execution is to safeguard the data through operations, such as obfuscation of partial or complete records, or filter row implementation. We note that policies always permit data access, that is, policy decision is always \emph{true}. A policy decision \emph{false} applies a data transformation \TF\ such that an empty data set is returned.
 
-% \subsubsection{Policy Decision/Policy Matching}
-% Policy decision is the process of determining whether a given access request is allowed or denied. It is based on the evaluation of a set of policies, which are matched against the access request. The matching process is based on the following elements.
-
-
-% \subsubsection{Policy Enforcement}
-% \subsubsection{Policy Evaluation}
-\subsection{Data Transformation}
-We also note that each service $s_i$ in \vi{i}$\in$\V\ receives a set of data as input, processes them according to data transformation \F\ annotated on , and possibly produces a result as output.
-In a big data service composition pipeline, the transformation function is a crucial component of each service.
-It processes, modifies, or transforms the data received by the service as part of the pipeline.
-These functions are applied to the data as it progresses through various stages of the pipeline, enabling each service to perform its designated tasks or operations on the data.
-The transformation function can belong to one of four main types.
-\begin{enumerate*}[label=\roman*)]
-  \item Function \F{e}, an empty function that applies no transformation or processing on the data.
-  \item Function \F{a}, an additive function expands the amount of data received, for example, by integrating data from other sources.
-  \item Function \F{t}, a transformation function that transforms some records in the dataset without altering the domain.
-  \item Function \F{d}, a transformation function that changes the domain of the data by applying, for instance, PCA or K-means (out of the scope of this work).
-\end{enumerate*}
-
-
-\begin{example}[Pipeline Template]\label{ex:pipeline}
-
+\subsection{Example}\label{sec:example}
   As an example, let us consider a pipeline template G(\V,\E,\myLambda,\myGamma) with three nodes, as depicted in \cref{fig:service_composition_example}.
-  It includes three key stages: data anonymization, data enrichment, and data aggregation, each with its respective policy and transformation functions.
-  The actual pipeline in the reference scenario would likely have more nodes and complexity, but this example captures the essence of the data processing steps.
+  It includes three key stages in our reference scenario: data anonymization, data enrichment, and data aggregation, each with its policy and transformation function.
+  %The actual pipeline in the reference scenario would likely have more nodes and complexity, but this example captures the essence of the data processing steps.
 
   \begin{enumerate*}[label=n\arabic*)]
-    \item The first node in our example is responsible for anonymizing the data.
-          It specify the requirement of an anonymization policy ($\myLambda(v_1)$) to protect sensitive information, such as personally identifiable information (PII) in the dataset.
-          The transformation function ($\myGamma(v_1)$) is required as an empty function, as no transformation is required for anonymization.
+    \item The first node is responsible for data anonymization.
+          It specifies an anonymization policy ($\myLambda(v_1)$) to protect sensitive information, such as personally identifiable information (PII) in the dataset.
+          The transformation function ($\myGamma(v_1)$) is an empty function, as no functional transformation is required for anonymization.
     \item The second node focuses on data enrichment, where additional information from the states of New York and New Hampshire is integrated into the dataset.
           It requires a data enrichment policy ($\myLambda(v_2)$) to ensure that the added data is relevant and compliant with privacy regulations.
-          The transformation function (($\myGamma(v_2$) needed for this node is an additive function ($F_a$), which merges and integrates the external data with the existing dataset.
-    \item The third node is responsible for aggregating data, including statistical measures like averages, medians, and some more statistics.
-          It follows an aggregation policy ($\myLambda(v_3)$) to define how the aggregation should be performed and ensure compliance with privacy and security regulations.
+          The transformation function ($\myGamma(v_2$)) is an additive function ($F_a$), which merges and integrates the external data with the existing dataset.
+    \item The third node is responsible for aggregating data, including statistical measures like averages, medians, and some more statistics. It follows an aggregation policy ($\myLambda(v_3)$) to define how the aggregation should be performed and ensure compliance with privacy and security regulations.
           The transformation function (($\myGamma(v_3)$) for this node is a transformation function ($F_t$), which computes the required statistics and aggregates the data.
   \end{enumerate*}
 
 
 
   %A service pipeline is as a direct acyclic graph G(\V,\E), where \V\ is a set of vertices, one for each service $s_i$ in the pipeline, \E\ is a set of edges connecting two services $s_i$ and $s_j$, and \myLambda\ is an annotation function that assigns a label \myLambda(\vi{i}), corresponding to a data transformation \F\ implemented by the service $s_i$, for each vertex \vi{i}$\in$\V.
-\end{example}
 
 \section{Service Instance}
 
