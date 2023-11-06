@@ -7,24 +7,32 @@ In the following, we first introduce the annotated service pipeline, pipeline te
 
 
 \subsection{Template Definition}\label{sec:templatedefinition}
-\hl{FORMALIZZARE LE DUE FUNZIONI DI ANNOTAZIONI COSI CHE SI CAPISCA COSA VIENE DOPO.} 
-The template is a pipeline annotated.
-\hl{Each node is labeled two mapping functions, which will allow it to be linked to policies and the data transformation function, respectively. QUESTA FRASE VA INGLOBATO IN QUELLA DOPO PER FAR CAPIRE IL LETTORE, NON USARE IL FUTURO SE NON NECESSARIO.}
+
+Given the Pipeline in \cref{def:service_flow}, we use annotations to let the pipeline be aware of the data protection requirements and the functional transformations that will be applied to the data.
+Each node is labeled with two mapping functions:
+\begin{enumerate*}[label=\roman*)]
+  \item a labeling function \myLambda:\V$\rightarrow$\Pset{}, that associates a set of nodes \vi{i}$\in$\V\ to a set of policies $p_i\in$\Pset{}. and
+  \item a labeling function \myGamma:\V$\rightarrow$\F{}. that associates a set of nodes \vi{i}$\in$\V\ to a set of data transformation functions $F_i\in\F{}$.
+
+\end{enumerate*}
 The policies will be intended to guide the enforcement of data protection while the data transformation function will characterize the functional aspect of each node.
-Must be noted that the template is a specification of the pipeline, and it is intended to be instantiated.
 
-The service template is defined as follows and is depicted in \cref{fig:service_composition_template}.
+The template is formally defined as follows and and example is depicted in \cref{fig:service_composition_template}.
 
-\begin{definition}[Service Template] \label{def:pipeline}
+\begin{definition}[Template] \label{def:template}
   Given a pipeline G(\V,\E), a Service Template  $G^{\myLambda,\myGamma}$(V,E,\myLambda,\myGamma) is a direct acyclic graph with two labeling functions:
-  \begin{enumerate*}[label=\roman*)]
-    \item \myLambda is an annotation function, assigning to each vertex \vi{i}$\in$\V\ a policy $p_i\in\Pset{}$.
-    \item \myGamma is an annotation function, assigning to each vertex \vi{i}$\in$\V\ a transformation function \F.
-  \end{enumerate*}
-\end{definition}
+  \begin{enumerate}[label=\roman*)]
+    \item \myGamma that assigns a label \myLambda(\vi{i}), corresponding to a policy to be satisfied by the service represented by \vi{i}, for each vertex $\vi{i}\in\V$;
+    \item \myLambda taht assigns a label \myGamma(\vi{i}), corresponding to a data transformation function to be applied by the service represented by \vi{i}, for each vertex $\vi{i}\in\V$.
+  \end{enumerate}
 
+\end{definition}
 We note that, at this stage, the template is not yet linked to any services, nor it is possible to determine the specific policy-based data protection function.
+
+
 \hl{AGGIUNGERE FRASETTA DI COLLEGAMENTO A QUANTO SOTTO.}
+
+
 
 
 \begin{figure}[ht!]
@@ -106,7 +114,7 @@ A transformation function can be classified according to four types.
 \end{enumerate*}
 
 \subsection{Policy}\ref{sec:nonfuncannotation}
-\hl{SPIEGARE MEGLIO L'OBIETTIVO DELLE POLITICHE} 
+\hl{SPIEGARE MEGLIO L'OBIETTIVO DELLE POLITICHE}
 We consider an attribute-based access control model that offers flexible fine-grained authorization capabilities, as the language for policy definition.
 In a collaborative scenario involving large
 data sets, it is more effective to perform preemptive data transformations than to deny access to data \cref{TOADD, cambiare la frase? SI}.
@@ -148,24 +156,24 @@ A policy is then defined as follows.
 Policies are activated upon a service's request for data access. Subsequently, policy evaluation and enforcement are executed to prepare data according to data transformation \TF\ and deliver them to the service. The core function of policy execution is to safeguard the data through operations, such as obfuscation of partial or complete records, or filter row implementation. We note that policies always permit data access, that is, policy decision is always \emph{true}. A policy decision \emph{false} applies a data transformation \TF\ such that an empty data set is returned.
 
 \subsection{Example}\label{sec:example}
-  As an example, let us consider a pipeline template G(\V,\E,\myLambda,\myGamma) with three nodes, as depicted in \cref{fig:service_composition_example}.
-  It includes three key stages in our reference scenario: data anonymization, data enrichment, and data aggregation, each with its policy and transformation function.
-  %The actual pipeline in the reference scenario would likely have more nodes and complexity, but this example captures the essence of the data processing steps.
+As an example, let us consider a pipeline template G(\V,\E,\myLambda,\myGamma) with three nodes, as depicted in \cref{fig:service_composition_example}.
+It includes three key stages in our reference scenario: data anonymization, data enrichment, and data aggregation, each with its policy and transformation function.
+%The actual pipeline in the reference scenario would likely have more nodes and complexity, but this example captures the essence of the data processing steps.
 
-  \begin{enumerate*}[label=n\arabic*)]
-    \item The first node is responsible for data anonymization.
-          It specifies an anonymization policy ($\myLambda(v_1)$) to protect sensitive information, such as personally identifiable information (PII) in the dataset.
-          The transformation function ($\myGamma(v_1)$) is an empty function, as no functional transformation is required for anonymization.
-    \item The second node focuses on data enrichment, where additional information from the states of New York and New Hampshire is integrated into the dataset.
-          It requires a data enrichment policy ($\myLambda(v_2)$) to ensure that the added data is relevant and compliant with privacy regulations.
-          The transformation function ($\myGamma(v_2$)) is an additive function ($F_a$), which merges and integrates the external data with the existing dataset.
-    \item The third node is responsible for aggregating data, including statistical measures like averages, medians, and some more statistics. It follows an aggregation policy ($\myLambda(v_3)$) to define how the aggregation should be performed and ensure compliance with privacy and security regulations.
-          The transformation function (($\myGamma(v_3)$) for this node is a transformation function ($F_t$), which computes the required statistics and aggregates the data.
-  \end{enumerate*}
+\begin{enumerate*}[label=n\arabic*)]
+  \item The first node is responsible for data anonymization.
+        It specifies an anonymization policy ($\myLambda(v_1)$) to protect sensitive information, such as personally identifiable information (PII) in the dataset.
+        The transformation function ($\myGamma(v_1)$) is an empty function, as no functional transformation is required for anonymization.
+  \item The second node focuses on data enrichment, where additional information from the states of New York and New Hampshire is integrated into the dataset.
+        It requires a data enrichment policy ($\myLambda(v_2)$) to ensure that the added data is relevant and compliant with privacy regulations.
+        The transformation function ($\myGamma(v_2$)) is an additive function ($F_a$), which merges and integrates the external data with the existing dataset.
+  \item The third node is responsible for aggregating data, including statistical measures like averages, medians, and some more statistics. It follows an aggregation policy ($\myLambda(v_3)$) to define how the aggregation should be performed and ensure compliance with privacy and security regulations.
+        The transformation function (($\myGamma(v_3)$) for this node is a transformation function ($F_t$), which computes the required statistics and aggregates the data.
+\end{enumerate*}
 
 
 
-  %A service pipeline is as a direct acyclic graph G(\V,\E), where \V\ is a set of vertices, one for each service $s_i$ in the pipeline, \E\ is a set of edges connecting two services $s_i$ and $s_j$, and \myLambda\ is an annotation function that assigns a label \myLambda(\vi{i}), corresponding to a data transformation \F\ implemented by the service $s_i$, for each vertex \vi{i}$\in$\V.
+%A service pipeline is as a direct acyclic graph G(\V,\E), where \V\ is a set of vertices, one for each service $s_i$ in the pipeline, \E\ is a set of edges connecting two services $s_i$ and $s_j$, and \myLambda\ is an annotation function that assigns a label \myLambda(\vi{i}), corresponding to a data transformation \F\ implemented by the service $s_i$, for each vertex \vi{i}$\in$\V.
 
 \section{Service Instance}
 
@@ -218,13 +226,13 @@ Policies are activated upon a service's request for data access. Subsequently, p
 This instance follows the same flow as the template, but but both \myLambda and \myGamma are replaced respectively by \iChartFunction~ which represent the transformation operations carried out by the service.
 
 \begin{definition}[Pipeline Instance]\label{def:instance}
-Let \G(\V,\E,\myLambda,\myGamma) be a Service Template, a Service Instance \G'(\V',\E,$\iChartFunction$) is a directed acyclic graph where:
-\emph{i)} $s_r$$=$$s'_r$, \emph{ii)} for each vertex \vi{}$\in$\V$_{\timesOperator}$$\cup$\V$_{\plusOperator}$ it exists a corresponding vertex \vii{}$\in$\Vp$_{\timesOperator}$$\cup$\Vp$_{\plusOperator}$,
-    and for each \vi{i}$\in$\V$_S$ annotated with policy \Pset{i} it exists a corresponding \vii{i}$\in$ \Vp$_S$ instantiated with a real service $s_i$, such that the following conditions hold:
-    \begin{itemize}
-      \item $s_i$ satisfies functional requirements in \G(\Vp,\E,\iChartFunction).
-      \item \Pset{i} satisfies $\iChartFunction(v_i)$.\hl{QUESTA SECONDA NON MI TORNA}
-    \end{itemize}
+  Let \G(\V,\E,\myLambda,\myGamma) be a Service Template, a Service Instance \G'(\V',\E,$\iChartFunction$) is a directed acyclic graph where:
+  \emph{i)} $s_r$$=$$s'_r$, \emph{ii)} for each vertex \vi{}$\in$\V$_{\timesOperator}$$\cup$\V$_{\plusOperator}$ it exists a corresponding vertex \vii{}$\in$\Vp$_{\timesOperator}$$\cup$\Vp$_{\plusOperator}$,
+      and for each \vi{i}$\in$\V$_S$ annotated with policy \Pset{i} it exists a corresponding \vii{i}$\in$ \Vp$_S$ instantiated with a real service $s_i$, such that the following conditions hold:
+  \begin{itemize}
+    \item $s_i$ satisfies functional requirements in \G(\Vp,\E,\iChartFunction).
+    \item \Pset{i} satisfies $\iChartFunction(v_i)$.\hl{QUESTA SECONDA NON MI TORNA}
+  \end{itemize}
 \end{definition}
 
 \hl{SPIEGHIAMO IL SIGNIFICATO DELLE CONDIZIONI, MENZIONANDO ANCHE IL RUOLO DI}\F{}\hl{ NELLA CONDIZIONE 1.}
