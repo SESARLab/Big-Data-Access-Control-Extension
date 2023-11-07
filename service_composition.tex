@@ -123,10 +123,9 @@ A transformation function can be classified according to four types.
 
 \subsection{Policy}\ref{sec:nonfuncannotation}
 \hl{SPIEGARE MEGLIO L'OBIETTIVO DELLE POLITICHE}
+Policies express data protection requirements, specifying access permissions based on the context and actions performed on the data.
+Data protection is enforced by filtering data to return a subset, including the possibility of an empty set, rather than denying access.
 We consider an attribute-based access control model that offers flexible fine-grained authorization capabilities, as the language for policy definition.
-In a collaborative scenario involving large
-data sets, it is more effective to perform preemptive data transformations than to deny access to data \cref{TOADD, cambiare la frase? SI}.
-than to restrict data access altogether.
 Therefore, when a user submits a resource access request, our access
 control filters the returned data based on the user's privileges.
 This approach ensures data protection by removing or obfuscating sensitive attributes instead of granting or denying access to the full data set.
