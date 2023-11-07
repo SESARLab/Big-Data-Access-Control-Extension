@@ -23,18 +23,13 @@ The template is formally defined as follows and and example is depicted in \cref
   Given a pipeline G(\V,\E), a Service Template  $G^{\myLambda,\myGamma}$(V,E,\myLambda,\myGamma) is a direct acyclic graph with two labeling functions:
   \begin{enumerate}[label=\roman*)]
     \item \myGamma that assigns a label \myLambda(\vi{i}), corresponding to a policy to be satisfied by the service represented by \vi{i}, for each vertex $\vi{i}\in\V$;
-    \item \myLambda taht assigns a label \myGamma(\vi{i}), corresponding to a data transformation function to be applied by the service represented by \vi{i}, for each vertex $\vi{i}\in\V$.
+    \item \myLambda that assigns a label \myGamma(\vi{i}), corresponding to a data transformation function to be applied by the service represented by \vi{i}, for each vertex $\vi{i}\in\V$.
   \end{enumerate}
 
 \end{definition}
 We note that, at this stage, the template is not yet linked to any services, nor it is possible to determine the specific policy-based data protection function.
 
-
-\hl{AGGIUNGERE FRASETTA DI COLLEGAMENTO A QUANTO SOTTO.}
-
-
-
-
+The next sections better explain the functional and non-functional transformation functions.
 \begin{figure}[ht!]
   \centering
   \begin{tikzpicture}[scale=0.9]
@@ -102,16 +97,29 @@ We note that, at this stage, the template is not yet linked to any services, nor
 \end{figure}
 
 \subsection{Functional Transformation}\label{sec:funcannotation}
-\hl{SPIEGARE MEGLIO L'OBIETTIVO FUNZIONALE} We also note that each service $s_i$ in \vi{i}$\in$\V\ receives a set of data as input, processes them according to transformation function \F\ annotated on \hl{MANCA LA PAROLA}, and possibly produces a result as output.
-Function \F\ models the functional behavior of each service, in terms of modifications applied to the data received as input by the service as part of the pipeline.
-These functions are applied to the data throughout the various stages of the pipeline, enabling each service to perform its designated tasks or operations on the data.
+
+% \hl{SPIEGARE MEGLIO L'OBIETTIVO FUNZIONALE}
+In order to better understand the functional aspect of the pipeline, we introduce the concept of functional transformation.
+The \myGamma function is used to annotate each node with a functional transformation function \TF\ that is applied to the data.
+This kind of tagging allow a more precise tracking of the data transformation throughout the pipeline.
+A functions F has a twofold role:
+\begin{enumerate}[label=\roman*)]
+  \item it contains the functional requirements that the service must satisfy, in terms of expected input, expected output, prototype and other functional aspects.
+  \item it contains the transformation function ($T$) that will be applied to the data. This function can be classified according to four types.
+        \begin{enumerate*}[label=\roman*)]
+          \item Function \TF{\epsilon}, an empty function that applies no transformation or processing on the data.
+          \item Function \TF{a}, an additive function that expands the amount of data received, for example, by integrating data from other sources.
+          \item Function \TF{t}, a transformation function that transforms some records in the dataset without altering the domain.
+          \item Function \TF{d}, a transformation function that changes the domain of the data by applying, for instance, PCA or K-means (out of the scope of this work).
+        \end{enumerate*}
+\end{enumerate}
 A transformation function can be classified according to four types.
-\begin{enumerate*}[label=\roman*)]
-  \item Function \F{e}, an empty function that applies no transformation or processing on the data.
-  \item Function \F{a}, an additive function that expands the amount of data received, for example, by integrating data from other sources.
-  \item Function \F{t}, a transformation function that transforms some records in the dataset without altering the domain.
-  \item Function \F{d}, a transformation function that changes the domain of the data by applying, for instance, PCA or K-means (out of the scope of this work).
-\end{enumerate*}
+% \begin{enumerate*}[label=\roman*)]
+%   \item Function \F{e}, an empty function that applies no transformation or processing on the data.
+%   \item Function \F{a}, an additive function that expands the amount of data received, for example, by integrating data from other sources.
+%   \item Function \F{t}, a transformation function that transforms some records in the dataset without altering the domain.
+%   \item Function \F{d}, a transformation function that changes the domain of the data by applying, for instance, PCA or K-means (out of the scope of this work).
+% \end{enumerate*}
 
 \subsection{Policy}\ref{sec:nonfuncannotation}
 \hl{SPIEGARE MEGLIO L'OBIETTIVO DELLE POLITICHE}
@@ -158,7 +166,6 @@ Policies are activated upon a service's request for data access. Subsequently, p
 \subsection{Example}\label{sec:example}
 As an example, let us consider a pipeline template G(\V,\E,\myLambda,\myGamma) with three nodes, as depicted in \cref{fig:service_composition_example}.
 It includes three key stages in our reference scenario: data anonymization, data enrichment, and data aggregation, each with its policy and transformation function.
-%The actual pipeline in the reference scenario would likely have more nodes and complexity, but this example captures the essence of the data processing steps.
 
 \begin{enumerate*}[label=n\arabic*)]
   \item The first node is responsible for data anonymization.
@@ -170,10 +177,6 @@ It includes three key stages in our reference scenario: data anonymization, data
   \item The third node is responsible for aggregating data, including statistical measures like averages, medians, and some more statistics. It follows an aggregation policy ($\myLambda(v_3)$) to define how the aggregation should be performed and ensure compliance with privacy and security regulations.
         The transformation function (($\myGamma(v_3)$) for this node is a transformation function ($F_t$), which computes the required statistics and aggregates the data.
 \end{enumerate*}
-
-
-
-%A service pipeline is as a direct acyclic graph G(\V,\E), where \V\ is a set of vertices, one for each service $s_i$ in the pipeline, \E\ is a set of edges connecting two services $s_i$ and $s_j$, and \myLambda\ is an annotation function that assigns a label \myLambda(\vi{i}), corresponding to a data transformation \F\ implemented by the service $s_i$, for each vertex \vi{i}$\in$\V.
 
 \section{Service Instance}
 
