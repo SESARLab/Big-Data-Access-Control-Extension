@@ -9,7 +9,7 @@ In the following, we first introduce the annotated service pipeline, called pipe
 \subsection{Pipeline Template Definition}\label{sec:templatedefinition}
 Given the service pipeline in Definition~\ref{def:service_flow}, we use annotations to express data protection requirements to be enforced on data and functional requirements on services to be integrated in the pipeline. Each service node in the service pipeline is labeled with two mapping functions forming a pipeline template:
 \begin{enumerate*}[label=\roman*)]
-  \item a labeling function \myLambda:\V$\rightarrow$\Pset{} that associates a set of data protection requirements, in the form of policies $p_i\in$\Pset{}, with each node \vi{i}$\in$\V$_S$; 
+  \item a labeling function \myLambda:\V$\rightarrow$\Pset{} that associates a set of data protection requirements, in the form of policies $p_i\in$\Pset{}, with each node \vi{i}$\in$\V$_S$;
   \item a labeling function \myGamma:\V$\rightarrow$\F{} that associates a functional service description $F_i\in\F{}$ with each node \vi{i}$\in$\V$_S$.
 \end{enumerate*}
 %The policies will be intended to guide the enforcement of data protection while the data transformation function will characterize the functional aspect of each node.
@@ -24,7 +24,7 @@ The template is formally defined as follows.
   \end{enumerate}
 \end{definition}
 
-We note that, at this stage, the template is not yet linked to any services, nor it is possible to determine the policy modeling the specific data protection requirements. 
+We note that, at this stage, the template is not yet linked to any services, nor it is possible to determine the policy modeling the specific data protection requirements.
 %We also note that functional description $F_i$ includes the specific data transformation triggered as the result of a service execution.
 An example of pipeline template is depicted in \cref{fig:service_composition_template}
 
@@ -96,20 +96,20 @@ An example of pipeline template is depicted in \cref{fig:service_composition_tem
 \end{figure}
 
 \subsection{Functional Description}\label{sec:funcannotation}
-A proper data management approach must track functional data manipulations across the entire pipeline execution, defining the functional requirements of each service operating on data. To this aim, each node \vi{i}$\in$\V$_S$ is annotated with a label \myGamma(\vi{i}), corresponding to the functional description $F_i$ of the service $s_i$ represented by \vi{i}. $F_i$ describes the functional requirements on the corresponding service $s_i$, such as API, inputs, expected outputs. 
+A proper data management approach must track functional data manipulations across the entire pipeline execution, defining the functional requirements of each service operating on data. To this aim, each node \vi{i}$\in$\V$_S$ is annotated with a label \myGamma(\vi{i}), corresponding to the functional description $F_i$ of the service $s_i$ represented by \vi{i}. $F_i$ describes the functional requirements on the corresponding service $s_i$, such as API, inputs, expected outputs.
 %The latter is modeled as a functional transformation function \TF\ that is applied to the data when executing service $s_i$. \TF\ has a twofold role:
 %\begin{enumerate}[label=\roman*)]
 %  \item it contains the functional requirements that the service must satisfy, in terms of expected input, expected output, prototype and other functional aspects.
-%  \item 
+%  \item
 It also specifies the specific data transformation function \TF{F}, triggered as the result of a service execution. %applied to the data when executing service $s_i$.
 
 This function can be classified according to four types.
-        \begin{enumerate*}[label=\roman*)]
-          \item Function \TF{\epsilon}, an empty function that applies no transformation or processing on the data.
-          \item Function \TF{a}, an additive function that expands the amount of data received, for example, by integrating data from other sources.
-          \item Function \TF{t}, a transformation function that transforms some records in the dataset without altering the domain.
-          \item Function \TF{d} (out of the scope of this work), a transformation function that changes the domain of the data by applying, for instance, PCA or K-means.
-        \end{enumerate*}
+\begin{enumerate*}[label=\roman*)]
+  \item Function \TF{\epsilon}, an empty function that applies no transformation or processing on the data.
+  \item Function \TF{a}, an additive function that expands the amount of data received, for example, by integrating data from other sources.
+  \item Function \TF{t}, a transformation function that transforms some records in the dataset without altering the domain.
+  \item Function \TF{d} (out of the scope of this work), a transformation function that changes the domain of the data by applying, for instance, PCA or K-means.
+\end{enumerate*}
 %A transformation function can be classified according to four types.
 % \begin{enumerate*}[label=\roman*)]
 %   \item Function \F{e}, an empty function that applies no transformation or processing on the data.
@@ -119,7 +119,7 @@ This function can be classified according to four types.
 % \end{enumerate*}
 
 \subsection{Policy}\ref{sec:nonfuncannotation}
-Policies express data protection requirements, specifying access permissions based on the context and actions performed by $s_i$ on the data. 
+Policies express data protection requirements, specifying access permissions based on the context and actions performed by $s_i$ on the data.
 When a user submits a resource access request, the access control system filters the returned data according to the specified policies and based on the user's privileges. Policy enforcement departs from traditional yes/no decision and always returns a positive evaluation subject to a data transformation. Data transformation reduces the level of data access granted to the user and includes the possibility of returning an empty set, thus modeling a denied access.
 In other words, we ensure data protection by removing or obfuscating sensitive attributes, instead of granting or denying access to the full data set.
 
@@ -154,81 +154,90 @@ As an example, let us consider a pipeline template G(\V,\E,\myLambda,\myGamma) w
 It includes three key stages in our reference scenario: data anonymization (\vi{1}), data enrichment (\vi{2}), and data aggregation (\vi{3}), each stage with its policy $p$ and functional description \F.
 
 %\begin{enumerate*}[label=n\arabic*)]
-%  \item 
+%  \item
 The first node (\vi{1}) is responsible for data anonymization. It specifies an anonymization policy ($\myLambda(v_1)$) to protect sensitive information, such as personally identifiable information (PII) in the dataset. The transformation function \TF{1} in $\myGamma(v_1)$ is an empty function \TF{a}, as no functional transformation is required for anonymization.
-%   \item 
+%   \item
 
 The second node (\vi{2}) focuses on data enrichment, where additional information from the states of New York and New Hampshire is integrated into the dataset. It requires a data enrichment policy ($\myLambda(v_2)$) to ensure that the added data is relevant and compliant with privacy regulations. The transformation function \TF{2} in $\myGamma(v_2$) is an additive function \TF{a}, which merges and integrates the external data with the existing dataset.
-%  \item 
+  %  \item
 
-The third node (\vi{3}) is responsible for aggregating data, including statistical measures like averages, medians, and some more statistics. It follows an aggregation policy ($\myLambda(v_3)$) to define how the aggregation should be performed, and ensure compliance with privacy and security regulations. The transformation function \TF{3} in $\myGamma(v_3)$ is a transformation function \TF{t}, which computes the required statistics and aggregates the data.
-%\end{enumerate*}
+  The third node (\vi{3}) is responsible for aggregating data, including statistical measures like averages, medians, and some more statistics. It follows an aggregation policy ($\myLambda(v_3)$) to define how the aggregation should be performed, and ensure compliance with privacy and security regulations. The transformation function \TF{3} in $\myGamma(v_3)$ is a transformation function \TF{t}, which computes the required statistics and aggregates the data.
+  %\end{enumerate*}
 
-\section{Service Instance}
+  \section{Service Instance}
 
-\begin{figure}[ht!]
-  \centering
-  \begin{tikzpicture}[scale=0.85]
-    \node[draw, circle] (node1) at (0,0) {$s^\prime_r$};
-    \node[draw, circle] (node2) at (1,0) {$s^\prime_1$};
-    \node[draw, circle] (node3) at (2,0) {$\timesOperator$};
-    \node[draw, circle] (node4) at (3,-1) {$s^\prime_2$};
-    \node[draw, circle] (node5) at (3,1) {$s^\prime_3$};
-    \node[draw, circle] (node6) at (4,0) {$\timesOperator$};
-    \node[draw, circle] (node65) at (5,0) {$s^\prime_4$};
-    \node[draw, circle] (node7) at (6,0) {$\plusOperator$};
-    \node[draw, circle] (node8) at (7,1) {$s^\prime_5$};
-    \node[draw, circle] (node9) at (7,-1) {$s^\prime_6$};
-    \node[draw, circle] (node10) at (8,0) {$\plusOperator$};
-    \node[draw, circle] (node11) at (9,0) {$s^\prime_7$};
-    % Text on top
-    \node[above] at (node1.north) { \footnotesize$\iChartFunction$};
-    \node[above] at (node2.north) { \footnotesize$\iChartFunction$};
-    \node[above] at (node3.north) {};
-    \node[above] at (node4.north) { \footnotesize$\iChartFunction$};
-    \node[above] at (node5.north) { \footnotesize$\iChartFunction$};
-    \node[above] at (node65.north) { \footnotesize$\iChartFunction$};
-    \node[above] at (node8.north) { \footnotesize$\iChartFunction$};
-    \node[above] at (node9.north) { \footnotesize$\iChartFunction$};
-    \node[above] at (node11.north) { \footnotesize$\iChartFunction$};
-    % Connection
-    \draw[->] (node1) -- (node2);
-    \draw[->] (node2) -- (node3);
-    \draw[->] (node3) -- (node4);
-    \draw[->] (node3) -- (node5);
-    \draw[->] (node5) -- (node6);
-    \draw[->] (node4) -- (node6);
-    \draw[->] (node6) -- (node65);
-    \draw[->] (node65) -- (node7);
-    \draw[->] (node7) -- (node8);
-    \draw[->] (node7) -- (node9);
-    \draw[->] (node8) -- (node10);
-    \draw[->] (node9) -- (node10);
-    \draw[->] (node10) -- (node11);
-  \end{tikzpicture}
-  \caption{Service composition instance}
-  \label{fig:service_composition_instance}
-\end{figure}
+  \begin{figure}[ht!]
+    \centering
+    \begin{tikzpicture}[scale=0.85]
+      \node[draw, circle] (node1) at (0,0) {$s^\prime_r$};
+      \node[draw, circle] (node2) at (1,0) {$s^\prime_1$};
+      \node[draw, circle] (node3) at (2,0) {$\timesOperator$};
+      \node[draw, circle] (node4) at (3,-1) {$s^\prime_2$};
+      \node[draw, circle] (node5) at (3,1) {$s^\prime_3$};
+      \node[draw, circle] (node6) at (4,0) {$\timesOperator$};
+      \node[draw, circle] (node65) at (5,0) {$s^\prime_4$};
+      \node[draw, circle] (node7) at (6,0) {$\plusOperator$};
+      \node[draw, circle] (node8) at (7,1) {$s^\prime_5$};
+      \node[draw, circle] (node9) at (7,-1) {$s^\prime_6$};
+      \node[draw, circle] (node10) at (8,0) {$\plusOperator$};
+      \node[draw, circle] (node11) at (9,0) {$s^\prime_7$};
+      % Text on top
+      \node[above] at (node1.north) { \footnotesize$\iChartFunction$};
+      \node[above] at (node2.north) { \footnotesize$\iChartFunction$};
+      \node[above] at (node3.north) {};
+      \node[above] at (node4.north) { \footnotesize$\iChartFunction$};
+      \node[above] at (node5.north) { \footnotesize$\iChartFunction$};
+      \node[above] at (node65.north) { \footnotesize$\iChartFunction$};
+      \node[above] at (node8.north) { \footnotesize$\iChartFunction$};
+      \node[above] at (node9.north) { \footnotesize$\iChartFunction$};
+      \node[above] at (node11.north) { \footnotesize$\iChartFunction$};
+      % Connection
+      \draw[->] (node1) -- (node2);
+      \draw[->] (node2) -- (node3);
+      \draw[->] (node3) -- (node4);
+      \draw[->] (node3) -- (node5);
+      \draw[->] (node5) -- (node6);
+      \draw[->] (node4) -- (node6);
+      \draw[->] (node6) -- (node65);
+      \draw[->] (node65) -- (node7);
+      \draw[->] (node7) -- (node8);
+      \draw[->] (node7) -- (node9);
+      \draw[->] (node8) -- (node10);
+      \draw[->] (node9) -- (node10);
+      \draw[->] (node10) -- (node11);
+    \end{tikzpicture}
+    \caption{Service composition instance}
+    \label{fig:service_composition_instance}
+  \end{figure}
 
-\subsection{Instance}
-\hl{ANCHE QUA COME PER IL TEMPLATE PROVEREI A ESSERE UN POCO PIU' FORMALE. GUARDA IL PAPER CHE TI HO PASSATO.} When the template is filled with the necessary services, it becomes an instance that reflects the actual implementation of those services.
-This instance follows the same flow as the template, but but both \myLambda and \myGamma are replaced respectively by \iChartFunction~ which represent the transformation operations carried out by the service.
+  \subsection{Instance}
+  \hl{ANCHE QUA COME PER IL TEMPLATE PROVEREI A ESSERE UN POCO PIU' FORMALE. GUARDA IL PAPER CHE TI HO PASSATO.}
+  Given the \pipelineTemplate we define our \pipeline instantiation technique as a function that takes as input a \pipelineTemplate \iChartFunction and a different sets of candidate services,
+  each satisfying the functional requirements of one service operation invocation, and returns as output a \pipelineInstance \iChartFunction.
+  In \iChartFunction, every invocations $\vi{i}\in\V$ contains a service instance, and every branching $v\otimes$ is maintained as it is. We formally define our \pipelineInstance as follows.
 
-\begin{definition}[Pipeline Instance]\label{def:instance}
-  Let \G(\V,\E,\myLambda,\myGamma) be a Service Template, a Service Instance \G'(\V',\E,$\iChartFunction$) is a directed acyclic graph where:
-  \emph{i)} $s_r$$=$$s'_r$, \emph{ii)} for each vertex \vi{}$\in$\V$_{\timesOperator}$$\cup$\V$_{\plusOperator}$ it exists a corresponding vertex \vii{}$\in$\Vp$_{\timesOperator}$$\cup$\Vp$_{\plusOperator}$,
-      and for each \vi{i}$\in$\V$_S$ annotated with policy \Pset{i} it exists a corresponding \vii{i}$\in$ \Vp$_S$ instantiated with a real service $s_i$, such that the following conditions hold:
-  \begin{itemize}
-    \item $s_i$ satisfies functional requirements in \G(\Vp,\E,\iChartFunction).
-    \item \Pset{i} satisfies $\iChartFunction(v_i)$.\hl{QUESTA SECONDA NON MI TORNA}
-  \end{itemize}
-\end{definition}
+  \begin{definition}[Pipeline Instance]\label{def:instance}
+    Let \G(\V,\E,\myLambda,\myGamma) be a Service Template, a Service Instance \G'(\V',\E,$\iChartFunction$) is a directed acyclic graph where:
+    \emph{i)} $s_r$$=$$s'_r$, \emph{ii)} for each vertex \vi{}$\in$\V$_{\timesOperator}$$\cup$\V$_{\plusOperator}$ it exists a corresponding vertex \vii{}$\in$\Vp$_{\timesOperator}$$\cup$\Vp$_{\plusOperator}$,
+        and for each \vi{i}$\in$\V$_S$ annotated with policy \Pset{i} it exists a corresponding \vii{i}$\in$ \Vp$_S$ instantiated with a real service $s_i$, such that the following conditions hold:
+    \begin{enumerate}[label=\arabic*)]
+      \item $s_i$ satisfies functional requirements in \G(\Vp,\E,\iChartFunction).
+      \item $s_i$ satisfies policy requirements in \G(\Vp,\E,\iChartFunction).
+    \end{enumerate}
+  \end{definition}
 
-\hl{SPIEGHIAMO IL SIGNIFICATO DELLE CONDIZIONI, MENZIONANDO ANCHE IL RUOLO DI}\F{}\hl{ NELLA CONDIZIONE 1.}
+  Condition 1 is needed to preserve the process functionality, as it simply states that each service $s_i$ must satisfy the functional requirements of the corresponding vertex in the \pipelineTemplate.
+  Condition 2 states that each service $s_i$ must satisfy the policy requirements \myLambda{\vi{i}} of the corresponding vertex \vi{i} in the \pipelineTemplate.
 
-The Service  Instance  is generated by traversing the Service Template with a breadth-first search algorithm, starting from the root vertex \vi{r}. Then for each vertex \vi{i} in the pipeline template, the corresponding vertex \vii{i}$\in$\Vp\ is generated. Finally, for each vertex \vii{i}$\in$\Vp, a two-step selection approach is applied as follows.
+
+
+  \hl{SPIEGHIAMO IL SIGNIFICATO DELLE CONDIZIONI, MENZIONANDO ANCHE IL RUOLO DI}\F{}\hl{ NELLA CONDIZIONE 1.}
+
+  The \pipelineInstance is generated by traversing the \pipelineTemplate with a breadth-first search algorithm, starting from the root vertex \vi{r}.
+  Then for each vertex \vi{i} in the pipeline template, the corresponding vertex \vii{i}$\in$\Vp\ is generated.
+  Finally, for each vertex \vii{i}$\in$\Vp, a two-step selection approach is applied as follows.
 \begin{itemize}
-  \item \textit{Filtering Algorithm} - It matches requirements in $\iChartFunction$ with the policy $\iChartFunction$, and returns a set of services $S_i$ that satisfy the requirements.\hl{NON CHIARA}
+  \item \textit{Filtering Algorithm} - It matches requirements in \iChartFunction with the policy , and returns a set of services $S_i$ that satisfy the requirements.\hl{NON CHIARA}
   \item \textit{Comparison Algorithm} - Upon retrieving a set of compatible services, it produces a ranking of these services according their scoring function. The scoring function is calculated according some metrics, which evaluate the quality of the data resulting from the service execution. More details about the metrics are provided in Section \ref{sec:metrics}.\hl{ANCHE QUESTA PUO ESSERE MODIFICATA, VEDERE ALTRO PAPER.}
 \end{itemize}
 
