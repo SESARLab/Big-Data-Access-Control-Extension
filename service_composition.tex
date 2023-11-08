@@ -258,8 +258,26 @@ The second node (\vi{2}) focuses on data enrichment, where additional informatio
 
   When all vertices $\vi \in V$ have been visited, G' contains a service instance for each \v in \Vp, and the \pipelineInstance is complete.
 
-\begin{example}
-  \hl{TODO}
+\begin{example}\label{ex:instance}
+
+  As an example, let us consider the same template G(\V,\E,\myLambda,\myGamma) with three nodes, described in \cref{sec:example}.
+  It includes three key stages in our reference scenario: data anonymization (\vi{1}), data enrichment (\vi{2}), and data aggregation (\vi{3}), each stage with its policy $p$.
+
+  The first node (\vi{1}) is responsible for data anonymization. In the system there are two services that satisfy the functional requirements of the first node, namely $s_1$ and $s_2$.
+  The first service $s_1$ is annotated with a policy $p_1$ that satisfies the policy requirements of the first node, while the second service $s_2$ is annotated with a policy $p_2$ that does not satisfy the policy requirements of the first node.
+  The filtering algorithm returns the set $S'=\{s_1\}$, as $s_1$ is the only service that satisfies the policy requirements of the first node.
+  In this case the comparison algorithm is not needed, as there is only one service in $S'$.
+
+  The second node (\vi{2}) focuses on data enrichment, where additional information from the states of New York and New Hampshire is integrated into the dataset.
+  In the system there are two services that satisfy the functional requirements of the second node, namely $s_3$ and $s_4$.
+  Both services $s_3$ and $s_4$ are annotated with a policy $p_3$ and $p_4$ that satisfy the policy requirements of the second node.
+  The filtering algorithm returns the set $S'=\{s_3,s_4\}$, as both services satisfy the policy requirements of the second node.
+  In this case the comparison algorithm is needed to select the best service among $s_3$ and $s_4$.
+  The $s_3$ and $s_4$ are ranked on the basis of a scoring function, and the best service is selected and integrated in $\vii{2}\in \Vp$.
+
+  The same logic is applied to the third node (\vi{3}) and any other node in the pipeline template.
+  %\end{enumerate*}
+
 \end{example}
 
 
