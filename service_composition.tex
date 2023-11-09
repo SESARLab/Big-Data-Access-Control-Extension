@@ -233,12 +233,11 @@ The transformation function \TF{2} in $\myGamma(v_2$) is an additive function \T
 
   \begin{definition}[Pipeline Instance]\label{def:instance}
     Let \tChartFunction be a Service Template, a Service Instance $\iChartFunction$ is a directed acyclic graph where:
-    \begin{enumerate}[label=\roman*)]
+    \begin{enumerate*}[label=\roman*)]
       \item $s_r=s'_r$,
       \item for each vertex $\vi{}\in\V_{\timesOperator}\cup\V_{\plusOperator}$ it exists a corresponding vertex $\vii{}\in\Vp_{\timesOperator}\cup\Vp_{\plusOperator}$,
       \item for each $\vi{i}\in\V_S$ annotated with policy \P{i} it exists a corresponding \vii{i}$\in$ \Vp$_S$ instantiated with a real service $s_i$
-      \item
-    \end{enumerate}
+    \end{enumerate*}
     and , such that the following conditions hold:
     \begin{enumerate}[label=\arabic*)]
       \item $s_i$ satisfies policy requirements in \tChartFunction.
