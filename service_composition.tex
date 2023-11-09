@@ -233,8 +233,13 @@ The transformation function \TF{2} in $\myGamma(v_2$) is an additive function \T
 
   \begin{definition}[Pipeline Instance]\label{def:instance}
     Let \tChartFunction be a Service Template, a Service Instance $\iChartFunction$ is a directed acyclic graph where:
-    \emph{i)} $s_r=s'_r$, \emph{ii)} for each vertex $\vi{}\in\V_{\timesOperator}\cup\V_{\plusOperator}$ it exists a corresponding vertex $\vii{}\in\Vp_{\timesOperator}\cup\Vp_{\plusOperator}$,
-    and for each $\vi{i}\in\V_S$ annotated with policy \P{i} it exists a corresponding \vii{i}$\in$ \Vp$_S$ instantiated with a real service $s_i$, such that the following conditions hold:
+    \begin{enumerate}[label=\roman*)]
+      \item $s_r=s'_r$,
+      \item for each vertex $\vi{}\in\V_{\timesOperator}\cup\V_{\plusOperator}$ it exists a corresponding vertex $\vii{}\in\Vp_{\timesOperator}\cup\Vp_{\plusOperator}$,
+      \item for each $\vi{i}\in\V_S$ annotated with policy \P{i} it exists a corresponding \vii{i}$\in$ \Vp$_S$ instantiated with a real service $s_i$
+      \item
+    \end{enumerate}
+    and , such that the following conditions hold:
     \begin{enumerate}[label=\arabic*)]
       \item $s_i$ satisfies policy requirements in \tChartFunction.
       \item $s_i$ satisfies functional requirements  in \tChartFunction.
@@ -253,12 +258,11 @@ The transformation function \TF{2} in $\myGamma(v_2$) is an additive function \T
   \begin{itemize}
 
     \item \textit{Filtering Algorithm} -
-          It matches policy requirements in \tChartFunction against services policy
-          and returns as output a set of services that satisfy the requirements.
-          Formally, let us consider a set S of candidate services \si, each one having a policy \P{i}.
+    \item It matches the policy \myLambda(\vi{i}) against service profile and returns as output a set of services that match the policy.
+          Formally, let us consider a set S of candidate services \si, each one annotated with a profile.
 
-          Assuming that policy matching are successful for each \s{i}$\in$S. The matching process i successful if \P{i} satisfies \myLambda(\vi{i});
-          otherwise, \si is discarded and not considered fore selection.
+          Assuming that policy matching are successful for each \s{i}$\in$S. The matching process is successful if the service profile satisfies \myLambda(\vi{i});
+          otherwise, \si is discarded and not considered for selection.
           The matching algorithm  returns a subset $S'\subseteq S$ of compatible services, which represent the possible candidates for selection.
 
     \item \textit{Comparison Algorithm} - Upon retrieving a set of compatible services, it produces a ranking of these services according to a scoring function.
@@ -267,7 +271,8 @@ The transformation function \TF{2} in $\myGamma(v_2$) is an additive function \T
           The best service \si is then selected and integrated in $\vii{i}\in \Vp$.
           There are many ways of choosing a scoring function, we present those used in this article in Section \ref{sec:metrics}.
 
-          Questa fatta solo sulla base della policy, non considera la funzionalità.
+
+
 
   \end{itemize}
 
@@ -278,19 +283,14 @@ The transformation function \TF{2} in $\myGamma(v_2$) is an additive function \T
   As an example, let us consider the same template G(\V,\E,\myLambda,\myGamma) with three nodes, described in \cref{sec:example}.
   It includes three key stages in our reference scenario: data anonymization (\vi{1}), data enrichment (\vi{2}), and data aggregation (\vi{3}), each stage with its policy $p$.
 
-  The first node (\vi{1}) is responsible for data anonymization. In the system there are two services that satisfy the functional requirements of the first node, namely $s_1$ and $s_2$.
-  The first service $s_1$ is annotated with a policy $p_1$ that satisfies the policy requirements of the first node, while the second service $s_2$ is annotated with a policy $p_2$ that does not satisfy the policy requirements of the first node.
-  The filtering algorithm returns the set $S'=\{s_1\}$, as $s_1$ is the only service that satisfies the policy requirements of the first node.
-  In this case the comparison algorithm is not needed, as there is only one service in $S'$.
-
-  The second node (\vi{2}) focuses on data enrichment, where additional information from the states of New York and New Hampshire is integrated into the dataset.
-  In the system there are two services that satisfy the functional requirements of the second node, namely $s_3$ and $s_4$.
-  Both services $s_3$ and $s_4$ are annotated with a policy $p_3$ and $p_4$ that satisfy the policy requirements of the second node.
-  The filtering algorithm returns the set $S'=\{s_3,s_4\}$, as both services satisfy the policy requirements of the second node.
-  In this case the comparison algorithm is needed to select the best service among $s_3$ and $s_4$.
-  The $s_3$ and $s_4$ are ranked on the basis of a scoring function, and the best service is selected and integrated in $\vii{2}\in \Vp$.
-
-  The same logic is applied to the third node (\vi{3}) and any other node in the pipeline template.
+  The first node (\vi{1}) is responsible for data anonymization.
+  In the system there are three services that satisfy the functional requirements of the first node, namely $s_1$, $s_2$ and $s_3$.
+  The first service $s_1$ is annotated with a profile that satisfies the policy requirements of the first node, same for the second service $s_2$.
+  The third service $s_3$ is annotated with a profile that does not satisfy the policy requirements of the first node.
+  The filtering algorithm returns the set $S'=\{s_1,s_2\}$.
+  The comparison algorithm is then applied to $S'$ and returns a ranking of the services according to a scoring function, from which results that $s_1$ is the best service.
+  The best service $s_1$ is then selected and integrated in $\vii{1}\in \Vp$.
+  The same logic is applied to the \vi{2} and \vi{3} and any other node in the pipeline template.
   %\end{enumerate*}
 
 \end{example}
