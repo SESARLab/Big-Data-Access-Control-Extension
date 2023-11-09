@@ -121,7 +121,7 @@ An access control policy then specifies who (\emph{subject}) can access what (\e
 
 An access control policy $P$ annotated in a pipeline template $G^{\myLambda,\myGamma}$ is used to filter out those candidate services $s$ that do not match data protection requirements. Specifically, a policy $P_i$ is evaluated to verify whether a candidate service $s_j$ for vertex \vi{i} is compatible with data protection requirements in $P_i$ (\myLambda(\vi{i})). Policy evaluation matches the profile of candidate service $s_j$ with the policy conditions in $P_i$. If the credentials and attributes in the candidate service profile fails to meet the policy conditions, the service is discarded, otherwise it is added to the set of compatible service, which is used in Section~\ref{} to generate the pipeline instance $G^{\theta}$. No policy enforcement is done at this stage.
 
-\subsection{Functional Annotations}\label{sec:funcannotation}
+\subsection{Functional Annotations \myGamma}\label{sec:funcannotation}
 A proper data management approach must track functional data manipulations across the entire pipeline execution, defining the functional requirements of each service operating on data.
 To this aim, each vertex \vi{i}$\in$\V$_S$ is annotated with a label \myGamma(\vi{i}), corresponding to the functional description $F_i$ of the service $s_i$ represented by \vi{i}.
 $F_i$ describes the functional requirements on the corresponding service $s_i$, such as API, inputs, expected outputs.
