@@ -8,5 +8,6 @@
     "markdown",
     "latex",
     "plaintext"
-  ]
+  ],
+  "editor.lineNumbers": "on"
 }

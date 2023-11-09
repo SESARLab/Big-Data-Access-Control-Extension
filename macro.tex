@@ -9,36 +9,48 @@
 \newcommand{\coalition}[1]{\ensuremath{C_{#1}}}
 \newcommand{\org}[1]{\ensuremath{o_{#1}}}
 \newcommand{\Org}[1]{\ensuremath{O_{#1}}}
-\newcommand{\s[1]}{\ensuremath{s_{#1}}}
+\newcommand{\s[1]}{\ensuremath{s_{}}}
 \newcommand{\si}{\ensuremath{s_i}}
 \newcommand{\dataset}[1]{\ensuremath{D_{#1}}}
-\newcommand{\orc}[1]{\ensuremath{Orc_{#1}}}
+
 \newcommand{\T}{\ensuremath{T}}
 \newcommand{\TF}[1]{\ensuremath{T^F_{#1}}}
 \newcommand{\TP}{\ensuremath{T^{P}}}
+
 \newcommand{\G}{\ensuremath{G}}
+
 \newcommand{\F}[1]{\ensuremath{F_{#1}}}
-% \newcommand{\F}{\ensuremath{\mathcal{F}_{}}}
+
+\newcommand{\plusOperator}{\ensuremath{\oplus}}
+\newcommand{\timesOperator}{\ensuremath{\otimes}}
+
 \newcommand{\V}{\ensuremath{V}}
 \newcommand{\Vp}{\ensuremath{V'}}
-\newcommand{\E}{\ensuremath{E}}
+\newcommand{\Vplus}{\ensuremath{V_{\plusOperator}}}
+\newcommand{\Vtimes}{\ensuremath{V_{\timesOperator}}}
+
 \newcommand{\vi}[1]{\ensuremath{v_{#1}}}
 \newcommand{\vii}[1]{\ensuremath{v'_{#1}}}
-\newcommand{\Transformation}[2]{\ensuremath{\mathcal{T}_{{{#1}_{#2}}}}}
+
+\newcommand{\E}{\ensuremath{E}}
+
 \newcommand{\myLambda}{\ensuremath{\lambda}\,}
 \newcommand{\myGamma}{\ensuremath{\gamma}\,}
-
+\newcommand{\templateChartAnnotation}{\ensuremath{\myLambda,\myGamma}}
+\newcommand{\instanceChartAnnotation}{\ensuremath{\myLambda}}
 \renewcommand{\P}[1]{\ensuremath{P_{#1}}}
 % \newcommand{\TF}{\ensuremath{T_{\fChartFunction}}}
 \newcommand{\user}{user\,}
 \newcommand{\User}{User\,}
+
 \newcommand{\fChartFunction}{\ensuremath{\myLambda{}}}
+
 \newcommand{\tChartFunction}{\ensuremath{G(\V,\E,\myLambda,\myGamma)}}
 % \newcommand{\iChartFunction}{\ensuremath{\fChartFunction,\myGamma{},\myLambda{}}}
-\newcommand{\iChartFunction}{\ensuremath{G'(\V',\E,\myLambda,\myGamma)}}
-\newcommand{\plusOperator}{\ensuremath{\oplus}}
-\newcommand{\timesOperator}{\ensuremath{\otimes}}
+\newcommand{\iChartFunction}{\ensuremath{G'(\V',\E,\myLambda)}}
 
-\newcommand{\pipeline}{Pipeline\,}
+
+
+\newcommand{\pipeline}{Pipeline\xspace}
 \newcommand{\pipelineTemplate}{Pipeline Template\,}
 \newcommand{\pipelineInstance}{Pipeline Instance\,}
