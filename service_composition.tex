@@ -214,7 +214,7 @@ The transformation function \TF{2} in $\myGamma(v_2$) is an additive function \T
   \section{Pipeline Instance}
   % \subsection{Instance}
   % \hl{ANCHE QUA COME PER IL TEMPLATE PROVEREI A ESSERE UN POCO PIU' FORMALE. GUARDA IL PAPER CHE TI HO PASSATO.}
-  We define a \pipeline instantiation technique as a function that takes as input a \pipelineTemplate \tChartFunction and a set $S^c$ of compatible services, one for each vertex \vi{i}$\in$\V, and returns as output a \pipelineInstance \iChartFunction. We recall that compatible services $S^c_i$ are candidate services satisfying data protection annotations \myLambda(\vi{i}), for each \vi{i}$\in$$\V_S$.
+  We define a \pipeline instantiation technique as a function that takes as input a \pipelineTemplate \tChartFunction and a set $S'$ of compatible services, one for each vertex \vi{i}$\in$\V, and returns as output a \pipelineInstance \iChartFunction. We recall that compatible services $S'_i$ are candidate services satisfying data protection annotations \myLambda(\vi{i}), for each \vi{i}$\in$$\V_S$.
   In \iChartFunction, every invocations $\vi{i}$$\in$\V$_S$ contains a service instance, and every branching $v\in\Vplus\bigcup\Vtimes$ is maintained as it is. We formally define our \pipelineInstance as follows.
 
   \begin{definition}[Pipeline Instance]\label{def:instance}
