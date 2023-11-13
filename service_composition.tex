@@ -149,9 +149,9 @@ An access control policy then specifies who (\emph{subject}) can access what (\e
   \end{description}
 \end{definition}
 
-An access control policy $P$ annotated in a pipeline template $G^{\myLambda,\myGamma}$ is used to filter out those candidate services $s$ that do not match data protection requirements. Specifically, a policy $P_i$ is evaluated to verify whether a candidate service $s_j$ for vertex \vi{i} is compatible with data protection requirements in $P_i$ (\myLambda(\vi{i})). Policy evaluation matches the profile of candidate service $s_j$ with the policy conditions in $P_i$. If the credentials and attributes in the candidate service profile fails to meet the policy conditions, the service is discarded, otherwise it is added to the set of compatible service, which is used in Section~\ref{} to generate the pipeline instance $G^{\theta}$. No policy enforcement is done at this stage.
+An access control policy $P$ annotated in a pipeline template $G^{\myLambda,\myGamma}$ is used to filter out those candidate services $s$ that do not match data protection requirements. Specifically, a policy $P_i$ is evaluated to verify whether a candidate service $s_j$ for vertex \vi{i} is compatible with data protection requirements in $P_i$ (\myLambda(\vi{i})). Policy evaluation matches the profile of candidate service $s_j$ with the policy conditions in $P_i$. If the credentials and attributes in the candidate service profile fails to meet the policy conditions, the service is discarded, otherwise it is added to the set of compatible service, which is used in Section~\ref{} to generate the pipeline instance $G'$. No policy enforcement is done at this stage.
 
-\subsection{Functional Annotations}\label{sec:funcannotation}
+\subsection{Functional Annotations \myGamma}\label{sec:funcannotation}
 A proper data management approach must track functional data manipulations across the entire pipeline execution, defining the functional requirements of each service operating on data.
 To this aim, each vertex \vi{i}$\in\V_S$ is annotated with a label \myGamma(\vi{i}), corresponding to the functional description $F_i$ of the service $s_i$ represented by \vi{i}.
 $F_i$ describes the functional requirements on the corresponding service $s_i$, such as API, inputs, expected outputs.
@@ -180,8 +180,7 @@ In table x we report the policies and functional descriptions for each vertex.
 %  \item
 The first vertex (\vi{1}) is responsible for data preparation.
 It specifies an anonymization policy ($\myLambda(v_1)$) to protect sensitive information, such as personally identifiable information (PII) in the dataset.
-The polic
-The functional annotation  \TF{1} in $\myGamma(v_1)$ is a transformation function \TF{t},
+The transformation function \TF{1} in $\myGamma(v_1)$ is an empty function \TF{a}, as no functional transformation is required for anonymization.
 %   \item
 
 The second vertex (\vi{2}) focuses on data enrichment, where additional information from the states of New York and New Hampshire is integrated into the dataset.
@@ -276,7 +275,7 @@ The transformation function \TF{2} in $\myGamma(v_2$) is an additive function \T
           The best service \si{j} is then selected and integrated in $\vii{i}\in \Vp$. There are many ways of choosing relevant metrics, we present those used in this article in Section \ref{sec:metrics}.
   \end{itemize}
 
-  When all vertices $\vi \in V$ have been visited, G' contains a service instance $s'_i$ for each \vii{i}$\in$\Vp, and the \pipelineInstance is complete. We note that each vertex \vii{i} is annotated with a policy \P{i} according to \myLambda. When pipeline instance is triggered, before any services can be executed, policy \P{i} is evaluated and enforced. In case, policy evaluation is \emph{true}, data transformation \TP\ is applied, otherwise a default transformation that delete all data is applied.
+  When all vertices $\vi \in V$ have been visited, G' contains a service instance $s'_i$ for each \vii{i}$\in$\Vp, and the \pipelineInstance is complete. We note that each vertex \vii{i} is annotated with a policy \P{i} according to \myLambda. When pipeline instance is triggered, before any services can be executed, policy \P{i} is evaluated and enforced. In case policy evaluation returns \emph{true}, data transformation \TP$\in$\P{i} is applied, otherwise a default transformation that delete all data is applied.
 
 \begin{example}\label{ex:instance}
 
@@ -284,10 +283,12 @@ The transformation function \TF{2} in $\myGamma(v_2$) is an additive function \T
   It includes three key stages in our reference scenario: data anonymization (\vi{1}), data enrichment (\vi{2}), and data aggregation (\vi{3}), each stage with its policy $p$.
 
   The first vertex (\vi{1}) responsible for data anonymization is associated with three candidate services that satisfy the functional requirements of the first vertex, namely $s_1$, $s_2$ and $s_3$.
-  Services $s_1$ and $s_2$ are annotated with a profile that satisfies the data protection requirements in \P{1} and \P{2}, respectively.
-  The third service $s_3$ is annotated with a profile that does not satisfy the data protection requirements in \P{3}.
+  Services $s_1$ and $s_2$ are annotated with a profile that satisfies the data protection requirements in \P{1}, respectively.
+  The third service $s_3$ is annotated with a profile that does not satisfy the data protection requirements in \P{1}.
   The filtering algorithm then returns the set $S'=\{s_1,s_2\}$.
   The comparison algorithm is fnally applied to $S'$ and returns a ranking of the services according to quality metrics, where $s_1$ is ranked first. $s_1$ is then selected and integrated in $\vii{1}\in \Vp$.
+
+  The comparison algorithm is finally applied to $S'$ and returns a ranking of the services according to quality metrics, where $s_1$ is ranked first. $s_1$ is then selected and integrated in $\vii{1}\in \Vp$.
 
   The same logic is applied to the \vi{2} and \vi{3}.
 
