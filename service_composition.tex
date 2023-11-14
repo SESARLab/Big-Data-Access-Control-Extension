@@ -1,4 +1,4 @@
-\section{Pipeline Template}
+\section{Pipeline Template}\label{sec:template}
 Our approach integrates data protection and data management into the service pipeline using annotations.
 To this aim, we extend the service pipeline in \cref{def:pipeline} with: \emph{i)} data protection annotations expressing transformations on data to enforce data protection requirements, \emph{ii)} functional annotations expressing data manipulations carried out during services execution.
 These annotations permit to implement an advanced data lineage, tracking the entire data lifecycle by monitoring changes arising from functional service execution and data protection requirements.
@@ -9,8 +9,8 @@ In the following, we first introduce the annotated service pipeline, called pipe
 \subsection{Pipeline Template Definition}\label{sec:templatedefinition}
 Given the service pipeline in Definition~\ref{def:pipeline}, we use annotations to express data protection requirements to be enforced on data and functional requirements on services to be integrated in the pipeline. Each service vertex in the service pipeline is labeled with two mapping functions forming a pipeline template:
 \begin{enumerate*}[label=\roman*)]
-  \item a labeling function \myLambda:\V$\rightarrow$\P{} that associates a set of data protection requirements, in the form of policies $p_i\in$\P{}, with each vertex \vi{i}$\in$\V$_S$;
-  \item a labeling function \myGamma:\V$\rightarrow$\F{} that associates a functional service description $F_i\in\F{}$ with each vertex \vi{i}$\in$\V$_S$.
+  \item a labeling function \myLambda:$\V_S\rightarrow$\P{} that associates a set of data protection requirements, in the form of policies $p$$\in$\P{}, with each vertex \vi{i}$\in$$\V_S$;
+  \item a labeling function \myGamma:$\V_S\rightarrow$\F{} that associates a functional service description $F_i\in\F{}$ with each vertex \vi{i}$\in$$\V_S$.
 \end{enumerate*}
 %The policies will be intended to guide the enforcement of data protection while the data transformation function will characterize the functional aspect of each vertex.
 
@@ -19,12 +19,12 @@ The template is formally defined as follows.
 \begin{definition}[Pipeline Template] \label{def:template}
   Given a service pipeline G(\V,\E), a pipeline template $G^{\myLambda,\myGamma}$(V,E,\myLambda,\myGamma) is a direct acyclic graph with two labeling functions:
   \begin{enumerate}[label=\roman*)]
-    \item \myLambda that assigns a label \myLambda(\vi{i}), corresponding to a policy $p_i$ to be satisfied by service $s_i$ represented by \vi{i}, for each vertex $\vi{i}\in\V$;
-    \item \myGamma that assigns a label \myGamma(\vi{i}), corresponding to the functional description $F_i$ of service $s_i$ represented by \vi{i}, for each vertex $\vi{i}\in\V$.
+    \item \myLambda that assigns a label \myLambda(\vi{i}), corresponding to a set \P{i} of policies $p_j$ to be satisfied by service $s_i$ represented by \vi{i}, for each vertex $\vi{i}\in\V_S$;
+    \item \myGamma that assigns a label \myGamma(\vi{i}), corresponding to the functional description $F_i$ of service $s_i$ represented by \vi{i}, for each vertex $\vi{i}\in\V_S$.
   \end{enumerate}
 \end{definition}
 
-We note that, at this stage, the template is not yet linked to any services, nor it is possible to determine the policy modeling the specific data protection requirements.
+We note that, at this stage, the template is not yet linked to any services, nor it is possible to determine the policy modeling the specific data protection requirements. We also note that policies $p_j$$\in$\P{i} annotated with \myLambda(\vi{i}) are ORed, meaning that the access decision is positive if at least one policy $p_j$ is evaluated to \emph{true}.
 %We also note that functional description $F_i$ includes the specific data transformation triggered as the result of a service execution.
 An example of pipeline template is depicted in \cref{fig:service_composition_template}
 
@@ -104,54 +104,54 @@ An example of pipeline template is depicted in \cref{fig:service_composition_tem
 
 
 
-\begin{figure}[ht!]
-  \centering
-  \begin{tikzpicture}
-    % Nodes
-    \node[draw, circle,minimum size=1cm] (node1) at (0,0) {$\s{1}$};
-    \node[draw, circle,minimum size=1cm] (node2) at (2,0) {$\s{2}$};
-    \node[draw, circle,minimum size=1cm] (node3) at (4,0) {$\s{3}$};
+% \begin{figure}[ht!]
+%   \centering
+%   \begin{tikzpicture}
+%     % Nodes
+%     \node[draw, circle,minimum size=1cm] (node1) at (0,0) {$\s{1}$};
+%     \node[draw, circle,minimum size=1cm] (node2) at (2,0) {$\s{2}$};
+%     \node[draw, circle,minimum size=1cm] (node3) at (4,0) {$\s{3}$};
 
-    \node[above] at (node1.north)  {$\templateChartAnnotation$};
-    \node[above] at (node2.north)  {$\templateChartAnnotation$};
-    \node[above] at (node3.north)  {$\templateChartAnnotation$};
+%     \node[above] at (node1.north)  {$\templateChartAnnotation$};
+%     \node[above] at (node2.north)  {$\templateChartAnnotation$};
+%     \node[above] at (node3.north)  {$\templateChartAnnotation$};
 
-    % Connection
-    \draw[->] (node1) -- (node2);
-    \draw[->] (node2) -- (node3);
+%     % Connection
+%     \draw[->] (node1) -- (node2);
+%     \draw[->] (node2) -- (node3);
 
-  \end{tikzpicture}
-  \caption{Pipeline Template Example}
-  \label{fig:temp}
-\end{figure}
+%   \end{tikzpicture}
+%   \caption{Pipeline Template Example}
+%   \label{fig:temp}
+% \end{figure}
 
-\subsection{Data Protection Annotation \myLambda}\label{sec:nonfuncannotation}
+\subsection{Data Protection Annotation}\label{sec:nonfuncannotation}
 Data Protection Annotation \myLambda\ expresses data protection requirements in the form of access control policies. We consider an attribute-based access control model that offers flexible fine-grained authorization and adapts its standard key components to address the unique characteristics of a big data environment. Access requirements are expressed in the form of policy conditions that are defined as follows.
 
 \begin{definition}[Policy Condition]\label{def:policy_cond}
-  A \emph{Policy Condition} is a Boolean expression of the form $($\emph{attr\_name} op \emph{attr\_value}$)$, with op$\in$\{$<$,$>$,$=$,$\neq$,$\leq$,$\geq$\}, \emph{attr\_name} an attribute label, and \emph{attr\_value} the corresponding attribute value.
+  A \emph{Policy Condition pc} is a Boolean expression of the form $($\emph{attr\_name} op \emph{attr\_value}$)$, with op$\in$\{$<$,$>$,$=$,$\neq$,$\leq$,$\geq$\}, \emph{attr\_name} an attribute label, and \emph{attr\_value} the corresponding attribute value.
 \end{definition}
 
 An access control policy then specifies who (\emph{subject}) can access what (\emph{object}) with action (\emph{action}), in a specific context (\emph{environment}) and under specific obligations (\emph{data transformation}), as formally defined below.
 
 \begin{definition}[Policy]\label{def:policy_rule}
-  A {\it policy P} is 5-uple $<$\textit{subj}, \textit{obj}, \textit{action}, \textit{env}, \textit{\TP}$>$, where:
+  A {\it policy p}$\in$\P{} is 5-uple $<$\textit{subj}, \textit{obj}, \textit{act}, \textit{env}, \textit{\TP}$>$, where:
   \begin{description}
-    \item Subject \textit{subj} defines a service $s_i$ issuing an access request to perform an action on an object. It is of the form $<$\emph{id}, \emph{PC}$>$, where \emph{id} defines a class of services (e.g., classifier), and \emph{PC} is a set of \emph{Policy Conditions} on the subject, as defined in Definition \ref{def:policy_cond}. For instance, $<$\emph{service},\{(classifier $=$ "SVM")\}$>$ refers to a service providing a SVM classifier. We note that \textit{subj} can also specify conditions on the service owner, such as, $<$\emph{service},\{(owner\_location $=$ "EU")\}$>$
+    \item Subject \textit{subj} defines a service $s_i$ issuing an access request to perform an action on an object. It is of the form $<$\emph{id}, \{$pc_i$\}$>$, where \emph{id} defines a class of services (e.g., classifier), and \{$pc_i$\} is a set of \emph{Policy Conditions} on the subject, as defined in Definition \ref{def:policy_cond}. For instance, $<$\emph{service},\{(classifier $=$ "SVM")\}$>$ refers to a service providing a SVM classifier. We note that \textit{subj} can also specify conditions on the service owner, such as, $<$\emph{service},\{(owner\_location $=$ "EU")\}$>$ and on the service user, such as, $<$\emph{service},\{(service\_user\_role $=$ "DOC Director")\}$>$.
 
-    \item Object \textit{obj} defines any data whose access is governed by the policy. It is of the form $<$\emph{type}, \emph{PC}$>$, where: \emph{type} defines the type of object, such as a file (e.g., a video, text file, image, etc.), a SQL or noSQL database, a table, a column, a row, or a cell of a table, and \emph{PC} is a set of \emph{Policy Conditions} defined on the object's attributes. For instance, $<$\emph{dataset},\{(region $=$ CT)\}$>$ refers to a dataset whose region is Connecticut.
+    \item Object \textit{obj} defines any data whose access is governed by the policy. It is of the form $<$\emph{type}, \{$pc_i$\}$>$, where: \emph{type} defines the type of object, such as a file (e.g., a video, text file, image, etc.), a SQL or noSQL database, a table, a column, a row, or a cell of a table, and \{$pc_i$\} is a set of \emph{Policy Conditions} defined on the object's attributes. For instance, $<$\emph{dataset},\{(region $=$ CT)\}$>$ refers to a dataset whose region is Connecticut.
 
-    \item Action \textit{action} defines any operations that can be performed within a big data environment, from traditional atomic operations on databases (e.g., CRUD operations varying depending on the data model) to coarser operations, such as an Apache Spark Direct Acyclic Graph (DAG), Hadoop MapReduce, an analytics function call, or an analytics pipeline.
+    \item Action \textit{act} defines any operations that can be performed within a big data environment, from traditional atomic operations on databases (e.g., CRUD operations varying depending on the data model) to coarser operations, such as an Apache Spark Direct Acyclic Graph (DAG), Hadoop MapReduce, an analytics function call, or an analytics pipeline.
 
-    \item Environment \textit{env} defines a set of conditions on contextual attributes, such as time of the day, location, IP address, risk level, weather condition, holiday/workday, emergency. It is a set \emph{PC} of \emph{Policy Conditions} as defined in Definition \ref{def:policy_cond}. For instance, $<$\emph{env},\{(time $=$ "night")\}$>$ refers to a policy that is applicable only at night.
+    \item Environment \textit{env} defines a set of conditions on contextual attributes, such as time of the day, location, IP address, risk level, weather condition, holiday/workday, emergency. It is a set \{$pc_i$\} of \emph{Policy Conditions} as defined in Definition \ref{def:policy_cond}. For instance, $<$\emph{env},\{(time $=$ "night")\}$>$ refers to a policy that is applicable only at night.
 
     \item Data Transformation \textit{\TP} defines a set of security and privacy-aware transformations on \textit{obj}, which must be enforced before any access to data. Transformations focus on data protection, as well as compliance to regulations and standards, in addition to simple format conversions.
   \end{description}
 \end{definition}
 
-An access control policy $P$ annotated in a pipeline template $G^{\myLambda,\myGamma}$ is used to filter out those candidate services $s$ that do not match data protection requirements. Specifically, a policy $P_i$ is evaluated to verify whether a candidate service $s_j$ for vertex \vi{i} is compatible with data protection requirements in $P_i$ (\myLambda(\vi{i})). Policy evaluation matches the profile of candidate service $s_j$ with the policy conditions in $P_i$. If the credentials and attributes in the candidate service profile fails to meet the policy conditions, the service is discarded, otherwise it is added to the set of compatible service, which is used in Section~\ref{} to generate the pipeline instance $G'$. No policy enforcement is done at this stage.
+Access control policies $p_j$$\in$\P{i} annotating vertex \vi{i} in a pipeline template $G^{\myLambda,\myGamma}$ are used to filter out those candidate services $s$$\in$$S^c$ that do not match data protection requirements. Specifically, each policy $p_j$$\in$\P{i} is evaluated to verify whether a candidate service $s$$\in$$S^c$ for vertex \vi{i} is compatible with data protection requirements in \P{i} (\myLambda(\vi{i})). Policy evaluation matches the profile of candidate service $s$$\in$$S^c$ with the policy conditions in each $p_j$$\in$\P{i}. If the credentials and attributes in the candidate service profile fails to meet the policy conditions, meaning that no policies $p_j$ are evaluated to \emph{true}, the service is discarded; otherwise it is added to the set $S'$ of compatible service, which is used in Section~\ref{sec:instance} to generate the pipeline instance $G'$. No policy enforcement is done at this stage. 
 
-\subsection{Functional Annotations \myGamma}\label{sec:funcannotation}
+\subsection{Functional Annotations}\label{sec:funcannotation}
 A proper data management approach must track functional data manipulations across the entire pipeline execution, defining the functional requirements of each service operating on data.
 To this aim, each vertex \vi{i}$\in\V_S$ is annotated with a label \myGamma(\vi{i}), corresponding to the functional description $F_i$ of the service $s_i$ represented by \vi{i}.
 $F_i$ describes the functional requirements on the corresponding service $s_i$, such as API, inputs, expected outputs.
@@ -160,37 +160,36 @@ $F_i$ describes the functional requirements on the corresponding service $s_i$, 
 %  \item it contains the functional requirements that the service must satisfy, in terms of expected input, expected output, prototype and other functional aspects.
 %  \item
 It also specifies a set \TF{} of data transformation functions \tf{i}, possibly triggered during execution of the connected service $s_i$.
-Each $\tf{i}\in\TF{}$ can be classified as one of the following:
+
+Each $\tf{i}$$\in$$\TF{}$ can be of different types as follows:
 \begin{enumerate*}[label=\roman*)]
-  \item Function \tf{\epsilon}, an empty function that applies no transformation or processing on the data.
-  \item Function \tf{a}, an additive function that expands the amount of data received, for example, by integrating data from other sources.
-  \item Function \tf{t}, a transformation function that transforms some records in the dataset without altering the domain.
-  \item Function \tf{d} (out of the scope of this work), a transformation function that changes the domain of the data by applying, for instance, PCA or K-means.
+  \item an empty function \tf{\epsilon} that applies no transformation or processing on the data;
+  \item an additive function \tf{a} that expands the amount of data received, for example, by integrating data from other sources;
+  \item a transformation function \tf{t} that transforms some records in the dataset without altering the domain;
+  \item a transformation function \tf{d} (out of the scope of this work) that changes the domain of the data by applying, for instance, PCA or K-means.
 \end{enumerate*}
-For simplicity, without loss of generality, it is assumed that all candidate services meet functional annotation \F{} and that \TF{}=\tf{}, resulting in the consideration of only one transformation.
-Therefore, all candidate services apply the same transformation to data during execution.
+
+For simplicity but with no loss of generality, we assume that all candidate services meet functional annotation \F{} and that \TF{}=\tf{}. As a consequence, all candidate services apply the same transformation to data during execution.
 
 
 \subsection{Example}\label{sec:example}
-As an example, let us consider a pipeline template $G^{\myLambda,\myGamma}$ with three vertices, as depicted in \cref{fig:service_composition_example}.
-It includes three key stages in our reference scenario: data preparation (\vi{1}), data enrichment (\vi{2}), and data storage (\vi{3}), each stage with its policy $p$ and functional description \F.
-In table x we report the policies and functional descriptions for each vertex.
-%
+As an example, let us consider a pipeline template $G^{\myLambda,\myGamma}$ as a sequence of three vertices modeling three key stages in our reference scenario: data preparation (\vi{1}), data enrichment (\vi{2}), and data storage (\vi{3}). Each stage is annotated with its policy set \P{i} and functional description \F{i}. Table~\ref{table:example} reports the policies and functional descriptions for each vertex, which are presented in the following.
+
 %\begin{enumerate*}[label=n\arabic*)]
 %  \item
 The first vertex (\vi{1}) is responsible for data preparation.
 It specifies an anonymization policy ($\myLambda(v_1)$) to protect sensitive information, such as personally identifiable information (PII) in the dataset.
-The transformation function \TF{1} in $\myGamma(v_1)$ is an empty function \TF{a}, as no functional transformation is required for anonymization.
+The transformation function \TF{1} in $\myGamma(v_1)$ is an empty function \tf{a}, as no functional transformation is required for anonymization.
 %   \item
 
 The second vertex (\vi{2}) focuses on data enrichment, where additional information from the states of New York and New Hampshire is integrated into the dataset.
-It requires a data enrichment policy ($\myLambda(v_2)$) to ensure that the added data is relevant and compliant with privacy regulations.
-The transformation function \TF{2} in $\myGamma(v_2$) is an additive function \TF{a}, which merges and integrates the external data with the existing dataset.
+It requires a data enrichment policy ($\myLambda(v_2)$) to ensure that the added data are relevant and comply with privacy regulations.
+The transformation function \TF{2} in $\myGamma(v_2$) is an additive function \tf{a}, which merges and integrates the external data with the existing dataset.
   %  \item
 
   The third vertex (\vi{3}) is responsible for aggregating data, including statistical measures like averages, medians, and some more statistics.
   It follows an aggregation policy ($\myLambda(v_3)$) to define how the aggregation should be performed, and ensure compliance with privacy and security regulations.
-  The transformation function \TF{3} in $\myGamma(v_3)$ is a transformation function \TF{t}, which computes the required statistics and aggregates the data.
+  The transformation function \TF{3} in $\myGamma(v_3)$ is a transformation function \tf{t}, which computes the required statistics and aggregates the data.
   %\end{enumerate*}
 
   \begin{figure}[ht!]
@@ -237,18 +236,19 @@ The transformation function \TF{2} in $\myGamma(v_2$) is an additive function \T
     \label{fig:service_composition_instance}
   \end{figure}
 
-  \section{Pipeline Instance}
+  \section{Pipeline Instance}\label{sec:instance}
   % \subsection{Instance}
   % \hl{ANCHE QUA COME PER IL TEMPLATE PROVEREI A ESSERE UN POCO PIU' FORMALE. GUARDA IL PAPER CHE TI HO PASSATO.}
-  We define a \pipeline instantiation technique as a function that takes as input a \pipelineTemplate \tChartFunction and a set $S^c$ of compatible services, one for each vertex \vi{i}$\in$\V, and returns as output a \pipelineInstance \iChartFunction. We recall that compatible services $S^c_i$ are candidate services satisfying data protection annotations \myLambda(\vi{i}), for each \vi{i}$\in$$\V_S$.
-    In \iChartFunction, every invocations $\vi{i}$$\in$\V$_S$ contains a service instance, and every branching $v\in\Vplus\bigcup\Vtimes$ is maintained as it is. We formally define our \pipelineInstance as follows.
+  We define a pipeline instantiation technique as a function that takes as input a \pipelineTemplate \tChartFunction and a set $S^c$ of candidate services, one for each vertex \vi{i}$\in$\V, and returns as output a \pipelineInstance \iChartFunction. 
+  %We recall that candidate services $S^c_i$ are candidate services satisfying data protection annotations \myLambda(\vi{i}), for each \vi{i}$\in$$\V_S$.
+    In \iChartFunction, every invocations \vii{i}$\in$$V'_S$ contains a service instance, and every branching $v\in\Vplus\bigcup\Vtimes$ in the template is maintained as is. We formally define our \pipelineInstance as follows.
 
   \begin{definition}[Pipeline Instance]\label{def:instance}
     Let \tChartFunction be a pipeline template, a pipeline Instance $\iChartFunction$ is a directed acyclic graph where:
     \begin{enumerate*}[label=\roman*)]
-      \item $s_r=s'_r$,
+      \item $s_r$$=$$s'_r$,
       \item for each vertex $\vi{}\in\V_{\timesOperator}\cup\V_{\plusOperator}$ it exists a corresponding vertex $\vii{}\in\Vp_{\timesOperator}\cup\Vp_{\plusOperator}$,
-      \item for each $\vi{i}\in\V_S$ annotated with policy \P{i} it exists a corresponding \vii{i}$\in$ \Vp$_S$ instantiated with a real service $s'_i$,
+      \item for each $\vi{i}$$\in$$\V_S$ annotated with policy \P{i} it exists a corresponding \vii{i}$\in$$\Vp_S$ instantiated with a service instance \sii{i},
     \end{enumerate*}
     and such that the following conditions hold:
     \begin{enumerate}[label=\arabic*)]
@@ -257,25 +257,25 @@ The transformation function \TF{2} in $\myGamma(v_2$) is an additive function \T
     \end{enumerate}
   \end{definition}
 
-  Condition 1 is needed to preserve the process functionality, as it simply states that each service $s'_i$ must satisfy the functional requirements $F_i$ of the corresponding vertex \vi{i} in the \pipelineTemplate.
-  Condition 2 states that each service $s'_i$ must satisfy the policy requirements \P{i} of the corresponding vertex \vi{i} in the \pipelineTemplate.
-  As assumed in section pinco Condition 1 is satisfied for all candidate services and therefore concentrate on Condition 2 in the following.
+  Condition 1 is needed to preserve the process functionality, as it simply states that each service \sii{i} must satisfy the functional requirements \F{i} of the corresponding vertex \vi{i} in the \pipelineTemplate.
+  Condition 2 states that each service \sii{i} must satisfy the policy requirements \P{i} of the corresponding vertex \vi{i} in the \pipelineTemplate.
+  We recall that Condition 1 is satisfied for all candidate services (see Section~\ref{sec:funcannotation}) and therefore concentrate on Condition 2 in the following.
 
   The \pipelineInstance  is generated by traversing the \pipelineTemplate with a breadth-first search algorithm, starting from the root vertex \vi{r}.
-  Then for each vertex \vi{i} in the pipeline template, the corresponding vertex \vii{i}$\in$\Vp\ is generated.
-  Finally, for each vertex \vii{i}$\in$\Vp, a two-step selection approach is applied as follows.
+  Then, for each vertex $v\in\Vplus\bigcup\Vtimes$ in the pipeline template, the corresponding vertex $v'\in\Vpplus\bigcup\Vptimes$ is generated.
+  Finally, for each vertex \vi{i}$\in$$\V_S$, a two-step selection approach is applied as follows.
   \begin{itemize}
 
-    \item \textit{Filtering Algorithm} -- As already discussed in Section~\ref{sec:templatedefinition}, filtering algorithm retrieves a set of candidate services and match them one-by-one against data protection requirements \myLambda(\vi{i}). In particular, the profile of each candidate service \si{j} is matched against policy \P{i} corresponding to \myLambda(\vi{i}). Filtering algorithm returns as output the set of compatible services that match the policy.
+    \item \textit{Filtering Algorithm} -- As already discussed in Section~\ref{sec:templatedefinition}, filtering algorithm retrieves a set of candidate services $S^c$ and match them one-by-one against data protection requirements \myLambda(\vi{i}). In particular, the profile of each candidate service \si{j} is matched against policies $p_k$$\in$\P{i} corresponding to \myLambda(\vi{i}). Filtering algorithm returns as output the set of compatible services that match the policy.
 
-          Formally, let us consider a set $S^c$ of candidate services \si{j}, each one annotated with a profile. The filtering algorithm is executed for each \si{j}; it is successful if \si{j}'s profile satisfies \myLambda(\vi{i}) as the access control policy \P{i}; otherwise, \si{j} is discarded and not considered for selection. The filtering algorithm finally returns a subset $S'\subseteq S^c$ of compatible services, which represent the possible candidates for selection.
+    Formally, let us consider a set $S^c$ of candidate services \si{j}, each one having a profile as a set of attributes in the form (\emph{name}, \emph{value}). The filtering algorithm is executed for each \si{j}; it is successful if \si{j}'s profile satisfies at least one policy $p_k$$\in$\P{i}; otherwise, \si{j} is discarded and not considered for selection. The filtering algorithm finally returns a subset $S'\subseteq S^c$ of compatible services, among which the service instance is selected.
 
-    \item \textit{Comparison Algorithm} - Upon retrieving a set $S'$ of compatible services \si{j}, it produces a ranking of these services according to some metrics that evaluates the quality loss introduced by each service when integrated in the pipeline instance. More details about the metrics are provided in Section \ref{sec:metrics}.
-          %Formally, compatible services \si{j}$\in$S' are ranked on the basis of a scoring function.
-          The best service \si{j} is then selected and integrated in $\vii{i}\in \Vp$. There are many ways of choosing relevant metrics, we present those used in this article in Section \ref{sec:metrics}.
+    \item \textit{Comparison Algorithm} -- Upon retrieving a set $S'$ of compatible services \si{j}, it produces a ranking of these services according to some metrics that evaluates the quality loss introduced by each service when integrated in the pipeline instance. More details about the metrics are provided in Section \ref{sec:metrics}.
+    %Formally, compatible services \si{j}$\in$S' are ranked on the basis of a scoring function.
+    The best service $s'_i$ is then selected and integrated in $\vii{i}\in \Vp$. There are many ways of choosing relevant metrics, we present those used in this article in Section \ref{sec:metrics}.
   \end{itemize}
 
-  When all vertices $\vi \in V$ have been visited, G' contains a service instance $s'_i$ for each \vii{i}$\in$\Vp, and the \pipelineInstance is complete. We note that each vertex \vii{i} is annotated with a policy \P{i} according to \myLambda. When pipeline instance is triggered, before any services can be executed, policy \P{i} is evaluated and enforced. In case policy evaluation returns \emph{true}, data transformation \TP$\in$\P{i} is applied, otherwise a default transformation that delete all data is applied.
+  When all vertices $\vi{i}\in V$ have been visited, G' contains a service instance $s'_i$ for each \vii{i}$\in$\Vp, and the \pipelineInstance is complete. We note that each vertex \vii{i} is annotated with policies $p_k$$\in$\P{i} according to \myLambda. When pipeline instance is triggered, before any services can be executed, policies in \P{i} are evaluated and enforced. In case policy evaluation returns \emph{true}, data transformation \TP$\in$\P{i} is applied, otherwise a default transformation that removes all data is applied. 
 
 \begin{example}\label{ex:instance}
 

@@ -20,12 +20,10 @@ Our approach seeks to harmonize these objectives by establishing a data governan
   \item[User] that executes an analytics pipeline on the data. We assume that data target of the analytics pipeline are ready for analysis, that is, they underwent a preparatory phase addressing issues such as missing values, outliers, and formatting discrepancies. This ensures that the data are in an optimal state for subsequent analysis.
 \end{description}
 
-The \user starts its analytics by first selecting a pipeline template among a set of functionally-equivalent templates.
-The template is selected according to the \user\ non-functional requirements and then instantiated in a pipeline instance.
-\hl{In particular, for each component service in the template, a real service is selected among a list of candidate services in the instance.
-  Candidate services are functionally equivalent and comply with the privacy policies specified in the template}.
+%The \user starts its analytics by first selecting a pipeline template among a set of functionally-equivalent templates. The template is selected according to the \user\ non-functional requirements and then instantiated in a pipeline instance. In particular, for each component service in the template, a real service is selected among a list of compatible services in the instance. Compatible services are functionally equivalent and comply with the privacy policies specified in the template.
+The \user first selects a pipeline template among a set of functionally-equivalent templates according to its non-functional requirements. It then instantiates the template in a pipeline instance. To this aim, for each component service in the template, it retrieves a set of candidate services that satisfy the functional requirements of the component service. Candidate services are filtered to retrieve a list of compatible services that comply with the privacy policies specified in the template.
 
-Candidate services are ranked based on their ability to retain the maximum amount of information (\emph{data quality} in this paper), while maintaining a minimum level of privacy.
+Compatible services are ranked based on their ability to retain the maximum amount of information (\emph{data quality} in this paper), while maintaining a minimum level of privacy, and the best is selected to instantiate the corresponding component service in the template.
 Upon selecting the most suitable service for each component service in the pipeline template, the pipeline instance is completed and ready for execution.
 It is important to note that our data governance approach builds on the following assumption: \emph{upholding a larger quantity of data is linked to better data quality.}
 While this assumption is not true in all settings, it correctly represents many real-world scenarios. We leave a solution that departs from this assumption to our future work.
