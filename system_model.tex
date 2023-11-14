@@ -62,12 +62,35 @@ The user's preferences align with a predefined pipeline template that orchestrat
 
 We note that the template requires the execution of the entire service within a single country.
 If the data needs to be transmitted beyond the boundaries of Connecticut, data protection measures must be implemented.
-A visual representation of the flow is presented in Figure \ref{fig:service_composition_example}.
-
-\begin{figure}
-  \includegraphics[width=0.98\columnwidth]{service_composition_example}
-  \caption{Service composition example.}\label{fig:service_composition_example}
-
+A visual representation of the flow is presented in Figure \ref{fig:reference_scenario}.
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}[scale=0.9]
+    % Nodes
+    \node[draw ] (node1) at (0,8) {$\s{r}$};
+    \node[draw] (node2) at (0,7){Data Preparation };
+    \node[draw] (node25) at (0,6){Data Enrichment};
+    \node[draw] (node3) at (0,5) {$\timesOperator$};
+    \node[draw] (node4) at (-2,4) {Data Analysis};
+    \node[draw] (node5) at (2,4) {Machine Learning};
+    \node[draw] (node6) at (0,3) {$\timesOperator$};
+    \node[draw] (node7) at (-2,2) {Data Storage};
+    \node[draw] (node8) at (2,2) {Data Visualization};
+    \node[draw] (node9) at (0,1) {$\timesOperator$};
+    \draw[->] (node1) -- (node2);
+    \draw[->] (node2) -- (node25);
+    \draw[->] (node25) -- (node3);
+    \draw[->] (node3) -- (node4);
+    \draw[->] (node3) -- (node5);
+    \draw[->] (node5) -- (node6);
+    \draw[->] (node4) -- (node6);
+    \draw[->] (node6) -- (node7);
+    \draw[->] (node6) -- (node8);
+    \draw[->] (node8) -- (node9);
+    \draw[->] (node7) -- (node9);
+  \end{tikzpicture}
+  \caption{Reference Scenario}
+  \label{fig:reference_scenario}
 \end{figure}
 
 The adopted dataset\footnote{https://data.ct.gov/Public-Safety/Accused-Pre-Trial-Inmates-in-Correctional-Faciliti/b674-jy6w} exhibits a straightforward row-and-column structure.

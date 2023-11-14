@@ -76,33 +76,6 @@ We note that, at this stage, the template is not yet linked to any services, nor
 
 
 
-      \begin{figure}[ht!]
-        \centering
-        \begin{tikzpicture}[scale=0.9]
-          % Nodes
-          \node[draw ] (node1) at (0,1) {$\s{r}$};
-          \node[draw] (node2) at (0,2){$Data preparation $};
-          \node[draw] (node3) at (0,3) {$\timesOperator$};
-          \node[draw] (node4) at (-2,4) {$statistics$};
-          \node[draw] (node5) at (2,4) {$Machine Learning$};
-          \node[draw] (node6) at (0,5) {$\timesOperator$};
-          \node[draw] (node65) at (0,6) {$Storage$};
-
-          \draw[->] (node1) -- (node2);
-          \draw[->] (node2) -- (node3);
-          \draw[->] (node3) -- (node4);
-          \draw[->] (node3) -- (node5);
-          \draw[->] (node5) -- (node6);
-          \draw[->] (node4) -- (node6);
-          \draw[->] (node6) -- (node65);
-
-
-        \end{tikzpicture}
-        \caption{Pipeline Template}
-        \label{fig:service_composition_template}
-      \end{figure}
-
-
 
       % \begin{figure}[ht!]
       %   \centering

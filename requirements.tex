@@ -1,5 +1,14 @@
 \section{Requirements and System Model}\label{sec:requirements}
-Big data is highly dependent on cloud-edge computing, which makes extensive use of multi-tenancy. Multi-tenancy permits sharing one instance of infrastructures, platforms or applications by multiple tenants to optimize costs. This leads to common scenarios where a service provider offers subscription-based analytics capabilities in the cloud, or a single data lake is accessed by multiple customers. Thus, it is a common situation to have a big data pipeline where data and services belong to various organizations, posing a serious risk of potential privacy and security violation. In the following of this section, we present our system model (Section \ref{sec:systemmodel}), the requirements driving our work (Section \ref{sec:accesscontrol_req}), and our reference scenario (Section \ref{sec:reference}).
+Big data is highly dependent on cloud-edge computing, which makes extensive use of multi-tenancy.
+Multi-tenancy permits sharing one instance of infrastructures,
+platforms or applications by multiple tenants to optimize costs.
+This leads to common scenarios where a service provider offers subscription-based analytics capabilities in the cloud,
+or a single data lake is accessed by multiple customers.
+Thus, it is a common situation to have a big data pipeline where data and services belong to various organizations,
+posing a serious risk of potential privacy and security violation.
+In the following of this section, we present our system model (Section \ref{sec:systemmodel}),
+the requirements driving our work (Section \ref{sec:accesscontrol_req}),
+and our reference scenario (Section \ref{sec:reference}).
 
 \subsection{System Model}\label{sec:systemmodel}
 Our system is a coalition of organizations that collaboratively execute a Big Data pipeline where \emph{i)} organizations join without necessarily integrating their cloud-based or on-premises ICT infrastructures, \emph{ii)} collaborative processes are carried out involving multi-party data collection and analytics, iii) the pipeline can be executed in a centralized or distributed deployment.

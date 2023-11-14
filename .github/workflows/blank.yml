@@ -28,9 +28,6 @@ jobs:
 
       - name: Generate PDF document
         uses: hspaans/latexmk-action@v1
-        with:
-          format: pdf
-          filename: main.tex
 
       - name: Create Release
         id: create_release

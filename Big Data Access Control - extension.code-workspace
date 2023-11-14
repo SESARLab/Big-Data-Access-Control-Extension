@@ -203,6 +203,9 @@
 			".venv/lib/python3.11/site-packages/debugpy/_vendored/pydevd/_pydevd_frame_eval/pydevd_frame_evaluator.*.so": true,
 			".venv/lib/python3.11/site-packages/debugpy/_vendored/pydevd/_pydevd_frame_eval/pydevd_frame_evaluator.*.pyd": true,
 			".venv/lib/python3.11/site-packages/debugpy/_vendored/pydevd/_pydevd_frame_eval/pydevd_frame_evaluator.pyx": true
+		},
+		"files.associations": {
+			"*.tikz": "latex"
 		}
 	}
 }
