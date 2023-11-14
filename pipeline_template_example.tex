@@ -13,7 +13,15 @@ if the service profile match with the data owner, \P{1} is satisfied and the dat
 if the service profile match with a partner of the owner, \P{2} is satisfied and the data is partially anonymized;
 if the service profile doesn't match with a partner nor with the owner, \P{3} is satisfied and the data is fully anonymized.
 
-The second stage is responsible for data enrichment. The policy annotation $p$, associated with the second stage,
+The second stage is responsible for data enrichment. The policy annotation $p$, associated with the second stage.
+The service should download the dataset from the other partner facilities, enriching the dataset of the Connecticut facility, the policy are the same as the first stage (\p{1},\p{2},p{3}).
+if the service is made by the data owner, the owner dataset is not anonymized, but the partner dataset is partially anonymized.
+if the service is made by ther partners, the owner dataset is partially anonymized as well as the partner dataset.
+if the service is made by a third party, the owner dataset is fully anonymized as well as the partner dataset.
+
+
+
+
 
 The third stage, responsible for data analysis and statistics, adopts policies analogous to the first stage. The logic remains consistent:
 if the service profile match with the data owner, \P{1} is satisfied and the data computation is made on non anonymized data;
