@@ -1,22 +1,58 @@
 \subsection{Example}\label{sec:example}
-As an example, let us consider a pipeline template $G^{\myLambda,\myGamma}$ as a sequence of three vertices modeling three key stages in our reference scenario: data preparation (\vi{1}), data enrichment (\vi{2}), and data storage (\vi{3}). Each stage is annotated with its policy set \P{i} and functional description \F{i}. Table~\ref{table:example} reports the policies and functional descriptions for each vertex, which are presented in the following.
 
-%\begin{enumerate*}[label=n\arabic*)]
-%  \item
-The first vertex (\vi{1}) is responsible for data preparation.
-It specifies an anonymization policy ($\myLambda(v_1)$) to protect sensitive information, such as personally identifiable information (PII) in the dataset.
-The transformation function \TF{1} in $\myGamma(v_1)$ is an empty function \tf{a}, as no functional transformation is required for anonymization.
-%   \item
 
-The second vertex (\vi{2}) focuses on data enrichment, where additional information from the states of New York and New Hampshire is integrated into the dataset.
-It requires a data enrichment policy ($\myLambda(v_2)$) to ensure that the added data are relevant and comply with privacy regulations.
-The transformation function \TF{2} in $\myGamma(v_2$) is an additive function \tf{a}, which merges and integrates the external data with the existing dataset.
-  %  \item
+As an example, let us consider the pipeline template \tChartFunction in \cref{sec:example}.
 
-  The third vertex (\vi{3}) is responsible for aggregating data, including statistical measures like averages, medians, and some more statistics.
-  It follows an aggregation policy ($\myLambda(v_3)$) to define how the aggregation should be performed, and ensure compliance with privacy and security regulations.
-  The transformation function \TF{3} in $\myGamma(v_3)$ is a transformation function \tf{t}, which computes the required statistics and aggregates the data.
-%\end{enumerate*}
+In this example all the policies referenced are detailed in table \ref{tab:anonymization}.
+We assume that the data owner is the Connecticut Prison (CTP) and that this facility has a partnership with two others, namely New York Prison and New Hampshire Prison.
+
+The first stage is responsible for data anonymization. The  policy annotation \P{i}, associated with the first stage,
+specifies three degree of anonymization : \emph{none}, \emph{partial}, and \emph{full}.
+During service execution, the policy is assessed:
+if the service profile match with the data owner, \P{1} is satisfied and the data is not anonymized;
+if the service profile match with a partner of the owner, \P{2} is satisfied and the data is partially anonymized;
+if the service profile doesn't match with a partner nor with the owner, \P{3} is satisfied and the data is fully anonymized.
+
+The second stage is responsible for data enrichment. The policy annotation $p$, associated with the second stage,
+
+The third stage, responsible for data analysis and statistics, adopts policies analogous to the first stage. The logic remains consistent:
+if the service profile match with the data owner, \P{1} is satisfied and the data computation is made on non anonymized data;
+if the service profile match with a partner of the owner, \P{2} is satisfied and the data computation is made on partially anonymized data;
+if the service profile doesn't match with a partner nor with the owner, \P{3} is satisfied and the data computation is made on fully anonymized data.
+The fourth stage is responsible for machine learning tasks:
+policy \p{4} applies, thus we always aim to anonymize the dataset to avoid any personal identifiers entering into the machine learning algorithm/model.
+The fifth stage is responsible for storing data. As stated in policy annotation \P{5}, if the service is located in the facility itself, the data will not be anonymized.
+If the service is located in a partner region, the data will be partially anonymized.
+
+The sixth stage is responsible for data visualization. As stated in policy annotation \P{6}, if the user is member of the facility itself, the data will not be anonymized.
+If the user is member of a partner facility, the data will be partially anonymized.
+If the user is not member of the facility nor a partner, the data will be fully anonymized.
+
+
+
+
+
+\begin{table*}[ht!]
+  \centering
+  \bgroup
+  \def\arraystretch{1.5}
+  \begin{tabular}{c|c||l}
+    \textbf{Policy} & \textbf{Service} & \textbf{Anonymization}                                                                                \\ \hline
+
+    $\p{1}$         & \s{1}            & \policy{$\langle service,owner=``CTP"\rangle$}{dataset}{READ}{ANY}{\varnothing}                       \\
+    $\p{2}$         & \s{1}            & \policy{$\langle service,owner=partner(``CTP") \rangle$}{dataset}{READ}{ANY}{light\_anonymization}    \\
+    $\p{3}$         & \s{1}            & \policy{$\langle service,owner=``Connecticut Prison"$}{dataset}{READ}{ANY}{full\_anonymization}       \\
+    $\p{4}$         & \s{4}            & \policy{ANY}{dataset}{READ}{ANY}{full\_anonymization}                                                 \\
+    $\p{5}$         & \s{5}            & \policy{$\langle service,region=``FACILITY"\rangle$}{dataset}{WRITE}{ANY}{none}                       \\
+    $\p{6}$         & \s{5}            & \policy{$\langle service,region=``{CT,NY,NH}"\rangle$}{dataset}{WRITE}{ANY}{light\_anonymization}     \\
+    $\p{7}$         & \s{6}            & \policy{$\langle,user,role=   ``Connecticut Prison Officer"$}{dataset} {READ}{ANY}{none}              \\
+    $\p{7}$         & \s{6}            & \policy{$\langle,user,role=   ``Partener Prison Officer"$}{dataset} {READ}{ANY}{light\_anonymization} \\
+    $\p{8}$         & \s{6}            & \policy{$\langle,user,role=   ``Any"$}{dataset} {READ}{ANY}{full\_anonymization}                      \\
+  \end{tabular}
+  \egroup
+  \caption{Anonymization policies}
+  \label{tab:anonymization}
+\end{table*}
 
 \begin{figure}[ht!]
   \centering
