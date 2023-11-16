@@ -3,9 +3,42 @@
   As an example, let us consider the pipeline template \tChartFunction in \cref{sec:example}.
   It includes three key stages in our reference scenario: data anonymization (\vi{1}), data enrichment (\vi{2}), and data aggregation (\vi{3}), each stage with its policy $p$.
 
-  The first vertex (\vi{1}) responsible for data anonymization is associated with three candidate services that satisfy the functional requirements of the first vertex, namely $s_1$, $s_2$ and $s_3$.
-  Services $s_1$ and $s_2$ are annotated with a profile that satisfies the data protection requirements in \P{1}, respectively.
-  The third service $s_3$ is annotated with a profile that does not satisfy the data protection requirements in \P{1}.
+
+  \begin{table*}
+    \caption{Services and their quality metrics.}
+    \label{tab:services}
+    \centering
+    \begin{tabular}[t]{ccc}
+      \toprule
+      \textbf{Stage} & \textbf{Transformation} & \textbf{Service} \\
+      \midrule
+      \vi{1}         & $p_1$                   & $s_1$            \\
+      \vi{1}         & $p_1$                   & $s_2$            \\
+      \vi{2}         & $p_2$                   & $s_3$            \\
+      \vi{2}         & $p_2$                   & $s_4$            \\
+      \vi{3}         & $p_3$                   & $s_5$            \\
+      \vi{3}         & $p_3$                   & $s_6$            \\
+      \bottomrule
+    \end{tabular}
+    \hspace{1em}
+    \begin{tabular}[t]{c|c}
+      \toprule
+      \textbf{Type}   & \textbf{Transformation} \\
+      \midrule
+      $\TF{\epsilon}$ & $Empty $                \\
+      $\TF{a}$        & $Additive$              \\
+      $\TF{t}$        & $Transformation$        \\
+      $\TF{d}$        & $Domain Change$         \\
+      \bottomrule
+    \end{tabular}
+
+  \end{table*}
+
+  The second stage \vi{1} is a preprocessing and cleaning serivce,
+  which implements
+
+
+
   The filtering algorithm then returns the set $S'=\{s_1,s_2\}$.
   The comparison algorithm is finally applied to $S'$ and returns a ranking of the services according to quality metrics, where $s_1$ is ranked first. $s_1$ is then selected and integrated in $\vii{1}\in \Vp$.
 
