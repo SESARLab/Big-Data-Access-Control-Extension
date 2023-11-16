@@ -1,45 +1,54 @@
 \subsection{Example}\label{sec:example}
 
+In this section, we present an illustrative pipeline template, concentrating on the policy annotations.
+The pipeline template consists of six stages, and each stage is noted with a policy.
+All these policies are outlined in \cref{tab:anonymization}.
+Additionally, \cref{tab:dataset} shows a sample of the dataset.
+It is assumed that the Connecticut Prison (CTP) is the data owner, with partnerships with two other facilities, namely New York Prison and
+New Hampshire Prison.
 
-As an example, let us consider the pipeline template \tChartFunction in \cref{sec:example}.
+In the following we will make reference to three different type of anonymization:
+\begin{enumerate*}[label=\roman*)]
+  \item \emph{none} (\tf{1}): no anonymization is performed;
+  \item \emph{light} (\tf{2}): the data is partially anonymized, only the first name and last name are anonymized;
+  \item \emph{full} (\tf{3}): the data is fully anonymized: first name, last name, identifier and age are anonymized.
+\end{enumerate*}
+Let us consider the pipeline template \tChartFunction in \cref{sec:example},
+% 1° NODO %
+The first vertex is responsible for data anonymization and is associated with three policies (\p{1},\p{2},\p{3}).
+During the node execution, the policies are assessed:
+if the service profile matches with the data owner ($owner = ``CTP"$), \p{1} is satisfied and the data is not anonymized (\tf{1});
+if the service profile matches with a partner of the owner ($owner = ``CTP"$), \p{2} is satisfied and the data is partially anonymized (\tf{2});
+if the service profile doesn't match with a partner nor with the owner ($owner = ``CTP"$), \p{3} is satisfied and the data is fully anonymized (\tf{3}).
+% 2° NODO %
+The second vertex is responsible for enriching the data.
+The service downloads the dataset from partner facilities and enhances the dataset of the Connecticut facility.
+The policies are consistent with those of the first stage (\p{1},\p{2},p{3}).
+if the service is \hl{made} by the data owner ($\langle owner = ``CTP" \rangle$), the owner dataset remains unaltered (\tf{0}), whereas the partner dataset is partially anonymized .
+if the service is \hl{made} by their partners ($\langle owner = ``CTP" \rangle$), the owner dataset is partially anonymized as well as the partner dataset.
+if the service is \hl{made} by a third party ($\langle owner = ``CTP" \rangle$), the owner dataset is fully anonymized as well as the partner dataset.
+% 3° NODO %
+The third vertex, is responsible for data analysis and statistics,
+it adopts policies analogous to the first stage. The logic remains consistent:
+if the service profile matches with the data owner ($\langle owner = ``CTP" \rangle$), \p{1} is satisfied and the data computation is made on non anonymized data (\tf{1});
+if the service profile matches with a partner of the owner ($\langle owner = partner(``CTP") \rangle$), \p{2} is satisfied and the data computation is made on partially anonymized data (\tf{2});
+if the service profile doesn't match with a partner nor with the owner ($\langle owner = ``any" \rangle$), \p{3} is satisfied and the data computation is made on fully anonymized data (\tf{3}).
+% 4° NODO %
+The fourth vertex is responsible for machine learning tasks:
+The policy guidelines recommend anonymizing all datasets to prevent personal identifiers from entering into the machine learning algorithm/model (\tf{3}).
+% 5° NODO %
+The fifth vertex manages data storage.
+If the service is within the facility itself ($\langle service,region=FACILITY"\rangle$), \p{5} is satisfied, resulting in data anonymization (\tf{1}).
+Otherwise, if the service is in a partner region ($\langle service,region={CT,NY,NH}"\rangle$), the data undergo partial anonymization (\tf{2}).
+% 6° NODO %
+The sixth vertex is responsible for data visualization.
+As stated in policy annotation \p{6}, if the user is member of the facility itself, the data are not anonymized (\tf{1}).
+If the user is member of a partner facility, the data are  partially anonymized (\tf{2}).
+If the user is not member of the facility nor a partner, the data are fully anonymized (\tf{3}).
 
-In this example all the policies referenced are detailed in table \ref{tab:anonymization}.
-We assume that the data owner is the Connecticut Prison (CTP) and that this facility has a partnership with two others, namely New York Prison and New Hampshire Prison.
 
-The first stage is responsible for data anonymization. The  policy annotation \P{i}, associated with the first stage,
-specifies three degree of anonymization : \emph{none}, \emph{partial}, and \emph{full}.
-During service execution, the policy is assessed:
-if the service profile match with the data owner, \P{1} is satisfied and the data is not anonymized;
-if the service profile match with a partner of the owner, \P{2} is satisfied and the data is partially anonymized;
-if the service profile doesn't match with a partner nor with the owner, \P{3} is satisfied and the data is fully anonymized.
-
-The second stage is responsible for data enrichment. The policy annotation $p$, associated with the second stage.
-The service should download the dataset from the other partner facilities, enriching the dataset of the Connecticut facility, the policy are the same as the first stage (\p{1},\p{2},p{3}).
-if the service is made by the data owner, the owner dataset is not anonymized, but the partner dataset is partially anonymized.
-if the service is made by ther partners, the owner dataset is partially anonymized as well as the partner dataset.
-if the service is made by a third party, the owner dataset is fully anonymized as well as the partner dataset.
-
-
-
-
-
-The third stage, responsible for data analysis and statistics, adopts policies analogous to the first stage. The logic remains consistent:
-if the service profile match with the data owner, \P{1} is satisfied and the data computation is made on non anonymized data;
-if the service profile match with a partner of the owner, \P{2} is satisfied and the data computation is made on partially anonymized data;
-if the service profile doesn't match with a partner nor with the owner, \P{3} is satisfied and the data computation is made on fully anonymized data.
-The fourth stage is responsible for machine learning tasks:
-policy \p{4} applies, thus we always aim to anonymize the dataset to avoid any personal identifiers entering into the machine learning algorithm/model.
-The fifth stage is responsible for storing data. As stated in policy annotation \P{5}, if the service is located in the facility itself, the data will not be anonymized.
-If the service is located in a partner region, the data will be partially anonymized.
-
-The sixth stage is responsible for data visualization. As stated in policy annotation \P{6}, if the user is member of the facility itself, the data will not be anonymized.
-If the user is member of a partner facility, the data will be partially anonymized.
-If the user is not member of the facility nor a partner, the data will be fully anonymized.
-
-
-
-
-
+In summary, this section has delineated a comprehensive pipeline template.
+This illustrative pipeline serves as a blueprint, highlighting the role of policy implementation in safeguarding data protection across diverse operational stages.
 \begin{table*}[ht!]
   \centering
   \caption{Anonymization policies}
@@ -48,46 +57,48 @@ If the user is not member of the facility nor a partner, the data will be fully 
   \def\arraystretch{1.5}
 
   \begin{tabular}[t]{c|c|l}
-    \textbf{Service} & \textbf{Policy} & \textbf{\policy{subject}{object}{action}{environment}{transformation}}                          \\ \hline
+    \textbf{Vertex}      & \textbf{Policy} & \policy{subject}{object}{action}{environment}{transformation}                                   \\ \hline
 
-    \vi{1}           & $\p{1}$         & \policy{$\langle service,owner=``CTP"\rangle$}{dataset}{READ}{ANY}{ \tf{1}    }                 \\
-    \vi{1}           & $\p{2}$         & \policy{$\langle service,owner=partner(``CTP") \rangle$}{dataset}{READ}{ANY}{   \tf{2} }        \\
-    \vi{1}           & $\p{3}$         & \policy{$\langle service,owner=``Connecticut Prison"$}{dataset}{READ}{ANY}{    \tf{3}  }        \\
-    \vi{4}           & $\p{4}$         & \policy{ANY}{dataset}{READ}{ANY}{    \tf{3}  }                                                  \\
-    \vi{5}           & $\p{5}$         & \policy{$\langle service,region=``FACILITY"\rangle$}{dataset}{WRITE}{ANY}{ \tf{1}    }          \\
-    \vi{5}           & $\p{6}$         & \policy{$\langle service,region=``{CT,NY,NH}"\rangle$}{dataset}{WRITE}{ANY}{   \tf{2} }         \\
-    \vi{6}           & $\p{7}$         & \policy{$\langle user,role=   ``Connecticut Prison Officer"$}{dataset} {READ}{ANY}{ \tf{1}    } \\
-    \vi{6}           & $\p{7}$         & \policy{$\langle user,role=   ``Partener Prison Officer"$}{dataset} {READ}{ANY}{   \tf{2} }     \\
-    \vi{6}           & $\p{8}$         & \policy{$\langle user,role=   ``Any"$}{dataset} {READ}{ANY}{    \tf{3}  }                       \\
+    \vi{1},\vi{2},\vi{3} & $\p{1}$         & \policy{$\langle service,owner=``CTP"\rangle$}{dataset}{READ}{ANY}{ \tf{1}    }                 \\
+    \vi{1},\vi{2},\vi{3} & $\p{2}$         & \policy{$\langle service,owner=partner(``CTP") \rangle$}{dataset}{READ}{ANY}{   \tf{2} }        \\
+    \vi{1},\vi{2},\vi{3} & $\p{3}$         & \policy{$\langle service,owner=``Any"$}{dataset}{READ}{ANY}{    \tf{3}  }                       \\
+    \vi{4}               & $\p{4}$         & \policy{ANY}{dataset}{READ}{ANY}{    \tf{3}  }                                                  \\
+    \vi{5}               & $\p{5}$         & \policy{$\langle service,region=``FACILITY"\rangle$}{dataset}{WRITE}{ANY}{ \tf{1}    }          \\
+    \vi{5}               & $\p{6}$         & \policy{$\langle service,region=``\{CT,NY,NH\}"\rangle$}{dataset}{WRITE}{ANY}{   \tf{2} }       \\
+    \vi{6}               & $\p{7}$         & \policy{$\langle user,role=   ``Connecticut Prison Officer"$}{dataset} {READ}{ANY}{ \tf{1}    } \\
+    \vi{6}               & $\p{7}$         & \policy{$\langle user,role=   ``Partener Prison Officer"$}{dataset} {READ}{ANY}{   \tf{2} }     \\
+    \vi{6}               & $\p{8}$         & \policy{$\langle user,role=   ``Any"$}{dataset} {READ}{ANY}{    \tf{3}  }                       \\
   \end{tabular}
 
   \begin{tabular}[t]{c|c|c}
-    \textbf{\tf{i}} & \textbf{Transformation} & \textbf{Columns Anonymized}                 \\\hline
-    \tf{1}          & none                    & $\varnothing$                               \\
-    \tf{2}          & light\_anonymization    & \{ FIRST NAME, LAST NAME \}                 \\
-    \tf{3}          & full\_anonymization     & \{ FIRST NAME, LAST NAME, IDENTIFIER,AGE \} \\
+    \textbf{\tf{i}} & \textbf{Anonymization} & \textbf{Columns Anonymized}                 \\\hline
+    \tf{1}          & none                   & $\varnothing$                               \\
+    \tf{2}          & light                  & \{ FIRST NAME, LAST NAME \}                 \\
+    \tf{3}          & full                   & \{ FIRST NAME, LAST NAME, IDENTIFIER,AGE \} \\
   \end{tabular}
 
   \egroup
 \end{table*}
 \vspace{2em}
 \begin{table*}[!ht]
+  \caption{Dataset sample}
+  \label{tab:dataset}
   \centering
   \begin{adjustbox}{max totalsize={.99\linewidth}{\textheight},center}
     \bgroup
     \def\arraystretch{1.5}
     \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|}
       \hline
-      \textbf{DOWNLOAD DATE} & \textbf{IDENTIFIER} & \textbf{LAD} & \textbf{RACE} & \textbf{GENDER} & \textbf{AGE} & \textbf{BOND} & \textbf{OFFENSE}     & \textbf{\dots} & \textbf{FIRST NAME} & \textbf{LAST NAME} \\ \hline
-      05/15/2020             & ZZHCZBZZ            & 08/16/2018   & BLACK         & M               & 27           & 150000        & CRIMINAL POSS \dots  & \dots          & ROBERT              & PIERCE             \\ \hline
-      05/15/2020             & ZZHZZRLR            & 03/28/2019   & HISPANIC      & M               & 41           & 30100         & VIOLATION OF P\dots  & \dots          & KYLE                & LESTER             \\ \hline
-      05/15/2020             & ZZSRJBEE            & 04/03/2020   & HISPANIC      & M               & 21           & 150000        & CRIMINAL ATTEM\dots  & \dots          & JASON               & HAMMOND            \\ \hline
-      05/15/2020             & ZZHBJLRZ            & 01/15/2020   & WHITE         & M               & 36           & 50500         & CRIM VIOL OF P\dots  & \dots          & ERIC                & TOWNSEND           \\ \hline
-      05/15/2020             & ZZSRRCHH            & 12/26/2018   & HISPANIC      & M               & 29           & 100000        & CRIMINAL ATTEM\dots  & \dots          & MICHAEL             & WHITE              \\ \hline
-      05/15/2020             & ZZEJCZWW            & 01/03/2020   & WHITE         & M               & 54           & 100000        & CRIM VIOL OF P\dots  & \dots          & JOHN                & HARPER             \\ \hline
-      05/15/2020             & ZZHJBJBR            & 03/19/2020   & HISPANIC      & M               & 35           & 100000        & CRIM VIOL ST C\dots  & \dots          & KENNETH             & JUAREZ             \\ \hline
-      05/15/2020             & ZZESESZW            & 12/03/2018   & WHITE         & M               & 55           & 50000         & ASSAULT 2ND, V\dots  & \dots          & MICHAEL             & SANTOS             \\ \hline
-      05/15/2020             & ZZRCSHCZ            & 05/13/2020   & BLACK         & M               & 43           & 10000         & INTERFERING WIT\dots & \dots          & CHRISTOPHER         & JONES              \\ \hline
+      \textbf{DOWNLOAD DATE} & \textbf{IDENTIFIER} & \textbf{FIRST NAME} & \textbf{LAST NAME} & \textbf{LAD} & \textbf{RACE} & \textbf{GENDER} & \textbf{AGE} & \textbf{BOND} & \textbf{OFFENSE}     & \textbf{\dots} \\ \hline
+      05/15/2020             & ZZHCZBZZ            & ROBERT              & PIERCE             & 08/16/2018   & BLACK         & M               & 27           & 150000        & CRIMINAL POSS \dots  & \dots          \\ \hline
+      05/15/2020             & ZZHZZRLR            & KYLE                & LESTER             & 03/28/2019   & HISPANIC      & M               & 41           & 30100         & VIOLATION OF P\dots  & \dots          \\ \hline
+      05/15/2020             & ZZSRJBEE            & JASON               & HAMMOND            & 04/03/2020   & HISPANIC      & M               & 21           & 150000        & CRIMINAL ATTEM\dots  & \dots          \\ \hline
+      05/15/2020             & ZZHBJLRZ            & ERIC                & TOWNSEND           & 01/15/2020   & WHITE         & M               & 36           & 50500         & CRIM VIOL OF P\dots  & \dots          \\ \hline
+      05/15/2020             & ZZSRRCHH            & MICHAEL             & WHITE              & 12/26/2018   & HISPANIC      & M               & 29           & 100000        & CRIMINAL ATTEM\dots  & \dots          \\ \hline
+      05/15/2020             & ZZEJCZWW            & JOHN                & HARPER             & 01/03/2020   & WHITE         & M               & 54           & 100000        & CRIM VIOL OF P\dots  & \dots          \\ \hline
+      05/15/2020             & ZZHJBJBR            & KENNETH             & JUAREZ             & 03/19/2020   & HISPANIC      & M               & 35           & 100000        & CRIM VIOL ST C\dots  & \dots          \\ \hline
+      05/15/2020             & ZZESESZW            & MICHAEL             & SANTOS             & 12/03/2018   & WHITE         & M               & 55           & 50000         & ASSAULT 2ND, V\dots  & \dots          \\ \hline
+      05/15/2020             & ZZRCSHCZ            & CHRISTOPHER         & JONES              & 05/13/2020   & BLACK         & M               & 43           & 10000         & INTERFERING WIT\dots & \dots          \\ \hline
     \end{tabular}
     \egroup
   \end{adjustbox}
