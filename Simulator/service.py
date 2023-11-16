@@ -1,8 +1,8 @@
 class Service():
-  def __init__(self, policy, data):
+  def __init__(self,policy,data):
     self.policy = policy
     self.data = data
 
   def run(self):
-    print(self.data)
-    print(self.policy)
+    print("Service {} running".format(self.data))
+

@@ -364,5 +364,6 @@ Temporary Items
 .ionide
 main.pdf
 .venv/
+venv
 # End of https://www.toptal.com/developers/gitignore/api/latex,macos,visualstudiocode
 */*.csv
