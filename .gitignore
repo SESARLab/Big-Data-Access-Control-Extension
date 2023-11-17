@@ -367,3 +367,4 @@ main.pdf
 venv
 # End of https://www.toptal.com/developers/gitignore/api/latex,macos,visualstudiocode
 */*.csv
+__pycache__/
