@@ -1,12 +1,12 @@
 \subsection{Example}\label{sec:example}
-\newcommand{\pone}{$\langle service,owner=dataset.owner\rangle$}
-\newcommand{\ptwo}{$\langle service,owner=partner(dataset.owner) \rangle$}
-\newcommand{\pthree}{$\langle service, owner \neq dataset.owner AND owner \neq partner(dataset.owner)$}
+\newcommand{\pone}{$\langle service\_owner=dataset\_owner\rangle$}
+\newcommand{\ptwo}{$\langle service\_owner=partner(dataset\_owner) \rangle$}
+\newcommand{\pthree}{$\langle service\_owner \neq dataset\_owner AND owner \neq partner(dataset\_owner)$}
 
 
 We present an example of pipeline template focusing on policy annotations. The pipeline template consists of five stages, and each stage is annotated with a policy presented in \cref{tab:anonymization}. \hl{Connecticut Prison (CTP) is the service user executing the pipeline. New York Prison and New Hampshire Prison are two partner DOC.}\hl{SPOSTARE NEL SYSTEM MODEL? SI, MA DATA OWNER DIPENDE DAL DATASET, HO MESSO SERVICE USER} We recall that \cref{tab:dataset} shows a sample of our reference dataset.
 
-In the following we will make reference to three different type of anonymization:\hl{E' GIUSTO USARE \tf{i}? SPOSTIAMO PRIMA?}
+In the following we will make reference to three different type of anonymization:\hl{E' GIUSTO USARE}\tf{i}\hl{? SPOSTIAMO PRIMA?}
 \begin{enumerate*}[label=\roman*)]
   \item \emph{level0} (\tf{0}): no anonymization is performed;
   \item \emph{level1} (\tf{1}): the data is partially anonymized, only the first name and last name are anonymized;
@@ -56,9 +56,8 @@ The functional requirement specifies a dataset as input, and the output is the v
 %In summary, this section has delineated a comprehensive pipeline template. This illustrative pipeline serves as a blueprint, highlighting the role of policy implementation in safeguarding data protection across diverse operational stages.
 \begin{table*}[ht!]
   \centering
-  \caption{Anonymization policies}
-  \label{tab:anonymization}
-  \bgroup
+  \caption{Anonymization policies}\label{tab:anonymization}
+%  \bgroup
   \def\arraystretch{1.5}
 
   \begin{tabular}[t]{c|c|l}
