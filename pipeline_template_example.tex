@@ -4,14 +4,9 @@
 \newcommand{\pthree}{$\langle service, owner \neq dataset.owner AND owner \neq partner(dataset.owner)$}
 
 
-In this section, we present an illustrative pipeline template, concentrating on the policy annotations.
-The pipeline template consists of five stages, and each stage is noted with a policy.
-All these policies are outlined in \cref{tab:anonymization}.
-we recall that, \cref{tab:dataset} shows a sample of the dataset.
-\hl{It is assumed that the Connecticut Prison (CTP) is the data owner, with partnerships with two other facilities, namely New York Prison and
-  New Hampshire Prison.}\hl{SPOSTARE NEL SYSTEM MODEL?}
+We present an example of pipeline template focusing on policy annotations. The pipeline template consists of five stages, and each stage is annotated with a policy presented in \cref{tab:anonymization}. \hl{Connecticut Prison (CTP) is the service user executing the pipeline. New York Prison and New Hampshire Prison are two partner DOC.}\hl{SPOSTARE NEL SYSTEM MODEL? SI, MA DATA OWNER DIPENDE DAL DATASET, HO MESSO SERVICE USER} We recall that \cref{tab:dataset} shows a sample of our reference dataset.
 
-In the following we will make reference to three different type of anonymization:
+In the following we will make reference to three different type of anonymization:\hl{E' GIUSTO USARE \tf{i}? SPOSTIAMO PRIMA?}
 \begin{enumerate*}[label=\roman*)]
   \item \emph{level0} (\tf{0}): no anonymization is performed;
   \item \emph{level1} (\tf{1}): the data is partially anonymized, only the first name and last name are anonymized;
@@ -20,8 +15,7 @@ In the following we will make reference to three different type of anonymization
 
 Let us consider the pipeline template \tChartFunction in \cref{sec:example},
 % 1° NODO %
-The first stage consists of three parallel vertices (\vi{1}, \vi{2}, \vi{3}) and focuses on data collection without applying any policies.
-The functional requirement necessitates a URI as input, and the output is the downloaded dataset.
+The first stage consists of three parallel vertices (\vi{1}, \vi{2}, \vi{3}) and focuses on data collection without applying any policies.\hl{IN REALTA' APPLICHIAMO UNA POLITICA DI ACCESSO CON EMPTY TRANSFORMATION.} The functional requirement necessitates a URI as input, and the output is the downloaded dataset.
 
 The second stage incorporates a sole vertex, which merges the three datasets obtained from the previous stages and is associated with three policies (\p{1},\p{2},\p{3}).
 The policies are evaluated during the node execution:
@@ -31,38 +25,35 @@ The policies are evaluated during the node execution:
 % 2° NODO %
 %he second vertex is responsible for enriching the data.
 %The service downloads the dataset from partner facilities and enhances the dataset of the Connecticut facility.
-
-if the service is by the data owner (\pone), which means that if the service owner is the same as the dataset owner, the owner dataset is not anonymized (\tf{0}).
-if the service is by their partners (\ptwo), which means that if the service owner is a partner of the dataset owner, the dataset is level2 anonymized (\tf{1}).
-if the service is by a third party  (\pthree), which means that if the service owner is neither the dataset owner nor a partner of the dataset owner, the dataset is level3 anonymized (\tf{2}).
-The functional requirement necessitates $n$ datasets as input, and the output is the merged dataset.
+if the service is by the data owner (\pone), which means that if the service owner is the same as the dataset owner, the dataset is not anonymized (\tf{0}).
+if the service is a partner of the data owner (\ptwo), which means that if the service owner is a partner of the dataset owner, the dataset is anonymized level1 (\tf{1}).
+if the service is a third party (\pthree), which means that if the service owner is neither the dataset owner nor a partner of the dataset owner, the dataset is anonymized level2 (\tf{2}).
+The functional requirement specifies $n$ datasets as input, and the output is the merged dataset.
 % 3° NODO %
 The third stage, is responsible both for data analysis/statistics and machine learning tasks.
 The stage is composed of two alternative vertices respectively \vi{4}, \vi{5}.
 
 Data analytics vertex adopts policies analogous to the second stage. The logic remains consistent:
-if the service profile matches with the data owner (\pone), \p{1} is satisfied and the data computation is made level0 anonymized data (\tf{0});
-if the service profile matches with a partner of the owner (\ptwo), \p{2} is satisfied and the data computation is made on level1 anonymized data (\tf{1});
-if the service profile doesn't match with a partner nor with the owner (\pthree), \p{3} is satisfied and the data computation is made on level3 data (\tf{2}).
-The functional requirement necessitates a dataset as input, and the output is the computes statistics.
+if the service profile matches with the data owner (\pone), \p{1} is satisfied and the data computation is made on clean data (\tf{0});
+if the service profile matches with a partner of the owner (\ptwo), \p{2} is satisfied and the data computation is made on data anonymized level1 (\tf{1});
+if the service profile doesn't match with a partner nor with the owner (\pthree), \p{3} is satisfied and the data computation is made on data anonymized level2  (\tf{2}).
+The functional requirement specifies a dataset as input, and the output is the computed statistics.
 % 4° NODO %
-Machine Learning vertex adopts always a level3 anonymization (\p(4)) to prevent personal identifiers from entering into the machine learning algorithm/model (\tf{2}).
-The functional requirement necessitates a dataset as input, and the output is the trained model or an inference.
+Machine Learning vertex adopts always a level2 anonymization (\p(4)) to prevent personal identifiers from entering into the machine learning algorithm/model (\tf{2}).
+The functional requirement specifies a dataset as input, and the output is the trained model or an inference.
 % 5° NODO %
 The fifth stage manages data storage.
-If the service is within the facility itself ($\langle service,region=FACILITY"\rangle$), \p{5} is satisfied, resulting in data anonymization (\tf{1}).
-Otherwise, if the service is in a partner region ($\langle service,region={CT,NY,NH}"\rangle$), the data undergo partial anonymization (\tf{2}).
-The functional requirement necessitates some data as input, and the output is the URI of the stored data.
+If the service is within the facility itself ($\langle service,region=FACILITY"\rangle$), \p{5} is satisfied, resulting in data anonymization level1 (\tf{1}).
+Otherwise, if the service is in a partner region ($\langle service,region={CT,NY,NH}"\rangle$), the data undergo anonymization level2 (\tf{2}).
+The functional requirement specifies some\hl{?} data as input, and the output is the URI of the stored data.
 % 6° NODO %
 The sixth stage is responsible for data visualization.
-As stated in policy annotation \p{6}, if the user is member of the facility itself, the data are level0 anonymized (\tf{0}).
-If the user is member of a partner facility, the data are  level2 anonymized (\tf{2}).
-If the user is not member of the facility nor a partner, the data are level2 anonymized (\tf{3}).
-The functional requirement necessitates a dataset as input, and the output is the visualization of the data.
+As stated in policy annotation \p{6}, if the user is member of the facility itself, the data are anonymized level0 (\tf{0}).
+If the user is member of a partner facility, the data are anonymized level1 (\tf{2}).
+If the user is not member of the facility nor a partner, the data are anonymized level2 (\tf{3}).
+The functional requirement specifies a dataset as input, and the output is the visualization of the data.
 
-
-In summary, this section has delineated a comprehensive pipeline template.
-This illustrative pipeline serves as a blueprint, highlighting the role of policy implementation in safeguarding data protection across diverse operational stages.
+%In summary, this section has delineated a comprehensive pipeline template. This illustrative pipeline serves as a blueprint, highlighting the role of policy implementation in safeguarding data protection across diverse operational stages.
 \begin{table*}[ht!]
   \centering
   \caption{Anonymization policies}
@@ -73,23 +64,22 @@ This illustrative pipeline serves as a blueprint, highlighting the role of polic
   \begin{tabular}[t]{c|c|l}
     \textbf{Vertex} & \textbf{Policy} & \policy{subject}{object}{action}{environment}{transformation}                                   \\ \hline
 
-    \vi{M}          & $\p{1}$         & \policy{\pone}{dataset}{READ}{ANY}{ \tf{1}    }                                                 \\
-    \vi{M}          & $\p{2}$         & \policy{\ptwo}{dataset}{READ}{ANY}{   \tf{2} }                                                  \\
-    \vi{M}          & $\p{3}$         & \policy{\pthree}{dataset}{READ}{ANY}{    \tf{3}  }                                              \\
-    \vi{4}          & $\p{4}$         & \policy{ANY}{dataset}{READ}{ANY}{    \tf{3}  }                                                  \\
-    \vi{5}          & $\p{5}$         & \policy{$\langle service,region=``FACILITY"\rangle$}{dataset}{WRITE}{ANY}{ \tf{1}    }          \\
-    \vi{5}          & $\p{6}$         & \policy{$\langle service,region=``\{CT,NY,NH\}"\rangle$}{dataset}{WRITE}{ANY}{   \tf{2} }       \\
-    \vi{6}          & $\p{7}$         & \policy{$\langle user,role=   ``Connecticut Prison Officer"$}{dataset} {READ}{ANY}{ \tf{1}    } \\
-    \vi{6}          & $\p{7}$         & \policy{$\langle user,role=   ``Partener Prison Officer"$}{dataset} {READ}{ANY}{   \tf{2} }     \\
-    \vi{6}          & $\p{8}$         & \policy{$\langle user,role=   ``Any"$}{dataset} {READ}{ANY}{    \tf{3}  }                       \\
+    \vi{M}          & $\p{1}$         & \policy{\pone}{dataset}{READ}{ANY}{\tf{1}}\\
+    \vi{M}          & $\p{2}$         & \policy{\ptwo}{dataset}{READ}{ANY}{\tf{2}}\\
+    \vi{M}          & $\p{3}$         & \policy{\pthree}{dataset}{READ}{ANY}{\tf{3}}\\
+    \vi{4}          & $\p{4}$         & \policy{ANY}{dataset}{READ}{ANY}{\tf{3}}\\
+    \vi{5}          & $\p{5}$         & \policy{$\langle service\_region=``FACILITY"\rangle$}{dataset}{WRITE}{ANY}{\tf{1}}\\
+    \vi{5}          & $\p{6}$         & \policy{$\langle service\_region=``\{CT,NY,NH\}"\rangle$}{dataset}{WRITE}{ANY}{\tf{2}}\\
+    \vi{6}          & $\p{7}$         & \policy{$\langle user\_role=``Connecticut Prison Officer"\rangle$}{dataset} {READ}{ANY}{\tf{1}}\\
+    \vi{6}          & $\p{7}$         & \policy{$\langle user\_role=``Partner Prison Officer"\rangle$}{dataset} {READ}{ANY}{\tf{2}}\\
+    \vi{6}          & $\p{8}$         & \policy{$\langle user\_role=``Any"\rangle$}{dataset} {READ}{ANY}{    \tf{3}}\\
   \end{tabular}
   \begin{tabular}[t]{c|c|c}
     \textbf{\tf{i}} & \textbf{Level} & \textbf{Columns Anonymized}                  \\\hline
-    \tf{0}          & Level0         & $anon(\varnothing)  $                        \\
-    \tf{1}          & level1         & $anon(FIRST NAME, LAST NAME)$                \\
-    \tf{2}          & level2         & $anon(FIRST NAME, LAST NAME, IDENTIFIER,AGE$ \\
+    \tf{0}          & Level0         & $anon(\varnothing)$                        \\
+    \tf{1}          & level1         & $anon(FIRST\_NAME, LAST\_NAME)$                \\
+    \tf{2}          & level2         & $anon(FIRST\_NAME, LAST\_NAME, IDENTIFIER, AGE)$ \\
   \end{tabular}
-
   %   % \begin{tabular}[t]{ccc}
   %   %   \toprule
   %   %   \textbf{Stage} & \textbf{Policy} & \textbf{Service} \\
@@ -103,9 +93,9 @@ This illustrative pipeline serves as a blueprint, highlighting the role of polic
   %   %   \bottomrule
   %   % \end{tabular}
   %   % \hspace{1em}
-
   %   \egroup
 \end{table*}
+
 \vspace{2em}
 
 \begin{figure}[ht!]
