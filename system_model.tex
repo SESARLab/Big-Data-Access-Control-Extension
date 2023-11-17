@@ -33,61 +33,129 @@ We consider a service-based environment where a service pipeline is designed to 
 We define a service pipeline as a graph defined as follows. % and depicted in \cref{fig:service_pipeline}.
 \begin{definition}[\pipeline]\label{def:pipeline}
   A \pipeline is as a direct acyclic graph G(\V,\E), where \V\ is a set of vertices and \E\ is a set of edges connecting two vertices \vi{i},\vi{k}$\in$\V.
-  The graph has a root \vi{r}$\in$\V, a vertex \vi{i}$\in$\V$_S$ for each service $s_i$, two additional vertices \vi{c},\vi{m}$\in$\V$_{\timesOperator}$$\subset$\V\ for each alternative ($\timesOperator$) structure modeling the alternative execution (\emph{choice}) of operations and the retrieval (\emph{merge}) of the results, respectively, and two additional vertices \vi{f},\vi{j}$\in$\V$_{\plusOperator}$$\subset$\V\ for each parallel ($\plusOperator$) structure modeling the contemporary execution (\emph{fork}) of operations and the integration (\emph{join}) of their results, respectively.
+  The graph has a root \vi{r}$\in$\V, a vertex \vi{i}$\in$\V$_S$ for each service $s_i$, two additional vertices \vi{c},\vi{m}$\in$\V$_{\timesOperator}$$\subset$\V\ for each alternative ($\timesOperator$) structure modeling the alternative execution (\emph{choice}) of operations and the retrieval (\emph{merge}) of the results, respectively,
+        and one additional vertex \vi{f} $\in$\V$_{\plusOperator}$$\subset$\V\ for each parallel ($\plusOperator$) structure modeling the contemporary execution (\emph{fork}) of operations.
 \end{definition}
 
-We note that \{\vi{r}\}$\cup$\V$_S$$\cup$\V$_{\timesOperator}$$\cup$V$_{\plusOperator}$$=$\V, and \vi{c}, \vi{m}, \vi{f}, and \vi{j} model branching for alternative/parallel structures.
+We note that \{\vi{r}\}$\cup$\V$_S$$\cup$\V$_{\timesOperator}$$\cup$V$_{\plusOperator}$$=$\V, and \vi{c}, \vi{m} and \vi{f} model branching for alternative/parallel structures.
 We also note that root \vi{r} possibly represents the orchestrator.
 
 % A service pipeline is as a direct acyclic graph G(\V,\E), where \V\ is a set of vertices, one for each service $s_i$ in the pipeline, \E\ is a set of edges connecting two services $s_i$ and $s_j$, and \myLambda\ is an annotation function that assigns a label \myLambda(\vi{i}), corresponding to a data transformation \F\ implemented by the service $s_i$, for each vertex \vi{i}$\in$\V.
-Our reference scenario considers a service pipeline analyzing a dataset of individuals detained in Department of Correction facilities in the state of Connecticut while awaiting trial. In particular, the user, a member of the Connecticut Department of Correction (DOC), seeks to compare admission trends in Connecticut prisons with those in other US states.
+Our reference scenario considers a service pipeline analyzing a dataset of individuals detained in Department of Correction facilities in the state of Connecticut while awaiting trial.
+In particular, the user, a member of the Connecticut Department of Correction (DOC), seeks to compare admission trends in Connecticut prisons with those in other US states.
 The user's preferences align with a predefined pipeline template that orchestrates the following sequence of operations:
 \begin{enumerate*}[label=(\roman*)]
-  \item \emph{Data preparation and protection}, including data cleaning and anonymization;
-  \item \emph{Data enrichment}, including the integration of data from other states;
+  \item \emph{Data fetching}, including the download of the dataset from other states;
+  \item \emph{Data preparation and protection}, including data merging, cleaning and anonymization;
   \item \emph{Data analysis}, including statistical measures like averages, medians, and clustering-based statistics;
   \item \emph{Machine learning task}, including training and inference;
   \item \emph{Data storage}, including the storage of the results in the corresponding states. Specifically, one copy remains in Connecticut (where sensitive information in the source dataset is not protected),
         while two additional copies are distributed to New York and New Hampshire (with sensitive information from the source dataset being safeguarded).
+  \item \emph{Data visualization}, including the visualization of the results.
 \end{enumerate*}
 
-\begin{enumerate*}[label=(\roman*)]
-  \item \emph{Data preparation and protection}, including data cleaning and anonymization;
-  \item \emph{Data enrichment}, including the integration of data from other states;
-  \item \emph{Data analysis}, including statistical measures like averages, medians, and clustering-based statistics;
-  \item \emph{Machine learning task}, including training and inference;
-  \item \emph{Data storage}, including the storage of the results in the corresponding states. Specifically, one copy remains in Connecticut (where sensitive information in the source dataset is not protected),
-        while two additional copies are distributed to New York and New Hampshire (with sensitive information from the source dataset being safeguarded).
-\end{enumerate*}
 
 We note that the template requires the execution of the entire service within a single country.
 If the data needs to be transmitted beyond the boundaries of Connecticut, data protection measures must be implemented.
 A visual representation of the flow is presented in Figure \ref{fig:reference_scenario}.
+\begin{table*}[ht!]
+  \caption{Dataset sample}
+  \label{tab:dataset}
+  \centering
+  \begin{adjustbox}{max totalsize={.99\linewidth}{\textheight},center}
+    \bgroup
+    \def\arraystretch{1.5}
+    \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|}
+      \hline
+      \textbf{DOWNLOAD DATE} & \textbf{IDENTIFIER} & \textbf{FIRST NAME} & \textbf{LAST NAME} & \textbf{LAD} & \textbf{RACE} & \textbf{GENDER} & \textbf{AGE} & \textbf{BOND} & \textbf{OFFENSE}     & \textbf{\dots} \\ \hline
+      05/15/2020             & ZZHCZBZZ            & ROBERT              & PIERCE             & 08/16/2018   & BLACK         & M               & 27           & 150000        & CRIMINAL POSS \dots  & \dots          \\ \hline
+      05/15/2020             & ZZHZZRLR            & KYLE                & LESTER             & 03/28/2019   & HISPANIC      & M               & 41           & 30100         & VIOLATION OF P\dots  & \dots          \\ \hline
+      05/15/2020             & ZZSRJBEE            & JASON               & HAMMOND            & 04/03/2020   & HISPANIC      & M               & 21           & 150000        & CRIMINAL ATTEM\dots  & \dots          \\ \hline
+      05/15/2020             & ZZHBJLRZ            & ERIC                & TOWNSEND           & 01/15/2020   & WHITE         & M               & 36           & 50500         & CRIM VIOL OF P\dots  & \dots          \\ \hline
+      05/15/2020             & ZZSRRCHH            & MICHAEL             & WHITE              & 12/26/2018   & HISPANIC      & M               & 29           & 100000        & CRIMINAL ATTEM\dots  & \dots          \\ \hline
+      05/15/2020             & ZZEJCZWW            & JOHN                & HARPER             & 01/03/2020   & WHITE         & M               & 54           & 100000        & CRIM VIOL OF P\dots  & \dots          \\ \hline
+      05/15/2020             & ZZHJBJBR            & KENNETH             & JUAREZ             & 03/19/2020   & HISPANIC      & M               & 35           & 100000        & CRIM VIOL ST C\dots  & \dots          \\ \hline
+      05/15/2020             & ZZESESZW            & MICHAEL             & SANTOS             & 12/03/2018   & WHITE         & M               & 55           & 50000         & ASSAULT 2ND, V\dots  & \dots          \\ \hline
+      05/15/2020             & ZZRCSHCZ            & CHRISTOPHER         & JONES              & 05/13/2020   & BLACK         & M               & 43           & 10000         & INTERFERING WIT\dots & \dots          \\ \hline
+    \end{tabular}
+    \egroup
+  \end{adjustbox}
+
+\end{table*}
 \begin{figure}[ht!]
   \centering
-  \begin{tikzpicture}[scale=0.9]
+
+  \tikzset{
+    do path picture/.style={%
+        path picture={%
+            \pgfpointdiff{\pgfpointanchor{path picture bounding box}{south west}}%
+            {\pgfpointanchor{path picture bounding box}{north east}}%
+            \pgfgetlastxy\x\y%
+            \tikzset{x=\x/2,y=\y/2}%
+            #1
+          }
+      },
+    cross/.style={do path picture={
+            \draw [line cap=round] (-1,-1) -- (1,1) (-1,1) -- (1,-1);
+          }},
+    plus/.style={do path picture={
+            \draw [line cap=round] (-3/4,0) -- (3/4,0) (0,-3/4) -- (0,3/4);
+          }}
+  }
+
+
+  \begin{tikzpicture}[scale=0.9,y=-1cm]
     % Nodes
-    \node[draw ] (node1) at (0,8) {$\s{r}$};
-    \node[draw] (node2) at (0,7){Data Preparation };
-    \node[draw] (node25) at (0,6){Data Enrichment};
-    \node[draw] (node3) at (0,5) {$\timesOperator$};
-    \node[draw] (node4) at (-2,4) {Data Analysis};
-    \node[draw] (node5) at (2,4) {Machine Learning};
-    \node[draw] (node6) at (0,3) {$\timesOperator$};
-    \node[draw] (node7) at (-2,2) {Data Storage};
-    \node[draw] (node8) at (2,2) {Data Visualization};
-    \node[draw] (node9) at (0,1) {$\timesOperator$};
-    \draw[->] (node1) -- (node2);
-    \draw[->] (node2) -- (node25);
-    \draw[->] (node25) -- (node3);
-    \draw[->] (node3) -- (node4);
-    \draw[->] (node3) -- (node5);
-    \draw[->] (node5) -- (node6);
-    \draw[->] (node4) -- (node6);
-    \draw[->] (node6) -- (node7);
-    \draw[->] (node6) -- (node8);
-    \draw[->] (node8) -- (node9);
-    \draw[->] (node7) -- (node9);
+
+    \node[draw, circle ] (root) at (0,0) {$\vi{r}$};
+    \node[draw, circle, plus , below = 1em, minimum size=1.5em] (split) at (root.south)  {};
+
+    \node[draw, circle,below =1em] (node2) at (split.south) {$\vi{2}$};
+
+    \node[draw, circle,left=1em] (node1) at (node2.west) {$\vi{1}$};
+    \node[draw, circle,right=1em] (node3) at (node2.east) {$\vi{3}$};
+
+    \node[draw, circle,below=1em] (merge) at (node2.south)  {$M$};
+
+    \node[draw, circle, cross , minimum size=1.5em,below=1em] (fork) at (merge.south)  {};
+    \node[draw, circle,below =1.5em, left=2em] (ml) at (fork.south) {$\vi{4}$};
+    \node[draw, circle,below =1.5em, right=2em] (analysis) at (fork.south) {$\vi{5}$};
+    \node[draw, circle, cross , minimum size=1.5em,below=3em] (join) at (fork.south)  {};
+    \node[draw, circle,below =1.5em, ] (storage) at (join.south) {$\vi{5}$};
+    \node[draw, circle,below =1.5em] (visualization) at (storage.south) {$\vi{6}$};
+
+    % Labels
+
+    \node[right=1em] at (node3.east) {Dataset fetch};
+    \node[right=1em] at (merge.east) { $merge$};
+    \node[right=1em] at (split.east) { $parallel$};
+    \node[right=1em] at (analysis.east) { Data analysis};
+    \node[left=1em] at (ml.west) { ML task};
+    \node[right=1em] at (storage.east) { Storage};
+    \node[right=1em] at (visualization.east) { Visualization};
+    % Connection
+
+    \draw[->] (root) -- (split);
+    \draw[->] (split) -- (node1);
+    \draw[->] (split) -- (node2);
+    \draw[->] (split) -- (node3);
+
+    \draw[->] (node1) -- (merge);
+    \draw[->] (node2) -- (merge);
+    \draw[->] (node3) -- (merge);
+
+    \draw[->] (fork) -- (ml);
+    \draw[->] (fork) -- (analysis);
+    \draw[->] (join) -- (storage);
+    \draw[->] (analysis) -- (join);
+    \draw[->] (ml) -- (join);
+    \draw[->] (merge) -- (fork);
+    \draw[->] (storage) -- (visualization);
+    % \draw[->] (node3) -- (node6);
+    % \draw[->] (node4) -- (node6);
+    % \draw[->] (node5) -- (node6);
+    % \draw[->] (node6) -- (node7);
+
   \end{tikzpicture}
   \caption{Reference Scenario}
   \label{fig:reference_scenario}
@@ -96,5 +164,10 @@ A visual representation of the flow is presented in Figure \ref{fig:reference_sc
 The adopted dataset\footnote{https://data.ct.gov/Public-Safety/Accused-Pre-Trial-Inmates-in-Correctional-Faciliti/b674-jy6w} exhibits a straightforward row-and-column structure.
 Each row represents an inmate; each column includes the following attributes: date of download, a unique identifier, last entry date, race, gender, age of the individual, the bound value, offense, entry facility, and detainer.
 To serve the objectives of our study, we have extended this dataset by introducing randomly generated first and last names.
+In \cref{tab:dataset}, a sample of the dataset is presented, showcasing a representative subset of the collected information.
 
 
+% Scarichiamo tre dataset, nessuna anonimizzazione, nodo di merge, anonimizzo e pulisco tutto,
+%nodi alternativa ML e analisi, merge, storage, visulazzionezione
+%aggiungere nodo finale
+%agigungere nodo
