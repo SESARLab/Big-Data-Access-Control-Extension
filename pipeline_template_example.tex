@@ -6,16 +6,19 @@
 
 We present an example of pipeline template focusing on policy annotations. The pipeline template consists of five stages, and each stage is annotated with a policy presented in \cref{tab:anonymization}. \hl{Connecticut Prison (CTP) is the service user executing the pipeline. New York Prison and New Hampshire Prison are two partner DOC.}\hl{SPOSTARE NEL SYSTEM MODEL? SI, MA DATA OWNER DIPENDE DAL DATASET, HO MESSO SERVICE USER} We recall that \cref{tab:dataset} shows a sample of our reference dataset.
 
-In the following we will make reference to three different type of anonymization:\hl{E' GIUSTO USARE}\tf{i}\hl{? SPOSTIAMO PRIMA?}
+In the following we will make reference to three different type of anonymization:%\hl{E' GIUSTO USARE}\tf{i}
+\hl{? SPOSTIAMO PRIMA?}
 \begin{enumerate*}[label=\roman*)]
-  \item \emph{level0} (\tf{0}): no anonymization is performed;
-  \item \emph{level1} (\tf{1}): the data is partially anonymized, only the first name and last name are anonymized;
-  \item \emph{level2} (\tf{2}): the data is fully anonymized: first name, last name, identifier and age are anonymized.
+  \item \emph{level0} (\tp{0}): no anonymization is performed;
+  \item \emph{level1} (\tp{1}): the data is partially anonymized, only the first name and last name are anonymized;
+  \item \emph{level2} (\tp{2}): the data is fully anonymized: first name, last name, identifier and age are anonymized.
 \end{enumerate*}
 
 Let us consider the pipeline template \tChartFunction in \cref{sec:example},
 % 1° NODO %
-The first stage consists of three parallel vertices (\vi{1}, \vi{2}, \vi{3}) and focuses on data collection without applying any policies.\hl{IN REALTA' APPLICHIAMO UNA POLITICA DI ACCESSO CON EMPTY TRANSFORMATION.} The functional requirement necessitates a URI as input, and the output is the downloaded dataset.
+The first stage consists of three parallel vertices (\vi{1}, \vi{2}, \vi{3}) and focuses on data collection.
+The policy annotation \p{0} is linked with an empty transformation.
+The functional requirement necessitates a URI as input, and the output is the downloaded dataset.
 
 The second stage incorporates a sole vertex, which merges the three datasets obtained from the previous stages and is associated with three policies (\p{1},\p{2},\p{3}).
 The policies are evaluated during the node execution:
@@ -57,27 +60,27 @@ The functional requirement specifies a dataset as input, and the output is the v
 \begin{table*}[ht!]
   \centering
   \caption{Anonymization policies}\label{tab:anonymization}
-%  \bgroup
+  %  \bgroup
   \def\arraystretch{1.5}
 
   \begin{tabular}[t]{c|c|l}
-    \textbf{Vertex} & \textbf{Policy} & \policy{subject}{object}{action}{environment}{transformation}                                   \\ \hline
-
-    \vi{M}          & $\p{1}$         & \policy{\pone}{dataset}{READ}{ANY}{\tf{1}}\\
-    \vi{M}          & $\p{2}$         & \policy{\ptwo}{dataset}{READ}{ANY}{\tf{2}}\\
-    \vi{M}          & $\p{3}$         & \policy{\pthree}{dataset}{READ}{ANY}{\tf{3}}\\
-    \vi{4}          & $\p{4}$         & \policy{ANY}{dataset}{READ}{ANY}{\tf{3}}\\
-    \vi{5}          & $\p{5}$         & \policy{$\langle service\_region=``FACILITY"\rangle$}{dataset}{WRITE}{ANY}{\tf{1}}\\
-    \vi{5}          & $\p{6}$         & \policy{$\langle service\_region=``\{CT,NY,NH\}"\rangle$}{dataset}{WRITE}{ANY}{\tf{2}}\\
-    \vi{6}          & $\p{7}$         & \policy{$\langle user\_role=``Connecticut Prison Officer"\rangle$}{dataset} {READ}{ANY}{\tf{1}}\\
-    \vi{6}          & $\p{7}$         & \policy{$\langle user\_role=``Partner Prison Officer"\rangle$}{dataset} {READ}{ANY}{\tf{2}}\\
-    \vi{6}          & $\p{8}$         & \policy{$\langle user\_role=``Any"\rangle$}{dataset} {READ}{ANY}{    \tf{3}}\\
+    \textbf{Vertex}      & \textbf{Policy} & \policy{subject}{object}{action}{environment}{transformation}                                   \\ \hline
+    \vi{1},\vi{2},\vi{3} & $\p{0}$         & \policy{ANY}{dataset}{READ}{ANY}{\tp{0}}                                                        \\
+    \vi{4}               & $\p{1}$         & \policy{\pone}{dataset}{READ}{ANY}{\tp{1}}                                                      \\
+    \vi{4}               & $\p{2}$         & \policy{\ptwo}{dataset}{READ}{ANY}{\tp{2}}                                                      \\
+    \vi{4}               & $\p{3}$         & \policy{\pthree}{dataset}{READ}{ANY}{\tp{3}}                                                    \\
+    \vi{5}               & $\p{4}$         & \policy{ANY}{dataset}{READ}{ANY}{\tp{3}}                                                        \\
+    \vi{6}               & $\p{5}$         & \policy{$\langle service\_region=``FACILITY"\rangle$}{dataset}{WRITE}{ANY}{\tp{1}}              \\
+    \vi{6}               & $\p{6}$         & \policy{$\langle service\_region=``\{CT,NY,NH\}"\rangle$}{dataset}{WRITE}{ANY}{\tp{2}}          \\
+    \vi{7}               & $\p{7}$         & \policy{$\langle user\_role=``Connecticut Prison Officer"\rangle$}{dataset} {READ}{ANY}{\tp{1}} \\
+    \vi{7}               & $\p{7}$         & \policy{$\langle user\_role=``Partner Prison Officer"\rangle$}{dataset} {READ}{ANY}{\tp{2}}     \\
+    \vi{7}               & $\p{8}$         & \policy{$\langle user\_role=``Any"\rangle$}{dataset} {READ}{ANY}{\tp{3}}                        \\
   \end{tabular}
   \begin{tabular}[t]{c|c|c}
-    \textbf{\tf{i}} & \textbf{Level} & \textbf{Columns Anonymized}                  \\\hline
-    \tf{0}          & Level0         & $anon(\varnothing)$                        \\
-    \tf{1}          & level1         & $anon(FIRST\_NAME, LAST\_NAME)$                \\
-    \tf{2}          & level2         & $anon(FIRST\_NAME, LAST\_NAME, IDENTIFIER, AGE)$ \\
+    \textbf{\tf{i}} & \textbf{Level} & \textbf{Columns Anonymized}                      \\\hline
+    \tp{0}          & Level0         & $anon(\varnothing)$                              \\
+    \tp{1}          & level1         & $anon(FIRST\_NAME, LAST\_NAME)$                  \\
+    \tp{2}          & level2         & $anon(FIRST\_NAME, LAST\_NAME, IDENTIFIER, AGE)$ \\
   \end{tabular}
   %   % \begin{tabular}[t]{ccc}
   %   %   \toprule
