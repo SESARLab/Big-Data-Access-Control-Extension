@@ -1,15 +1,55 @@
+% \begin{example}\label{ex:instance}
+
+%   As an example, let us consider the pipeline template \tChartFunction in \cref{sec:example}.
+%   It includes three key stages in our reference scenario: data anonymization (\vi{1}), data enrichment (\vi{2}), and data aggregation (\vi{3}), each stage with its policy $p$.
+
+
+
+%   The filtering algorithm then returns the set $S'=\{s_1,s_2\}$.
+%   The comparison algorithm is finally applied to $S'$ and returns a ranking of the services according to quality metrics, where $s_1$ is ranked first. $s_1$ is then selected and integrated in $\vii{1}\in \Vp$.
+
+%   The comparison algorithm is finally applied to $S'$ and returns a ranking of the services according to quality metrics, where $s_1$ is ranked first. $s_1$ is then selected and integrated in $\vii{1}\in \Vp$.
+
+%   The same logic is applied to the \vi{2} and \vi{3}.
+
+% \end{example}
+
+
 \begin{example}\label{ex:instance}
 
   As an example, let us consider the pipeline template \tChartFunction in \cref{sec:example}.
-  It includes three key stages in our reference scenario: data anonymization (\vi{1}), data enrichment (\vi{2}), and data aggregation (\vi{3}), each stage with its policy $p$.
+  In this example, we consider a subset of the vertices, namely \vi{4}, \vi{6} and \vi{7}.
 
 
+  \begin{table*}
+    \def\arraystretch{1.5}
+    \caption{Instance example}\label{tab:instance_example}
 
-  The filtering algorithm then returns the set $S'=\{s_1,s_2\}$.
-  The comparison algorithm is finally applied to $S'$ and returns a ranking of the services according to quality metrics, where $s_1$ is ranked first. $s_1$ is then selected and integrated in $\vii{1}\in \Vp$.
+    \centering
+    \begin{tabular}{l|l|l|c|c}
 
-  The comparison algorithm is finally applied to $S'$ and returns a ranking of the services according to quality metrics, where $s_1$ is ranked first. $s_1$ is then selected and integrated in $\vii{1}\in \Vp$.
+      \textbf{Vertex$\rightarrow$Policy}                         & \textbf{Candidate} & \textbf{Profile}         & \textbf{Filtering} & \textbf{Ranking} \\
+      \multirow{ 3}{*}{\vi{4}  $\rightarrow$ \p{1},\p{2},\p{3} } & $\s{11}$           & service\_owner =    "CT" & \cmark             & 1                \\
+                                                                 & $\s{12}$           & service\_owner =    "NY" & \cmark             & 2                \\
+                                                                 & $\s{13}$           & service\_owner =    "CA" & \cmark             & 3                \\
+      \hline
+      \multirow{ 3}{*}{\vi{6}  $\rightarrow$ \p{5},\p{6} }       & $\s{21}$           & region =    "CA"         & \xmark             & --               \\
+                                                                 & $\s{22}$           & region =    "NY"         & \cmark             & 2                \\
+                                                                 & $\s{23}$           & region =    "CT"         & \cmark             & 1                \\
+      \hline
+      \multirow{ 3}{*}{\vi{7}  $\rightarrow$ \p{7},\p{8},\p{9} } & $\s{31}$           & region =    "CA"         & \xmark             & --               \\
+                                                                 & $\s{32}$           & region =    "NY"         & \cmark             & 2                \\
+                                                                 & $\s{33}$           & region =    "CT"         & \cmark             & 1                \\
+      \hline
+    \end{tabular}
+  \end{table*}
+  \begin{table*}[htbp]
+    \centering
 
-  The same logic is applied to the \vi{2} and \vi{3}.
+    \caption{A test caption}
+    \label{table2}
+  \end{table*}
+
+
 
 \end{example}

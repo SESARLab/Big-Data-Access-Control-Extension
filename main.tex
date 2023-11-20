@@ -27,6 +27,7 @@
 \usepackage[inline]{enumitem}
 \usepackage{xcolor}
 \usepackage{amssymb}
+\usepackage{pifont}
 \graphicspath{{Images/}}
 \definecolor{commentsColor}{rgb}{0.497495, 0.497587, 0.497464}
 \definecolor{keywordsColor}{rgb}{0.000000, 0.000000, 0.635294}
@@ -34,7 +35,8 @@
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
 \newtheorem{example}{Example}[section]
-
+\newcommand{\xmark}{\ding{55}}%
+\newcommand{\cmark}{\ding{51}}%
 \input{macro}
 
 \begin{document}
