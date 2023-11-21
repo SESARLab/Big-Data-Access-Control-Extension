@@ -51,10 +51,7 @@ The user's preferences align with a predefined pipeline template that orchestrat
   \item \emph{Data analysis}, including statistical measures like averages, medians, and clustering-based statistics;
   \item \emph{Machine learning task}, including training and inference;
   \item \emph{Data storage}, including the storage of the results in the corresponding states.
-        Specifically, one copy remains in Connecticut (where sensitive information in the source dataset is not protected),
-        while two additional copies are distributed to New York and New Hampshire (with sensitive information from the source dataset being safeguarded)
-        .\hl{SPIEGHIAMO BENE LA PARENTESI}
-  \item \emph{Data visualization}, including the visualization of the results.\hl{STORAGE E VISUALIZATION NON LI FACEVAMO ALTERNATIVE CON UN NODO FINE?}
+  \item \emph{Data visualization}, including the visualization of the results.
 \end{enumerate*}
 
 
@@ -168,7 +165,9 @@ A visual representation of the flow is presented in Figure \ref{fig:reference_sc
 The adopted dataset\footnote{https://data.ct.gov/Public-Safety/Accused-Pre-Trial-Inmates-in-Correctional-Faciliti/b674-jy6w} exhibits a straightforward row-and-column structure.
 Each row represents an inmate; each column includes the following attributes: date of download, a unique identifier, last entry date, race, gender, age of the individual, the bound value, offense, entry facility, and detainer.
 To serve the objectives of our study, we have extended this dataset by introducing randomly generated first and last names.
-In \cref{tab:dataset}, a sample of the dataset is presented, showcasing a representative subset of the collected information.
+In \cref{tab:dataset}, we present a subset of the collection consisting of a representative sample of the data.
+For demonstration purposes within our case study, we hypothesized that Connecticut, New York, and New Hampshire are collaborating as partners.
+Therefore, data can be shared between them with relaxed privacy policies.
 
 
 % Scarichiamo tre dataset, nessuna anonimizzazione, nodo di merge, anonimizzo e pulisco tutto,

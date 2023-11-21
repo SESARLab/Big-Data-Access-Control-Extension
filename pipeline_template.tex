@@ -119,12 +119,17 @@ We also note that policies $p_j$$\in$\P{i} annotated with \myLambda(\vi{i}) are 
 
           \item Environment \textit{env} defines a set of conditions on contextual attributes, such as time of the day, location, IP address, risk level, weather condition, holiday/workday, emergency. It is a set \{$pc_i$\} of \emph{Policy Conditions} as defined in Definition \ref{def:policy_cond}. For instance, $<$\emph{env},\{(time $=$ "night")\}$>$ refers to a policy that is applicable only at night.
 
-          \item Data Transformation \textit{\TP} defines a set of security and privacy-aware transformations on \textit{obj}, which must be enforced before any access to data. Transformations focus on data protection, as well as compliance to regulations and standards, in addition to simple format conversions.
+          \item Data Transformation \textit{\TP} defines a set of security and privacy-aware transformations on \textit{obj}, which must be enforced before any access to data.
+                Transformations focus on data protection, as well as compliance to regulations and standards, in addition to simple format conversions.
+                For instance, let us define three transformations that can be applied to the \cref{tab:dataset}:     \begin{enumerate*}[label=\roman*)]
+                  \item \emph{level0} (\tp{0}): no anonymization is carried out;
+                        The data has been partially anonymized with only the first name and last name being anonymized.
+                  \item \emph{level1} (\tp{2}): \item \emph{level2} (\tp{2}): The data has been fully anonymized with the first name, last name, identifier, and age being anonymized.
+                \end{enumerate*}
         \end{description}
       \end{definition}
 
       Access control policies $p_j$$\in$\P{i} annotating vertex \vi{i} in a pipeline template $G^{\myLambda,\myGamma}$ are used to filter out those candidate services $s$$\in$$S^c$ that do not match data protection requirements. Specifically, each policy $p_j$$\in$\P{i} is evaluated to verify whether a candidate service $s$$\in$$S^c$ for vertex \vi{i} is compatible with data protection requirements in \P{i} (\myLambda(\vi{i})). Policy evaluation matches the profile of candidate service $s$$\in$$S^c$ with the policy conditions in each $p_j$$\in$\P{i}. If the credentials and attributes in the candidate service profile fails to meet the policy conditions, meaning that no policies $p_j$ are evaluated to \emph{true}, the service is discarded; otherwise it is added to the set $S'$ of compatible service, which is used in Section~\ref{sec:instance} to generate the pipeline instance $G'$. No policy enforcement is done at this stage.
-
     \subsection{Functional Annotations}\label{sec:funcannotation}
     A proper data management approach must track functional data manipulations across the entire pipeline execution, defining the functional requirements of each service operating on data.
     To this aim, each vertex \vi{i}$\in\V_S$ is annotated with a label \myGamma(\vi{i}), corresponding to the functional description $F_i$ of the service $s_i$ represented by \vi{i}.

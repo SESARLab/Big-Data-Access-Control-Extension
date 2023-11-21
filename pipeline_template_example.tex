@@ -38,17 +38,10 @@
 
 \end{table*}
 
-We present an example of pipeline template focusing on policy annotations. The pipeline template consists of five stages, and each stage is annotated with a policy presented in \cref{tab:anonymization}. \hl{Connecticut Prison (CTP) is the service user executing the pipeline. New York Prison and New Hampshire Prison are two partner DOC.}\hl{SPOSTARE NEL SYSTEM MODEL? SI, MA DATA OWNER DIPENDE DAL DATASET, HO MESSO SERVICE USER} We recall that \cref{tab:dataset} shows a sample of our reference dataset.
+We present an example of pipeline template consisting of five stages, and each stage is annotated with a policy presented in \cref{tab:anonymization}.
+We recall that \cref{tab:dataset} shows a sample of our reference dataset.
 
-In the following we will make reference to three different type of anonymization:%\hl{E' GIUSTO USARE}\tf{i}
-\hl{? SPOSTIAMO PRIMA?}
-\begin{enumerate*}[label=\roman*)]
-  \item \emph{level0} (\tp{0}): no anonymization is performed;
-  \item \emph{level1} (\tp{1}): the data is partially anonymized, only the first name and last name are anonymized;
-  \item \emph{level2} (\tp{2}): the data is fully anonymized: first name, last name, identifier and age are anonymized.
-\end{enumerate*}
-
-Let us consider the pipeline template \tChartFunction in \cref{sec:example},
+Let us consider the case study in \cref{sec:systemmodel}, a possibile pipeline template is shown in \cref{fig:service_composition_template}.
 % 1° NODO %
 The first stage consists of three parallel vertices (\vi{1}, \vi{2}, \vi{3}) and focuses on data collection.
 The policy annotation \p{0} is linked with an empty transformation.
@@ -82,7 +75,7 @@ The functional requirement specifies a dataset as input, and the output is the t
 The fifth stage manages data storage.
 If the service is within the facility itself ($\langle service,region=FACILITY"\rangle$), \p{5} is satisfied, resulting in data anonymization level1 (\tp{1}).
 Otherwise, if the service is in a partner region ($\langle service,region={CT,NY,NH}"\rangle$), the data undergo anonymization level2 (\tp{2}).
-The functional requirement specifies some\hl{?} data as input, and the output is the URI of the stored data.
+The functional requirement specifies the data to be provided as input, and the output is the URI of the stored data.
 % 6° NODO %
 The sixth stage is responsible for data visualization.
 As stated in policy annotation \p{6}, if the user is member of the facility itself, the data are anonymized level0 (\tp{0}).
