@@ -32,44 +32,52 @@ We also note that policies $p_j$$\in$\P{i} annotated with \myLambda(\vi{i}) are 
       %The next sections better explain the functional and non-functional transformation functions.
       \begin{figure}[ht!]
         \centering
+        \newcommand{\function}{$\templateChartAnnotation$}
         \begin{tikzpicture}[scale=0.9]
           % Nodes
-          \node[draw, circle] (node1) at (0,0) {$\s{r}$};
-          \node[draw, circle] (node2) at (1,0) {$\s{1}$};
-          \node[draw, circle] (node3) at (2,0) {$\timesOperator$};
-          \node[draw, circle] (node4) at (3,-1) {$\s{2}$};
-          \node[draw, circle] (node5) at (3,1) {$\s{3}$};
-          \node[draw, circle] (node6) at (4,0) {$\timesOperator$};
-          \node[draw, circle] (node65) at (5,0) {$\s{4}$};
-          \node[draw, circle] (node7) at (6,0) {$\plusOperator$};
-          \node[draw, circle] (node8) at (7,1) {$\s{5}$};
-          \node[draw, circle] (node9) at (7,-1) {$\s{6}$};
-          \node[draw, circle] (node10) at (8,0) {$\plusOperator$};
-          \node[draw, circle] (node11) at (9,0) {$\s{7}$};
+          \node[draw, circle] (sr) at (0,0) {$\s{r}$};
+          % \node[draw, circle] (node2) at (1,0) {$\s{1}$};
+          \node[draw, circle, plus,minimum size=1.5em] (plus) at (1.5,0) {};
+          \node[draw, circle] (s1) at (3,1.7) {$\s{1}$};
+          \node[draw, circle] (s2) at (3,-1.7) {$\s{2}$};
+          \node[draw, circle] (s3) at (3,0) {$\s{3}$};
+
+
+          \node[draw, circle] (s4) at (4.5,0) {$\s{4}$};
+          \node[draw, circle, cross,minimum size=1.5em] (cross) at (6,0) {};
+          \node[draw, circle] (s5) at (7.5,1.2) {$\s{5}$};
+          \node[draw, circle] (s6) at (7.5,-1.2) {$\s{6}$};
+
+          \node[draw, circle] (s7) at (9,0) {$\s{7}$};
           % Text on top
-          \node[above] at (node1.north)  {$\templateChartAnnotation$};
-          \node[above] at (node2.north)  {$\templateChartAnnotation$};
-          \node[above] at (node3.north)  {                 };
-          \node[above] at (node4.north)  {$\templateChartAnnotation$};
-          \node[above] at (node5.north)  {$\templateChartAnnotation$};
-          \node[above] at (node65.north) {$\templateChartAnnotation$};
-          \node[above] at (node8.north)  {$\templateChartAnnotation$};
-          \node[above] at (node9.north)  {$\templateChartAnnotation$};
-          \node[above] at (node11.north) {$\templateChartAnnotation$};
+          \node[above] at (sr.north)  {\function{}};
+          \node[above] at (s1.north)  {\function{}};
+
+          \node[above] at (s2.north)  {\function{}};
+          \node[above] at (s3.north)  {\function{}};
+          \node[above] at (s4.north)  {\function{}};
+          \node[above] at (s5.north)  {\function{}};
+          \node[above] at (s6.north)  {\function{}};
+          \node[above] at (s7.north)  {\function{}};
           % Connection
-          \draw[->] (node1) -- (node2);
-          \draw[->] (node2) -- (node3);
-          \draw[->] (node3) -- (node4);
-          \draw[->] (node3) -- (node5);
-          \draw[->] (node5) -- (node6);
-          \draw[->] (node4) -- (node6);
-          \draw[->] (node6) -- (node65);
-          \draw[->] (node65) -- (node7);
-          \draw[->] (node7) -- (node8);
-          \draw[->] (node7) -- (node9);
-          \draw[->] (node8) -- (node10);
-          \draw[->] (node9) -- (node10);
-          \draw[->] (node10) -- (node11);
+
+          % \draw[->] (node2) -- (node3);
+          \draw[->] (sr) -- (plus);
+          \draw[->] (plus) -- (s1);
+          \draw[->] (plus) -- (s2);
+          \draw[->] (plus) -- (s3);
+
+          \draw[->] (s1) -- (s4);
+          \draw[->] (s2) -- (s4);
+          \draw[->] (s3) -- (s4);
+          % \draw[->] (node6) -- (node65);
+          % \draw[->] (node65) -- (node7);3
+          \draw[->] (s4) -- (cross);
+          \draw[->] (cross) -- (s5);
+          \draw[->] (cross) -- (s6);
+          \draw[->] (s5) -- (s7);
+          \draw[->] (s6) -- (s7);
+
         \end{tikzpicture}
         \caption{Pipeline Template}
         \label{fig:service_composition_template}

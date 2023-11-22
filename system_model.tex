@@ -85,23 +85,7 @@ A visual representation of the flow is presented in Figure \ref{fig:reference_sc
 \begin{figure}[ht!]
   \centering
 
-  \tikzset{
-    do path picture/.style={%
-        path picture={%
-            \pgfpointdiff{\pgfpointanchor{path picture bounding box}{south west}}%
-            {\pgfpointanchor{path picture bounding box}{north east}}%
-            \pgfgetlastxy\x\y%
-            \tikzset{x=\x/2,y=\y/2}%
-            #1
-          }
-      },
-    cross/.style={do path picture={
-            \draw [line cap=round] (-1,-1) -- (1,1) (-1,1) -- (1,-1);
-          }},
-    plus/.style={do path picture={
-            \draw [line cap=round] (-3/4,0) -- (3/4,0) (0,-3/4) -- (0,3/4);
-          }}
-  }
+
 
 
   \begin{tikzpicture}[scale=0.9,y=-1cm]
@@ -120,8 +104,8 @@ A visual representation of the flow is presented in Figure \ref{fig:reference_sc
     \node[draw, circle, cross , minimum size=1.5em,below=1em] (fork) at (merge.south)  {};
     \node[draw, circle,below =1.5em, left=2em] (ml) at (fork.south) {$\vi{5}$};
     \node[draw, circle,below =1.5em, right=2em] (analysis) at (fork.south) {$\vi{6}$};
-    \node[draw, circle, cross , minimum size=1.5em,below=3em] (join) at (fork.south)  {};
-    \node[draw, circle,below =1.5em, ] (storage) at (join.south) {$\vi{7}$};
+    % \node[draw, circle, cross , minimum size=1.5em,below=3em] (join) at (fork.south)  {};
+    \node[draw, circle,below =3em ] (storage) at (fork.south) {$\vi{7}$};
     \node[draw, circle,below =1.5em] (visualization) at (storage.south) {$\vi{8}$};
 
     % Labels
@@ -147,9 +131,9 @@ A visual representation of the flow is presented in Figure \ref{fig:reference_sc
 
     \draw[->] (fork) -- (ml);
     \draw[->] (fork) -- (analysis);
-    \draw[->] (join) -- (storage);
-    \draw[->] (analysis) -- (join);
-    \draw[->] (ml) -- (join);
+
+    \draw[->] (analysis) -- (storage);
+    \draw[->] (ml) -- (storage);
     \draw[->] (merge) -- (fork);
     \draw[->] (storage) -- (visualization);
     % \draw[->] (node3) -- (node6);

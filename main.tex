@@ -68,6 +68,24 @@
 
 \IEEEpeerreviewmaketitle
 
+\tikzset{
+  do path picture/.style={%
+      path picture={%
+          \pgfpointdiff{\pgfpointanchor{path picture bounding box}{south west}}%
+          {\pgfpointanchor{path picture bounding box}{north east}}%
+          \pgfgetlastxy\x\y%
+          \tikzset{x=\x/2,y=\y/2}%
+          #1
+        }
+    },
+  cross/.style={do path picture={
+          \draw [line cap=round ] (-1,-1) -- (1,1) (-1,1) -- (1,-1);
+        }},
+  plus/.style={do path picture={
+          \draw [line cap=round] (-3/4,0) -- (3/4,0) (0,-3/4) -- (0,3/4);
+        }}
+}
+
 \input{introduction}
 \input{motivations}
 \input{system_model}

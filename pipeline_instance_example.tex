@@ -20,6 +20,18 @@
   As an example, let us consider the pipeline template \tChartFunction in \cref{sec:example}.
   In this example, we consider a subset of the vertices, namely \vi{4}, \vi{6} and \vi{7}.
 
+  For each vertex there are three candidate services, and each service is annotated with a profile.
+  The filtering algorithm is applied to each vertex and returns the set of services that satisfy the profile.
+  \begin{enumerate*}[label=(\roman*)]
+    \item For \vi{4}, the filtering algorithm returns the set $S'=\{s_{11},s_{12},s_{13}\}$, thus because each service profile match the policy,
+          s11 match .
+    \item For \vi{6}, the filtering algorithm returns the set $S'=\{s_{21},s_{22},s_{23}\}$.
+    \item For \vi{7}, the filtering algorithm returns the set $S'=\{s_{31},s_{32},s_{33}\}$.
+
+  \end{enumerate*}
+
+
+
 
   \begin{table*}
     \def\arraystretch{1.5}
