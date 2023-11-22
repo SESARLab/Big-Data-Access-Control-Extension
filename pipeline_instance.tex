@@ -7,14 +7,14 @@ In \iChartFunction, every invocations \vii{i}$\in$$V'_S$ contains a service inst
 
     \begin{definition}[Pipeline Instance]\label{def:instance}
       Let \tChartFunction be a pipeline template, a pipeline Instance $\iChartFunction$ is a directed acyclic graph where:
-      \begin{enumerate*}[label=\roman*)]
-        \item $s_r$$=$$s'_r$,
-        \item for each vertex $\vi{}\in\V_{\timesOperator}\cup\V_{\plusOperator}$ it exists a corresponding vertex $\vii{}\in\Vp_{\timesOperator}\cup\Vp_{\plusOperator}$,
-        \item for each $\vi{i}$$\in$$\V_S$ annotated with policy \P{i} it exists a corresponding \vii{i}$\in$$\Vp_S$ instantiated with a service instance \sii{i},
+      \begin{enumerate*}[label=\textit{\roman*})]
+        \item $s_r$$=$$s'_r$;
+        \item for each vertex $\vi{}\in\V_{\timesOperator}\cup\V_{\plusOperator}$ it exists a corresponding vertex $\vii{}\in\Vp_{\timesOperator}\cup\Vp_{\plusOperator}$;
+        \item for each $\vi{i}$$\in$$\V_S$ annotated with policy \P{i} it exists a corresponding \vii{i}$\in$$\Vp_S$ instantiated with a service instance \sii{i};
       \end{enumerate*}
       and such that the following conditions hold:
       \begin{enumerate}[label=\arabic*)]
-        \item $s'_i$ satisfies data protection annotation \myLambda(\vi{i}) in \tChartFunction.
+        \item $s'_i$ satisfies data protection annotation \myLambda(\vi{i}) in \tChartFunction;
         \item $s'_i$ satisfies functional annotation \myGamma(\vi{i}) in \tChartFunction.
       \end{enumerate}
     \end{definition}
@@ -38,3 +38,59 @@ In \iChartFunction, every invocations \vii{i}$\in$$V'_S$ contains a service inst
   \end{itemize}
 
   When all vertices $\vi{i}\in V$ have been visited, G' contains a service instance $s'_i$ for each \vii{i}$\in$\Vp, and the \pipelineInstance is complete. We note that each vertex \vii{i} is annotated with policies $p_k$$\in$\P{i} according to \myLambda. When pipeline instance is triggered, before any services can be executed, policies in \P{i} are evaluated and enforced. In case policy evaluation returns \emph{true}, data transformation \TP$\in$\P{i} is applied, otherwise a default transformation that removes all data is applied.
+
+\begin{figure}[ht!]
+  \centering
+  \newcommand{\function}{$\instanceChartAnnotation{}$}
+  \begin{tikzpicture}[scale=0.7]
+    % Nodes
+    \node[draw, circle] (sr) at (0,0) {$\vi{r}$};
+    % \node[draw, circle] (node2) at (1,0) {$\s{1}$};
+    \node[draw, circle, plus,minimum size=1.5em] (plus) at (1.5,0) {};
+    \node[draw, circle] (s1) at (3,1.7) {$\sii{1}$};
+    \node[draw, circle] (s2) at (3,-1.7) {$\sii{2}$};
+    \node[draw, circle] (s3) at (3,0) {$\sii{3}$};
+
+
+    \node[draw, circle] (s4) at (4.5,0) {$\sii{4}$};
+    \node[draw, circle, cross,minimum size=1.5em] (cross) at (6,0) {};
+    \node[draw, circle] (s5) at (7.5,1.2) {$\sii{5}$};
+    \node[draw, circle] (s6) at (7.5,-1.2) {$\sii{6}$};
+
+    \node[draw, circle] (s7) at (9,0) {$\sii{7}$};
+    \node[draw, circle] (s8) at (10.5,0) {$\sii{8}$};
+    % Text on top
+    \node[above] at (sr.north)  {\function{}};
+    \node[above] at (s1.north)  {\function{}};
+
+    \node[above] at (s2.north)  {\function{}};
+    \node[above] at (s3.north)  {\function{}};
+    \node[above] at (s4.north)  {\function{}};
+    \node[above] at (s5.north)  {\function{}};
+    \node[above] at (s6.north)  {\function{}};
+    \node[above] at (s7.north)  {\function{}};
+    \node[above] at (s8.north)  {\function{}};
+    % Connection
+
+    % \draw[->] (node2) -- (node3);
+    \draw[->] (sr) -- (plus);
+    \draw[->] (plus) -- (s1);
+    \draw[->] (plus) -- (s2);
+    \draw[->] (plus) -- (s3);
+
+    \draw[->] (s1) -- (s4);
+    \draw[->] (s2) -- (s4);
+    \draw[->] (s3) -- (s4);
+    % \draw[->] (node6) -- (node65);
+    % \draw[->] (node65) -- (node7);3
+    \draw[->] (s4) -- (cross);
+    \draw[->] (cross) -- (s5);
+    \draw[->] (cross) -- (s6);
+    \draw[->] (s5) -- (s7);
+    \draw[->] (s6) -- (s7);
+    \draw[->] (s7) -- (s8);
+
+  \end{tikzpicture}
+  \caption{Service composition instance}
+  \label{fig:service_composition_instance}
+\end{figure}

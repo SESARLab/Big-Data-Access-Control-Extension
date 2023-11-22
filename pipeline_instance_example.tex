@@ -1,35 +1,30 @@
-% \begin{example}\label{ex:instance}
-
-%   As an example, let us consider the pipeline template \tChartFunction in \cref{sec:example}.
-%   It includes three key stages in our reference scenario: data anonymization (\vi{1}), data enrichment (\vi{2}), and data aggregation (\vi{3}), each stage with its policy $p$.
-
-
-
-%   The filtering algorithm then returns the set $S'=\{s_1,s_2\}$.
-%   The comparison algorithm is finally applied to $S'$ and returns a ranking of the services according to quality metrics, where $s_1$ is ranked first. $s_1$ is then selected and integrated in $\vii{1}\in \Vp$.
-
-%   The comparison algorithm is finally applied to $S'$ and returns a ranking of the services according to quality metrics, where $s_1$ is ranked first. $s_1$ is then selected and integrated in $\vii{1}\in \Vp$.
-
-%   The same logic is applied to the \vi{2} and \vi{3}.
-
-% \end{example}
-
-
 \begin{example}\label{ex:instance}
 
   As an example, let us consider the pipeline template \tChartFunction in \cref{sec:example}.
-  In this example, we consider a subset of the vertices, namely \vi{4}, \vi{6} and \vi{7}.
+  In this example, we consider a subset of the vertices, namely \vi{6}, \vi{7} and \vi{8}.
 
-  For each vertex there are three candidate services, and each service is annotated with a profile.
-  The filtering algorithm is applied to each vertex and returns the set of services that satisfy the profile.
-  \begin{enumerate*}[label=(\roman*)]
-    \item For \vi{4}, the filtering algorithm returns the set $S'=\{s_{11},s_{12},s_{13}\}$, thus because each service profile match the policy,
-          s11 match .
-    \item For \vi{6}, the filtering algorithm returns the set $S'=\{s_{21},s_{22},s_{23}\}$.
-    \item For \vi{7}, the filtering algorithm returns the set $S'=\{s_{31},s_{32},s_{33}\}$.
+
+  For every vertex, there are three candidate services, each marked with a profile.
+  The filtering algorithm is applied to each candidate service for each vertex and it returns the set of services that satisfy the profile.
+  \begin{enumerate*}[label=\textit{\roman*})]
+    \item For \vi{6}, the filtering algorithm produces the set $S'_1=\{s_{11},s_{12}\}$; thus, assuming that the dataset owner is "CT", the service profile of \s{11} matches \p{1} and the one of \s{12}, matches \p{2}.
+          However, for \s{13}, there is no match with any policy, and thus, it is discarded.
+    \item For \vi{7}, the filtering algorithm returns the set $S'_2=\{s_{22},s_{23}\}$; thus, assuming that the dataset.region is "CT", the service profile of \s{22} matches \p{5} and the one of \s{23}, matches \p{6}.
+          However, for \s{21}, there is no match with any policy, and thus, it is discarded.
+    \item For \vi{8}, the filtering algorithm returns the set $S'_3=\{s_{31},s_{32},s_{33}\}$;
+          thus because the policy associated with \vi{8} is \p{7}, which matches any subject, the filtering algorithm does not discard any service.
 
   \end{enumerate*}
 
+  The comparison algorithm is then applied to the set of services $S'_*$ and it returns a ranking of the services.
+  The ranking is based on the amount of data that is anonymized by the service.
+  The ranking is listed in \cref{tab:instance_example} and it is based on the transformation function of the policies,
+  assuming that a more restrictive transformation function anonymizes more data affecting negatively the position in the ranking.
+  For example, \s{11} is ranked first because it anonymizes less data than \s{12} and \s{13}.
+  The ranking of \s{22} and \s{23} is based on the same logic.
+  Finally, the ranking of \s{31}, \s{32} is influenced by the environment state at the time of the ranking.
+  For example, if the environment in which the visualization is performed is a CT facility, then \s{31} is ranked first and \s{32} second;
+  thus because the facility is considered a less risky environment than the cloud.
 
 
 
@@ -38,20 +33,19 @@
     \caption{Instance example}\label{tab:instance_example}
 
     \centering
-    \begin{tabular}{l|l|l|c|c}
+    \begin{tabular}{l|l|c|c|c}
 
-      \textbf{Vertex$\rightarrow$Policy}                         & \textbf{Candidate} & \textbf{Profile}         & \textbf{Filtering} & \textbf{Ranking} \\
-      \multirow{ 3}{*}{\vi{4}  $\rightarrow$ \p{1},\p{2},\p{3} } & $\s{11}$           & service\_owner =    "CT" & \cmark             & 1                \\
-                                                                 & $\s{12}$           & service\_owner =    "NY" & \cmark             & 2                \\
-                                                                 & $\s{13}$           & service\_owner =    "CA" & \cmark             & 3                \\
+      \textbf{Vertex$\rightarrow$Policy}                   & \textbf{Candidate} & \textbf{Profile}                         & \textbf{Filtering} & \textbf{Ranking} \\
+      \multirow{ 3}{*}{\vi{4}  $\rightarrow$ \p{1},\p{2} } & $\s{11}$           & service\_owner =    "CT"                 & \cmark             & 1                \\
+                                                           & $\s{12}$           & service\_owner =    "NY"                 & \cmark             & 2                \\
+                                                           & $\s{13}$           & service\_owner =    "CA"                 & \xmark             & 3                \\
       \hline
-      \multirow{ 3}{*}{\vi{6}  $\rightarrow$ \p{5},\p{6} }       & $\s{21}$           & region =    "CA"         & \xmark             & --               \\
-                                                                 & $\s{22}$           & region =    "NY"         & \cmark             & 2                \\
-                                                                 & $\s{23}$           & region =    "CT"         & \cmark             & 1                \\
+      \multirow{ 3}{*}{\vi{7}  $\rightarrow$ \p{5},\p{6} } & $\s{21}$           & service\_region =    "CA"                & \xmark             & --               \\
+                                                           & $\s{22}$           & service\_region =    "CT"                & \cmark             & 1                \\
+                                                           & $\s{23}$           & service\_region =    "NY"                & \cmark             & 2                \\
       \hline
-      \multirow{ 3}{*}{\vi{7}  $\rightarrow$ \p{7},\p{8},\p{9} } & $\s{31}$           & region =    "CA"         & \xmark             & --               \\
-                                                                 & $\s{32}$           & region =    "NY"         & \cmark             & 2                \\
-                                                                 & $\s{33}$           & region =    "CT"         & \cmark             & 1                \\
+      \multirow{ 3}{*}{\vi{8}  $\rightarrow$ \p{7},\p{8} } & $\s{31}$           & visualization\_location = "CT\_FACILITY" & \cmark             & 1                \\
+                                                           & $\s{32}$           & visualization\_location = "CLOUD"        & \cmark             & 2                \\
       \hline
     \end{tabular}
   \end{table*}
