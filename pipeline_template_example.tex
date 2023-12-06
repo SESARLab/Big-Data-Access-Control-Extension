@@ -9,35 +9,34 @@
   \caption{Anonymization policies (a) and data transformations (b)}\label{tab:anonymization}
 
   \resizebox{\textwidth}{!}{
-  \begin{tabular}[t]{cc}
-    \begin{tabular}[t]{c|c|l}
-    \textbf{Vertex}      & \textbf{Policy} & \policy{subject}{object}{action}{environment}{transformation}                          \\ \hline
-    \vi{1},\vi{2},\vi{3} & $\p{0}$         & \policy{ANY}{dataset}{READ}{ANY}{\tp{0}}                                               \\
-    \vi{4},\vi{5}        & $\p{1}$         & \policy{\pone}{dataset}{READ}{ANY}{\tp{0}}                                             \\
-    \vi{4},\vi{5}        & $\p{2}$         & \policy{\ptwo}{dataset}{READ}{ANY}{\tp{1}}                                             \\
-    %\vi{4},\vi{6}        & $\p{3}$         & \policy{\pthree}{dataset}{READ}{ANY}{\tp{2}}                                                    \\
-    \vi{6}               & $\p{4}$         & \policy{ANY}{dataset}{READ}{ANY}{\tp{2}}                                               \\
-    \vi{7}               & $\p{5}$         & \policy{$\langle service\_region= dataset\_origin\rangle$}{dataset}{WRITE}{ANY}{\tp{0}} \\
-    \vi{7}               & $\p{6}$         & \policy{$\langle service\_region=``\{NY,NH\}"\rangle$}{dataset}{WRITE}{ANY}{\tp{1}} \\
-    \vi{8}               & $\p{7}$         & \policy{ANY}{dataset} {READ}{$environment = risky$}{\tp{3}}                     \\
-    \vi{8}               & $\p{8}$         & \policy{ANY}{dataset} {READ}{$environment = not\_risky$}{\tp{4}}                \\
-  \end{tabular}
-&
+    \begin{tabular}[t]{cc}
+      \begin{tabular}[t]{c|c|l}
+        \textbf{Vertex}      & \textbf{Policy} & \policy{subject}{object}{action}{environment}{transformation}                           \\ \hline
+        \vi{1},\vi{2},\vi{3} & $\p{0}$         & \policy{ANY}{dataset}{READ}{ANY}{\tp{0}}                                                \\
+        \vi{4},\vi{5}        & $\p{1}$         & \policy{\pone}{dataset}{READ}{ANY}{\tp{0}}                                              \\
+        \vi{4},\vi{5}        & $\p{2}$         & \policy{\ptwo}{dataset}{READ}{ANY}{\tp{1}}                                              \\
+        %\vi{4},\vi{6}        & $\p{3}$         & \policy{\pthree}{dataset}{READ}{ANY}{\tp{2}}                                                    \\
+        \vi{6}               & $\p{4}$         & \policy{ANY}{dataset}{READ}{ANY}{\tp{2}}                                                \\
+        \vi{7}               & $\p{5}$         & \policy{$\langle service\_region= dataset\_origin\rangle$}{dataset}{WRITE}{ANY}{\tp{0}} \\
+        \vi{7}               & $\p{6}$         & \policy{$\langle service\_region=``\{NY,NH\}"\rangle$}{dataset}{WRITE}{ANY}{\tp{1}}     \\
+        \vi{8}               & $\p{7}$         & \policy{ANY}{dataset} {READ}{$environment = risky$}{\tp{3}}                             \\
+        \vi{8}               & $\p{8}$         & \policy{ANY}{dataset} {READ}{$environment = not\_risky$}{\tp{4}}                        \\
+      \end{tabular}
+                        &
 
-%\caption{Anonymization levels}\label{tab:levels}
-  \begin{tabular}[t]{c|c|l}
-    \textbf{\tf{i}} & \textbf{Level} & \textbf{Data Transformation}                       \\\hline
-    \tp{0}          & $l_0$         & $anon(\varnothing)$                               \\
-    \tp{1}          & $l_1$         & $anon(fname, lname)$                   \\
-    \tp{2}          & $l_2$         & $anon(fname, lname, id, age)$  \\
-    \tp{3}          & $r_0$          & $aggregation(cluster=\infty)                    $ \\
-    \tp{4}          & $r_1$          & $aggregation(cluster=10)                       $  \\
-    \multicolumn{3}{c}{\footnotesize (b)}
-  \end{tabular}\\
-  \footnotesize (a)&\\
-
-\end{tabular}
-}
+      %\caption{Anonymization levels}\label{tab:levels}
+      \begin{tabular}[t]{c|c|l}
+        \textbf{\tp{i}} & \textbf{Level} & \textbf{Data Transformation}                      \\\hline
+        \tp{0}          & $l_0$          & $anon(\varnothing)$                               \\
+        \tp{1}          & $l_1$          & $anon(fname, lname)$                              \\
+        \tp{2}          & $l_2$          & $anon(fname, lname, id, age)$                     \\
+        \tp{3}          & $r_0$          & $aggregation(cluster=\infty)                    $ \\
+        \tp{4}          & $r_1$          & $aggregation(cluster=10)                       $  \\
+        \multicolumn{3}{c}{\footnotesize (b)}
+      \end{tabular} \\
+      \footnotesize (a) &                                                                                          \\
+    \end{tabular}
+  }
 \end{table*}
 Let us consider our reference scenario in \cref{sec:systemmodel}. \cref{fig:service_composition_template} presents an example of pipeline template consisting of five stages, each one annotated with a policy in \cref{tab:anonymization}.
 % We recall that \cref{tab:dataset} shows a sample of our reference dataset.
@@ -57,7 +56,7 @@ Functional requirement \F{4} prescribes $n$ datasets as input and the merged dat
 
 % 3° NODO %
 The third stage consists of two alternative vertices \vi{5} and \vi{6} for data analysis and machine learning tasks, respectively.
-Data protection annotation \myLambda(\vi{5}) refers to policies \p{1} and \p{2}, as for stage 2. 
+Data protection annotation \myLambda(\vi{5}) refers to policies \p{1} and \p{2}, as for stage 2.
 % The logic remains consistent:
 % if the service profile matches with the data owner (\pone), \p{1} matches and level0 anonymization is applied (\tp{0});
 % if the service profile matches with a partner of the owner (\ptwo), \p{2} matches and level1 anonymization is applied  (\tp{1});

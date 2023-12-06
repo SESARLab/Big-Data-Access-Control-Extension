@@ -33,15 +33,14 @@ if __name__ == "__main__":
             node.addService(service)
         nodelist.add(node)
 
-    WINDOW_SIZE = 1
+    combinazioni = itertools.product(*nodelist.nodes)
 
-    for i in range(0,NUMBER_OF_NODES):
-        if(i+WINDOW_SIZE > NUMBER_OF_NODES):
-            break
-        combinazioni = itertools.product(*nodelist.nodes[i:i+WINDOW_SIZE])
+#    for combinazione in combinazioni:
+#        run_combination(combinazione)
 
-        for combinazione in combinazioni:
-            run_combination(combinazione)
-
+    # Using a ThreadPoolExecutor for thread-based parallelism
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        # Submit each combination to the executor for printing
+        executor.map(run_combination, combinazioni)
 
     data_logger.store(f'stats_s{NUMBER_OF_SERVICES}n{NUMBER_OF_NODES}.csv')

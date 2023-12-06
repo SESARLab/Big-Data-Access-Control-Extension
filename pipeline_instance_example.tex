@@ -5,9 +5,9 @@
   Each vertex is associated with three candidate services, each having a profile. The filtering algorithm matches each candidate service's profile with the policies annotating the corresponding vertex. It returns the set of services whose profile matches a policy.
   \begin{enumerate*}[label=\textit{\roman*})]
     \item For \vi{6}, the filtering algorithm produces the set $S'_1=\{s_{11},s_{12}\}$; assuming that the dataset owner is ``CT'', the service profile of \s{11} matches \p{1} and the one of \s{12} matches \p{2}.
-    For \s{13}, there is no policy match and, thus, it is discarded.
+          For \s{13}, there is no policy match and, thus, it is discarded.
     \item For \vi{7}, the filtering algorithm returns the set $S'_2=\{s_{22},s_{23}\}$; assuming that the dataset region is ``CT'', the service profile of \s{22} matches \p{5} and the one of \s{23} matches \p{6}.
-    For \s{21}, there is no policy match and, thus, it is discarded.
+          For \s{21}, there is no policy match and, thus, it is discarded.
     \item For \vi{8}, the filtering algorithm returns the set $S'_3=\{s_{31},s_{32},s_{33}\}$. Since policy \p{7} matches with any subjects, the filtering algorithm does not discard any service.
   \end{enumerate*}
 
