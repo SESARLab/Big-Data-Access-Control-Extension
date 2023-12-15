@@ -26,11 +26,11 @@ def run_combination(combinazione):
 if __name__ == "__main__":
     nodelist = NodeList()
 
-    for i in range(0,NUMBER_OF_NODES):
+    for i in range(0, NUMBER_OF_NODES):
         node = Node(i)
         for j in range(0, NUMBER_OF_SERVICES):
             service = Service(int(str(i) + str(j).zfill(2)))
-            node.addService(service)
+            node.add_service(service)
         nodelist.add(node)
 
     combinazioni = itertools.product(*nodelist.nodes)

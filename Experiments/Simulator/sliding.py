@@ -18,7 +18,7 @@ if __name__ == "__main__":
     node = Node(i)
     for j in range(0, NUMBER_OF_SERVICES):
       service = Service(int(str(i) + str(j)))
-      node.addService(service)
+      node.add_service(service)
     nodelist.add(node)
 
 for i in range(0,len(nodelist.nodes)-1,1):

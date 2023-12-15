@@ -1,18 +1,21 @@
+from typing import Self
+
 import pandas
 import numpy
 from profiles import PregeneratedProfiles, ServiceProfile
 from metrics.jsh import calculate
 
 
-class Service():
+class Service:
     def __init__(self, id, profile: ServiceProfile = PregeneratedProfiles.GOOD):
         self.id = id
         self.result = None
         self.metric = None
         self.profile: ServiceProfile = profile
 
-    def run(self, data: pandas.DataFrame):
-        # print("\tService s{} running".format(self.id))
+    def run(self, data: pandas.DataFrame) -> Self:
+        #print("\tService s{} running".format(self.id))
+
         numpy.random.seed(self.id)
         sample_size = numpy.random.uniform(self.profile.getMin(), self.profile.getMax())
         # print("\t\tsampling {}% of data".format(sample_size * 100))
@@ -28,7 +31,7 @@ class Service():
         return self.result
 
     def __str__(self):
-        return "s{} ".format(self.id)
+        return "s{}".format(self.id)
 
     def __repr__(self):
-        return "s{} ".format(self.id)
+        return "s{}".format(self.id)

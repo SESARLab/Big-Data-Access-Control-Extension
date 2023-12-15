@@ -19,11 +19,11 @@ if __name__ == "__main__":
         for j in range(0, NUMBER_OF_SERVICES):
             service = Service(int(str(i) + str(j).zfill(2)))
             print(f"Service {service.id}")
-            node.addService(service)
+            node.add_service(service)
         nodelist.add(node)
     bestPipeline = []
     for node in nodelist.nodes:
-        bestPipeline.append(node.run(data).getBestService())
+        bestPipeline.append(node.run(data).get_best_service())
 
     instance = NodeList()
     for key, service in enumerate(bestPipeline):

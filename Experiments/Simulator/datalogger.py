@@ -16,12 +16,12 @@ class DataLogger:
         self.nodelist = None
         self.service = None
 
-    def log(self, nodelist, service):
+    def log(self, nodelist, node, service, metric):
         self.data.append(
             {
-                'node': str(nodelist),
-                'service': service,
-                'metric': service.get_metric()
+          'node': str(nodelist),
+                'service': str(node.id) + str(service),
+                'metric': metric
             }
         )
 

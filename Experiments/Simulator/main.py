@@ -1,13 +1,11 @@
-from node import Node
+
 from nodeList import NodeList
 from service import Service
-import pandas
+
 from node import Node
 from datalogger import DataLogger
-import itertools
-import multiprocessing
 import configuration
-import concurrent.futures
+
 
 NUMBER_OF_NODES = configuration.NUMBER_OF_NODES
 NUMBER_OF_SERVICES = configuration.NUMBER_OF_SERVICES
@@ -26,22 +24,23 @@ def run_combination(combinazione):
 if __name__ == "__main__":
     nodelist = NodeList()
 
-    for i in range(0,NUMBER_OF_NODES):
+    for i in range(0, NUMBER_OF_NODES):
         node = Node(i)
         for j in range(0, NUMBER_OF_SERVICES):
-            service = Service(int(str(i) + str(j).zfill(2)))
-            node.addService(service)
+            service = Service(int(f"{i}{j}"))  # TODO: change this
+            node.add_service(service)
         nodelist.add(node)
+    print(nodelist)
 
-    WINDOW_SIZE = 1
+    nodelist.run(data, data_logger)
+    # WINDOW_SIZE = 1
 
-    for i in range(0,NUMBER_OF_NODES):
-        if(i+WINDOW_SIZE > NUMBER_OF_NODES):
-            break
-        combinazioni = itertools.product(*nodelist.nodes[i:i+WINDOW_SIZE])
-
-        for combinazione in combinazioni:
-            run_combination(combinazione)
-
+    # for i in range(0,NUMBER_OF_NODES):
+    #     if(i+WINDOW_SIZE > NUMBER_OF_NODES):
+    #         break
+    #     combinazioni = itertools.product(*nodelist.nodes[i:i+WINDOW_SIZE])
+    #
+    #     for combinazione in combinazioni:
+    #         run_combination(combinazione)
 
     data_logger.store(f'stats_s{NUMBER_OF_SERVICES}n{NUMBER_OF_NODES}.csv')
