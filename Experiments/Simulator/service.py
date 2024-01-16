@@ -7,19 +7,21 @@ from metrics.jsh import calculate
 
 
 class Service:
-    def __init__(self, id, profile: ServiceProfile = PregeneratedProfiles.GOOD):
+    def __init__(self, id, profile: ServiceProfile = PregeneratedProfiles.GOOD, parent=None):
         self.id = id
         self.result = None
         self.metric = None
         self.profile: ServiceProfile = profile
+        self.parent = parent
 
-    def run(self, data: pandas.DataFrame) -> Self:
+    def run(self, data: pandas.DataFrame, weight) -> Self:
         #print("\tService s{} running".format(self.id))
 
-        numpy.random.seed(self.id)
-        sample_size = numpy.random.uniform(self.profile.getMin(), self.profile.getMax())
+        #numpy.random.seed(self.id)
+        #sample_size = numpy.random.uniform(self.profile.getMin(), self.profile.getMax())
         # print("\t\tsampling {}% of data".format(sample_size * 100))
-        self.result = data.sample(frac=sample_size, random_state=self.id)
+        self.result = data.sample(frac=weight, random_state=self.id)
+        #print("EXTRACTing {}% of data".format(weight * 100))
         self.metric = calculate(data, self.result)
         # print("\t\ts{} finished - metric: {}".format(self.id, self.metric))
         return self

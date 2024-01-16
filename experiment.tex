@@ -1,14 +1,4 @@
 \section{Experiments}\label{sec:experiment}
-\subsection{performance}
-\begin{itemize}
-  \item Finestra scorrevole da 1 a N=Nodi
-  \item Servizi 5 a 20 passo 5 + 50??
-  \item
-\end{itemize}
-\subsection{Metriche/Euristiche}
-
-
-
 
 
 
@@ -16,8 +6,49 @@ We experimentally evaluated our approach. In the following of this section, we f
 then we discuss the experimental settings, and
 finally we discuss the performance of our heuristic algorithm.
 
-\subsubsection{Testing Infrastructure}
-We designed and developed a Python-based testing infrastructure that implements x.
-Our infrastructure implements a pipeline emulator that simulates the execution of a pipeline of services.
-The pipeline emulator has been used to compare the performance of our heuristic algorithm with the optimal solution,
-both in terms of execution time and quality of the solution.
+\subsection{Testing Infrastructure and Settings}
+
+We designed and developed a Python-based testing infrastructure that implements the emulation of service execution, comparison and composition.
+The emulator implements the sliding window heuristic for the generation of the best service composition, to asses its effectiveness and efficiency, in terms of execution time and approximation of the optimal solution.
+To better evaluate the performance of the heuristic algorithm, we also implemented the optimal solution, which is obtained by executing all possible combinations of services for each node.
+The emulator simplify the execution of the service composition by removing the service selection phase, which is not relevant for the purpose of the experiment.
+All our experiments have been run on a workstation equipped with a 2.40GHz i5-8279U CPU with 16GB RAM and a 512GB SSD.
+
+\subsection{ Evaluation}
+% \subsection{performance}
+% \begin{itemize}
+%   \item Finestra scorrevole da 1 a N=Nodi
+%   \item Servizi 5 a 20 passo 5 + 50??
+%   \item
+% \end{itemize}
+% \subsection{Metriche/Euristiche}
+
+The procedure was repeated by varying only one service at a time and executing the entire pipeline.
+The experiments were primarily evaluated along three dimensions:
+
+(i) Evaluation of the exhaustive execution time of all combinations by incrementing the number of services and nodes periodically:
+This experiment aimed to comprehend how execution time fluctuates with increasing numbers of nodes and services.
+The number of nodes was varied from 1 to 6, while the number of services was varied from 2 to 20, with a step of 1.
+The execution has been stopped at the first combination that reported an execution time greater than 10k seconds.
+The observed trend aligns with expectations, exhibiting exponential growth in execution times as the number of nodes increases.
+
+Refer to Table X for a graphical representation.
+
+(ii) Evaluation of execution time with the introduction of heuristics:
+The heuristics, as defined in the relevant section, were incorporated,
+and the entire pipeline was rerun with variations in the number of nodes,
+services, and the size of the sliding window.
+
+Notably, a window of size 1 corresponds to a greedy algorithm execution,
+while a window of size n, where n is the number of nodes, is analogous to exhaustive execution.
+
+(iii) Comparison of the optimal versus heuristics:
+The optimal combination, characterized by the least data loss in the execution of the entire pipeline,
+was determined by computing the minimum coefficient of variation for each combination.
+The computation of the optimum necessitates exhaustive execution, involving all possible combinations of candidate services at each node.
+Heuristics reduce execution time by approximating this selection through the use of a sliding window and generating all combinations within the window.
+The objective of this final experiment is to assess the disparity between the optimum obtained with the sliding window and that obtained through exhaustive execution.
+
+To introduce a level of interdependence among services,
+matrices containing the degrees of dependence of each service with the next were employed.
+It is important to note that different definitions of the optimum may yield slightly different results.

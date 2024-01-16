@@ -29,10 +29,12 @@ class Node(object):
 
         return self
 
-    def run(self, data: pandas.DataFrame):
-        ouput = self.services[self._pointer].run(data)
+    def run(self, data: pandas.DataFrame,combination):
+        output = self.services[self._pointer].run(data, combination[self.id])
+
+
         #self.result = ouput.result
-        self.metric = ouput.metric
+        self.metric = output.metric
         #self.results.append(results.result)
         #self.metrics.append(results.metric)
         return self
@@ -50,4 +52,4 @@ class Node(object):
         return iter(self.services)
 
     def __repr__(self) -> str:
-        return "n{} -> {}".format(self.id, self.services)
+        return "{}".format(self._pointer)
