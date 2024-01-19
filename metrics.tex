@@ -72,7 +72,25 @@ In the event of multiple service interactions, each with its respective transfor
 Due to the exponential increase in complexity as the number of services and transformations grow, identifying the optimal path is inherently an NP-hard problem.
 As such, we propose some heuristics to approximate the optimal path as closely as possible.
 To evaluate their efficacy, the heuristically generated paths will be compared against the optimal solution.
-\subsection{Prova di NP-hardness}
+\subsection{Establishing NP-Hardness for the Enumeration of All Combinations within a Set}
+The problem under consideration involves enumerating all possible combinations within a given set,
+$A = \{a_1, a_2, ..., a_n\}$.
+This problem is similar to the well-known Power Set problem, which is recognized as NP-hard.
+To solve the Power Set problem, one must generate all possible subsets of a given set.
+This task is equivalent to enumerating all combinations within the set.
+By representing combinations or subsets as binary strings of length $n$,
+we can establish a clear mapping between the two problems.
+In this binary string, the $i^{th}$ position is 1 if the $i^{th}$ element is included in the combination (or subset), and 0 otherwise.
+This representation creates a one-to-one correspondence between the combinations in our problem and the subsets in the Power Set problem,
+thereby establishing their equivalence. The NP-hardness of the Power Set problem is well-documented, with a time complexity of $O(2^n)$,
+it follows that our problem is also NP-hard.
+The conclusion is confidently based on the definition of NP-hardness,
+which states that any problem equivalent to the Power Set problem is also NP-hard,
+as it is in NP and is as difficult as any problem in NP.
+\subsubsection{Conclusion}
+
+In summary, the problem of enumerating all possible combinations within a given set is proven to be NP-hard, owing to its equivalence to the Power Set problem. This proof provides a theoretical boundary on the efficiency of any algorithm designed to solve this problem, as it implies that no polynomial-time algorithm can solve this problem for all instances unless P=NP. This finding has significant implications for the fields of combinatorics and computational complexity theory.
+```
 
 \subsection{Euristics}
 The computational challenge posed by the enumeration of all possible combinations within a given set is a well-established NP-hard problem.
@@ -140,7 +158,6 @@ while a window size of N, where N represents the number of nodes, is equivalent 
 % Then, while there are still nodes to be selected, the algorithm iterates over the nodes and selects the node with the lowest metric value.
 % The selected node is then added to the set of selected nodes and removed from the set of nodes.
 % Finally, the set of selected nodes is returned.
-
 \subsection*{Sliding Window}\label{subsec:slidingwindow}
 
 
