@@ -59,8 +59,10 @@ By utilizing the JSD, you can obtain a more comprehensive understanding of the d
 Let us consider two datasets X and Y of the same size. The Jensen-Shannon divergence (JSD) can be extended to incorporate weights in the calculation, resulting in a weighted version of the divergence. This weighted Jensen-Shannon divergence accounts for the importance or relevance of specific features or elements in the datasets being compared.
 
 The weighted Jensen-Shannon divergence between X and Y, denoted as JSDw(X, Y), is defined as:
-
-\[JSDw(X, Y) = \frac{1}{2} \left( \sum_{i=1}^{n} w_i \left( x_i \log \frac{x_i}{m_i} \right) + \sum_{i=1}^{n} w_i \left( y_i \log \frac{y_i}{m_i} \right) \right)\]
+\begin{align*}
+  JSDw(X, Y) = \frac{1}{2} \left( \sum_{i=1}^{n} w_i \left( x_i \log \frac{x_i}{m_i} \right) \right. \\
+  \left. + \sum_{i=1}^{n} w_i \left( y_i \log \frac{y_i}{m_i} \right) \right)
+\end{align*}
 
 where x\_i and y\_i are the elements of X and Y, respectively, w\_i represents the weights assigned to each element, and \[m_i = \frac{{x_i + y_i}}{2}\] is the average of the corresponding elements.
 
