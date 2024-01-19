@@ -65,19 +65,26 @@ The weighted Jensen-Shannon divergence between X and Y, denoted as JSDw(X, Y), i
 where x\_i and y\_i are the elements of X and Y, respectively, w\_i represents the weights assigned to each element, and \[m_i = \frac{{x_i + y_i}}{2}\] is the average of the corresponding elements.
 
 By incorporating weights into the JSD calculation, the weighted Jensen-Shannon divergence provides a more accurate measure of dissimilarity between X and Y, considering the importance of individual elements based on the assigned weights. This approach is particularly useful when certain elements in the datasets have varying levels of significance, enabling a more tailored analysis of dissimilarity.
-\subsection{Metrica Composta tipo vikor}
-?
-\subsection{Metrica Composta vikor weighted (TOPSIS)}
-?
 
-\subsection{Problema}
+\subsection{Problem Statement}
 The metrics established will enable the quantification of data loss pre- and post-transformations.
 In the event of multiple service interactions, each with its respective transformation, efforts will be made to minimize the loss of information while upholding privacy and security standards.
 Due to the exponential increase in complexity as the number of services and transformations grow, identifying the optimal path is inherently an NP-hard problem.
-As such, we propose some heuristics to approximate the optimal path as closely as possible. To evaluate their efficacy, the heuristically generated paths will be compared against the optimal solution.
+As such, we propose some heuristics to approximate the optimal path as closely as possible.
+To evaluate their efficacy, the heuristically generated paths will be compared against the optimal solution.
 \subsection{Prova di NP-hardness}
 
 \subsection{Euristics}
+The computational challenge posed by the enumeration of all possible combinations within a given set is a well-established NP-hard problem.
+The exhaustive exploration of such combinations swiftly becomes impractical in terms of computational time and resources,
+particularly when dealing with the analysis of complex pipelines.
+In response to this computational complexity,
+the incorporation of heuristics emerges as a strategy to try to efficiently address the problem.
+
+In this article, our focus centers on a specific heuristic known as "sliding windows" to tackle the combination problem.
+In \cref{subsec:slidingwindow}, we present more details about this heuristic presenting the pseudocode and an example of its application.
+It is noteworthy to highlight that, within the sliding windows paradigm, a window size of 1 corresponds to the "greedy" approach,
+while a window size of N, where N represents the number of nodes, is equivalent to the exhaustive method.
 \lstset{ %
   backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
   basicstyle=\footnotesize,        % the size of the fonts that are used for the code
@@ -106,35 +113,35 @@ As such, we propose some heuristics to approximate the optimal path as closely a
   title=\lstname,                  % show the filename of files included with \lstinputlisting; also try caption instead of title
   columns=fixed                    % Using fixed column width (for e.g. nice alignment)
 }
-\subsection*{Greedy}
-The greedy algorithm is a heuristic that can be used to minimize the quantity of information lost by making locally optimal choices at each step in the hope of achieving a globally optimal solution.
-For instance, in our service selection problem, the greedy algorithm can be used to select services in order of their information loss, starting with the service with the lowest information loss.
-This strategy ensures that services with lower information loss are selected first, minimizing the overall quantity of information lost.
-Pseudo-code for the greedy algorithm is presented in Algorithm 1.
-\begin{lstlisting}[frame=single,caption={Greedy Heuristic Pseudocode},label={lst:greedy}]
-function GreedyHeuristic(Set nodes):
+% \subsection*{Greedy}
+% The greedy algorithm is a heuristic that can be used to minimize the quantity of information lost by making locally optimal choices at each step in the hope of achieving a globally optimal solution.
+% For instance, in our service selection problem, the greedy algorithm can be used to select services in order of their information loss, starting with the service with the lowest information loss.
+% This strategy ensures that services with lower information loss are selected first, minimizing the overall quantity of information lost.
+% Pseudo-code for the greedy algorithm is presented in Algorithm 1.
+% \begin{lstlisting}[frame=single,caption={Greedy Heuristic Pseudocode},label={lst:greedy}]
+% function GreedyHeuristic(Set nodes):
 
-  selectedNodes = empty
-  while nodes is not empty:
-    minMetricNode = None
-    minMetricValue = infinity
-    for node in nodes:
-      currentMetric = calculateMetric(node)
-      if currentMetric < minMetricValue:
-        minMetricValue = currentMetric
-        minMetricNode = node
-        add minMetricNode to selectedNodes
-        remove minMetricNode from nodes
-  return selectedNodes
-        \end{lstlisting}
+%   selectedNodes = empty
+%   while nodes is not empty:
+%     minMetricNode = None
+%     minMetricValue = infinity
+%     for node in nodes:
+%       currentMetric = calculateMetric(node)
+%       if currentMetric < minMetricValue:
+%         minMetricValue = currentMetric
+%         minMetricNode = node
+%         add minMetricNode to selectedNodes
+%         remove minMetricNode from nodes
+%   return selectedNodes
+%         \end{lstlisting}
 
-The pseudocode and is made of one function, GreedyHeuristic, which takes a set of nodes as input and returns a set of selected nodes.
-The function starts by initializing an empty set of selected nodes.
-Then, while there are still nodes to be selected, the algorithm iterates over the nodes and selects the node with the lowest metric value.
-The selected node is then added to the set of selected nodes and removed from the set of nodes.
-Finally, the set of selected nodes is returned.
+% The pseudocode and is made of one function, GreedyHeuristic, which takes a set of nodes as input and returns a set of selected nodes.
+% The function starts by initializing an empty set of selected nodes.
+% Then, while there are still nodes to be selected, the algorithm iterates over the nodes and selects the node with the lowest metric value.
+% The selected node is then added to the set of selected nodes and removed from the set of nodes.
+% Finally, the set of selected nodes is returned.
 
-\subsection*{Sliding Window}
+\subsection*{Sliding Window}\label{subsec:slidingwindow}
 
 
 
