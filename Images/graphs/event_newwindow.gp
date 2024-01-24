@@ -5,7 +5,7 @@ set ylabel "Computation Time (ms)"
 set xlabel "No. of ingested records"
 base_path = '../../Experiments/Simulator/'
 
-set yrange[0:4096]
+#set yrange[0:4096]
 set key box top left inside Left samplen 1
 #set logscale y 2
 
