@@ -101,6 +101,11 @@ In \iChartFunction, every invocations \vii{i}$\in$$V'_S$ contains a service inst
 
   When all vertices $\vi{i}\in V$ have been visited, G' contains a service instance $s'_i$ for each \vii{i}$\in$\Vp, and the \pipelineInstance is complete. We note that each vertex \vii{i} is annotated with policies $p_k$$\in$\P{i} according to \myLambda. When pipeline instance is triggered, before any services can be executed, policies in \P{i} are evaluated and enforced. In case policy evaluation returns \emph{true}, data transformation \TP$\in$\P{i} is applied, otherwise a default transformation that removes all data is applied.
 
+\usetikzlibrary{positioning}
+\usetikzlibrary{backgrounds}
+
+
+
 \begin{figure}[ht!]
   \centering
   \newcommand{\function}{$\instanceChartAnnotation{}$}
