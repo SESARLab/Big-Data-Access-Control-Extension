@@ -23,15 +23,15 @@ def run_combination(combinazione):
 if __name__ == "__main__":
 
     times = []
-    e_nodes= 6
+    e_nodes= 2
     configuration.NUMBER_OF_NODES = e_nodes
-    for e_window in range(5, e_nodes+1):
+    for e_window in range(1,2):
         configuration.WINDOW_SIZE = e_window
-        for e_servies in range(2, 9):
+        for e_servies in range(1, 10):
             configuration.NUMBER_OF_SERVICES = e_servies
             start_time = time.time()
 
-            nodelist = NodeList(window_size=configuration.WINDOW_SIZE)
+            nodelist = NodeList(window_size=e_window)
             for i in range(0, configuration.NUMBER_OF_NODES):
                 node = Node(i)
 

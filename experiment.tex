@@ -114,27 +114,28 @@ In \iChartFunction, every invocations \vii{i}$\in$$V'_S$ contains a service inst
 \begin{figure}[ht!]
   \centering
   \newcommand{\function}{$\instanceChartAnnotation{}$}
-  \begin{tikzpicture}[scale=0.7]
-
-    \node[draw, circle] (s1) at (3,1.7) {$\sii{1}$};
-    \node[draw, circle] (s2) at (3,0) {$\sii{2}$};
-    \node[draw, circle] (s3) at (3,-1.7) {$\sii{3}$};
-
-    \node[draw, circle] (s11) at (5,1.7) {$\sii{1}$};
-    \node[draw, circle] (s12) at (5,0) {$\sii{2}$};
-    \node[draw, circle] (s13) at (5,-1.7) {$\sii{3}$};
-
-    \node[draw, circle] (s21) at (7,1.7) {$\sii{1}$};
-    \node[draw, circle] (s22) at (7,0) {$\sii{2}$};
-    \node[draw, circle] (s23) at (7,-1.7) {$\sii{3}$};
-
-    \node[draw, circle] (s31) at (9,1.7) {$\sii{1}$};
-    \node[draw, circle] (s32) at (9,0) {$\sii{2}$};
-    \node[draw, circle] (s33) at (9,-1.7) {$\sii{3}$};
-
+  \begin{tikzpicture}[framed]
     \node[draw, circle] (s41) at (1,1.7) {$\sii{1}$};
     \node[draw, circle] (s42) at (1,0) {$\sii{2}$};
     \node[draw, circle] (s43) at (1,-1.7) {$\sii{3}$};
+
+    \node[draw, circle] (s1) at (3,1.7) {$\sii{11}$};
+    \node[draw, circle] (s2) at (3,0) {$\sii{12}$};
+    \node[draw, circle] (s3) at (3,-1.7) {$\sii{13}$};
+
+    \node[draw, circle] (s11) at (5,1.7) {$\sii{21}$};
+    \node[draw, circle] (s12) at (5,0) {$\sii{22}$};
+    \node[draw, circle] (s13) at (5,-1.7) {$\sii{23}$};
+
+    \node[draw, circle] (s21) at (7,1.7) {$\sii{31}$};
+    \node[draw, circle] (s22) at (7,0) {$\sii{32}$};
+    \node[draw, circle] (s23) at (7,-1.7) {$\sii{33}$};
+
+    \node[draw, circle] (s31) at (9,1.7) {$\sii{41}$};
+    \node[draw, circle] (s32) at (9,0) {$\sii{42}$};
+    \node[draw, circle] (s33) at (9,-1.7) {$\sii{43}$};
+
+
     % \draw[->] (node2) -- (node3);
     \draw[->] (s1) -- (s11);
     \draw[->] (s1) -- (s12);
