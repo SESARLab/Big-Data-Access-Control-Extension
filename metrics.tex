@@ -65,27 +65,7 @@ where X and Y are two datasets of the same size, x\_i$\in$X and y\_i$\in$Y are t
 
 By incorporating weights into the JSD calculation, the Weighted Jensen-Shannon divergence provides a more accurate measure of dissimilarity between X and Y, considering the importance of individual elements based on the assigned weights. This approach is particularly useful when elements in the datasets have varying levels of significance, enabling a more tailored analysis of dissimilarity.
 
-\subsection{Establishing NP-Hardness for the Enumeration of All Combinations within a Set}
-The metrics established will enable the quantification of data loss pre- and post-transformations.
-In the event of multiple service interactions, each with its respective transformation, efforts will be made to minimize the loss of information while upholding privacy and security standards.
-Due to the exponential increase in complexity as the number of services and transformations grow, identifying the optimal path is inherently an NP-hard problem.
-As such, we propose some heuristics to approximate the optimal path as closely as possible.
-To evaluate their efficacy, the heuristically generated paths will be compared against the optimal solution.
 
-The problem under consideration involves enumerating all possible combinations within a given set,
-$A = \{a_1, a_2, ..., a_n\}$.
-This problem is similar to the well-known Power Set problem, which is recognized as NP-hard.
-To solve the Power Set problem, one must generate all possible subsets of a given set.
-This task is equivalent to enumerating all combinations within the set.
-By representing combinations or subsets as binary strings of length $n$,
-we can establish a clear mapping between the two problems.
-In this binary string, the $i^{th}$ position is 1 if the $i^{th}$ element is included in the combination (or subset), and 0 otherwise.
-This representation creates a one-to-one correspondence between the combinations in our problem and the subsets in the Power Set problem,
-thereby establishing their equivalence. The NP-hardness of the Power Set problem is well-documented, with a time complexity of $O(2^n)$,
-it follows that our problem is also NP-hard.
-The conclusion is confidently based on the definition of NP-hardness,
-which states that any problem equivalent to the Power Set problem is also NP-hard,
-as it is in NP and is as difficult as any problem in NP.
 
 \subsection{Heuristics}
 The computational challenge posed by the enumeration of all possible combinations within a given set is a well-established NP-hard problem.

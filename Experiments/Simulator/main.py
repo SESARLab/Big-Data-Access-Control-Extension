@@ -23,11 +23,11 @@ def run_combination(combinazione):
 if __name__ == "__main__":
 
     times = []
-    e_nodes= 2
+    e_nodes= 4
     configuration.NUMBER_OF_NODES = e_nodes
-    for e_window in range(1,2):
+    for e_window in range(4,5):
         configuration.WINDOW_SIZE = e_window
-        for e_servies in range(1, 10):
+        for e_servies in range(1, 15):
             configuration.NUMBER_OF_SERVICES = e_servies
             start_time = time.time()
 
@@ -44,16 +44,16 @@ if __name__ == "__main__":
             end_time = time.time()
 
             print(f"EXECUTION TIME w{e_window} n{e_nodes} s{e_servies}: {end_time - start_time}")
-            with open(f'event_newwindown_n{e_nodes}_w{e_window}.dat', 'a') as f_object:
-                lista = [e_nodes,
-                e_servies,
-                e_window,
-                end_time - start_time
-                ]
-                writer_object = writer(f_object, delimiter=' ')
-                writer_object.writerow(lista)
-            f_object.close()
+            # with open(f'event_newwindown_n{e_nodes}_w{e_window}.dat', 'a') as f_object:
+            #     lista = [e_nodes,
+            #     e_servies,
+            #     e_window,
+            #     end_time - start_time
+            #     ]
+            #     writer_object = writer(f_object, delimiter=' ')
+            #     writer_object.writerow(lista)
+            # f_object.close()
 
-            times.append(dict)
+            # times.append(dict)
 
-            data_logger.store(f'stats_s{configuration.NUMBER_OF_SERVICES}n{configuration.NUMBER_OF_NODES}.csv')
+            # data_logger.store(f'stats_s{configuration.NUMBER_OF_SERVICES}n{configuration.NUMBER_OF_NODES}.csv')
