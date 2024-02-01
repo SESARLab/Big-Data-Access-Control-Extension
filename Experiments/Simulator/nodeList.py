@@ -27,10 +27,11 @@ class NodeList:
 
 
         while self.running:
+
             best_composition: [Node]
             self.winning_composition: [Node]
             best_composition, best_metric = WindowDecorator(
-                self.nodes[self._pointer:self._pointer + self.WINDOW_SIZE],data_logger).run(data)
+                self.nodes[self._pointer:self._pointer + self.WINDOW_SIZE],data_logger,window_size=self.WINDOW_SIZE).run(data)
             #data_logger.log(node.id, node._pointer, node.metrics[-1])
             total = 0.0
             if self.is_last_window_frame():

@@ -30,6 +30,7 @@ class Node(object):
         return self
 
     def run(self, data: pandas.DataFrame,combination):
+        print(f"Node {self.id} running service {self._pointer}")
         output = self.services[self._pointer].run(data, combination[self.id])
 
 
