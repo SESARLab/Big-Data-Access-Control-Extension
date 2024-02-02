@@ -36,5 +36,5 @@ jobs:
           prerelease: true
           title: "Development Build"
           files: |
-            *.pdf
+            main.pdf
 
