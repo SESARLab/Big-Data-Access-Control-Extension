@@ -44,4 +44,4 @@ if __name__ == "__main__":
 
     nodelist.run(data, data_logger)
 
-    data_logger.store(f'stats_s{configuration.NUMBER_OF_SERVICES}n{configuration.NUMBER_OF_NODES}.csv')
+    data_logger.store(f'stats_w{configuration.WINDOW_SIZE}s{configuration.NUMBER_OF_SERVICES}n{configuration.NUMBER_OF_NODES}.csv')

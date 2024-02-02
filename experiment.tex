@@ -64,4 +64,71 @@ It is important to note that different definitions of the optimum may yield slig
   \label{fig:perf_window}
 \end{figure*}
 
+
+\usetikzlibrary{positioning}
+\usetikzlibrary{backgrounds}
+
+
+
+\begin{figure}[ht!]
+  \centering
+  \newcommand{\function}{$\instanceChartAnnotation{}$}
+  \begin{tikzpicture}[framed]
+    \node[draw, circle] (s41) at (1,1.7) {$\sii{1}$};
+    \node[draw, circle] (s42) at (1,0) {$\sii{2}$};
+    \node[draw, circle] (s43) at (1,-1.7) {$\sii{3}$};
+
+    \node[draw, circle] (s1) at (3,1.7) {$\sii{11}$};
+    \node[draw, circle] (s2) at (3,0) {$\sii{12}$};
+    \node[draw, circle] (s3) at (3,-1.7) {$\sii{13}$};
+
+    \node[draw, circle] (s11) at (5,1.7) {$\sii{21}$};
+    \node[draw, circle] (s12) at (5,0) {$\sii{22}$};
+    \node[draw, circle] (s13) at (5,-1.7) {$\sii{23}$};
+
+    \node[draw, circle] (s21) at (7,1.7) {$\sii{31}$};
+    \node[draw, circle] (s22) at (7,0) {$\sii{32}$};
+    \node[draw, circle] (s23) at (7,-1.7) {$\sii{33}$};
+
+    \node[draw, circle] (s31) at (9,1.7) {$\sii{41}$};
+    \node[draw, circle] (s32) at (9,0) {$\sii{42}$};
+    \node[draw, circle] (s33) at (9,-1.7) {$\sii{43}$};
+
+
+    % \draw[->] (node2) -- (node3);
+    \draw[->] (s1) -- (s11);
+    \draw[->] (s1) -- (s12);
+    \draw[->] (s1) -- (s13);
+
+    \draw[->,dashdotted] (s2) -- (s11);
+    \draw[->,dashdotted] (s2) -- (s12);
+    \draw[->,dashdotted] (s2) -- (s13);
+
+    \draw[->,dashed] (s3) -- (s11);
+    \draw[->,dashed] (s3) -- (s12);
+    \draw[->,dashed] (s3) -- (s13);
+
+
+    \draw[->] (s11) -- (s21);
+    \draw[->] (s11) -- (s22);
+    \draw[->] (s11) -- (s23);
+
+    \draw[->,dashdotted] (s12) -- (s21);
+    \draw[->,dashdotted] (s12) -- (s22);
+    \draw[->,dashdotted] (s12) -- (s23);
+
+    \draw[->,dashed] (s13) -- (s21);
+    \draw[->,dashed] (s13) -- (s22);
+    \draw[->,dashed] (s13) -- (s23);
+
+
+    \begin{scope}[on background layer]
+      \draw[thick, dashed, fill=red!10, opacity=0.5]
+      ([shift={(-0.5,0.5)}]s1.north west) rectangle ([shift={(0.5,-0.5)}]s23.south east);
+
+    \end{scope}
+  \end{tikzpicture}
+  \caption{Service composition instance}
+  \label{fig:service_composition_instance}
+\end{figure}
 \subsection{Quality}
