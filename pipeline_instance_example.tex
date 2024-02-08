@@ -1,4 +1,4 @@
-\begin{example}[\bf Valid \pipelineInstance]\label{ex:instance}
+\begin{example}[\bf \pipelineInstance]\label{ex:instance}
 
   Let us consider a subset \{\vi{6}, \vi{7}, \vi{8}\} of the pipeline template \tChartFunction in \cref{sec:example}.
 
@@ -50,38 +50,3 @@
 
 \end{example}
 
-\subsection{NP-Hardness of the Pipeline Instantiation Process}
-We need to\\
-1 - define the quality metric\\
-2 - define the problem as a max-instance problem, cioè la definizione di un'istanza con max quality\\
-3 - definiamo che + NP-Hard
-
-\begin{problem}
-
-\end{problem}
-
-Note that while the overall problem is NP-hard, there is a component of the problem that is solvable in polynomial time: matching the profile of each service with the node policy.
-This can be done by iterating over each node and each service, checking if the service matches the node’s policy.
-This process would take $O(|N|*|S|)$ time. This is polynomial time complexity.
-
-The \problem is NP-hard, as stated by the following theorem
-\begin{theorem}
-  The \problem is NP-Hard
-\end{theorem}
-\emph{Proof: }
-
-The proof is a reduction from the NP-hard problem. We map each service s in S to an item in the Knapsack Problem.
-The value of the item is equivalent to the calculated metric, and the weight of the item is uniformly 1, as we can choose each service once. The capacity of the knapsack is set to the number of nodes.
-Our problem can now be viewed as a variant of the Knapsack Problem: find the subset of items(services)
-that maximizes the total value (score) without exceeding the capacity of the knapsack (number of nodes).
-The Knapsack Problem is NP-hard.
-Since our problem can be reduced to the Knapsack Problem in polynomial time, our problem is also NP-hard.
-
-
-% The metrics established will enable the quantification of data loss pre- and post-transformations.
-% In the event of multiple service interactions, each with its respective transformation,
-% efforts will be made to minimize the loss of information while upholding privacy and security standards.
-% Due to the exponential increase in complexity as the number of services and transformations grow,
-% identifying the optimal path is inherently an NP-hard problem.
-% As such, we propose some heuristics to approximate the optimal path as closely as possible.
-%To evaluate their efficacy, the heuristically generated paths will be compared against the optimal solution.

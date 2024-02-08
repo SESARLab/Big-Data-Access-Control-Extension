@@ -40,7 +40,7 @@ A \pipelineInstance $\iChartFunction$ instantiates a \pipelineTemplate \tChartFu
     %\item \textit{Selection Algorithm} -- Upon retrieving a set $S'$ of compatible services \si{j}, it produces a ranking of these services according to some metrics that evaluates the quality loss introduced by each service when integrated in the pipeline instance. More details about the metrics are provided in Section \ref{sec:metrics}. The best service $s'_i$ is then selected and integrated in $\vii{i}\in \Vp$. There are many ways of choosing relevant metrics, we present those used in this article in Section \ref{sec:metrics}.
   \end{itemize}
 
-  When all vertices $\vi{i}\in V$ have been visited, a valid \pipelineInstance G' is generated, where each \vii{i}$\in$\Vp contains a service instance $s'_i$. We note that each vertex \vii{i} is annotated with policies $p_k$$\in$\P{i} according to \myLambda. When pipeline instance is triggered, before any services can be executed, policies in \P{i} are evaluated and enforced. In case policy evaluation returns \emph{true}, data transformation \TP$\in$\P{i} is applied, otherwise a default transformation that removes all data is applied.
+  When all vertices $\vi{i}\in V$ have been visited, a \pipelineInstance G' is generated, where each \vii{i}$\in$\Vp contains a service instance $s'_i$. We note that each vertex \vii{i} is annotated with policies $p_k$$\in$\P{i} according to \myLambda. When pipeline instance is triggered, before any services can be executed, policies in \P{i} are evaluated and enforced. In case policy evaluation returns \emph{true}, data transformation \TP$\in$\P{i} is applied, otherwise a default transformation that removes all data is applied.
 
 \begin{figure}[ht!]
   \centering
