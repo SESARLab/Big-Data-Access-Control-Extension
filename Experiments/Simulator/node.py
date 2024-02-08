@@ -1,7 +1,7 @@
 import pandas
 
 from service import Service
-
+import configuration
 
 class Node(object):
     def __init__(self, id, service=None, previous=None):
@@ -30,7 +30,8 @@ class Node(object):
         return self
 
     def run(self, data: pandas.DataFrame,combination):
-        print(f"Node {self.id} running service {self._pointer}")
+        configuration.update_progress()
+       # print(f"Node {self.id} running service {self._pointer}")
         output = self.services[self._pointer].run(data, combination[self.id])
 
 

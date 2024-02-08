@@ -23,7 +23,10 @@ class NodeList:
         self.running = True
         max = 0.0
         self.data_logger = data_logger
+
+
         self.data = data
+        f = open(f"Performance/N{configuration.NUMBER_OF_NODES}/results_w{configuration.WINDOW_SIZE}n{configuration.NUMBER_OF_NODES}s{configuration.NUMBER_OF_SERVICES}.txt", "w")
 
 
         while self.running:
@@ -39,6 +42,9 @@ class NodeList:
                 print("take them all")
                 for node in best_composition:
                     print(node.get_current_service(), end=",")
+                    f.write(str(node.get_current_service()) + ",")
+
+
 
 
             else:
@@ -46,14 +52,16 @@ class NodeList:
                 print("taking only the first service of the best combination")
                 print(best_composition[0], best_composition[0].get_current_service(), best_metric)
                 configuration.WINDOW_ID = uuid.uuid4()
+                f.write(str(best_composition[0].get_current_service()) + ",")
             print("")
             self.next()
 
-
+        f.close()
 
 
 
     def next(self):
+
 
         print("###########MOVING WINDOW###########")
 

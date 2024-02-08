@@ -1,7 +1,7 @@
 import itertools
 
 from MatrixGenerator import MatrixGenerator
-
+import configuration
 
 class CombinationManager:
     def __init__(self, nodes):
@@ -11,6 +11,8 @@ class CombinationManager:
         matrix = MatrixGenerator()
         combination = ["".join(map(str, comb)) for comb in itertools.product(*self.nodes)]
         self.combinations = dict(zip(combination, matrix.get_weights()))
+        configuration.set_total_combinations(len(self.combinations))
+
 
     def get_combination(self):
         for node in self.nodes:
