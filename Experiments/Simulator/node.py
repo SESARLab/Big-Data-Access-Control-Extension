@@ -1,7 +1,7 @@
+from logging import config
 import pandas
-
-from service import Service
 import configuration
+from service import Service
 
 class Node(object):
     def __init__(self, id, service=None, previous=None):
@@ -30,11 +30,8 @@ class Node(object):
         return self
 
     def run(self, data: pandas.DataFrame,combination):
-        configuration.update_progress()
-       # print(f"Node {self.id} running service {self._pointer}")
+        configuration.increment_progress()
         output = self.services[self._pointer].run(data, combination[self.id])
-
-
         #self.result = ouput.result
         self.metric = output.metric
         #self.results.append(results.result)

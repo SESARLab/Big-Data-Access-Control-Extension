@@ -1,20 +1,24 @@
-import itertools
-import uuid
 
+import itertools
+import os
+from pathlib import Path
+from typing import List
+import uuid
 from datalogger import DataLogger
 from node import Node
 import configuration
 from windowDecorator import WindowDecorator
-
+os.path
 class NodeList:
-    def __init__(self, description="", window_size=configuration.WINDOW_SIZE):
+    def __init__(self, description=""):
         self.nodes: list[Node] = []
         self.description = description
         self.running = False
         self.id = "NODELIST"
         self.last_node: Node = None
         self._pointer = 0
-        self.WINDOW_SIZE = window_size
+        # self.WINDOW_SIZE = window_size
+
         self.winning_composition = []
         self.data_logger = None
         self.data  = None
@@ -26,58 +30,54 @@ class NodeList:
 
 
         self.data = data
-        f = open(f"Performance/N{configuration.NUMBER_OF_NODES}/results_w{configuration.WINDOW_SIZE}n{configuration.NUMBER_OF_NODES}s{configuration.NUMBER_OF_SERVICES}.txt", "w")
-
-
-        while self.running:
-
-            best_composition: [Node]
-            self.winning_composition: [Node]
-            best_composition, best_metric = WindowDecorator(
-                self.nodes[self._pointer:self._pointer + self.WINDOW_SIZE],data_logger,window_size=self.WINDOW_SIZE).run(data)
-            #data_logger.log(node.id, node._pointer, node.metrics[-1])
-            total = 0.0
-            if self.is_last_window_frame():
-                print("###########LAST WINDOW FRAME###########")
-                print("take them all")
-                for node in best_composition:
-                    print(node.get_current_service(), end=",")
-                    f.write(str(node.get_current_service()) + ",")
 
 
 
+        print(f"\033[92m n{configuration.NUMBER_OF_NODES}s{configuration.NUMBER_OF_SERVICES}w{configuration.WINDOW_SIZE}\033[0m")
 
-            else:
-                print("###########WINDOW FRAME###########")
-                print("taking only the first service of the best combination")
-                print(best_composition[0], best_composition[0].get_current_service(), best_metric)
-                configuration.WINDOW_ID = uuid.uuid4()
-                f.write(str(best_composition[0].get_current_service()) + ",")
-            print("")
-            self.next()
 
-        f.close()
+        Path(f"Performance/N{configuration.NUMBER_OF_NODES}").mkdir(parents=True, exist_ok=True)
 
+
+        with open(f"Performance/N{configuration.NUMBER_OF_NODES}/results_{configuration.EXPERIMENT_ID}_w{configuration.WINDOW_SIZE}n{configuration.NUMBER_OF_NODES}s{configuration.NUMBER_OF_SERVICES}.txt", "w") as f:
+
+
+            while self.running:
+
+                best_composition: List[Node]
+                self.winning_composition: List[Node]
+                best_composition, best_metric = WindowDecorator(
+                    self.nodes[self._pointer:self._pointer + configuration.WINDOW_SIZE],data_logger).run(data)
+                #data_logger.log(node.id, node._pointer, node.metrics[-1])
+                total = 0.0
+                if self.is_last_window_frame():
+                    #print("###########LAST WINDOW FRAME###########")
+                    #print("take them all")
+                    for node in best_composition:
+                        print(node.get_current_service(), end=",")
+                        f.write(str(node.get_current_service()) + ",")
+                else:
+                    #print("###########WINDOW FRAME###########")
+                    #print("taking only the firt service of the best combination")
+                    #print(best_composition[0], best_composition[0].get_current_service(), best_metric)
+                    configuration.WINDOW_ID = uuid.uuid4()
+                    f.write(str(best_composition[0].get_current_service()) + ",")
+                #print("")
+                self.next()
 
 
     def next(self):
-
-
-        print("###########MOVING WINDOW###########")
-
+        #print("###########MOVING WINDOW###########")
         if self.is_last_window_frame():
             self.running = False
             self._pointer = 0
-
-            print("###########END###########")
-            print(self.winning_composition)
-
+            #print("###########END###########")
+            #print(self.winning_composition)
         else:
             self._pointer += 1
             self.nodes[self._pointer].previous = self
 
     def add(self, node):
-
         if len(self.nodes) > 0:
             node.previous = self.last_node
         else:
@@ -92,7 +92,7 @@ class NodeList:
         return node
 
     def is_last_window_frame(self):
-        return self._pointer == len(self.nodes) - self.WINDOW_SIZE
+        return self._pointer == len(self.nodes) - configuration.WINDOW_SIZE
 
     def __repr__(self) -> str:
         return self.__str__()

@@ -30,7 +30,6 @@ class DataLogger:
         )
 
     def store(self, filename):
-        #print(self.data)
         df = (DataFrame(
             self.data,
             columns=['experiment_id',

@@ -1,29 +1,22 @@
 from typing import Self
 
 import pandas
-import numpy
-from profiles import PregeneratedProfiles, ServiceProfile
-from metrics.jsh import calculate
+from metrics import jsh
 
 
 class Service:
-    def __init__(self, id, profile: ServiceProfile = PregeneratedProfiles.GOOD, parent=None):
+    #def __init__(self, id, profile: ServiceProfile = PregeneratedProfiles.GOOD, parent=None):
+    def __init__(self, id, parent=None):
+
         self.id = id
         self.result = None
         self.metric = None
-        self.profile: ServiceProfile = profile
+        #self.profile: ServiceProfile = profile
         self.parent = parent
 
     def run(self, data: pandas.DataFrame, weight) -> Self:
-        #print("\tService s{} running".format(self.id))
-
-        #numpy.random.seed(self.id)
-        #sample_size = numpy.random.uniform(self.profile.getMin(), self.profile.getMax())
-        # print("\t\tsampling {}% of data".format(sample_size * 100))
         self.result = data.sample(frac=weight, random_state=self.id)
-        #print("EXTRACTing {}% of data".format(weight * 100))
-        self.metric = calculate(data, self.result)
-        # print("\t\ts{} finished - metric: {}".format(self.id, self.metric))
+        self.metric = jsh.calculate(data, self.result)
         return self
 
     def get_metric(self):

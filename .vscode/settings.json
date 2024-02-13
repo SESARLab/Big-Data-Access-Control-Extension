@@ -9,5 +9,7 @@
     "latex",
     "plaintext"
   ],
-  "editor.lineNumbers": "on"
+  "editor.lineNumbers": "on",
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.typeCheckingMode": "off"
 }
