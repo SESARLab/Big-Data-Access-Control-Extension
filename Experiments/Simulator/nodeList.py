@@ -39,7 +39,9 @@ class NodeList:
         Path(f"Performance/N{configuration.NUMBER_OF_NODES}").mkdir(parents=True, exist_ok=True)
 
 
+
         with open(f"Performance/N{configuration.NUMBER_OF_NODES}/results_{configuration.EXPERIMENT_ID}_w{configuration.WINDOW_SIZE}n{configuration.NUMBER_OF_NODES}s{configuration.NUMBER_OF_SERVICES}.txt", "w") as f:
+
 
 
             while self.running:
@@ -55,13 +57,18 @@ class NodeList:
                     #print("take them all")
                     for node in best_composition:
                         print(node.get_current_service(), end=",")
-                        f.write(str(node.get_current_service()) + ",")
+
+                        combination = str(node.get_current_service()) + ","
+                        f.write(combination)
+                        data_logger.logAddCombination(configuration.NUMBER_OF_NODES, configuration.EXPERIMENT_ID, configuration.WINDOW_SIZE, configuration.NUMBER_OF_SERVICES, combination)
                 else:
                     #print("###########WINDOW FRAME###########")
                     #print("taking only the firt service of the best combination")
                     #print(best_composition[0], best_composition[0].get_current_service(), best_metric)
                     configuration.WINDOW_ID = uuid.uuid4()
-                    f.write(str(best_composition[0].get_current_service()) + ",")
+                    combination = str(best_composition[0].get_current_service()) + ","
+                    f.write(combination)
+                    data_logger.logAddCombination(configuration.NUMBER_OF_NODES, configuration.EXPERIMENT_ID, configuration.WINDOW_SIZE, configuration.NUMBER_OF_SERVICES, combination)
                 #print("")
                 self.next()
 
