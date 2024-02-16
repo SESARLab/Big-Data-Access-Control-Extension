@@ -9,7 +9,7 @@ class WindowDecorator:
 
         self.nodes = nodes
         self.running = True
-        self.best_metric = 0.0
+        self.best_metric = 1.0
         self.best_metrics = []
         self.best_composition = []
         self.matrixW = CombinationManager(self.nodes).get_weights()
@@ -28,7 +28,7 @@ class WindowDecorator:
                 iteration_metrics.append(iter_result.metric)
 
             avg_metric = sum(iteration_metrics) / len(iteration_metrics)
-            if avg_metric > self.best_metric:
+            if avg_metric < self.best_metric:
                 self.best_composition = copy.deepcopy(self.nodes)
                 self.best_metrics = copy.deepcopy(iteration_metrics)
                 self.best_metric = avg_metric
