@@ -1,6 +1,7 @@
 import itertools
-import configuration
+
 from MatrixGenerator import MatrixGenerator
+
 
 class CombinationManager:
     def __init__(self, nodes):
@@ -10,11 +11,8 @@ class CombinationManager:
         matrix = MatrixGenerator()
         combination = ["".join(map(str, comb)) for comb in itertools.product(*self.nodes)]
         self.combinations = dict(zip(combination, matrix.get_weights()))
-        #print(len(self.combinations) * (configuration.NUMBER_OF_NODES - configuration.WINDOW_SIZE + 1))
-        #configuration.set_total_progress(len(self.combinations) * (configuration.NUMBER_OF_NODES - configuration.WINDOW_SIZE + 1))
-
-
-
+        # print(len(self.combinations) * (configuration.NUMBER_OF_NODES - configuration.WINDOW_SIZE + 1))
+        # configuration.set_total_progress(len(self.combinations) * (configuration.NUMBER_OF_NODES - configuration.WINDOW_SIZE + 1))
 
     def get_combination(self):
         for node in self.nodes:
@@ -31,8 +29,7 @@ class CombinationManager:
     def get_weights(self):
         return self.combinations
 
-
-    def search_combination(self,combination):
+    def search_combination(self, combination):
         return [val for key, val in self.combinations.items() if combination in key]
 
 
@@ -79,5 +76,5 @@ if __name__ == "__main__":
     nodes = [node1, node2, node3, node4, node5]
 
     combination = CombinationManager(nodes)
-    print(combination.search_combination("s11s22"))
 
+    print(combination.search_combination("s11s22"))

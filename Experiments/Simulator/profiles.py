@@ -1,5 +1,3 @@
-import random
-
 class ServiceProfile:
 
     def __init__(self, min, max):
@@ -27,4 +25,3 @@ class PregeneratedProfiles:
     MEDIUM = ServiceProfile(0.5, 0.8)
     BAD = ServiceProfile(0.01, 0.4)
     RANDOM = ServiceProfile(0.01, 1)
-
