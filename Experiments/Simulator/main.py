@@ -1,12 +1,10 @@
 import time
 
+import configuration
 import datalogger
+from node import Node
 from nodeList import NodeList
 from service import Service
-from csv import writer
-from node import Node
-import configuration
-
 
 data = configuration.DATA
 data_logger = datalogger.DataLogger()
@@ -23,9 +21,9 @@ def run_combination(combinazione):
 if __name__ == "__main__":
 
     times = []
-    e_nodes= 4
+    e_nodes = 4
     configuration.NUMBER_OF_NODES = e_nodes
-    for e_window in range(4,5):
+    for e_window in range(4, 5):
         configuration.WINDOW_SIZE = e_window
         for e_servies in range(1, 15):
             configuration.NUMBER_OF_SERVICES = e_servies

@@ -66,15 +66,15 @@ A visual representation of the flow is presented in Figure \ref{fig:reference_sc
     \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|}
       \hline
       \textbf{DOWNLOAD DATE} & \textbf{ID} & \textbf{FNAME} & \textbf{LNAME} & \textbf{LAD} & \textbf{RACE} & \textbf{GENDER} & \textbf{AGE} & \textbf{BOND} & \textbf{OFFENSE}     & \textbf{\dots} \\ \hline
-      05/15/2020             & ZZHCZBZZ            & ROBERT              & PIERCE             & 08/16/2018   & BLACK         & M               & 27           & 150000        & CRIMINAL POSS \dots  & \dots          \\ \hline
-      05/15/2020             & ZZHZZRLR            & KYLE                & LESTER             & 03/28/2019   & HISPANIC      & M               & 41           & 30100         & VIOLATION OF P\dots  & \dots          \\ \hline
-      05/15/2020             & ZZSRJBEE            & JASON               & HAMMOND            & 04/03/2020   & HISPANIC      & M               & 21           & 150000        & CRIMINAL ATTEM\dots  & \dots          \\ \hline
-      05/15/2020             & ZZHBJLRZ            & ERIC                & TOWNSEND           & 01/15/2020   & WHITE         & M               & 36           & 50500         & CRIM VIOL OF P\dots  & \dots          \\ \hline
-      05/15/2020             & ZZSRRCHH            & MICHAEL             & WHITE              & 12/26/2018   & HISPANIC      & M               & 29           & 100000        & CRIMINAL ATTEM\dots  & \dots          \\ \hline
-      05/15/2020             & ZZEJCZWW            & JOHN                & HARPER             & 01/03/2020   & WHITE         & M               & 54           & 100000        & CRIM VIOL OF P\dots  & \dots          \\ \hline
-      05/15/2020             & ZZHJBJBR            & KENNETH             & JUAREZ             & 03/19/2020   & HISPANIC      & M               & 35           & 100000        & CRIM VIOL ST C\dots  & \dots          \\ \hline
-      05/15/2020             & ZZESESZW            & MICHAEL             & SANTOS             & 12/03/2018   & WHITE         & M               & 55           & 50000         & ASSAULT 2ND, V\dots  & \dots          \\ \hline
-      05/15/2020             & ZZRCSHCZ            & CHRISTOPHER         & JONES              & 05/13/2020   & BLACK         & M               & 43           & 10000         & INTERFERING WIT\dots & \dots          \\ \hline
+      05/15/2020             & ZZHCZBZZ    & ROBERT         & PIERCE         & 08/16/2018   & BLACK         & M               & 27           & 150000        & CRIMINAL POSS \dots  & \dots          \\ \hline
+      05/15/2020             & ZZHZZRLR    & KYLE           & LESTER         & 03/28/2019   & HISPANIC      & M               & 41           & 30100         & VIOLATION OF P\dots  & \dots          \\ \hline
+      05/15/2020             & ZZSRJBEE    & JASON          & HAMMOND        & 04/03/2020   & HISPANIC      & M               & 21           & 150000        & CRIMINAL ATTEM\dots  & \dots          \\ \hline
+      05/15/2020             & ZZHBJLRZ    & ERIC           & TOWNSEND       & 01/15/2020   & WHITE         & M               & 36           & 50500         & CRIM VIOL OF P\dots  & \dots          \\ \hline
+      05/15/2020             & ZZSRRCHH    & MICHAEL        & WHITE          & 12/26/2018   & HISPANIC      & M               & 29           & 100000        & CRIMINAL ATTEM\dots  & \dots          \\ \hline
+      05/15/2020             & ZZEJCZWW    & JOHN           & HARPER         & 01/03/2020   & WHITE         & M               & 54           & 100000        & CRIM VIOL OF P\dots  & \dots          \\ \hline
+      05/15/2020             & ZZHJBJBR    & KENNETH        & JUAREZ         & 03/19/2020   & HISPANIC      & M               & 35           & 100000        & CRIM VIOL ST C\dots  & \dots          \\ \hline
+      05/15/2020             & ZZESESZW    & MICHAEL        & SANTOS         & 12/03/2018   & WHITE         & M               & 55           & 50000         & ASSAULT 2ND, V\dots  & \dots          \\ \hline
+      05/15/2020             & ZZRCSHCZ    & CHRISTOPHER    & JONES          & 05/13/2020   & BLACK         & M               & 43           & 10000         & INTERFERING WIT\dots & \dots          \\ \hline
     \end{tabular}
     \egroup
   \end{adjustbox}
@@ -85,7 +85,7 @@ A visual representation of the flow is presented in Figure \ref{fig:reference_sc
   \begin{tikzpicture}[scale=0.9,y=-1cm]
     % Nodes
 
-    \node[draw, circle ] (root) at (0,0) {$\vi{r}$};
+    \node[draw, circle, fill,text=white,minimum size=1 ] (root) at (0,0) {$\vi{r}$};
     \node[draw, circle, plus , below = 1em, minimum size=1.5em] (split) at (root.south)  {};
 
     \node[draw, circle,below =1em] (node2) at (split.south) {$\vi{2}$};

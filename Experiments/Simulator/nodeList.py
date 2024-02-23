@@ -1,14 +1,16 @@
-
-import itertools
 import os
+import uuid
 from pathlib import Path
 from typing import List
-import uuid
+
+import configuration
 from datalogger import DataLogger
 from node import Node
-import configuration
 from windowDecorator import WindowDecorator
+
 os.path
+
+
 class NodeList:
     def __init__(self, description=""):
         self.nodes: list[Node] = []
@@ -21,58 +23,60 @@ class NodeList:
 
         self.winning_composition = []
         self.data_logger = None
-        self.data  = None
+        self.data = None
 
     def run(self, data, data_logger: DataLogger = None):
         self.running = True
         max = 0.0
         self.data_logger = data_logger
-
-
         self.data = data
 
-
-
-        print(f"\033[92m n{configuration.NUMBER_OF_NODES}s{configuration.NUMBER_OF_SERVICES}w{configuration.WINDOW_SIZE}\033[0m")
-
-
+        print(
+            f"\033[92m n{configuration.NUMBER_OF_NODES}s{configuration.NUMBER_OF_SERVICES}w{configuration.WINDOW_SIZE}\033[0m")
         Path(f"Performance/N{configuration.NUMBER_OF_NODES}").mkdir(parents=True, exist_ok=True)
 
+        # with ((open(f"Performance/N{configuration.NUMBER_OF_NODES}/results_{configuration.EXPERIMENT_ID}_w{configuration.WINDOW_SIZE}n{configuration.NUMBER_OF_NODES}s{configuration.NUMBER_OF_SERVICES}.txt", "w") as f)):
+        while self.running:
+            best_composition: List[Node]
+            self.winning_composition: List[Node]
+            best_composition, best_metrics = WindowDecorator(
+                self.nodes[self._pointer:self._pointer + configuration.WINDOW_SIZE], data_logger
+            ).run(data)
 
-        with open(f"Performance/N{configuration.NUMBER_OF_NODES}/results_{configuration.EXPERIMENT_ID}_w{configuration.WINDOW_SIZE}n{configuration.NUMBER_OF_NODES}s{configuration.NUMBER_OF_SERVICES}.txt", "w") as f:
+            total = 0.0
+            if not self.is_last_window_frame():
+                ###########WINDOW FRAME###########
+                # taking only the first service of the best combination
+                # print(best_composition[0], best_composition[0].get_current_service(), best_metric)
+                configuration.WINDOW_ID = uuid.uuid4()
 
+                combination = str(best_composition[0].get_current_service()) + ","
 
-            while self.running:
+                data_logger.logAddCombination(configuration.NUMBER_OF_NODES, configuration.EXPERIMENT_ID,
+                                              configuration.WINDOW_SIZE, configuration.NUMBER_OF_SERVICES, combination,
+                                              best_metrics[0],
+                                              best_composition[0].get_current_service().get_percentage())
+            else:
+                ############LAST WINDOW FRAME###########
+                # take them all
+                for node in best_composition:
+                    print(node.get_current_service(), end=",")
+                    combination = str(node.get_current_service()) + ","
 
-                best_composition: List[Node]
-                self.winning_composition: List[Node]
-                best_composition, best_metric = WindowDecorator(
-                    self.nodes[self._pointer:self._pointer + configuration.WINDOW_SIZE],data_logger).run(data)
-                #data_logger.log(node.id, node._pointer, node.metrics[-1])
-                total = 0.0
-                if self.is_last_window_frame():
-                    #print("###########LAST WINDOW FRAME###########")
-                    #print("take them all")
-                    for node in best_composition:
-                        print(node.get_current_service(), end=",")
-                        f.write(str(node.get_current_service()) + ",")
-                else:
-                    #print("###########WINDOW FRAME###########")
-                    #print("taking only the firt service of the best combination")
-                    #print(best_composition[0], best_composition[0].get_current_service(), best_metric)
-                    configuration.WINDOW_ID = uuid.uuid4()
-                    f.write(str(best_composition[0].get_current_service()) + ",")
-                #print("")
-                self.next()
+                    data_logger.logAddCombination(configuration.NUMBER_OF_NODES, configuration.EXPERIMENT_ID,
+                                                  configuration.WINDOW_SIZE, configuration.NUMBER_OF_SERVICES,
+                                                  combination, node.metric, node.get_current_service().get_percentage())
 
+            self.next()
 
     def next(self):
-        #print("###########MOVING WINDOW###########")
+        # print("###########MOVING WINDOW###########")
         if self.is_last_window_frame():
             self.running = False
             self._pointer = 0
-            #print("###########END###########")
-            #print(self.winning_composition)
+
+            # print("###########END###########")
+            # print(self.winning_composition)
         else:
             self._pointer += 1
             self.nodes[self._pointer].previous = self
