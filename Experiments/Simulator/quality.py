@@ -7,12 +7,13 @@ from nodeList import NodeList
 from service import Service
 
 data = configuration.DATA
-data_logger = datalogger.DataLogger()
+data_logger = configuration.data_logger
 
 if __name__ == "__main__":
-    START_NODES = 2
+    START_NODES = 5
     MAX_NODES = 5
-    SERVICE_LIST = [2, 3, 5, 8, 13]
+    SERVICE_LIST = [4, 5]
+
 
     configuration.increment_experiment_id()
 
@@ -20,7 +21,7 @@ if __name__ == "__main__":
         configuration.set_number_of_services(s)
         for n in range(START_NODES, MAX_NODES + 1):
             configuration.set_number_of_nodes(n)
-            for w in range(1, n + 1):
+            for w in range(2, n + 1):
                 start_time = time.time()
                 configuration.set_window_size(w)
 

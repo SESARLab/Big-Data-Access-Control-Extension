@@ -85,7 +85,7 @@ A visual representation of the flow is presented in Figure \ref{fig:reference_sc
   \begin{tikzpicture}[scale=0.9,y=-1cm]
     % Nodes
 
-    \node[draw, circle, fill,text=white,minimum size=1 ] (root) at (0,0) {$\vi{r}$};
+    \node[draw, circle, fill,text=white,minimum size=1 ] (root) at (0,0) {};
     \node[draw, circle, plus , below = 1em, minimum size=1.5em] (split) at (root.south)  {};
 
     \node[draw, circle,below =1em] (node2) at (split.south) {$\vi{2}$};
@@ -95,11 +95,11 @@ A visual representation of the flow is presented in Figure \ref{fig:reference_sc
 
     \node[draw, circle,below=1em] (merge) at (node2.south)  {$\vi{4}$};
 
-    \node[draw, circle, cross , minimum size=1.5em,below=1em] (fork) at (merge.south)  {};
-    \node[draw, circle,below =1.5em, left=2em] (ml) at (fork.south) {$\vi{5}$};
-    \node[draw, circle,below =1.5em, right=2em] (analysis) at (fork.south) {$\vi{6}$};
+    % \node[draw, circle, cross , minimum size=1.5em,below=1em] (fork) at (merge.south)  {};
+    % \node[draw, circle,below =1.5em, left=2em] (ml) at (fork.south) {$\vi{5}$};
+    % \node[draw, circle,below =1.5em, right=2em] (analysis) at (fork.south) {$\vi{6}$};
     % \node[draw, circle, cross , minimum size=1.5em,below=3em] (join) at (fork.south)  {};
-    \node[draw, circle,below =3em ] (storage) at (fork.south) {$\vi{7}$};
+    \node[draw, circle,below =1em ] (storage) at (merge.south) {$\vi{7}$};
     \node[draw, circle,below =1.5em] (visualization) at (storage.south) {$\vi{8}$};
 
     % Labels
@@ -107,9 +107,9 @@ A visual representation of the flow is presented in Figure \ref{fig:reference_sc
     \node[right=1em] at (node3.east) {Data fetching};
     \node[right=1em] at (merge.east) {Data preparation};
     \node[right=1em] at (split.east) {$parallel$};
-    \node[right=1em] at (fork.east) {$alternative$};
-    \node[right=1em] at (analysis.east) {ML task};
-    \node[left=1em] at (ml.west) {Data analysis};
+    % \node[right=1em] at (fork.east) {$alternative$};
+    % \node[right=1em] at (analysis.east) {ML task};
+    % \node[left=1em] at (ml.west) {Data analysis};
     \node[right=1em] at (storage.east) {Data Storage};
     \node[right=1em] at (visualization.east) {Data Visualization};
     % Connection
@@ -122,13 +122,13 @@ A visual representation of the flow is presented in Figure \ref{fig:reference_sc
     \draw[->] (node1) -- (merge);
     \draw[->] (node2) -- (merge);
     \draw[->] (node3) -- (merge);
+    \draw[->] (merge) -- (storage);
+    % \draw[->] (fork) -- (ml);
+    % \draw[->] (fork) -- (analysis);
 
-    \draw[->] (fork) -- (ml);
-    \draw[->] (fork) -- (analysis);
-
-    \draw[->] (analysis) -- (storage);
-    \draw[->] (ml) -- (storage);
-    \draw[->] (merge) -- (fork);
+    % \draw[->] (analysis) -- (storage);
+    % \draw[->] (ml) -- (storage);
+    % \draw[->] (merge) -- (fork);
     \draw[->] (storage) -- (visualization);
     % \draw[->] (node3) -- (node6);
     % \draw[->] (node4) -- (node6);

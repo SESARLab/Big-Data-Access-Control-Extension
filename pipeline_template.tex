@@ -35,7 +35,7 @@ We also note that policies $p_j$$\in$\P{i} annotated with \myLambda(\vi{i}) are 
         \newcommand{\function}{$\templateChartAnnotation$}
         \begin{tikzpicture}[scale=0.9]
           % Nodes
-          \node[draw, circle] (sr) at (0,0) {$\vi{r}$};
+          \node[draw, circle, fill,text=white,minimum size=1 ] (sr) at (0,0) {};
           % \node[draw, circle] (node2) at (1,0) {$\s{1}$};
           \node[draw, circle, plus,minimum size=1.5em] (plus) at (1.5,0) {};
           \node[draw, circle] (s1) at (3,1.7) {$\vi{1}$};
@@ -44,21 +44,21 @@ We also note that policies $p_j$$\in$\P{i} annotated with \myLambda(\vi{i}) are 
 
 
           \node[draw, circle] (s4) at (4.5,0) {$\vi{4}$};
-          \node[draw, circle, cross,minimum size=1.5em] (cross) at (6,0) {};
-          \node[draw, circle] (s5) at (7.5,1.2) {$\vi{5}$};
-          \node[draw, circle] (s6) at (7.5,-1.2) {$\vi{6}$};
+          % \node[draw, circle, cross,minimum size=1.5em] (cross) at (6,0) {};
+          %\node[draw, circle] (s5) at (7.5,1.2) {$\vi{5}$};
+          %\node[draw, circle] (s6) at (7.5,-1.2) {$\vi{6}$};
 
-          \node[draw, circle] (s7) at (9,0) {$\vi{7}$};
-          \node[draw, circle] (s8) at (10.5,0) {$\vi{8}$};
+          \node[draw, circle] (s7) at (6,0) {$\vi{7}$};
+          \node[draw, circle] (s8) at (7.5,0) {$\vi{8}$};
           % Text on top
-          \node[above] at (sr.north)  {\function{}};
+
           \node[above] at (s1.north)  {\function{}};
 
           \node[above] at (s2.north)  {\function{}};
           \node[above] at (s3.north)  {\function{}};
           \node[above] at (s4.north)  {\function{}};
-          \node[above] at (s5.north)  {\function{}};
-          \node[above] at (s6.north)  {\function{}};
+          % \node[above] at (s5.north)  {\function{}};
+          % \node[above] at (s6.north)  {\function{}};
           \node[above] at (s7.north)  {\function{}};
           \node[above] at (s8.north)  {\function{}};
           % Connection
@@ -74,11 +74,12 @@ We also note that policies $p_j$$\in$\P{i} annotated with \myLambda(\vi{i}) are 
           \draw[->] (s3) -- (s4);
           % \draw[->] (node6) -- (node65);
           % \draw[->] (node65) -- (node7);3
-          \draw[->] (s4) -- (cross);
-          \draw[->] (cross) -- (s5);
-          \draw[->] (cross) -- (s6);
-          \draw[->] (s5) -- (s7);
-          \draw[->] (s6) -- (s7);
+          \draw[->] (s4) -- (s7);
+          %\draw[->] (s4) -- (cross);
+          %\draw[->] (cross) -- (s5);
+          %\draw[->] (cross) -- (s6);
+          % \draw[->] (s5) -- (s7);
+          % \draw[->] (s6) -- (s7);
           \draw[->] (s7) -- (s8);
 
         \end{tikzpicture}

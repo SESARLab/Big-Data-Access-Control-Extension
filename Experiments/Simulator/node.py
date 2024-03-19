@@ -27,14 +27,14 @@ class Node(object):
                 self.previous.next()
         else:
             self._pointer += 1
-
         return self
 
     def run(self, data: pandas.DataFrame, combination):
         configuration.increment_progress()
         output = self.services[self._pointer].run(data, combination[self.id])
-        # self.result = ouput.result
+        # self.result = output.result
         self.metric = output.metric
+        self.result = output.result
         # self.results.append(results.result)
         # self.metrics.append(results.metric)
         return self
@@ -50,14 +50,3 @@ class Node(object):
 
     def __repr__(self) -> str:
         return "{}".format(self._pointer)
-
-    # def __deepcopy__(self, memo):
-    #     cls = self.__class__
-    #     obj = cls.__new__(cls)
-    #     memo[id(self)] = obj
-    #     for k, v in self.__dict__.items():
-    #         if k == ['previous']:
-    #             v = dict()
-    #         setattr(obj, k, deepcopy(v, memo))
-    #         pass
-    #     return obj

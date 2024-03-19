@@ -2,6 +2,9 @@ import uuid
 
 import pandas
 
+
+from MatrixGenerator import MatrixGenerator
+
 NUMBER_OF_NODES = 2
 NUMBER_OF_SERVICES = 5
 WINDOW_SIZE = 2
@@ -11,7 +14,9 @@ OUTPUT_FOLDER = "Output"
 DATA = pandas.read_csv(f"{INPUT_FOLDER}/inmates_enriched_10k.csv")
 EXPERIMENT_ID = None
 
-
+matrix_generator = None
+import datalogger
+data_logger = datalogger.DataLogger()
 def load_experiment_id():
     global EXPERIMENT_ID
     try:
@@ -35,11 +40,15 @@ load_experiment_id()
 def set_number_of_nodes(n):
     global NUMBER_OF_NODES
     NUMBER_OF_NODES = n
+    global matrix_generator
+    matrix_generator = MatrixGenerator()
 
 
 def set_number_of_services(n):
     global NUMBER_OF_SERVICES
     NUMBER_OF_SERVICES = n
+    global matrix_generator
+    matrix_generator = MatrixGenerator()
 
 
 def set_window_size(n):

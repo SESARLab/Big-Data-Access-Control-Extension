@@ -1,5 +1,4 @@
 import os
-import uuid
 
 import pymysql
 from pandas import DataFrame
@@ -19,12 +18,10 @@ class DataLogger:
         self.combination = None
         self.nodelist = None
         self.service = None
-        self.experiment_id = str(uuid.uuid4())
 
     def log(self, nodelist, node, service, metric):
         self.data.append(
             {
-                'experiment_id': self.experiment_id,
                 'window_id': str(configuration.WINDOW_ID),
                 'node': str(nodelist),
                 'service': str(node) + str(service),
@@ -32,8 +29,12 @@ class DataLogger:
             }
         )
 
-    def logAddCombination(self, number_of_nodes, experiment_id, window_size, number_of_services, combination, metric,
-                          percentage):
+    def logAddCombination(self, combination, metric, percentage,
+                        number_of_nodes=configuration.NUMBER_OF_NODES,
+                        experiment_id=configuration.EXPERIMENT_ID,
+                        window_size=configuration.WINDOW_SIZE,
+                        number_of_services=configuration.NUMBER_OF_SERVICES
+                          ):
         if self.combination is None:
             self.combination = {
                 'number_of_nodes': number_of_nodes,
@@ -50,29 +51,26 @@ class DataLogger:
             self.combination['combination'] += combination
             self.combination['metric'] += metric
             self.combination['metric_count'] += 1
-            # print(1-percentage)
             self.combination['percentage'] *= percentage
-            # print(self.combination['percentage'])
 
     def logAddExecutionTime(self, execution_time):
         self.combination['metric'] = self.combination['metric'] / self.combination['metric_count']
         # self.combination['percentage'] = self.combination['percentage'] / self.combination['metric_count']
         self.combination['execution_time'] = execution_time
         DataFrame(self.combination, index=[0]).to_sql("combinations",
-                                                      con=my_conn,
-                                                      if_exists='append',
-                                                      index_label="id")
-        print("RESET")
+                                                    con=my_conn,
+                                                    if_exists='append',
+                                                    index_label="id")
         self.combination = None
 
     def store(self, filename):
         df = (DataFrame(
             self.data,
             columns=['experiment_id',
-                     'window_id',
-                     'node',
-                     'service',
-                     'metric'])
+                    'window_id',
+                    'node',
+                    'service',
+                    'metric'])
               .sort_values(by=["metric"], ascending=True))
 
         os.makedirs(configuration.OUTPUT_FOLDER, exist_ok=True)
