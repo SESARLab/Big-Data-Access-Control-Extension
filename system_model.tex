@@ -37,25 +37,26 @@ We define a service pipeline as a graph defined as follows. % and depicted in \c
   The graph has a root \vi{r}$\in$\V, a vertex \vi{i}$\in$\V$_S$ for each service $s_i$, an additional vertex \vi{f}$\subset$\V\ for each parallel ($\plusOperator$) structure modeling the contemporary execution (\emph{fork}) of services.
 \end{definition}
 
-We note that \{\vi{r},\vi{f}\}$\cup$\V$_S$$=$\V, vertices \vi{f} model branching for parallel structures, and root \vi{r} possibly represents the orchestrator. We also note that, for simplicity but no lack of generality, alternative structures modeling the alternative execution of services are not specified in a single service pipeline, but rather modeled as alternative service pipelines.
+We note that \{\vi{r},\vi{f}\}$\cup$\V$_S$$=$\V, vertices \vi{f} model branching for parallel structures, and root \vi{r} possibly represents the orchestrator. We also note that, for simplicity but no lack of generality, alternative structures modeling the alternative execution of services are specified as alternative service pipelines, that is, there is no alternative structure in a single service pipeline.
 
 % A service pipeline is as a direct acyclic graph G(\V,\E), where \V\ is a set of vertices, one for each service $s_i$ in the pipeline, \E\ is a set of edges connecting two services $s_i$ and $s_j$, and \myLambda\ is an annotation function that assigns a label \myLambda(\vi{i}), corresponding to a data transformation \F\ implemented by the service $s_i$, for each vertex \vi{i}$\in$\V.
 Our reference scenario considers a service pipeline analyzing a dataset of individuals detained in Department of Correction facilities in the state of Connecticut while awaiting trial \cite{toadd}.
-In particular, the user, a member of the Connecticut Department of Correction (DOC), seeks to compare admission trends in Connecticut prisons with DOCs in New York and New Hampshire. We assume DOCs to be partners and share data with relaxed privacy policies.
+In particular, the user, a member of the Connecticut Department of Correction (DOC), seeks to compare admission trends in Connecticut prisons with DOCs in New York and New Hampshire. We assume DOCs to be partners and share data according to their privacy policies.
 The user's preferences align with a predefined pipeline template that orchestrates the following sequence of operations:
 \begin{enumerate*}[label=(\roman*)]
   \item \emph{Data fetching}, including the download of the dataset from other states;
-  \item \emph{Data preparation}, including data merging, cleaning and anonymization;
+  \item \emph{Data preparation}, including data merging, cleaning, and anonymization;
         % \hl{QUESTO E' MERGE (M). IO PENSAVO DIVENTASSE UN NODO $v_i$. NEL CASO CAMBIANDO LA DEFINIZIONE 3.1 DOVE NON ESISTONO PIU' I NODI MERGE E JOIN.}
-  \item \emph{Data analysis}, including statistical measures like averages, medians, and clustering-based statistics;
+  \item \emph{Data analysis}, including statistical measures like average, median, and clustering-based statistics;
   \item \emph{Machine learning task}, including training and inference;
   \item \emph{Data storage}, including the storage of the results;
   \item \emph{Data visualization}, including the visualization of the results.
 \end{enumerate*}
 
-We note that the template requires the execution of the entire service within the Connecticut Department of Correction.
-If the data needs to be transmitted beyond the boundaries of Connecticut, data protection measures must be implemented.
-A visual representation of the flow is presented in Figure \ref{fig:reference_scenario}.
+We note that the template requires the execution of the entire service within the Connecticut Department of Correction. If the data needs to be transmitted beyond the boundaries of Connecticut, data protection measures must be implemented. A visual representation of the flow is presented in Figure \ref{fig:reference_scenario}.
+%
+\cref{tab:dataset} presents a sample of the adopted dataset.\footnote{https://data.ct.gov/Public-Safety/Accused-Pre-Trial-Inmates-in-Correctional-Faciliti/b674-jy6w} Each row represents an inmate; each column includes the following attributes: date of download, a unique identifier, last entry date, race, gender, age of the individual, the bound value, offense, entry facility, and detainer. To serve the objectives of our study, we have extended this dataset by introducing randomly generated first and last names.
+
 \begin{table*}[ht!]
   \caption{Dataset sample}
   \label{tab:dataset}
@@ -139,11 +140,6 @@ A visual representation of the flow is presented in Figure \ref{fig:reference_sc
   \caption{Reference Scenario}
   \label{fig:reference_scenario}
 \end{figure}
-
-\cref{tab:dataset} presents a sample of the adopted dataset.\footnote{https://data.ct.gov/Public-Safety/Accused-Pre-Trial-Inmates-in-Correctional-Faciliti/b674-jy6w}
-Each row represents an inmate; each column includes the following attributes: date of download, a unique identifier, last entry date, race, gender, age of the individual, the bound value, offense, entry facility, and detainer.
-To serve the objectives of our study, we have extended this dataset by introducing randomly generated first and last names.
-
 
 % Scarichiamo tre dataset, nessuna anonimizzazione, nodo di merge, anonimizzo e pulisco tutto,
 %nodi alternativa ML e analisi, merge, storage, visulazzionezione
