@@ -29,9 +29,9 @@ unset multiplot
 # }
 
 #   }
-# set terminal postscript eps enhanced
-# set output 'exhaustive_performance.eps'
+set terminal postscript eps enhanced
+set output 'exhaustive_performance.eps'
 
-# replot
+replot
 
-# unset output
+unset output

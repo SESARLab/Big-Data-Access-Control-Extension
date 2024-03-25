@@ -16,5 +16,10 @@ do for [i=3:10] {
   unset label
 
 }
-
 unset multiplot
+
+set terminal postscript eps enhanced
+set output 'window_quality.eps'
+replot
+
+unset output

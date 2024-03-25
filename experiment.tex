@@ -1,18 +1,19 @@
 \section{Experiments}\label{sec:experiment}
 
 
-
-We experimentally evaluated our approach. In the following of this section, we first present the testing infrastructure adopted in our experiments,
+In order to evlauate the execution time and the qaulity of the heuristic algorithm, we conducted a series of experiments.
+In the following of this section, we first present the testing infrastructure adopted in our experiments,
 then we discuss the experimental settings, and
 finally we discuss the performance of our heuristic algorithm.
 
 \subsection{Testing Infrastructure and Experimental Settings}
-Our testing infrastructure is a Python-based simulator of a complete service-based ecosystem, including service execution, comparison, and composition. The simulator is used to assess the performance and quality of our sliding window heuristic in Section \ref{sec:} for the generation of the best pipeline instance (Section \ref{sec:}). Performance measures the heuristics execution time in different settings, while quality compares the results provided by our heuristics in terms of selected services with the optimal solution retrieved using the exhaustive approach.
+Our testing infrastructure is a Swift-based simulator of a complete service-based ecosystem, including service execution, comparison, and composition.
+The simulator is used to assess the performance and quality of our sliding window heuristic in Section \ref{sec:heuristics} for the generation of the best pipeline instance (Section \ref{sec:instance}).
+% Performance measures the heuristics execution time in different settings, while quality compares the results provided by our heuristics in terms of selected services with the optimal solution retrieved using the exhaustive approach.
 %We note that the exhaustive approach generates the best pipeline instance by executing all possible combinations of candidate services.
 %The emulator simplifies the execution of the service composition by removing the service selection phase, which is not relevant for the purpose of the experiment.
 Our experiments have been run on a workstation equipped with a 2.40GHz i5-8279U CPU with 16GB RAM and a 512GB SSD.
-
-SETTING
+Each experiment was repeated ten times.
 
 \subsection{Perfomance}
 % \subsection{performance}
@@ -22,48 +23,61 @@ SETTING
 %   \item
 % \end{itemize}
 % \subsection{Metriche/Euristiche}
+The experiments were conducted along three main phases: performance baseline testing, performance evaluation with heuristics, and quality evaluation.
+\begin{description}
+  \item[Performance Baseline Testing] This initial phase involved assessing the execution times required by the exhaustive solution.
+        We incrementally varied the number of nodes and the number of services per node.
+        The results of these evaluations are presented in \cref{fig:perf_exhaustive}.
+        As anticipated, the trend in execution times is exponential. \cref{fig:perf_exhaustive} displays the execution time plots,
+        clearly showing that as the number of nodes increases, the execution time grows exponentially.
+        Execution times for up to 5 nodes and 6 services were computed directly,
+        while the remaining data points were obtained through interpolation.
+        Subsequently, the logical extension of this empirical inquiry involves evaluating the execution time efficiency attributable to the implementation of the sliding window heuristic.
 
-The procedure was repeated by varying only one service at a time and executing the entire pipeline.
-The experiments were primarily evaluated along three dimensions:
+  \item[Performance Evaluation with Heuristics]
+        The experiment aimed to quantify the execution time reduction achieved through the application of heuristics.
+        In this context, the number of nodes and services per node was incrementally increased,
+        with the addition of a sliding window whose size was progressively enlarged in each experiment.
+        The outcomes are depicted in \cref{fig:perf_window}, and as expected,
+        we observed a marked reduction in execution times with the implementation of the sliding window heuristic.
+        This empirical evidence highlights the heuristic's ability to reduce computational demands,
+        an aspect that becomes increasingly pivotal as the problem's complexity grows.
+        The use of a logarithmic scale to illustrate the results linearizes the exponential growth associated with the exhaustive method,
+        offering a clear visual confirmation of the heuristic's efficiency in decreasing computational time.
+  \item[Quality Evaluation] The final phase of the experimentation involved evaluating the quality of the heuristic's output.
+        The quality of the heuristic's output was assessed by comparing the results with the optimal solution obtained through the exhaustive approach,
+        which is executed when window size is equal to the number of services per node and represent the best possible solution.
+        The results are presented in \cref{fig:quality_window}.
+        In the provided experimental results, there is a clear correlation between the window size and the metric values
+        , wider windows  lead to lower metric values which indicate better data quality.
+        This suggests that the heuristic performs better when it has a broader perspective of the data it is analyzing.
+        The trend is consistent across various numbers of nodes, from three to seven, indicating that the heuristic's enhanced
+        performance with larger window sizes is not confined to a specific setup but rather a general characteristic of its behavior.
+        Finally, the data suggest that while larger window sizes generally lead to better performance,
+        there might exist a point where the balance between window size and performance is optimized.
+        Beyond this point, the incremental gains in metric values may not justify the additional computational resources or the complexity introduced by larger windows.
 
-(i) Evaluation of the exhaustive execution time of all combinations by incrementing the number of services and nodes periodically:
-This experiment aimed to comprehend how execution time fluctuates with increasing numbers of nodes and services.
-The number of nodes was varied from 1 to 6, while the number of services was varied from 2 to 20, with a step of 1.
-The execution has been stopped at the first combination that reported an execution time greater than 10k seconds.
-The observed trend aligns with expectations, exhibiting exponential growth in execution times as the number of nodes increases.
+\end{description}
 
-Refer to Table X for a graphical representation.
-
-(ii) Evaluation of execution time with the introduction of heuristics:
-The heuristics, as defined in the relevant section, were incorporated,
-and the entire pipeline was rerun with variations in the number of nodes,
-services, and the size of the sliding window.
-
-Notably, a window of size 1 corresponds to a greedy algorithm execution,
-while a window of size n, where n is the number of nodes, is analogous to exhaustive execution.
-
-(iii) Comparison of the optimal versus heuristics:
-The optimal combination, characterized by the least data loss in the execution of the entire pipeline,
-was determined by computing the minimum coefficient of variation for each combination.
-The computation of the optimum necessitates exhaustive execution, involving all possible combinations of candidate services at each node.
-Heuristics reduce execution time by approximating this selection through the use of a sliding window and generating all combinations within the window.
-The objective of this final experiment is to assess the disparity between the optimum obtained with the sliding window and that obtained through exhaustive execution.
-
-To introduce a level of interdependence among services,
-matrices containing the degrees of dependence of each service with the next were employed.
-It is important to note that different definitions of the optimum may yield slightly different results.
 
 \begin{figure}
   \includegraphics[width=0.95\columnwidth]{graphs/exhaustive_performance.eps}
-  \caption{Preliminary performance evaluation.}
+  \caption{Exhaustive execution time evaluation. The x-axis represents the number of services, while the y-axis represents the execution time in seconds. The execution time is expressed both in linear and logarithmic scales.}
   \label{fig:perf_exhaustive}
 \end{figure}
-\begin{figure*}
-  \includegraphics[width=0.95\textwidth]{graphs/window_performance.eps}
+
+\begin{figure}[ht!]
+  \includegraphics[width=0.95\columnwidth]{graphs/window_performance.eps}
   \caption{Preliminary performance evaluation.}
   \label{fig:perf_window}
-\end{figure*}
+\end{figure}
 
+
+\begin{figure}[ht!]
+  \includegraphics[width=0.95\columnwidth]{graphs/window_quality.eps}
+  \caption{Quality evaluation.}
+  \label{fig:quality_window}
+\end{figure}
 
 \usetikzlibrary{positioning}
 \usetikzlibrary{backgrounds}
