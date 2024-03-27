@@ -1,10 +1,12 @@
 \section{Experiments}\label{sec:experiment}
 
 We experimentally evaluated the performance and quality of our methodology,
-and corresponding heuristic implementation in Section~\ref{TOADD}, and compare them against the exhaustive approach in Section~\ref{TOADD}.
-In the following, Section~\ref{TOADD} presents the simulator and testing infrastructure adopted in our experiments, as well as the complete experimental settings; Section~\ref{TOADD} analyses the performance of our solution in terms of execution time; Section~\ref{TOADD} presents the quality of our heuristic algorithm in terms of the metrics in Section~\ref{TOADD}.
+and corresponding heuristic implementation in \cref{subsec:heuristics},
+and compare them against the exhaustive approach in Section~\ref{TOADD}.
+In the following,
+\cref{subsec:experiments_infrastructure} presents the simulator and testing infrastructure adopted in our experiments, as well as the complete experimental settings; \cref{subsec:experiments_performance} analyses the performance of our solution in terms of execution time; \cref{subsec:experiments_quality} presents the quality of our heuristic algorithm in terms of the metrics in \cref{subsec:metrics}.
 
-\subsection{Testing Infrastructure and Experimental Settings}
+\subsection{Testing Infrastructure and Experimental Settings}\label{subsec:experiments_infrastructure}
 Our testing infrastructure is a Swift-based simulator of a service-based ecosystem, including service execution, comparison, and composition.
 Upon setting the sliding window size, the simulator selects a subset of nodes along with their corresponding candidate services.
 It then generates all possible service combinations for the chosen nodes.
@@ -83,7 +85,7 @@ Each experiment was repeated ten times and the results averaged to improve the r
   \label{fig:service_composition_instance}
 \end{figure}
 
-\subsection{Perfomance}
+\subsection{Perfomance}\label{subsec:experiments_performance}
 % \subsection{performance}
 % \begin{itemize}
 %   \item Finestra scorrevole da 1 a N=Nodi
@@ -111,25 +113,18 @@ The use of a logarithmic scale to illustrate the results linearizes the exponent
 offering a clear visual confirmation of the heuristic's efficiency in decreasing computational time.
 
 
-\subsection{Quality}
+\subsection{Quality}\label{subsec:experiments_quality}
 We finally evaluated the quality of our heuristic comparing, where possible,
 its results with the optimal solution retrieved by executing the exhaustive approach.
 The latter executes with window size equals to the number of services per node and provides the best,
 among all possible, solution.
 
-The number of nodes has been varied from 3 to 7, while the number of services per node has been set from 2 to 6.
-The window size has been set from 1 (greedy) to the number of nodes (exhaustive).
+% \hl{DOBBIAMO SPIEGARE COSA ABBIAMO VARIATO NEGLI ESPERIMENTI E COME, WINDOW SIZE, NODI, ETC.
 
-
-
-
-
-\hl{DOBBIAMO SPIEGARE COSA ABBIAMO VARIATO NEGLI ESPERIMENTI E COME, WINDOW SIZE, NODI, ETC.
-
-  LE IMMAGINI CHE ABBIAMO SONO SOLO QUELLE 5? POSSIAMO ANCHE INVERTIRE GLI ASSI E AGGIUNGERE VISUALI DIVERSE}
+%   LE IMMAGINI CHE ABBIAMO SONO SOLO QUELLE 5? POSSIAMO ANCHE INVERTIRE GLI ASSI E AGGIUNGERE VISUALI DIVERSE}
 
 \cref{fig:quality_window} presents our results
-In the figure, there are five charts, each representing a different number of nodes, ranging from 3 to 7.
+In the figure each chart represents a configuration with a specific number of nodes, ranging from 3 to 7.
 On the x-axis of each chart, the number of services is plotted, which ranges from 2 to 6.
 The y-axis represents the metric value, which varies across the charts.
 Each chart shows different window sizes, labeled as W Size 1, W Size 2, and so on, corresponding to various metric values.
