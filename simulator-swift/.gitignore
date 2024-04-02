@@ -1,0 +1,11 @@
+.DS_Store
+.build
+/Packages
+xcuserdata/
+DerivedData/
+.netrc
+__pycache__
+venv
+.vscode
+.build
+.swiftpm
