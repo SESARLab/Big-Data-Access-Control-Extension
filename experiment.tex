@@ -5,10 +5,10 @@
 % \cref{subsec:experiments_infrastructure} presents the simulator and testing infrastructure adopted in our experiments, as well as the complete experimental settings; \cref{subsec:experiments_performance} analyses the performance of our solution in terms of execution time; \cref{subsec:experiments_quality} presents the quality of our heuristic algorithm in terms of the metrics in \cref{subsec:metrics}.
 
 % \subsection{Testing Infrastructure and Experimental Settings}\label{subsec:experiments_infrastructure}
-% Our testing infrastructure is a Swift-based simulator of a service-based ecosystem, including service execution, comparison, and composition. The simulator first defines the pipeline template as a sequence of nodes in the range \hl{x-y}. We recall that alternative nodes are modeled in different pipeline templates, while parallel nodes only add a fixed execution time that is negligible and do not affect the quality of our approach. Each node is associated with a (set of) policy with transformations varying in three classes: \hl{a,b,c}. A set of functionally-equivalent candidate services is randomly generated, each service having a profile...\hl{to conclude}.
-% Upon setting up the pipeline template, the sliding window size is configured and our methodology for pipeline instance generation starts. %The simulator selects a subset of nodes along with their corresponding candidate services.
-% The simulator calculates all possible pipeline instances, that is, it instantiates all nodes with a service according to the selected window size. For each node, the simulator calculates a quality metric, selecting the first service from the optimal combination in the sliding window, then shifting the window by step 1.
-% When the end of the node list is reached, or when the window size equals the node count, the simulator computes the optimal service combination for the remaining nodes and the pipeline instance is generated.
+% Our testing infrastructure is a Swift-based simulator of a service-based ecosystem, including service execution, comparison, and composition. The simulator first defines the pipeline template as a sequence of vertexes in the range \hl{x-y}. We recall that alternative vertexes are modeled in different pipeline templates, while parallel vertexes only add a fixed execution time that is negligible and do not affect the quality of our approach. Each node is associated with a (set of) policy with transformations varying in three classes: \hl{a,b,c}. A set of functionally-equivalent candidate services is randomly generated, each service having a profile...\hl{to conclude}.
+% Upon setting up the pipeline template, the sliding window size is configured and our methodology for pipeline instance generation starts. %The simulator selects a subset of vertexes along with their corresponding candidate services.
+% The simulator calculates all possible pipeline instances, that is, it instantiates all vertexes with a service according to the selected window size. For each node, the simulator calculates a quality metric, selecting the first service from the optimal combination in the sliding window, then shifting the window by step 1.
+% When the end of the node list is reached, or when the window size equals the node count, the simulator computes the optimal service combination for the remaining vertexes and the pipeline instance is generated.
 % \hl{NON MI E' CHIARISSIMA To ensure that each service is interdependent within a combination, a hash function is employed. This function generates weights that services use to simulate transformations (data removal) mandated by the specified policies.}
 % =======
 
@@ -20,11 +20,27 @@ In the following,
 
 \subsection{Testing Infrastructure and Experimental Settings}\label{subsec:experiments_infrastructure}
 Our testing infrastructure is a Swift-based simulator of a service-based ecosystem, including service execution, comparison, and composition.
-Upon setting the sliding window size, the simulator selects a subset of nodes along with their corresponding candidate services.
-It then generates all possible service combinations for the chosen nodes.
+The simulator first defines the pipeline template as a sequence of vertexes in the range $3-7$.
+We recall that alternative vertexes are modeled in different pipeline templates,
+while parallel vertexes only add a fixed execution time that is negligible and do not affect the quality of our approach.
+Each node is associated with a (set of) policy with transformations varying in three classes:
+
+\begin{itemize*}[label=roman*]
+  \item \textit{Confident}: Adjusts data removal to a percentage within $[0.8,1]$.
+  \item \textit{Diffident}: Sets data removal percentage to $[0.2,0.5]$.
+  \item \textit{Average}: Modifies data removal percentage within $[0.2,1]$.
+\end{itemize*}
+set of functionally-equivalent candidate services is randomly generated.
+
+Upon setting the sliding window size, the simulator selects a subset of vertexes along with their corresponding candidate services.
+It then generates all possible service combinations for the chosen vertexes.
 For each combination, the simulator calculates a metric, selecting the first service from the optimal combination before shifting the sliding window.
-When the end of the node list is reached, or when the window size equals the node count, the simulator computes the optimal service combination for the remaining nodes.
-To ensure that each service is interdependent within a combination, a hash function is employed. This function generates weights that services use to simulate data removal due to an anonymization process.
+When the end of the node list is reached, or when the window size equals the node count, the simulator computes the optimal service combination for the remaining vertexes.
+
+An hash function is to simulate the natural interdependence between services.
+This is particularly important when the removal of data by one service may impact another.
+By assigning weights to the services using this function, the system aims to reflect the interconnected dynamics among the services.
+
 The simulator is used to assess the performance and quality of our sliding window heuristic in Section \ref{sec:heuristics} for the generation of the best pipeline instance (Section \ref{sec:instance}).
 % Performance measures the heuristics execution time in different settings, while quality compares the results provided by our heuristics in terms of selected services with the optimal solution retrieved using the exhaustive approach.
 %We note that the exhaustive approach generates the best pipeline instance by executing all possible combinations of candidate services.
@@ -106,16 +122,16 @@ Each experiment was repeated ten times and the results averaged to improve the r
 % \end{itemize}
 % \subsection{Metriche/Euristiche}
 We first calculated the execution time required by our exhaustive solution.
-We incrementally varied the number of nodes and the number of services per node.
+We incrementally varied the number of vertexes and the number of services per node.
 The results of these evaluations are presented in \cref{fig:perf_exhaustive}.
 As anticipated, the trend in execution times is exponential. \cref{fig:perf_exhaustive} displays the execution time plots,
-clearly showing that as the number of nodes increases, the execution time grows exponentially.
-Execution times for up to 5 nodes and 6 services were computed directly,
+clearly showing that as the number of vertexes increases, the execution time grows exponentially.
+Execution times for up to 5 vertexes and 6 services were computed directly,
 while the remaining data points were obtained through interpolation.
 Subsequently, the logical extension of this empirical inquiry involves evaluating the execution time efficiency attributable to the implementation of the sliding window heuristic.
 
 We then evaluated our heuristics to quantify the execution time reduction achieved through the application of heuristics.
-In this context, the number of nodes and services per node was incrementally increased,
+In this context, the number of vertexes and services per node was incrementally increased,
 with the addition of a sliding window whose size was progressively enlarged in each experiment.
 The outcomes are depicted in \cref{fig:perf_window}, and as expected,
 we observed a marked reduction in execution times with the implementation of the sliding window heuristic.
@@ -126,7 +142,7 @@ offering a clear visual confirmation of the heuristic's efficiency in decreasing
 
 
 \subsection{Quality}\label{subsec:experiments_quality}
-We finally evaluated the quality of our heuristic comparing, where possible, its results with the optimal solution retrieved by executing the exhaustive approach. The latter executes with window size equals to the number of nodes and provides the best, among all possible, solution.
+We finally evaluated the quality of our heuristic comparing, where possible, its results with the optimal solution retrieved by executing the exhaustive approach. The latter executes with window size equals to the number of vertexes and provides the best, among all possible, solution.
 
 We recall that we considered three different setting, confident, diffident, average, varying the policy transformations, that is, the amount of data removal at each node. Setting confident assigns to each policy a transformation that changes the amount of data removal in the interval [x,y] (Jaccard coefficient) or decreases the probability distribution dissimilarity in the interval [x,y] (Jensen-Shannon Divergence). Setting diffident assigns to each policy a transformation that changes the amount of data removal in the interval [x,y] (Jaccard coefficient) or decreases the probability distribution dissimilarity in  the interval [x,y] (Jensen-Shannon Divergence). Setting average assigns to each policy a transformation that changes the amount of data removal in the interval [x,y] (Jaccard coefficient) or decreases the probability distribution dissimilarity in  the interval [x,y] (Jensen-Shannon Divergence).
 We finally evaluated the quality of our heuristic comparing, where possible,
@@ -134,7 +150,7 @@ its results with the optimal solution retrieved by executing the exhaustive appr
 The latter executes with window size equals to the number of services per node and provides the best,
 among all possible, solution.
 
-The number of nodes has been varied from 3 to 7, while the number of services per node has been set from 2 to 6.
+The number of vertexes has been varied from 3 to 7, while the number of services per node has been set from 2 to 6.
 The experiments have been conducted with different service data pruning profiles.
 
 % \hl{DOBBIAMO SPIEGARE COSA ABBIAMO VARIATO NEGLI ESPERIMENTI E COME, WINDOW SIZE, NODI, ETC.
@@ -142,9 +158,9 @@ The experiments have been conducted with different service data pruning profiles
 %   LE IMMAGINI CHE ABBIAMO SONO SOLO QUELLE 5? POSSIAMO ANCHE INVERTIRE GLI ASSI E AGGIUNGERE VISUALI DIVERSE}
 
 % <<<<<<< HEAD
-% \cref{fig:quality_window} presents our results with setting \hl{confident} and metric Jaccard coefficient. \cref{fig:quality_window}(a)--(e) \hl{aggiungere le lettere e uniformare l'asse y} present the retrieved quality varying the number of nodes in [3, 7], respectively. Each figure in \cref{fig:quality_window}(a)--(e) varies the number of candidate services at each node in the range [2, 6] and the window size W in the range [1, $|$nodes$|$].
+% \cref{fig:quality_window} presents our results with setting \hl{confident} and metric Jaccard coefficient. \cref{fig:quality_window}(a)--(e) \hl{aggiungere le lettere e uniformare l'asse y} present the retrieved quality varying the number of vertexes in [3, 7], respectively. Each figure in \cref{fig:quality_window}(a)--(e) varies the number of candidate services at each node in the range [2, 6] and the window size W in the range [1, $|$vertexes$|$].
 % \hl{aggiungiamo i numeri piu significativi (asse y).}
-% From the results, some clear trends emerge. As the number of nodes increases, the metric values tend to decrease (better data quality) as the window size increases across different node configurations.
+% From the results, some clear trends emerge. As the number of vertexes increases, the metric values tend to decrease (better data quality) as the window size increases across different node configurations.
 % This suggests that the heuristic performs better when it has a broader perspective of the data and services. The trend is consistent across all node cardinalities (from three to seven), indicating that the heuristic's enhanced performance with larger window sizes is not confined to a specific setup but rather a general characteristic of its behavior.
 % Finally, the data suggest that while larger window sizes generally lead to better performance,
 % there might exist a point where the balance between window size and performance is optimized. \hl{For instance, ...}
@@ -173,7 +189,7 @@ The experiments have been conducted with different service data pruning profiles
 % \end{figure}
 %=======
 \cref{fig:quality_window} presents our results
-In the figure each chart represents a configuration with a specific number of nodes, ranging from 3 to 7.
+In the figure each chart represents a configuration with a specific number of vertexes, ranging from 3 to 7.
 On the x-axis of each chart, the number of services is plotted, which ranges from 2 to 6.
 The y-axis represents the metric value, which varies across the charts.
 Each chart shows different window sizes, labeled as W Size 1, W Size 2, and so on, corresponding to various metric values.
@@ -189,10 +205,10 @@ The fourth chart, exploring a 6-node configuration, shows metric values starting
 Lastly, the fifth chart, presenting a 7-node configuration, indicates that metric values start at 0.28 and reduce to 0.10 as the number of services escalates. The difference in metric values for a window size of one is pronounced, while values for window sizes three to six are lower, with overlapping occurrences similar to those in the 6-node setup. Metric values for window sizes two and three fluctuate between 0.25 and 0.12, while those for window sizes four and five oscillate between 0.22 and 0.1.
 
 It's worth noting
-As the number of nodes increases in each subsequent chart, the relationship between the window size and metric value is depicted,
+As the number of vertexes increases in each subsequent chart, the relationship between the window size and metric value is depicted,
 showing how metric values tend to decrease (better data preservation) as the window size increases across different node configurations.
 This suggests that the heuristic performs better when it has a broader perspective of the data it is analyzing.
-The trend is consistent across various numbers of nodes, from three to seven, indicating that the heuristic's enhanced
+The trend is consistent across various numbers of vertexes, from three to seven, indicating that the heuristic's enhanced
 performance with larger window sizes is not confined to a specific setup but rather a general characteristic of its behavior.
 Finally, the data suggest that while larger window sizes generally lead to better performance,
 there might exist a point where the balance between window size and performance is optimized.
