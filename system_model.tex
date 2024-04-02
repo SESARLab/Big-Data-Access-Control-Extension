@@ -48,7 +48,6 @@ The user's preferences align with a predefined pipeline template that orchestrat
   \item \emph{Data preparation}, including data merging, cleaning, and anonymization;
         % \hl{QUESTO E' MERGE (M). IO PENSAVO DIVENTASSE UN NODO $v_i$. NEL CASO CAMBIANDO LA DEFINIZIONE 3.1 DOVE NON ESISTONO PIU' I NODI MERGE E JOIN.}
   \item \emph{Data analysis}, including statistical measures like average, median, and clustering-based statistics;
-  \item \emph{Machine learning task}, including training and inference;
   \item \emph{Data storage}, including the storage of the results;
   \item \emph{Data visualization}, including the visualization of the results.
 \end{enumerate*}
@@ -95,24 +94,40 @@ We note that the template requires the execution of the entire service within th
     \node[draw, circle,right=1em] (node3) at (node2.east) {$\vi{3}$};
 
     \node[draw, circle,below=1em] (merge) at (node2.south)  {$\vi{4}$};
+    \node[draw, circle,below=1em] (node5) at (merge.south)  {$\vi{5}$};
 
     % \node[draw, circle, cross , minimum size=1.5em,below=1em] (fork) at (merge.south)  {};
     % \node[draw, circle,below =1.5em, left=2em] (ml) at (fork.south) {$\vi{5}$};
     % \node[draw, circle,below =1.5em, right=2em] (analysis) at (fork.south) {$\vi{6}$};
     % \node[draw, circle, cross , minimum size=1.5em,below=3em] (join) at (fork.south)  {};
-    \node[draw, circle,below =1em ] (storage) at (merge.south) {$\vi{7}$};
-    \node[draw, circle,below =1.5em] (visualization) at (storage.south) {$\vi{8}$};
+
+    \node[draw, circle,below =1em ] (storage) at (node5.south) {$\vi{6}$};
+    \node[draw, circle,below =1.5em] (visualization) at (storage.south) {$\vi{7}$};
 
     % Labels
 
-    \node[right=1em] at (node3.east) {Data fetching};
-    \node[right=1em] at (merge.east) {Data preparation};
+    % \node[right=1em] at (node3.east) {Data fetching};
+    % \node[right=1em] at (merge.east) {Data preparation};
+    % \node[right=1em] at (split.east) {$parallel$};
+    % % \node[right=1em] at (fork.east) {$alternative$};
+    % % \node[right=1em] at (analysis.east) {ML task};
+    % % \node[left=1em] at (ml.west) {Data analysis};
+    % \node[right=1em] at (storage.east) {Data Storage};
+    % \node[right=1em] at (visualization.east) {Data Visualization};
+    % \node[draw, circle,below =1em ] (storage) at (node5.south) {$\vi{6}$};
+    % \node[draw, circle,below =1.5em] (visualization) at (storage.south) {$\vi{7}$};
+
+    % Labels
+
+    \node[right=1em] at (node3.east) {i) Data fetching};
+    \node[right=1em] at (merge.east) {ii) Data preparation};
     \node[right=1em] at (split.east) {$parallel$};
     % \node[right=1em] at (fork.east) {$alternative$};
     % \node[right=1em] at (analysis.east) {ML task};
-    % \node[left=1em] at (ml.west) {Data analysis};
-    \node[right=1em] at (storage.east) {Data Storage};
-    \node[right=1em] at (visualization.east) {Data Visualization};
+    \node[right=1em] at (node5.east) {iii) Data analysis};
+    \node[right=1em] at (storage.east) {iv) Data Storage};
+    \node[right=1em] at (visualization.east) {v) Data Visualization};
+
     % Connection
 
     \draw[->] (root) -- (split);
@@ -123,7 +138,8 @@ We note that the template requires the execution of the entire service within th
     \draw[->] (node1) -- (merge);
     \draw[->] (node2) -- (merge);
     \draw[->] (node3) -- (merge);
-    \draw[->] (merge) -- (storage);
+    \draw[->] (merge) -- (node5);
+    \draw[->] (node5) -- (storage);
     % \draw[->] (fork) -- (ml);
     % \draw[->] (fork) -- (analysis);
 
