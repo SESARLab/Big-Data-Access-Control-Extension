@@ -1,4 +1,4 @@
-% \section{Experiments}\label{sec:experiment}
+\section{Experiments}\label{sec:experiment}
 % <<<<<<< HEAD
 % We experimentally evaluated the performance and quality of our methodology \cref{subsec:heuristics},
 % and compared it against the exhaustive approach in Section~\ref{TOADD}. In the following,
@@ -142,16 +142,12 @@ offering a clear visual confirmation of the heuristic's efficiency in decreasing
 
 
 \subsection{Quality}\label{subsec:experiments_quality}
-We finally evaluated the quality of our heuristic comparing, where possible, its results with the optimal solution retrieved by executing the exhaustive approach. The latter executes with window size equals to the number of vertexes and provides the best, among all possible, solution.
+We finally evaluated the quality of our heuristic comparing, where possible, its results with the optimal solution retrieved by executing the exhaustive approach. The latter executes with window size equals to the number of vertexes in the pipeline template, and provides the best, among all possible, solution.
 
-We recall that we considered three different setting, confident, diffident, average, varying the policy transformations, that is, the amount of data removal at each node. Setting confident assigns to each policy a transformation that changes the amount of data removal in the interval [x,y] (Jaccard coefficient) or decreases the probability distribution dissimilarity in the interval [x,y] (Jensen-Shannon Divergence). Setting diffident assigns to each policy a transformation that changes the amount of data removal in the interval [x,y] (Jaccard coefficient) or decreases the probability distribution dissimilarity in  the interval [x,y] (Jensen-Shannon Divergence). Setting average assigns to each policy a transformation that changes the amount of data removal in the interval [x,y] (Jaccard coefficient) or decreases the probability distribution dissimilarity in  the interval [x,y] (Jensen-Shannon Divergence).
-We finally evaluated the quality of our heuristic comparing, where possible,
-its results with the optimal solution retrieved by executing the exhaustive approach.
-The latter executes with window size equals to the number of services per node and provides the best,
-among all possible, solution.
+We recall that we considered three different settings, confident, diffident, average, varying the policy transformations, that is, the amount of data removal at each vertex. Setting confident assigns to each policy a transformation that changes the amount of data removal in the interval [x,y] (Jaccard coefficient) or decreases the probability distribution dissimilarity in the interval [x,y] (Jensen-Shannon Divergence). Setting diffident assigns to each policy a transformation that changes the amount of data removal in the interval [x,y] (Jaccard coefficient) or decreases the probability distribution dissimilarity in  the interval [x,y] (Jensen-Shannon Divergence). Setting average assigns to each policy a transformation that changes the amount of data removal in the interval [x,y] (Jaccard coefficient) or decreases the probability distribution dissimilarity in  the interval [x,y] (Jensen-Shannon Divergence).
+%We finally evaluated the quality of our heuristic comparing, where possible, its results with the optimal solution retrieved by executing the exhaustive approach. The latter executes with window size equals to the number of services per node and provides the best, among all possible, solution.
 
-The number of vertexes has been varied from 3 to 7, while the number of services per node has been set from 2 to 6.
-The experiments have been conducted with different service data pruning profiles.
+The number of vertexes varied from 3 to 7, while the number of services per node from 2 to 6. The experiments have been conducted with different service data pruning profiles.\hl{I PRUNING PROFILE NON SONO CONFIDENT, DIFFIDENT, AVERAGE?}
 
 % \hl{DOBBIAMO SPIEGARE COSA ABBIAMO VARIATO NEGLI ESPERIMENTI E COME, WINDOW SIZE, NODI, ETC.
 
