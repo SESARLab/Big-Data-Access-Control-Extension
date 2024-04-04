@@ -144,12 +144,6 @@ offering a clear visual confirmation of the heuristic's efficiency in decreasing
 \subsection{Quality}\label{subsec:experiments_quality}
 We finally evaluated the quality of our heuristic comparing, where possible, its results with the optimal solution retrieved by executing the exhaustive approach. The latter executes with window size equals to the number of vertexes in the pipeline template, and provides the best, among all possible, solution.
 
-<<<<<<< HEAD
-We recall that we considered three different settings, confident, diffident, average, varying the policy transformations, that is, the amount of data removal at each vertex. Setting confident assigns to each policy a transformation that changes the amount of data removal in the interval [x,y] (Jaccard coefficient) or decreases the probability distribution dissimilarity in the interval [x,y] (Jensen-Shannon Divergence). Setting diffident assigns to each policy a transformation that changes the amount of data removal in the interval [x,y] (Jaccard coefficient) or decreases the probability distribution dissimilarity in  the interval [x,y] (Jensen-Shannon Divergence). Setting average assigns to each policy a transformation that changes the amount of data removal in the interval [x,y] (Jaccard coefficient) or decreases the probability distribution dissimilarity in  the interval [x,y] (Jensen-Shannon Divergence).
-%We finally evaluated the quality of our heuristic comparing, where possible, its results with the optimal solution retrieved by executing the exhaustive approach. The latter executes with window size equals to the number of services per node and provides the best, among all possible, solution.
-
-The number of vertexes varied from 3 to 7, while the number of services per node from 2 to 6. The experiments have been conducted with different service data pruning profiles.\hl{I PRUNING PROFILE NON SONO CONFIDENT, DIFFIDENT, AVERAGE?}
-=======
 % % We recall that we considered three different setting, confident, diffident, average, varying the policy transformations, that is, the amount of data removal at each vertex. Setting confident assigns to each policy a transformation that changes the amount of data removal in the interval [x,y] (Jaccard coefficient) or decreases the probability distribution dissimilarity in the interval [x,y] (Jensen-Shannon Divergence). Setting diffident assigns to each policy a transformation that changes the amount of data removal in the interval [x,y] (Jaccard coefficient) or decreases the probability distribution dissimilarity in  the interval [x,y] (Jensen-Shannon Divergence). Setting average assigns to each policy a transformation that changes the amount of data removal in the interval [x,y] (Jaccard coefficient) or decreases the probability distribution dissimilarity in  the interval [x,y] (Jensen-Shannon Divergence).
 % We finally evaluated the quality of our heuristic comparing, where possible,
 % its results with the optimal solution retrieved by executing the exhaustive approach.
@@ -158,7 +152,6 @@ The number of vertexes varied from 3 to 7, while the number of services per node
 
 % The number of vertexes has been varied from 3 to 7, while the number of services per vertex has been set from 2 to 6.
 % The experiments have been conducted with different service data pruning profiles.
->>>>>>> a43a322 (wip)
 
 % \hl{DOBBIAMO SPIEGARE COSA ABBIAMO VARIATO NEGLI ESPERIMENTI E COME, WINDOW SIZE, NODI, ETC.
 
@@ -323,42 +316,3 @@ Beyond this point, the incremental gains in metric values may not justify the ad
   \caption{Quality evaluation with \textit{Diffident} profile.}
   \label{fig:quality_window_bad}
 \end{figure*}
-
-
-
-% \begin{figure*}[ht]
-%   \centering
-
-%   % First figure
-%   \begin{subfigure}[b]{\textwidth}
-%     \centering
-%     \includegraphics[height=0.3\textheight]{graphs/window_quality.eps}
-
-%     \caption{Services operating on the 0.33 to 0.8 data pruning range.}
-%     \label{fig:windows_quality_good}
-%   \end{subfigure}
-%   \hfill % adds horizontal space between the figures
-
-%   % Second figure
-%   \begin{subfigure}[b]{\textwidth}
-%     \centering
-%     \includegraphics[height=0.3\textheight]{graphs/window_quality.eps}
-
-%     \caption{Services operating on the 0.33 to 0.5 data pruning range.}
-%     \label{fig:second}
-%   \end{subfigure}
-%   \hfill % adds horizontal space between the figures
-
-%   % Third figure
-%   \begin{subfigure}[b]{\textwidth}
-%     \centering
-%     \includegraphics[height=0.3\textheight]{graphs/window_quality.eps}
-
-%     \caption{Services operating on the 0.33 to 1 data pruning range.}
-%     \label{fig:third}
-%   \end{subfigure}
-
-%   \caption{Three figures side by side}
-%   \label{fig:quality_window}
-
-% \end{figure*}
