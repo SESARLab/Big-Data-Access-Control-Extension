@@ -15,9 +15,16 @@ set xlabel "Number Of Services"
 # set multiplot layout 2,3 rowsfirst scale 1.1,0.9
 
 do for [i=3:7] {
-  set output sprintf('quality_plot_good_n%d.eps', i)
+  set output sprintf('quality_plot_bad_n%d.eps', i)
   set label sprintf("%d Nodes", i) at graph 0.5, graph -0.3 center
-  plot for [j=1:i] base_path.sprintf('window_quality_performance_pippo.mytable_gamma_n%d_w%d.dat', i, j) using 1:(1-$2) title sprintf('W Size %d', j) with linespoints pointtype (j)
+set yrange [0.7:1]
+set ytics 0.02
+  plot for [j=1:i] base_path.sprintf('window_quality_performance_pippo.mytable_gamma_bad_n%d_w%d.dat', i, j) using 1:(1-$2) title sprintf('W Size %d', j) with linespoints pointtype (j)
+  set output sprintf('quality_plot_bad_percentage_n%d.eps', i)
+  set yrange [0:1]
+set ytics autofreq
+  plot for [j=1:i] base_path.sprintf('window_quality_performance_pippo.mytable_gamma_bad_n%d_w%d.dat', i, j) using 1:3 title sprintf('W Size %d', j) with linespoints pointtype (j)
+
   unset label
   set output
 }
