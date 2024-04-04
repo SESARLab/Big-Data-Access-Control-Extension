@@ -5,10 +5,10 @@
 % \cref{subsec:experiments_infrastructure} presents the simulator and testing infrastructure adopted in our experiments, as well as the complete experimental settings; \cref{subsec:experiments_performance} analyses the performance of our solution in terms of execution time; \cref{subsec:experiments_quality} presents the quality of our heuristic algorithm in terms of the metrics in \cref{subsec:metrics}.
 
 % \subsection{Testing Infrastructure and Experimental Settings}\label{subsec:experiments_infrastructure}
-% Our testing infrastructure is a Swift-based simulator of a service-based ecosystem, including service execution, comparison, and composition. The simulator first defines the pipeline template as a sequence of vertexes in the range \hl{x-y}. We recall that alternative vertexes are modeled in different pipeline templates, while parallel vertexes only add a fixed execution time that is negligible and do not affect the quality of our approach. Each node is associated with a (set of) policy with transformations varying in three classes: \hl{a,b,c}. A set of functionally-equivalent candidate services is randomly generated, each service having a profile...\hl{to conclude}.
+% Our testing infrastructure is a Swift-based simulator of a service-based ecosystem, including service execution, comparison, and composition. The simulator first defines the pipeline template as a sequence of vertexes in the range \hl{x-y}. We recall that alternative vertexes are modeled in different pipeline templates, while parallel vertexes only add a fixed execution time that is negligible and do not affect the quality of our approach. Each vertex is associated with a (set of) policy with transformations varying in three classes: \hl{a,b,c}. A set of functionally-equivalent candidate services is randomly generated, each service having a profile...\hl{to conclude}.
 % Upon setting up the pipeline template, the sliding window size is configured and our methodology for pipeline instance generation starts. %The simulator selects a subset of vertexes along with their corresponding candidate services.
-% The simulator calculates all possible pipeline instances, that is, it instantiates all vertexes with a service according to the selected window size. For each node, the simulator calculates a quality metric, selecting the first service from the optimal combination in the sliding window, then shifting the window by step 1.
-% When the end of the node list is reached, or when the window size equals the node count, the simulator computes the optimal service combination for the remaining vertexes and the pipeline instance is generated.
+% The simulator calculates all possible pipeline instances, that is, it instantiates all vertexes with a service according to the selected window size. For each vertex, the simulator calculates a quality metric, selecting the first service from the optimal combination in the sliding window, then shifting the window by step 1.
+% When the end of the vertex list is reached, or when the window size equals the vertex count, the simulator computes the optimal service combination for the remaining vertexes and the pipeline instance is generated.
 % \hl{NON MI E' CHIARISSIMA To ensure that each service is interdependent within a combination, a hash function is employed. This function generates weights that services use to simulate transformations (data removal) mandated by the specified policies.}
 % =======
 
@@ -23,19 +23,19 @@ Our testing infrastructure is a Swift-based simulator of a service-based ecosyst
 The simulator first defines the pipeline template as a sequence of vertexes in the range $3-7$.
 We recall that alternative vertexes are modeled in different pipeline templates,
 while parallel vertexes only add a fixed execution time that is negligible and do not affect the quality of our approach.
-Each node is associated with a (set of) policy with transformations varying in three classes:
+Each vertex is associated with a (set of) policy with transformations varying in three classes:
 
 \begin{itemize*}[label=roman*]
   \item \textit{Confident}: Adjusts data removal to a percentage within $[0.8,1]$.
-  \item \textit{Diffident}: Sets data removal percentage to $[0.2,0.5]$.
-  \item \textit{Average}: Modifies data removal percentage within $[0.2,1]$.
+  \item \textit{Diffident}: Sets data removal percentage to $[0.33,0.5]$.
+  \item \textit{Average}: Modifies data removal percentage within $[0.33,1]$.
 \end{itemize*}
 set of functionally-equivalent candidate services is randomly generated.
 
 Upon setting the sliding window size, the simulator selects a subset of vertexes along with their corresponding candidate services.
 It then generates all possible service combinations for the chosen vertexes.
 For each combination, the simulator calculates a metric, selecting the first service from the optimal combination before shifting the sliding window.
-When the end of the node list is reached, or when the window size equals the node count, the simulator computes the optimal service combination for the remaining vertexes.
+When the end of the vertex list is reached, or when the window size equals the vertex count, the simulator computes the optimal service combination for the remaining vertexes.
 
 An hash function is to simulate the natural interdependence between services.
 This is particularly important when the removal of data by one service may impact another.
@@ -122,7 +122,7 @@ Each experiment was repeated ten times and the results averaged to improve the r
 % \end{itemize}
 % \subsection{Metriche/Euristiche}
 We first calculated the execution time required by our exhaustive solution.
-We incrementally varied the number of vertexes and the number of services per node.
+We incrementally varied the number of vertexes and the number of services per vertex.
 The results of these evaluations are presented in \cref{fig:perf_exhaustive}.
 As anticipated, the trend in execution times is exponential. \cref{fig:perf_exhaustive} displays the execution time plots,
 clearly showing that as the number of vertexes increases, the execution time grows exponentially.
@@ -131,7 +131,7 @@ while the remaining data points were obtained through interpolation.
 Subsequently, the logical extension of this empirical inquiry involves evaluating the execution time efficiency attributable to the implementation of the sliding window heuristic.
 
 We then evaluated our heuristics to quantify the execution time reduction achieved through the application of heuristics.
-In this context, the number of vertexes and services per node was incrementally increased,
+In this context, the number of vertexes and services per vertex was incrementally increased,
 with the addition of a sliding window whose size was progressively enlarged in each experiment.
 The outcomes are depicted in \cref{fig:perf_window}, and as expected,
 we observed a marked reduction in execution times with the implementation of the sliding window heuristic.
@@ -144,10 +144,21 @@ offering a clear visual confirmation of the heuristic's efficiency in decreasing
 \subsection{Quality}\label{subsec:experiments_quality}
 We finally evaluated the quality of our heuristic comparing, where possible, its results with the optimal solution retrieved by executing the exhaustive approach. The latter executes with window size equals to the number of vertexes in the pipeline template, and provides the best, among all possible, solution.
 
+<<<<<<< HEAD
 We recall that we considered three different settings, confident, diffident, average, varying the policy transformations, that is, the amount of data removal at each vertex. Setting confident assigns to each policy a transformation that changes the amount of data removal in the interval [x,y] (Jaccard coefficient) or decreases the probability distribution dissimilarity in the interval [x,y] (Jensen-Shannon Divergence). Setting diffident assigns to each policy a transformation that changes the amount of data removal in the interval [x,y] (Jaccard coefficient) or decreases the probability distribution dissimilarity in  the interval [x,y] (Jensen-Shannon Divergence). Setting average assigns to each policy a transformation that changes the amount of data removal in the interval [x,y] (Jaccard coefficient) or decreases the probability distribution dissimilarity in  the interval [x,y] (Jensen-Shannon Divergence).
 %We finally evaluated the quality of our heuristic comparing, where possible, its results with the optimal solution retrieved by executing the exhaustive approach. The latter executes with window size equals to the number of services per node and provides the best, among all possible, solution.
 
 The number of vertexes varied from 3 to 7, while the number of services per node from 2 to 6. The experiments have been conducted with different service data pruning profiles.\hl{I PRUNING PROFILE NON SONO CONFIDENT, DIFFIDENT, AVERAGE?}
+=======
+% % We recall that we considered three different setting, confident, diffident, average, varying the policy transformations, that is, the amount of data removal at each vertex. Setting confident assigns to each policy a transformation that changes the amount of data removal in the interval [x,y] (Jaccard coefficient) or decreases the probability distribution dissimilarity in the interval [x,y] (Jensen-Shannon Divergence). Setting diffident assigns to each policy a transformation that changes the amount of data removal in the interval [x,y] (Jaccard coefficient) or decreases the probability distribution dissimilarity in  the interval [x,y] (Jensen-Shannon Divergence). Setting average assigns to each policy a transformation that changes the amount of data removal in the interval [x,y] (Jaccard coefficient) or decreases the probability distribution dissimilarity in  the interval [x,y] (Jensen-Shannon Divergence).
+% We finally evaluated the quality of our heuristic comparing, where possible,
+% its results with the optimal solution retrieved by executing the exhaustive approach.
+% The latter executes with window size equals to the number of services per vertex and provides the best,
+% among all possible, solution.
+
+% The number of vertexes has been varied from 3 to 7, while the number of services per vertex has been set from 2 to 6.
+% The experiments have been conducted with different service data pruning profiles.
+>>>>>>> a43a322 (wip)
 
 % \hl{DOBBIAMO SPIEGARE COSA ABBIAMO VARIATO NEGLI ESPERIMENTI E COME, WINDOW SIZE, NODI, ETC.
 
@@ -184,28 +195,23 @@ The number of vertexes varied from 3 to 7, while the number of services per node
 %   \label{fig:quality_window}
 % \end{figure}
 %=======
-\cref{fig:quality_window} presents our results
-In the figure each chart represents a configuration with a specific number of vertexes, ranging from 3 to 7.
-On the x-axis of each chart, the number of services is plotted, which ranges from 2 to 6.
-The y-axis represents the metric value, which varies across the charts.
-Each chart shows different window sizes, labeled as W Size 1, W Size 2, and so on, corresponding to various metric values.
+\cref{fig:quality_window_bad,fig:quality_window_average,fig:quality_window_good} presents our results
+In the figures each chart represents a configuration with a specific number of vertexes, ranging from 3 to 7.
+On the x-axis, the number of services is plotted, which ranges from 2 to 7.
+The y-axis represents the metric value.
+Each chart shows different window sizes, labeled as W Size 1, W Size 2, and so on, up to the maximum window size.
+Each figure varies the
 
-The initial chart in \cref{sub@fig:windows_quality_good} focusing on a 3-node configuration, reveals that metric values commence at a high of 0.12 and decline to a low of 0.06 as the number of services increases. The chart illustrates that smaller window sizes correspond to higher metric values, with window size one exhibiting the highest values and window size three the lowest. Notably, the metric value for a window size of two is comparable to, or better than, that for a window size of three.
 
-The second chart, detailing a 4-node configuration, displays a similar pattern where metric values start at 0.16 and fall to 0.07 with an increasing number of services. In this configuration, the gap between the metric values for a window size of one is more marked, whereas the disparity between the values for window sizes of two and three is less distinct.
-
-In the third chart, which examines a 5-node configuration, metric values initiate at a peak of 0.17 and decrease to 0.09 as services rise. Here, metric values for window sizes one and two are closely matched, whereas those for window sizes three to five are lower, with the gap between the metric values for window sizes one and five reaching up to 0.02.
-
-The fourth chart, exploring a 6-node configuration, shows metric values starting at 0.20 and diminishing to 0.09 with more services. The variance in metric values for a window size of one is again more noticeable, while values for window sizes three to six are lower, with some overlaps, as seen with window sizes four to six.
-
-Lastly, the fifth chart, presenting a 7-node configuration, indicates that metric values start at 0.28 and reduce to 0.10 as the number of services escalates. The difference in metric values for a window size of one is pronounced, while values for window sizes three to six are lower, with overlapping occurrences similar to those in the 6-node setup. Metric values for window sizes two and three fluctuate between 0.25 and 0.12, while those for window sizes four and five oscillate between 0.22 and 0.1.
-
-It's worth noting
-As the number of vertexes increases in each subsequent chart, the relationship between the window size and metric value is depicted,
-showing how metric values tend to decrease (better data preservation) as the window size increases across different node configurations.
+The last group of charts in \cref{fig:quality_window_bad} is based on \textit{diffident} policy transformations, with the Jensen-Shannon Divergence as the metric.
+All the values range from 0.7 to 0.9, with the highest values registred in the 3-vertex
+configuration, and the lowest in the 7-vertex configuration.
+In particular the 3-vertex configuration range from 0.88 to 0.93, 4-vertex from 0.84 to 0.92, 5-vertex from 0.84 to 0.89, 6-vertex from 0.8 to 0.89, and 7-vertex from 0.72 to 0.88.
+In general the last three window sizes tend to overlap, with the exception of the 6 and 7-vertex configurations.
+In the 6-vertex configuration window sizes from 2 to 6 tend to overlap, while in the 7-vertex configuration the window sizes from 4 to 7 tend to overlap while the others configuration are well divided.
+The metric values tend to increase as the number of services increases. Thus because the heuristic has more services to choose from and can find a better combination.
+As the number of vertexes increases in each subsequent chart metric values tend to increase as the window size increases across different vertex configurations.
 This suggests that the heuristic performs better when it has a broader perspective of the data it is analyzing.
-The trend is consistent across various numbers of vertexes, from three to seven, indicating that the heuristic's enhanced
-performance with larger window sizes is not confined to a specific setup but rather a general characteristic of its behavior.
 Finally, the data suggest that while larger window sizes generally lead to better performance,
 there might exist a point where the balance between window size and performance is optimized.
 Beyond this point, the incremental gains in metric values may not justify the additional computational resources or the complexity introduced by larger windows.
@@ -213,37 +219,146 @@ Beyond this point, the incremental gains in metric values may not justify the ad
 
 \begin{figure*}[ht]
   \centering
-
-  % First figure
-  \begin{subfigure}[b]{\textwidth}
-    \centering
-    \includegraphics[height=0.3\textheight]{graphs/window_quality.eps}
-
-    \caption{Services operating on the 0.2 to 0.8 data pruning range.}
-    \label{fig:windows_quality_good}
+  \begin{subfigure}{0.33\textwidth}
+    \includegraphics[width=\textwidth]{Images/graphs/quality_plot_average_n3.eps}
+    \caption{3 vertices}
+    \label{fig:first}
   \end{subfigure}
-  \hfill % adds horizontal space between the figures
-
-  % Second figure
-  \begin{subfigure}[b]{\textwidth}
-    \centering
-    \includegraphics[height=0.3\textheight]{graphs/window_quality.eps}
-
-    \caption{Services operating on the 0.2 to 0.5 data pruning range.}
+  \hfill
+  \begin{subfigure}{0.33\textwidth}
+    \includegraphics[width=\textwidth]{Images/graphs/quality_plot_average_n4.eps}
+    \caption{4 vertices}
     \label{fig:second}
   \end{subfigure}
-  \hfill % adds horizontal space between the figures
-
-  % Third figure
-  \begin{subfigure}[b]{\textwidth}
-    \centering
-    \includegraphics[height=0.3\textheight]{graphs/window_quality.eps}
-
-    \caption{Services operating on the 0.2 to 1 data pruning range.}
+  \hfill
+  \begin{subfigure}{0.33\textwidth}
+    \includegraphics[width=\textwidth]{Images/graphs/quality_plot_average_n5.eps}
+    \caption{5 vertices}
     \label{fig:third}
   \end{subfigure}
-
-  \caption{Three figures side by side}
-  \label{fig:quality_window}
-
+  \hfill
+  \begin{subfigure}{0.33\textwidth}
+    \includegraphics[width=\textwidth]{Images/graphs/quality_plot_average_n6.eps}
+    \caption{6 vertices}
+    \label{fig:third}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.33\textwidth}
+    \includegraphics[width=\textwidth]{Images/graphs/quality_plot_average_n7.eps}
+    \caption{7 vertices}
+    \label{fig:third}
+  \end{subfigure}
+  \caption{ Quality evaluation with \textit{Confident} profile.}
+  \label{fig:quality_window_good}
 \end{figure*}
+
+\begin{figure*}[ht]
+  \centering
+  \begin{subfigure}{0.33\textwidth}
+    \includegraphics[width=\textwidth]{Images/graphs/quality_plot_good_n3.eps}
+    \caption{3 vertices}
+    \label{fig:first}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.33\textwidth}
+    \includegraphics[width=\textwidth]{Images/graphs/quality_plot_good_n4.eps}
+    \caption{4 vertices}
+    \label{fig:second}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.33\textwidth}
+    \includegraphics[width=\textwidth]{Images/graphs/quality_plot_good_n5.eps}
+    \caption{5 vertices}
+    \label{fig:third}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.33\textwidth}
+    \includegraphics[width=\textwidth]{Images/graphs/quality_plot_good_n6.eps}
+    \caption{6 vertices}
+    \label{fig:third}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.33\textwidth}
+    \includegraphics[width=\textwidth]{Images/graphs/quality_plot_vbad_n7.eps}
+    \caption{7 vertices}
+    \label{fig:third}
+  \end{subfigure}
+  \caption{Quality evaluation with \textit{Average} profile.}
+  \label{fig:quality_window_average}
+\end{figure*}
+
+
+\begin{figure*}[ht]
+  \centering
+  \begin{subfigure}{0.33\textwidth}
+    \includegraphics[width=\textwidth]{Images/graphs/quality_plot_vbad_n3.eps}
+    \caption{3 vertices}
+    \label{fig:quality_window_bad_a}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.33\textwidth}
+    \includegraphics[width=\textwidth]{Images/graphs/quality_plot_vbad_n4.eps}
+    \caption{4 vertices}
+    \label{fig:quality_window_bad_b}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.33\textwidth}
+    \includegraphics[width=\textwidth]{Images/graphs/quality_plot_vbad_n5.eps}
+    \caption{5 vertices}
+    \label{fig:quality_window_bad_c}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.33\textwidth}
+    \includegraphics[width=\textwidth]{Images/graphs/quality_plot_vbad_n6.eps}
+    \caption{6 vertices}
+    \label{fig:quality_window_bad_d}
+  \end{subfigure}
+  \hspace{0.04\textwidth}
+  \begin{subfigure}{0.33\textwidth}
+    \includegraphics[width=\textwidth]{Images/graphs/quality_plot_vbad_n7.eps}
+    \caption{7 vertices}
+    \label{fig:quality_window_bad_e}
+  \end{subfigure}
+  \hfill
+  \caption{Quality evaluation with \textit{Diffident} profile.}
+  \label{fig:quality_window_bad}
+\end{figure*}
+
+
+
+% \begin{figure*}[ht]
+%   \centering
+
+%   % First figure
+%   \begin{subfigure}[b]{\textwidth}
+%     \centering
+%     \includegraphics[height=0.3\textheight]{graphs/window_quality.eps}
+
+%     \caption{Services operating on the 0.33 to 0.8 data pruning range.}
+%     \label{fig:windows_quality_good}
+%   \end{subfigure}
+%   \hfill % adds horizontal space between the figures
+
+%   % Second figure
+%   \begin{subfigure}[b]{\textwidth}
+%     \centering
+%     \includegraphics[height=0.3\textheight]{graphs/window_quality.eps}
+
+%     \caption{Services operating on the 0.33 to 0.5 data pruning range.}
+%     \label{fig:second}
+%   \end{subfigure}
+%   \hfill % adds horizontal space between the figures
+
+%   % Third figure
+%   \begin{subfigure}[b]{\textwidth}
+%     \centering
+%     \includegraphics[height=0.3\textheight]{graphs/window_quality.eps}
+
+%     \caption{Services operating on the 0.33 to 1 data pruning range.}
+%     \label{fig:third}
+%   \end{subfigure}
+
+%   \caption{Three figures side by side}
+%   \label{fig:quality_window}
+
+% \end{figure*}
