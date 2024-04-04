@@ -12,10 +12,8 @@
 % \hl{NON MI E' CHIARISSIMA To ensure that each service is interdependent within a combination, a hash function is employed. This function generates weights that services use to simulate transformations (data removal) mandated by the specified policies.}
 % =======
 
-We experimentally evaluated the performance and quality of our methodology,
-and corresponding heuristic implementation in \cref{subsec:heuristics},
-and compare them against the exhaustive approach in Section~\ref{TOADD}.
-In the following,
+We experimentally evaluated the performance and quality of our methodology, and corresponding heuristic implementation in \cref{subsec:heuristics},
+and compare them against the exhaustive approach in Section~\ref{TOADD}. In the following,
 \cref{subsec:experiments_infrastructure} presents the simulator and testing infrastructure adopted in our experiments, as well as the complete experimental settings; \cref{subsec:experiments_performance} analyses the performance of our solution in terms of execution time; \cref{subsec:experiments_quality} presents the quality of our heuristic algorithm in terms of the metrics in \cref{subsec:metrics}.
 
 \subsection{Testing Infrastructure and Experimental Settings}\label{subsec:experiments_infrastructure}
@@ -142,72 +140,18 @@ offering a clear visual confirmation of the heuristic's efficiency in decreasing
 
 
 \subsection{Quality}\label{subsec:experiments_quality}
-We finally evaluated the quality of our heuristic comparing, where possible, its results with the optimal solution retrieved by executing the exhaustive approach. The latter executes with window size equals to the number of vertexes in the pipeline template, and provides the best, among all possible, solution.
+We finally evaluated the quality of our heuristic comparing, where possible, its results with the optimal solution retrieved by executing the exhaustive approach. The latter executes with window size equals to the number of vertexes in the pipeline template, and provides the best, among all possible, solutions. 
 
-% % We recall that we considered three different setting, confident, diffident, average, varying the policy transformations, that is, the amount of data removal at each vertex. Setting confident assigns to each policy a transformation that changes the amount of data removal in the interval [x,y] (Jaccard coefficient) or decreases the probability distribution dissimilarity in the interval [x,y] (Jensen-Shannon Divergence). Setting diffident assigns to each policy a transformation that changes the amount of data removal in the interval [x,y] (Jaccard coefficient) or decreases the probability distribution dissimilarity in  the interval [x,y] (Jensen-Shannon Divergence). Setting average assigns to each policy a transformation that changes the amount of data removal in the interval [x,y] (Jaccard coefficient) or decreases the probability distribution dissimilarity in  the interval [x,y] (Jensen-Shannon Divergence).
-% We finally evaluated the quality of our heuristic comparing, where possible,
-% its results with the optimal solution retrieved by executing the exhaustive approach.
-% The latter executes with window size equals to the number of services per vertex and provides the best,
-% among all possible, solution.
+We run our experiments in the three settings in Section \ref{}, namely, confident, diffident, average, and varied: \emph{i)} the number of vertexes in the pipeline template in [3,6], \emph{ii)} the window size in [1,$|$max$_v$$|$], where max$_v$ is the number of vertexes in the pipeline template, and \emph{iii)} the number of candidate services for each vertex in the pipeline template in [2, 6].
 
-% The number of vertexes has been varied from 3 to 7, while the number of services per vertex has been set from 2 to 6.
-% The experiments have been conducted with different service data pruning profiles.
+\cref{fig:quality_window_bad,fig:quality_window_average,fig:quality_window_good} presents our results using metric Jensen-Shannon Divergence.
+%
+When a diffident setting is used, \cref{fig:quality_window_bad}, the quality range from 0.7 to 0.9, with the highest quality retrieved for the pipeline template with 3 vertices and the lowest with 7 vertices.
+In particular, the quality ranges from 0.88 (greedy approach) to 0.93 (exhaustive approach) for a 3-vertex pipeline with a loss of 5,38\% in the worst case, from 0.84 to 0.92 for a 4-vertex pipeline with a loss of 8,7\%, from 0.84 to 0.89 for a 5-vertex pipeline with a loss of 5,61\%, from 0.8 to 0.89 for a 6-vertex pipeline with a loss of 10,11\%, and from 0.72 to 0.88 for a 7-vertex pipeline with a loss of 18,18\%. We note that the benefit of an increasing window size can be appreciated with lower numbers, reaching a sort of saturation around the average length (e.g., window of length 4 with a 7-vertex pipeline) where the quality with different length almost overlaps. The only exception is for 6-vertex pipeline where the overapping starts with window size 2. However, this might be due to the specific setting and therefore does not generalize. 
+%Thus because the heuristic has more services to choose from and can find a better combination.
+We also observe that, as the window size increase, the quality increase as well. This suggests that the heuristic performs better when it has a broader perspective of the data it is governing.
 
-% \hl{DOBBIAMO SPIEGARE COSA ABBIAMO VARIATO NEGLI ESPERIMENTI E COME, WINDOW SIZE, NODI, ETC.
-
-%   LE IMMAGINI CHE ABBIAMO SONO SOLO QUELLE 5? POSSIAMO ANCHE INVERTIRE GLI ASSI E AGGIUNGERE VISUALI DIVERSE}
-
-% <<<<<<< HEAD
-% \cref{fig:quality_window} presents our results with setting \hl{confident} and metric Jaccard coefficient. \cref{fig:quality_window}(a)--(e) \hl{aggiungere le lettere e uniformare l'asse y} present the retrieved quality varying the number of vertexes in [3, 7], respectively. Each figure in \cref{fig:quality_window}(a)--(e) varies the number of candidate services at each node in the range [2, 6] and the window size W in the range [1, $|$vertexes$|$].
-% \hl{aggiungiamo i numeri piu significativi (asse y).}
-% From the results, some clear trends emerge. As the number of vertexes increases, the metric values tend to decrease (better data quality) as the window size increases across different node configurations.
-% This suggests that the heuristic performs better when it has a broader perspective of the data and services. The trend is consistent across all node cardinalities (from three to seven), indicating that the heuristic's enhanced performance with larger window sizes is not confined to a specific setup but rather a general characteristic of its behavior.
-% Finally, the data suggest that while larger window sizes generally lead to better performance,
-% there might exist a point where the balance between window size and performance is optimized. \hl{For instance, ...}
-% Beyond this point, the incremental gains in metric values may not justify the additional computational resources or the complexity introduced by larger windows.
-
-% \hl{RIPETERE PER TUTTI I SETTINGS}
-
-
-% \begin{figure}
-%   \includegraphics[width=0.95\columnwidth]{graphs/exhaustive_performance.eps}
-%   \caption{Exhaustive execution time evaluation. The x-axis represents the number of services, while the y-axis represents the execution time in seconds. The execution time is expressed both in linear and logarithmic scales.}
-%   \label{fig:perf_exhaustive}
-% \end{figure}
-
-% \begin{figure}[!t]
-%   \includegraphics[width=0.95\columnwidth]{graphs/window_performance.eps}
-%   \caption{Preliminary performance evaluation.\hl{METTERE LE 4 IMG NON UN'UNICA EPS}}
-%   \label{fig:perf_window}
-% \end{figure}
-
-
-% \begin{figure}[!t]
-%   \includegraphics[width=0.95\columnwidth]{graphs/window_quality.eps}
-%   \caption{Quality evaluation.\hl{METTERE LE 4 IMG NON UN'UNICA EPS}}
-%   \label{fig:quality_window}
-% \end{figure}
-%=======
-\cref{fig:quality_window_bad,fig:quality_window_average,fig:quality_window_good} presents our results
-In the figures each chart represents a configuration with a specific number of vertexes, ranging from 3 to 7.
-On the x-axis, the number of services is plotted, which ranges from 2 to 7.
-The y-axis represents the metric value.
-Each chart shows different window sizes, labeled as W Size 1, W Size 2, and so on, up to the maximum window size.
-Each figure varies the
-
-
-The last group of charts in \cref{fig:quality_window_bad} is based on \textit{diffident} policy transformations, with the Jensen-Shannon Divergence as the metric.
-All the values range from 0.7 to 0.9, with the highest values registred in the 3-vertex
-configuration, and the lowest in the 7-vertex configuration.
-In particular the 3-vertex configuration range from 0.88 to 0.93, 4-vertex from 0.84 to 0.92, 5-vertex from 0.84 to 0.89, 6-vertex from 0.8 to 0.89, and 7-vertex from 0.72 to 0.88.
-In general the last three window sizes tend to overlap, with the exception of the 6 and 7-vertex configurations.
-In the 6-vertex configuration window sizes from 2 to 6 tend to overlap, while in the 7-vertex configuration the window sizes from 4 to 7 tend to overlap while the others configuration are well divided.
-The metric values tend to increase as the number of services increases. Thus because the heuristic has more services to choose from and can find a better combination.
-As the number of vertexes increases in each subsequent chart metric values tend to increase as the window size increases across different vertex configurations.
-This suggests that the heuristic performs better when it has a broader perspective of the data it is analyzing.
-Finally, the data suggest that while larger window sizes generally lead to better performance,
-there might exist a point where the balance between window size and performance is optimized.
-Beyond this point, the incremental gains in metric values may not justify the additional computational resources or the complexity introduced by larger windows.
+\hl{QUESTO E' PIU' DA CONCLUSIONE FINALE.} Finally, the data suggest that while larger window sizes generally lead to better performance, there might exist a point where the balance between window size and performance is optimized. Beyond this point, the incremental gains in metric values may not justify the additional computational resources or the complexity introduced by larger windows.
 
 
 \begin{figure*}[ht]
@@ -353,3 +297,51 @@ Beyond this point, the incremental gains in metric values may not justify the ad
   \caption{Quality Percentage evaluation with \textit{Diffident} profile.}
   \label{fig:quality_window_bad_percentage}
 \end{figure*}
+
+% % We recall that we considered three different setting, confident, diffident, average, varying the policy transformations, that is, the amount of data removal at each vertex. Setting confident assigns to each policy a transformation that changes the amount of data removal in the interval [x,y] (Jaccard coefficient) or decreases the probability distribution dissimilarity in the interval [x,y] (Jensen-Shannon Divergence). Setting diffident assigns to each policy a transformation that changes the amount of data removal in the interval [x,y] (Jaccard coefficient) or decreases the probability distribution dissimilarity in  the interval [x,y] (Jensen-Shannon Divergence). Setting average assigns to each policy a transformation that changes the amount of data removal in the interval [x,y] (Jaccard coefficient) or decreases the probability distribution dissimilarity in  the interval [x,y] (Jensen-Shannon Divergence).
+% We finally evaluated the quality of our heuristic comparing, where possible,
+% its results with the optimal solution retrieved by executing the exhaustive approach.
+% The latter executes with window size equals to the number of services per vertex and provides the best,
+% among all possible, solution.
+
+% The number of vertexes has been varied from 3 to 7, while the number of services per vertex has been set from 2 to 6.
+% The experiments have been conducted with different service data pruning profiles.
+
+% \hl{DOBBIAMO SPIEGARE COSA ABBIAMO VARIATO NEGLI ESPERIMENTI E COME, WINDOW SIZE, NODI, ETC.
+
+%   LE IMMAGINI CHE ABBIAMO SONO SOLO QUELLE 5? POSSIAMO ANCHE INVERTIRE GLI ASSI E AGGIUNGERE VISUALI DIVERSE}
+
+% <<<<<<< HEAD
+% \cref{fig:quality_window} presents our results with setting \hl{confident} and metric Jaccard coefficient. \cref{fig:quality_window}(a)--(e) \hl{aggiungere le lettere e uniformare l'asse y} present the retrieved quality varying the number of vertexes in [3, 7], respectively. Each figure in \cref{fig:quality_window}(a)--(e) varies the number of candidate services at each node in the range [2, 6] and the window size W in the range [1, $|$vertexes$|$].
+% \hl{aggiungiamo i numeri piu significativi (asse y).}
+% From the results, some clear trends emerge. As the number of vertexes increases, the metric values tend to decrease (better data quality) as the window size increases across different node configurations.
+% This suggests that the heuristic performs better when it has a broader perspective of the data and services. The trend is consistent across all node cardinalities (from three to seven), indicating that the heuristic's enhanced performance with larger window sizes is not confined to a specific setup but rather a general characteristic of its behavior.
+% Finally, the data suggest that while larger window sizes generally lead to better performance,
+% there might exist a point where the balance between window size and performance is optimized. \hl{For instance, ...}
+% Beyond this point, the incremental gains in metric values may not justify the additional computational resources or the complexity introduced by larger windows.
+
+% \hl{RIPETERE PER TUTTI I SETTINGS}
+
+
+% \begin{figure}
+%   \includegraphics[width=0.95\columnwidth]{graphs/exhaustive_performance.eps}
+%   \caption{Exhaustive execution time evaluation. The x-axis represents the number of services, while the y-axis represents the execution time in seconds. The execution time is expressed both in linear and logarithmic scales.}
+%   \label{fig:perf_exhaustive}
+% \end{figure}
+
+% \begin{figure}[!t]
+%   \includegraphics[width=0.95\columnwidth]{graphs/window_performance.eps}
+%   \caption{Preliminary performance evaluation.\hl{METTERE LE 4 IMG NON UN'UNICA EPS}}
+%   \label{fig:perf_window}
+% \end{figure}
+
+
+% \begin{figure}[!t]
+%   \includegraphics[width=0.95\columnwidth]{graphs/window_quality.eps}
+%   \caption{Quality evaluation.\hl{METTERE LE 4 IMG NON UN'UNICA EPS}}
+%   \label{fig:quality_window}
+% \end{figure}
+%=======
+
+
+%In the figures each chart represents a configuration with a specific number of vertexes, ranging from 3 to 7. On the x-axis, the number of services is plotted, which ranges from 2 to 7. The y-axis represents the metric value. Each chart shows different window sizes, labeled as W Size 1, W Size 2, and so on, up to the maximum window size.
