@@ -43,7 +43,12 @@
 \newcommand{\cmark}{\ding{51}}%
 \newcommand{\chia}[1]{{\color{red}#1}}
 \input{macro}
-
+\makeatletter
+\def\endthebibliography{%
+  \def\@noitemerr{\@latex@warning{Empty `thebibliography' environment}}%
+  \endlist
+}
+\makeatother
 \begin{document}
 
 \title{TBA}
