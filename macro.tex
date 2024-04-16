@@ -64,10 +64,15 @@
 \newcommand{\pipelineTemplate}{Pipeline Template\xspace}
 \newcommand{\pipelineInstance}{Pipeline Instance\xspace}
 
+\newcommand{\pone}{$\langle service\_owner=dataset\_owner\rangle$}
+\newcommand{\ptwo}{$\langle service\_owner=partner(dataset\_owner) \rangle$}
+\newcommand{\pthree}{$\langle service\_owner \neq dataset\_owner AND owner \neq partner(dataset\_owner)$}
 
 
 \newcommand{\problem}{Pipeline Instantiation Process }
-
+\newcommand{\xmark}{\ding{55}}%
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\chia}[1]{{\color{red}#1}}
 \newcommand{\policy}[5]{
   $\langle \text{#1},{#2},{#3},\ensuremath{#4},\ensuremath{#5} \rangle$
 }

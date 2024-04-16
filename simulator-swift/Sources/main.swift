@@ -28,7 +28,7 @@ struct MyCLI: ParsableCommand {
 
   func run() throws {
     let experimentRange = experimentNumber
-    let nodesRange = 8...numberOfNodes
+    let nodesRange = 3...numberOfNodes
     let servicesRange = 2...numberOfServices
 
     EXPERIMENT_SEED = experimentRange

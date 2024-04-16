@@ -51,7 +51,7 @@ Each experiment was repeated ten times and the results averaged to improve the r
 
 \begin{figure}[!t]
   \centering
-  \newcommand{\function}{$\instanceChartAnnotation{}$}
+
   \begin{tikzpicture}[framed]
     \node[draw, circle] (s41) at (1,1.7) {$\sii{1}$};
     \node[draw, circle] (s42) at (1,0) {$\sii{2}$};
@@ -140,14 +140,14 @@ offering a clear visual confirmation of the heuristic's efficiency in decreasing
 
 
 \subsection{Quality}\label{subsec:experiments_quality}
-We finally evaluated the quality of our heuristic comparing, where possible, its results with the optimal solution retrieved by executing the exhaustive approach. The latter executes with window size equals to the number of vertexes in the pipeline template, and provides the best, among all possible, solutions. 
+We finally evaluated the quality of our heuristic comparing, where possible, its results with the optimal solution retrieved by executing the exhaustive approach. The latter executes with window size equals to the number of vertexes in the pipeline template, and provides the best, among all possible, solutions.
 
 We run our experiments in the three settings in Section \ref{}, namely, confident, diffident, average, and varied: \emph{i)} the number of vertexes in the pipeline template in [3,6], \emph{ii)} the window size in [1,$|$max$_v$$|$], where max$_v$ is the number of vertexes in the pipeline template, and \emph{iii)} the number of candidate services for each vertex in the pipeline template in [2, 6].
 
 \cref{fig:quality_window_bad,fig:quality_window_average,fig:quality_window_good} presents our results using metric Jensen-Shannon Divergence.
 %
 When a diffident setting is used, \cref{fig:quality_window_bad}, the quality range from 0.7 to 0.9, with the highest quality retrieved for the pipeline template with 3 vertices and the lowest with 7 vertices.
-In particular, the quality ranges from 0.88 (greedy approach) to 0.93 (exhaustive approach) for a 3-vertex pipeline with a loss of 5,38\% in the worst case, from 0.84 to 0.92 for a 4-vertex pipeline with a loss of 8,7\%, from 0.84 to 0.89 for a 5-vertex pipeline with a loss of 5,61\%, from 0.8 to 0.89 for a 6-vertex pipeline with a loss of 10,11\%, and from 0.72 to 0.88 for a 7-vertex pipeline with a loss of 18,18\%. We note that the benefit of an increasing window size can be appreciated with lower numbers, reaching a sort of saturation around the average length (e.g., window of length 4 with a 7-vertex pipeline) where the quality with different length almost overlaps. The only exception is for 6-vertex pipeline where the overapping starts with window size 2. However, this might be due to the specific setting and therefore does not generalize. 
+In particular, the quality ranges from 0.88 (greedy approach) to 0.93 (exhaustive approach) for a 3-vertex pipeline with a loss of 5,38\% in the worst case, from 0.84 to 0.92 for a 4-vertex pipeline with a loss of 8,7\%, from 0.84 to 0.89 for a 5-vertex pipeline with a loss of 5,61\%, from 0.8 to 0.89 for a 6-vertex pipeline with a loss of 10,11\%, and from 0.72 to 0.88 for a 7-vertex pipeline with a loss of 18,18\%. We note that the benefit of an increasing window size can be appreciated with lower numbers, reaching a sort of saturation around the average length (e.g., window of length 4 with a 7-vertex pipeline) where the quality with different length almost overlaps. The only exception is for 6-vertex pipeline where the overapping starts with window size 2. However, this might be due to the specific setting and therefore does not generalize.
 %Thus because the heuristic has more services to choose from and can find a better combination.
 We also observe that, as the window size increase, the quality increase as well. This suggests that the heuristic performs better when it has a broader perspective of the data it is governing.
 

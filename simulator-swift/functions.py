@@ -1,4 +1,5 @@
 from scipy.spatial import distance
+import numpy as np
 
 from pandas import DataFrame
 from sqlalchemy import create_engine, types
@@ -11,7 +12,10 @@ def mydistance(df1, df2):
         try:
             p = df1[col].value_counts(normalize=True).sort_index()
             q = df2[col].value_counts(normalize=True).reindex(p.index, fill_value=0.0).sort_index()
-            ds.append(distance.jensenshannon(p, q))
+            if np.sum(np.asarray(q), axis=0, keepdims=True) != 0:
+                ds.append(distance.jensenshannon(p, q))
+            else:
+                ds.append(1.0)
         except Exception as e:
             print(e)
             ds.append(1.0)
@@ -21,4 +25,4 @@ def mydistance(df1, df2):
 
 def store(item):
 
-    DataFrame(item, index=[0]).to_sql('gamma_10nodes', my_conn, if_exists='append', index=False)
+    DataFrame(item, index=[0]).to_sql('n7_s7_70_100', my_conn, if_exists='append', index=False)
