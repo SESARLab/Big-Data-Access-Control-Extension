@@ -1,7 +1,7 @@
 \section{Maximizing the Pipeline Instance Quality}\label{sec:heuristics}
 %
 % %Ovviamente non è sufficiente scegliere il best service per ogni vertice, ma diventa un problema complesso dove si devono calcolare/valutare tutte le possibili combinazioni dei servizi disponibili, tra le quali scegliere la migliore.
-Our goal is to generate a pipeline instance with maximum quality, which addresses data protection requirements with the minimum amount of information loss across the pipeline execution. To this aim, we first discuss the role of some metrics (\cref{sec:metrics}) to specify and measure data quality, and describe the ones used in the paper.
+Our goal is to generate a pipeline instance with maximum quality, which addresses data protection requirements with the minimum amount of information loss across the pipeline execution. To this aim, we first discuss the role of some metrics (\cref{subsec:metrics}) to specify and measure data quality, and describe the ones used in the paper.
 Then, we prove that the problem of generating a pipeline instance with maximum quality is NP-hard (\cref{sec:nphard}). Finally, we present a parametric heuristic (\cref{subsec:heuristics}) tailored to address the computational complexity associated with enumerating all possible combinations within a given set. The primary aim of the heuristic is to approximate the optimal path for service interactions and transformations, particularly within the landscape of more complex pipelines composed of numerous vertexes and candidate services. Our focus extends beyond identifying optimal combinations, encompassing an understanding of the quality changes introduced during the transformation processes.
 
 %Inspired by existing literature, these metrics, categorized as quantitative and statistical, play a pivotal role in quantifying the impact of policy-driven transformations on the original dataset.
@@ -59,40 +59,40 @@ The Max Quality \problem is a combinatorial selection problem and is NP-hard, as
 \emph{Proof: }
 The proof is a reduction from the multiple-choice knapsack problem (MCKP), a classified NP-hard combinatorial optimization problem, which is a generalization of the simple knapsack problem (KP) \cite{}. In the MCKP problem, there are $t$ mutually disjoint classes $N_1,N_2,\ldots,N_t$ of items to pack in some knapsack of capacity $C$, class $N_i$ having size $n_i$. Each item $j$$\in$$N_i$ has a profit $p_{ij}$ and a weight $w_{ij}$; the problem is to choose one item from each class such that the profit sum is maximized without having the weight sum to exceed C.
 
-    The MCKP can be reduced to the Max quality \problem in polynomial time, with $N_1,N_2,\ldots,N_t$ corresponding to $S^c_{1}, S^c_{1}, \ldots, S^c_{u},$, $t$$=$$u$ and $n_i$ the size of $S^c_{i}$. The profit $p_{ij}$ of item $j$$\in$$N_i$ corresponds to \textit{dtloss}$_{ij}$ computed for each candidate service $s_j$$\in$$S^c_{i}$, while $w_{ij}$ is uniformly 1 (thus, C is always equal to the cardinality of $V_C$).
+The MCKP can be reduced to the Max quality \problem in polynomial time, with $N_1,N_2,\ldots,N_t$ corresponding to $S^c_{1}, S^c_{1}, \ldots, S^c_{u},$, $t$$=$$u$ and $n_i$ the size of $S^c_{i}$. The profit $p_{ij}$ of item $j$$\in$$N_i$ corresponds to \textit{dtloss}$_{ij}$ computed for each candidate service $s_j$$\in$$S^c_{i}$, while $w_{ij}$ is uniformly 1 (thus, C is always equal to the cardinality of $V_C$).
 
-    Since the reduction can be done in polynomial time, our problem is also NP-hard. (non è sufficiente, bisogna provare che la soluzione di uno e' anche soluzione dell'altro)
+Since the reduction can be done in polynomial time, our problem is also NP-hard. (non è sufficiente, bisogna provare che la soluzione di uno e' anche soluzione dell'altro)
 
 
-    \begin{example}[Max-Quality Pipeline Instance]
-      Let us consider a subset \{\vi{5}, \vi{6}, \vi{7}\} of the pipeline template \tChartFunction in \cref{sec:example}.
-      Each vertex is associated with three candidate services, each having a profile. The filtering algorithm matches each candidate service's profile with the policies annotating the corresponding vertex. It returns the set of services whose profile matches a policy.
+\begin{example}[Max-Quality Pipeline Instance]
+  Let us consider a subset \{\vi{5}, \vi{6}, \vi{7}\} of the pipeline template \tChartFunction in \cref{sec:example_instace}.
+  Each vertex is associated with three candidate services, each having a profile. The filtering algorithm matches each candidate service's profile with the policies annotating the corresponding vertex. It returns the set of services whose profile matches a policy.
 
-      The comparison algorithm is then applied to the set of services $S'_*$ and it returns a ranking of the services.
-      The ranking is based on the amount of data that is anonymized by the service.
-      The ranking is listed in \cref{tab:instance_example_maxquality} and it is based on the transformation function of the policies,
-      assuming that a more restrictive transformation function anonymizes more data affecting negatively the position in the ranking.
-      For example, \s{11} is ranked first because it anonymizes less data than \s{12} and \s{13}.
-      The ranking of \s{22} and \s{23} is based on the same logic.
-      Finally, the ranking of \s{31}, \s{32} is influenced by the environment state at the time of the ranking.
-      For example, if the environment in which the visualization is performed is a CT facility, then \s{31} is ranked first and \s{32} second;
-      thus because the facility is considered a less risky environment than the cloud.
+  The comparison algorithm is then applied to the set of services $S'_*$ and it returns a ranking of the services.
+  The ranking is based on the amount of data that is anonymized by the service.
+  The ranking is listed in \cref{tab:instance_example_maxquality} and it is based on the transformation function of the policies,
+  assuming that a more restrictive transformation function anonymizes more data affecting negatively the position in the ranking.
+  For example, \s{11} is ranked first because it anonymizes less data than \s{12} and \s{13}.
+  The ranking of \s{22} and \s{23} is based on the same logic.
+  Finally, the ranking of \s{31}, \s{32} is influenced by the environment state at the time of the ranking.
+  For example, if the environment in which the visualization is performed is a CT facility, then \s{31} is ranked first and \s{32} second;
+  thus because the facility is considered a less risky environment than the cloud.
 
-    \end{example}
+\end{example}
 
-    % The metrics established will enable the quantification of data loss pre- and post-transformations.
-    % In the event of multiple service interactions, each with its respective transformation,
-    % efforts will be made to minimize the loss of information while upholding privacy and security standards.
-    % Due to the exponential increase in complexity as the number of services and transformations grow,
-    % identifying the optimal path is inherently an NP-hard problem.
-    % As such, we propose some heuristics to approximate the optimal path as closely as possible.
-    %To evaluate their efficacy, the heuristically generated paths will be compared against the optimal solution.
+% The metrics established will enable the quantification of data loss pre- and post-transformations.
+% In the event of multiple service interactions, each with its respective transformation,
+% efforts will be made to minimize the loss of information while upholding privacy and security standards.
+% Due to the exponential increase in complexity as the number of services and transformations grow,
+% identifying the optimal path is inherently an NP-hard problem.
+% As such, we propose some heuristics to approximate the optimal path as closely as possible.
+%To evaluate their efficacy, the heuristically generated paths will be compared against the optimal solution.
 
-    \subsection{Heuristic}\label{subsec:heuristics}
-    %The computational challenge posed by the enumeration of all possible combinations within a given set is a well-established NP-hard problem.}
-    %The exhaustive exploration of such combinations swiftly becomes impractical in terms of computational time and resources, particularly when dealing with the analysis of complex pipelines.
-    %In response to this computational complexity, the incorporation of heuristic emerges as a strategy to try to efficiently address the problem.
-    \hl{HO RIVISTO IL PARAGRAFO VELOCEMENTE GIUSTO PER DARE UN'INDICAZIONE. DOBBIAMO USARE LA FORMALIZZAZIONE E MAGARI FORMALIZZARE ANCHE LO PSEUDOCODICE.} We design and implement a heuristic algorithm for computing the pipeline instance maximizing data quality. Our heuristic is built on a \emph{sliding window} and aims to minimize information loss according to quality metrics. At each step, a set of vertexes in the pipeline template $\tChartFunction$ is selected according to a specific window w=[i,j], where $i$ and $j$ are the starting and ending depth of window w. Service filtering and selection in Section~\ref{sec:instance} are then executed to minimize information loss in window w. The heuristic returns as output the list of services instantiating vertexes at depth $i$. A new window w=[i+1,j+1] is considered until $j$+1 is equal to the max depth of $\tChartFunction$, that is the window reaches the end of the template.
+\subsection{Heuristic}\label{subsec:heuristics}
+%The computational challenge posed by the enumeration of all possible combinations within a given set is a well-established NP-hard problem.}
+%The exhaustive exploration of such combinations swiftly becomes impractical in terms of computational time and resources, particularly when dealing with the analysis of complex pipelines.
+%In response to this computational complexity, the incorporation of heuristic emerges as a strategy to try to efficiently address the problem.
+\hl{HO RIVISTO IL PARAGRAFO VELOCEMENTE GIUSTO PER DARE UN'INDICAZIONE. DOBBIAMO USARE LA FORMALIZZAZIONE E MAGARI FORMALIZZARE ANCHE LO PSEUDOCODICE.} We design and implement a heuristic algorithm for computing the pipeline instance maximizing data quality. Our heuristic is built on a \emph{sliding window} and aims to minimize information loss according to quality metrics. At each step, a set of vertexes in the pipeline template $\tChartFunction$ is selected according to a specific window w=[i,j], where $i$ and $j$ are the starting and ending depth of window w. Service filtering and selection in Section~\ref{sec:instance} are then executed to minimize information loss in window w. The heuristic returns as output the list of services instantiating vertexes at depth $i$. A new window w=[i+1,j+1] is considered until $j$+1 is equal to the max depth of $\tChartFunction$, that is the window reaches the end of the template.
 %For example, in our service selection problem where the quantity of information lost needs to be minimized, the sliding window algorithm can be used to select services composition that have the lowest information loss within a fixed-size window.
 This strategy ensures that only services with low information loss are selected at each step, minimizing the overall information loss. Pseudo-code for the sliding window algorithm is presented in Algorithm 1.
 
