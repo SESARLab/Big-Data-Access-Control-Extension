@@ -1,8 +1,24 @@
 \section{Related Work}\label{sec:related}
 
-% \begin{itemize}
-% \item We believe that the closest approach to the one in this paper is the work of Hu et al. \cite{HUFerraiolo:2014}, introducing a generalised access control model for big data processing frameworks, which can be extended to the Hadoop environment. However, the paper discusses the issues only from a high-level architectural point of view, without discussing a tangible solution.
-% \item \cite{GuardSpark:ACSAC:2020}  purpose-aware access control model, where purposes are data processing purpose and data operation purpose; the enforcement mechanism, still based on yes/no answer is based on an algorithm that checks if the operation on data to be performed matches to the purpose. The examples are given only for structured data and SQL queries. E se da una parte fa piu' di altri, dall'altra non ci sono attributi associati ai soggetti e agli oggetti, cosa che limita un pochino.
-% \item \cite{Sandhu:ABAC:2018} propose a solution specifically tailored to the Apache Hadoop stack, una semplice formalizzazione dell'AC in Hadoop. Non considerano la messa in sicurezza dell'ingestion time e non considerano la questione delle coalizioni. Considerano solo servizi all'interno di Hadoop ecosystem. Classica risposta yes/no.
-% \item \cite{ABACforHBase:2019} questo e' solo su HBase
-% \end{itemize}
+\subsection{Data quality}
+Data quality is a largely studied research topic. The database management research community mainly focused on increasing the quality of the source data rather than guaranteeing data quality along the whole processing pipeline or the quality of outcomes built on data.
+In \cite{BigDataQaulitySurvey}, a survey on big data quality is proposed mentioning the well known categories of big data quality grouped by intrinsic, contextual representational and accessibility categories.
+It also presents an holistic quality management model where the importance of data quality during processing is just mentioned in terms of requirements for the pre-processing job (e.g., data enhancement due to cleaning jobs).
+In this paper we depart from this idea on data quality at pre processing time only measuring it at each step of the big data pipeline.
+
+
+\subsection{Data protection}
+Research on data governance and protection focuses on the definition of new approaches and techniques aimed to protect the security and privacy of big data (e.g., CIA triad), as well as managing their life cycle with security and privacy in mind. Often, the research community is targeting specific security and privacy problems, resulting in a proliferation of solutions and tools, which are difficult to integrate in a coherent framework. Many solutions have been developed to protect the users' identity (e.g., anonymity \cite{wallace1999anonymity}, pseudonimity \cite{pfitzmann2001pseudonymity}, k-anonymity \cite{k-anon}), to guarantee data confidentiality and integrity (e.g., encryption \cite{thambiraja2012survey}, differential privacy \cite{hassan2019differential}, access control \cite{tolone2005access,servos2017current}), and to govern data sharing and analysis (e.g., data lineage \cite{woodruff1997supporting}, ETL/ELT ingestion \cite{vassiliadis2009survey}).
+
+
+far notare che il lavori considerano 2 cose, da una parte tecniche per garantire sicurezza, dall'altra tecniche per garantire sicurezza in piattaforme per big data. In entrambi i casi molto specifiche.
+
+An effective data governance and protection approach cannot avoid its integration within state-of-the-art big data infrastructures. In fact, as organizations see practical results and significant value in the usage of big data, they also recognize the limits of current big data ecosystems with respect to data governance and data protection. Recently, both industry and academic communities started to investigate the issue, both from a data governance perspective \cite{al2018exploring,aissa2020decide} or recognizing the need of new security requirements \cite{Colombo:JournCybersec:2019}.
+There are also database-centric approaches that focus on specific databases such as noSQL databases or graph databases, or specific types of analytical pipelines such \cite{AConGraphDB:2021, AConMongoDB:2022, ABACforHBase:2019}. However, these solutions are widely based on query rewriting mechanisms leading to high complexity and low efficiency. Finally, some solutions are scenario-specific (federate cloud, edge microservices or IoT) and lack the generality needed to adapt to multiple contexts \cite{MultipartyAC:2019, IoTSecurity}. The closest approach to this project proposal is the work of Hu et al. \cite{ HUFerraiolo:2014}, introducing a generalized access control model for big data processing frameworks, which can be extended to the Hadoop environment. However, the paper discusses the issues only from a high-level architectural point of view, without discussing a tangible solution. Another relevant work is by Xue et al. \cite{GuardSpark:ACSAC:2020}. They propose a solution based on the notion of purpose-aware access control \cite{Byun2008} that, although focusing only on Apache Spark, recognizes the need of a generalized approach to deal with access control in analytics pipelines.
+Platform-specific approaches are designed for single systems only (e.g., MongoDB, Hadoop) and leverage on native access control features of the platform \cite{rathore2017hadoop,anisetti2018privacy}.
+Some recent proposals, like Federated Access Control Reference Model (FACRM) \cite{FederationAC:Journ:2020} or \cite{Sandhu:ABAC:2018,GuptaSandu:2017}, are specifically tailored to the Apache Hadoop stack.
+On the other hand, platform-independent approaches have the advantage of being more general than platform-specific solutions. However, the currently available platforms either model resources to be accessed as monolithic files (e.g., Microsoft DAC) or lack scalability.
+
+\subsection{Service Selection}
+
+citare TWEB
