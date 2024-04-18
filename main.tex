@@ -2,7 +2,7 @@
 \usepackage{cite}
 \usepackage{graphicx}
 \usepackage{psfrag}
-
+\usepackage{anyfontsize}
 \usepackage{url}
 \usepackage{color}
 \usepackage{balance}
@@ -12,8 +12,8 @@
 \usepackage{adjustbox}
 \usepackage{array,booktabs,arydshln,xcolor}
 \usepackage{tikz}
+\usetikzlibrary{shapes,patterns,calc,shapes.geometric,arrows,positioning,backgrounds}
 
-\usetikzlibrary{shapes,patterns,calc,shapes.geometric,arrows}
 \usepackage{makecell}
 \usepackage{multirow}
 \usepackage{xcolor}
@@ -41,12 +41,14 @@
 \newtheorem{example}{Example}[section]
 
 \input{macro}
+
 \makeatletter
 \def\endthebibliography{%
   \def\@noitemerr{\@latex@warning{Empty `thebibliography' environment}}%
   \endlist
 }
 \makeatother
+
 \begin{document}
 
 \title{TBA}
