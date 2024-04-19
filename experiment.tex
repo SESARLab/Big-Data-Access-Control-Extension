@@ -8,14 +8,11 @@ Our testing infrastructure is a Swift-based simulator of a service-based ecosyst
 The simulator first defines the pipeline template as a sequence of vertexes in the range $3-7$.
 We recall that alternative vertexes are modeled in different pipeline templates,
 while parallel vertexes only add a fixed execution time that is negligible and do not affect the quality of our approach.
-Each vertex is associated with a (set of) policy with transformations varying in three classes:
-
-\begin{itemize*}[label=roman*]
-  \item \textit{Confident}: Adjusts data removal to a percentage within $[0.8,1]$.
-  \item \textit{Diffident}: Sets data removal percentage to $[0.33,0.5]$.
-  \item \textit{Average}: Modifies data removal percentage within $[0.33,1]$.
+Each vertex is associated with a (set of) policy with transformations varying in two classes:
+\begin{itemize*}
+  \item \average: data removal percentage within $[0.5,0.8]$.
+  \item \wide:    data removal percentage within $[0.20,1]$.
 \end{itemize*}
-set of functionally-equivalent candidate services is randomly generated.
 
 Upon setting the sliding window size, the simulator selects a subset of vertexes along with their corresponding candidate services.
 It then generates all possible service combinations for the chosen vertexes.
@@ -128,14 +125,23 @@ offering a clear visual confirmation of the heuristic's efficiency in decreasing
 \subsection{Quality}\label{subsec:experiments_quality}
 We finally evaluated the quality of our heuristic comparing, where possible, its results with the optimal solution retrieved by executing the exhaustive approach. The latter executes with window size equals to the number of vertexes in the pipeline template, and provides the best, among all possible, solutions.
 
-We run our experiments in the three settings in Section \cref{subsec:experiments_infrastructure}, namely, confident, diffident, average, and varied: \emph{i)} the number of vertexes in the pipeline template in [3,6], \emph{ii)} the window size in [1,$|$max$_v$$|$], where max$_v$ is the number of vertexes in the pipeline template, and \emph{iii)} the number of candidate services for each vertex in the pipeline template in [2, 6].
+We run our experiments in the two settings in Section \cref{subsec:experiments_infrastructure}, namely, \average and \wide,  and varied: \emph{i)} the number of vertexes in the pipeline template in [3,7], \emph{ii)} the window size in [1,$|$max$_v$$|$], where max$_v$ is the number of vertexes in the pipeline template, and \emph{iii)} the number of candidate services for each vertex in the pipeline template in [2, 7].
 
-\cref{fig:quality_window_bad,fig:quality_window_average,fig:quality_window_good} presents our results using metric Jensen-Shannon Divergence.
+\cref{fig:quality_window_average_perce,fig:quality_window_perce_wide} presents our results the quantitive metrics in \cref{subsec:metrics} for the \wide and \average settings, respectively.
+Value are normalized to the optimal solution retrieved by the exhaustive approach.
 %
-When a diffident setting is used, \cref{fig:quality_window_bad}, the quality range from 0.7 to 0.9, with the highest quality retrieved for the pipeline template with 3 vertices and the lowest with 7 vertices.
-In particular, the quality ranges from 0.88 (greedy approach) to 0.93 (exhaustive approach) for a 3-vertex pipeline with a loss of 5,38\% in the worst case, from 0.84 to 0.92 for a 4-vertex pipeline with a loss of 8,7\%, from 0.84 to 0.89 for a 5-vertex pipeline with a loss of 5,61\%, from 0.8 to 0.89 for a 6-vertex pipeline with a loss of 10,11\%, and from 0.72 to 0.88 for a 7-vertex pipeline with a loss of 18,18\%. We note that the benefit of an increasing window size can be appreciated with lower numbers, reaching a sort of saturation around the average length (e.g., window of length 4 with a 7-vertex pipeline) where the quality with different length almost overlaps. The only exception is for 6-vertex pipeline where the overapping starts with window size 2. However, this might be due to the specific setting and therefore does not generalize.
+When a \wide setting is used, \cref{fig:quality_window_perce_wide}, the quality ratio ranges from 0.6 to 1, with the highest quality retrieved for the pipeline template with 3 vertices and the lowest with 7 vertices.
+%
+In particular, the quality ratio ranges from 0.88 (greedy approach) to 1 () for a 3-vertex pipeline with a loss of 12\% in the worst case, from 0.81 to 0.92 for a 4-vertex pipeline with a loss of 8,7\%, from 0.84 to 0.89 for a 5-vertex pipeline with a loss of 5,61\%, from 0.8 to 0.89 for a 6-vertex pipeline with a loss of 10,11\%, and from 0.72 to 0.88 for a 7-vertex pipeline with a loss of 18,18\%. W
+%
+We note that the benefit of an increasing window size can be appreciated with lower numbers, reaching a sort of saturation around the average length (e.g., window of length 6 with a 7-vertex pipeline) where the quality ratio overlaps. The only exception is for 6-vertex pipeline where the overapping starts with window size 2. However, this might be due to the specific setting and therefore does not generalize.
 %Thus because the heuristic has more services to choose from and can find a better combination.
 We also observe that, as the window size increase, the quality increase as well. This suggests that the heuristic performs better when it has a broader perspective of the data it is governing.
+It's worth noting that lower window sizes are more unstable, with the quality ratio varying significantly between different configuration while higher window sizes tend to stabilize the quality ratio across different configuration.
+
+When an \average setting is used, \cref{fig:quality_window_average_perce}, the quality ratio for the worst case ranges from 0.72 to 9.96, with the highest quality retrieved for the pipeline template with 3 vertices and the lowest with 7 vertices.
+
+
 
 \hl{QUESTO E' PIU' DA CONCLUSIONE FINALE.} Finally, the data suggest that while larger window sizes generally lead to better performance, there might exist a point where the balance between window size and performance is optimized. Beyond this point, the incremental gains in metric values may not justify the additional computational resources or the complexity introduced by larger windows.
 
@@ -145,30 +151,30 @@ We also observe that, as the window size increase, the quality increase as well.
   \begin{subfigure}{0.33\textwidth}
     \includegraphics[width=\textwidth]{Images/graphs/newwindow_quality_performance_diff_perce_n7_s7_20_100_n3.png}
     \caption{3 vertices}
-    \label{fig:quality_window_average_3n}
+    \label{fig:quality_window_perce_wide_3n}
   \end{subfigure}
   \hfill
   \begin{subfigure}{0.33\textwidth}
     \includegraphics[width=\textwidth]{Images/graphs/newwindow_quality_performance_diff_perce_n7_s7_20_100_n4}
     \caption{4 vertices}
-    \label{fig:quality_window_average_4n}
+    \label{fig:quality_window_perce_wide_4n}
   \end{subfigure}
   \hfill
   \begin{subfigure}{0.33\textwidth}
     \includegraphics[width=\textwidth]{Images/graphs/newwindow_quality_performance_diff_perce_n7_s7_20_100_n5}
     \caption{5 vertices}
-    \label{fig:quality_window_average_5n}
+    \label{fig:quality_window_perce_wide_5n}
   \end{subfigure}
   \hfill
   \begin{subfigure}{0.33\textwidth}
     \includegraphics[width=\textwidth]{Images/graphs/newwindow_quality_performance_diff_perce_n7_s7_20_100_n6}
     \caption{6 vertices}
-    \label{fig:quality_window_average_6n}
+    \label{fig:quality_window_perce_wide_6n}
   \end{subfigure}
   \begin{subfigure}{0.33\textwidth}
     \includegraphics[width=\textwidth]{Images/graphs/newwindow_quality_performance_diff_perce_n7_s7_20_100_n7}
     \caption{6 vertices}
-    \label{fig:quality_window_average_7n}
+    \label{fig:quality_window_perce_wide_7n}
   \end{subfigure}
   % \hfill
   % \begin{subfigure}{0.33\textwidth}
@@ -176,40 +182,40 @@ We also observe that, as the window size increase, the quality increase as well.
   %   \caption{7 vertices}
   %   \label{fig:third}
   % \end{subfigure}
-  \caption{ Quality evaluation with \textit{Confident} profile.}
-  \label{fig:quality_window_average}
+  \caption{ Quality evaluation with \wide profile.}
+  \label{fig:quality_window_perce_wide}
 \end{figure*}
 
 
-\begin{figure*}[ht]
+\begin{figure*}[h]
   \centering
   \begin{subfigure}{0.33\textwidth}
     \includegraphics[width=\textwidth]{Images/graphs/newwindow_quality_performance_diff_perce_n7_s7_50_89_n3}
     \caption{3 vertices}
-    \label{fig:quality_window_good_3n}
+    \label{fig:quality_window_average_perce_3n}
   \end{subfigure}
   \hfill
   \begin{subfigure}{0.33\textwidth}
     \includegraphics[width=\textwidth]{Images/graphs/newwindow_quality_performance_diff_perce_n7_s7_50_89_n4}
     \caption{4 vertices}
-    \label{fig:quality_window_good_4n}
+    \label{fig:quality_window_average_perce_4n}
   \end{subfigure}
   \hfill
   \begin{subfigure}{0.33\textwidth}
     \includegraphics[width=\textwidth]{Images/graphs/newwindow_quality_performance_diff_perce_n7_s7_50_89_n5}
     \caption{5 vertices}
-    \label{fig:quality_window_good_5n}
+    \label{fig:quality_window_average_perce_5n}
   \end{subfigure}
   \hfill
   \begin{subfigure}{0.33\textwidth}
     \includegraphics[width=\textwidth]{Images/graphs/newwindow_quality_performance_diff_perce_n7_s7_50_89_n6}
     \caption{6 vertices}
-    \label{fig:quality_window_good_6n}
+    \label{fig:quality_window_average_perce_6n}
   \end{subfigure}
   \begin{subfigure}{0.33\textwidth}
     \includegraphics[width=\textwidth]{Images/graphs/newwindow_quality_performance_diff_perce_n7_s7_50_89_n7}
     \caption{6 vertices}
-    \label{fig:quality_window_good_7n}
+    \label{fig:quality_window_average_perce_7n}
   \end{subfigure}
   % \hfill
   % \begin{subfigure}{0.33\textwidth}
@@ -217,23 +223,23 @@ We also observe that, as the window size increase, the quality increase as well.
   %   \caption{7 vertices}
   %   \label{fig:third}
   % \end{subfigure}
-  \caption{ Quality evaluation with \textit{Confident} profile.}
-  \label{fig:quality_window_good}
+  \caption{ Quality evaluation with \average profile.}
+  \label{fig:quality_window_average_perce}
 \end{figure*}
 
 
-\begin{figure*}[ht]
+\begin{figure*}[h]
   \centering
   \begin{subfigure}{0.33\textwidth}
     \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_qual_n7_s7_20_100_n3}
     \caption{3 vertices}
-    \label{fig:quality_window_average_qualitative_n3}
+    \label{fig:quality_window_wide_qualitative_n3}
   \end{subfigure}
   \hfill
   \begin{subfigure}{0.33\textwidth}
     \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_qual_n7_s7_20_100_n4}
     \caption{4 vertices}
-    \label{fig:quality_window_average_qualitative_n4}
+    \label{fig:quality_window_wide_qualitative_n4}
   \end{subfigure}
   \hfill
   \begin{subfigure}{0.33\textwidth}
@@ -245,81 +251,17 @@ We also observe that, as the window size increase, the quality increase as well.
   \begin{subfigure}{0.33\textwidth}
     \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_qual_n7_s7_20_100_n6}
     \caption{6 vertices}
-    \label{fig:quality_window_average_qualitative_n6}
+    \label{fig:quality_window_wide_qualitative_n6}
   \end{subfigure}
   \begin{subfigure}{0.33\textwidth}
     \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_qual_n7_s7_20_100_n7}
     \caption{6 vertices}
-    \label{fig:quality_window_average_qualitative_n7}
+    \label{fig:quality_window_wide_qualitative_n7}
   \end{subfigure}
-  % \hfill
-  % \begin{subfigure}{0.33\textwidth}
-  %   \includegraphics[width=\textwidth]{Images/graphs/quality_plot_average_n7.eps}
-  %   \caption{7 vertices}
-  %   \label{fig:third}
-  % \end{subfigure}
-  \caption{ Quality evaluation with \textit{Confident} profile.}
-  \label{fig:quality_window_average_qualitative}
+
+  \caption{ Quality evaluation with \wide profile.}
+  \label{fig:quality_window_wide_qualitative}
 \end{figure*}
-% \begin{figure*}[ht!]
-%   \centering
-%   \begin{subfigure}{0.33\textwidth}
-%     \includegraphics[width=\textwidth]{Images/graphs/quality_plot_bad_percentage_n3.eps}
-%     \caption{3 vertices}
-%     \label{fig:quality_window_bad_percentage_a}
-%   \end{subfigure}
-%   \hfill
-%   \begin{subfigure}{0.33\textwidth}
-%     \includegraphics[width=\textwidth]{Images/graphs/quality_plot_bad_percentage_n4.eps}
-%     \caption{4 vertices}
-%     \label{fig:quality_window_bad_percentage_b}
-%   \end{subfigure}
-%   \hfill
-%   \begin{subfigure}{0.33\textwidth}
-%     \includegraphics[width=\textwidth]{Images/graphs/quality_plot_bad_percentage_n5.eps}
-%     \caption{5 vertices}
-%     \label{fig:quality_window_bad_percentage_c}
-%   \end{subfigure}
-%   \hfill
-%   \begin{subfigure}{0.33\textwidth}
-%     \includegraphics[width=\textwidth]{Images/graphs/quality_plot_bad_percentage_n6.eps}
-%     \caption{6 vertices}
-%     \label{fig:quality_window_bad_percentage_d}
-%   \end{subfigure}
-%   % \hspace{0.04\textwidth}
-%   % \begin{subfigure}{0.33\textwidth}
-%   %   \includegraphics[width=\textwidth]{Images/graphs/quality_plot_bad_n7.eps}
-%   %   \caption{7 vertices}
-%   %   \label{fig:quality_window_bad_percentage_e}
-%   % \end{subfigure}
-
-%   \caption{Quality Percentage evaluation with \textit{Diffident} profile.}
-%   \label{fig:quality_window_bad_percentage}
-% \end{figure*}
-
-% % We recall that we considered three different setting, confident, diffident, average, varying the policy transformations, that is, the amount of data removal at each vertex. Setting confident assigns to each policy a transformation that changes the amount of data removal in the interval [x,y] (Jaccard coefficient) or decreases the probability distribution dissimilarity in the interval [x,y] (Jensen-Shannon Divergence). Setting diffident assigns to each policy a transformation that changes the amount of data removal in the interval [x,y] (Jaccard coefficient) or decreases the probability distribution dissimilarity in  the interval [x,y] (Jensen-Shannon Divergence). Setting average assigns to each policy a transformation that changes the amount of data removal in the interval [x,y] (Jaccard coefficient) or decreases the probability distribution dissimilarity in  the interval [x,y] (Jensen-Shannon Divergence).
-% We finally evaluated the quality of our heuristic comparing, where possible,
-% its results with the optimal solution retrieved by executing the exhaustive approach.
-% The latter executes with window size equals to the number of services per vertex and provides the best,
-% among all possible, solution.
-
-% The number of vertexes has been varied from 3 to 7, while the number of services per vertex has been set from 2 to 6.
-% The experiments have been conducted with different service data pruning profiles.
-
-% \hl{DOBBIAMO SPIEGARE COSA ABBIAMO VARIATO NEGLI ESPERIMENTI E COME, WINDOW SIZE, NODI, ETC.
-
-%   LE IMMAGINI CHE ABBIAMO SONO SOLO QUELLE 5? POSSIAMO ANCHE INVERTIRE GLI ASSI E AGGIUNGERE VISUALI DIVERSE}
-
-% <<<<<<< HEAD
-% \cref{fig:quality_window} presents our results with setting \hl{confident} and metric Jaccard coefficient. \cref{fig:quality_window}(a)--(e) \hl{aggiungere le lettere e uniformare l'asse y} present the retrieved quality varying the number of vertexes in [3, 7], respectively. Each figure in \cref{fig:quality_window}(a)--(e) varies the number of candidate services at each node in the range [2, 6] and the window size W in the range [1, $|$vertexes$|$].
-% \hl{aggiungiamo i numeri piu significativi (asse y).}
-% From the results, some clear trends emerge. As the number of vertexes increases, the metric values tend to decrease (better data quality) as the window size increases across different node configurations.
-% This suggests that the heuristic performs better when it has a broader perspective of the data and services. The trend is consistent across all node cardinalities (from three to seven), indicating that the heuristic's enhanced performance with larger window sizes is not confined to a specific setup but rather a general characteristic of its behavior.
-% Finally, the data suggest that while larger window sizes generally lead to better performance,
-% there might exist a point where the balance between window size and performance is optimized. \hl{For instance, ...}
-% Beyond this point, the incremental gains in metric values may not justify the additional computational resources or the complexity introduced by larger windows.
-
-% \hl{RIPETERE PER TUTTI I SETTINGS}
 
 
 \begin{figure}
@@ -328,19 +270,3 @@ We also observe that, as the window size increase, the quality increase as well.
   \label{fig:perf_exhaustive}
 \end{figure}
 
-% \begin{figure}[!t]
-%   \includegraphics[width=0.95\columnwidth]{graphs/window_performance.eps}
-%   \caption{Preliminary performance evaluation.\hl{METTERE LE 4 IMG NON UN'UNICA EPS}}
-%   \label{fig:perf_window}
-% \end{figure}
-
-
-% \begin{figure}[!t]
-%   \includegraphics[width=0.95\columnwidth]{graphs/window_quality.eps}
-%   \caption{Quality evaluation.\hl{METTERE LE 4 IMG NON UN'UNICA EPS}}
-%   \label{fig:quality_window}
-% \end{figure}
-%=======
-
-
-%In the figures each chart represents a configuration with a specific number of vertexes, ranging from 3 to 7. On the x-axis, the number of services is plotted, which ranges from 2 to 7. The y-axis represents the metric value. Each chart shows different window sizes, labeled as W Size 1, W Size 2, and so on, up to the maximum window size.
