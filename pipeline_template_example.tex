@@ -43,29 +43,28 @@ The first stage consists of three parallel vertices \vi{1}, \vi{2}, \vi{3} for d
 Data protection annotations \myLambda(\vi{1}), \myLambda(\vi{2}), \myLambda(\vi{3}) refer to policy \p{0} with an empty transformation \tp{0}.
 Functional requirement \F{1}, \F{2}, \F{3}  prescribes a URI as input and the corresponding dataset as output.
 
-The second stage consists of vertex \vi{4},
-merging the three datasets obtained stage 1. Data protection annotation \myLambda(\vi{4}) refers to policies \p{1} and \p{2}, which apply different data transformations depending on the relation between the dataset and service owners.
+The second stage consists of vertex \vi{4}, merging the three datasets obtained at the first stage. Data protection annotation \myLambda(\vi{4}) refers to policies \p{1} and \p{2}, which apply different data transformations depending on the relation between the dataset and the service owner.
 % 2° NODO %
-If the service owner is also the dataset owner (\pone), the dataset is not anonymized (\tp{0}). We note that if the service owner has no partner relationship with the dataset owner, no policies apply.
-If the service owner is a partner of the dataset owner (\ptwo), the dataset is anonymized at level $l_1$ (\tp{1}).
+If the service owner is also the dataset owner (\pone), the dataset is not anonymized (\tp{0}). If the service owner is a partner of the dataset owner (\ptwo), the dataset is anonymized at level $l_1$ (\tp{1}). If the service owner has no partner relationship with the dataset owner, no policies apply.
 %if the service owner is neither the dataset owner nor a partner of the dataset owner  (\pthree), the dataset is anonymized level2 (\tp{2}).
 Functional requirement \F{4} prescribes $n$ datasets as input and the merged dataset as output.
 
 % 3° NODO %
 The third stage consists of vertex \vi{5}  for data analysis.
-Data protection annotation \myLambda(\vi{5}) refers to policies \p{1} and \p{2}, as for stage 2.
+Data protection annotation \myLambda(\vi{5}) refers to policies \p{1} and \p{2}, as for the second stage.
 % The logic remains consistent:
 % if the service profile matches with the data owner (\pone), \p{1} matches and level0 anonymization is applied (\tp{0});
 % if the service profile matches with a partner of the owner (\ptwo), \p{2} matches and level1 anonymization is applied  (\tp{1});
 % if the service profile doesn't match with a partner nor with the owner (\pthree), \p{3} matches and level2 anonymization is applied (\tp{2}).
 Functional requirement \F{5} prescribes a dataset as input and the results of the data analysis as output.
 % 4° NODO %
+\hl{IL PARAGRAFO CHE SEGUE E' SBAGLIATO?}
 Data protection annotation \myLambda(\vi{5}) refers to policy \p{4} with data transformation \tp{2}, that is, anonymization level $l_2$ to prevent personal identifiers from entering into the machine learning algorithm/model.
 Functional requirement \F{6} prescribes a dataset as input, and the trained model and a set of inferences as output.
 
 % 5° NODO %
-The fourth stage consists of vertex \vi{6}, managing data storage. Data protection annotation \myLambda(\vi{6}) refers to policies \p{5} and \p{6},
-which apply different data transformations depending on the relation between the dataset and service region.
+\hl{I LIVELLI DI ANONIMIZZAZIONI NON SONO CONSISTENTI CON TABELLA 2}
+The fourth stage consists of vertex \vi{6}, managing data storage. Data protection annotation \myLambda(\vi{6}) refers to policies \p{5} and \p{6}, which apply different data transformations depending on the relation between the dataset and the service region.
 If the service region is the dataset origin ($\langle service\_region=dataset\_origin"\rangle$) (\p{5}), the dataset is anonymized at level $l_1$ (\tp{1}).
 If the service region is in a partner region ($\langle service,region={NY,NH}"\rangle$) (\p{6}), the dataset is anonymized at level $l_2$ (\tp{2}).
 Functional requirement \F{7} prescribes a dataset as input and the URI of the stored data as output.
