@@ -16,7 +16,7 @@ Each vertex is associated with a (set of) policy with transformations varying in
 
 Upon setting the sliding window size, the simulator selects a subset of vertexes along with their corresponding candidate services.
 It then generates all possible service combinations for the chosen vertexes.
-For each combination, the simulator calculates a metric, selecting the first service from the optimal combination before shifting the sliding window.
+For each combination, the simulator calculates a metric and selects the first service from the optimal combination before shifting the sliding window.
 When the end of the vertex list is reached, or when the window size equals the vertex count, the simulator computes the optimal service combination for the remaining vertexes.
 
 An hash function is to simulate the natural interdependence between services.
@@ -36,9 +36,9 @@ Each experiment was repeated ten times and the results averaged to improve the r
   \centering
 
   \begin{tikzpicture}[framed]
-    \node[draw, circle] (s41) at (1,1.7) {$\sii{1}$};
-    \node[draw, circle] (s42) at (1,0) {$\sii{2}$};
-    \node[draw, circle] (s43) at (1,-1.7) {$\sii{3}$};
+    \node[draw, circle,fill=red!20] (s41) at (1,1.7) {$\sii{1}$};
+    \node[draw, circle, fill=green!20] (s42) at (1,0) {$\sii{2}$};
+    \node[draw, circle, fill=red!20] (s43) at (1,-1.7) {$\sii{3}$};
 
     \node[draw, circle] (s1) at (3,1.7) {$\sii{11}$};
     \node[draw, circle] (s2) at (3,0) {$\sii{12}$};
@@ -58,6 +58,10 @@ Each experiment was repeated ten times and the results averaged to improve the r
 
 
     % \draw[->] (node2) -- (node3);
+    \draw[->] (s42) -- (s1);
+    \draw[->] (s42) -- (s2);
+    \draw[->] (s42) -- (s3);
+
     \draw[->] (s1) -- (s11);
     \draw[->] (s1) -- (s12);
     \draw[->] (s1) -- (s13);
@@ -123,24 +127,46 @@ offering a clear visual confirmation of the heuristic's efficiency in decreasing
 
 
 \subsection{Quality}\label{subsec:experiments_quality}
-We finally evaluated the quality of our heuristic comparing, where possible, its results with the optimal solution retrieved by executing the exhaustive approach. The latter executes with window size equals to the number of vertexes in the pipeline template, and provides the best, among all possible, solutions.
+We finally evaluated the quality of our heuristic comparing, where possible, its results with the optimal solution retrieved by executing the exhaustive approach. The latter is executed with window size equals to the number of vertexes in the pipeline template, and provides the best, among all possible, solutions.
 
-We run our experiments in the two settings in Section \cref{subsec:experiments_infrastructure}, namely, \average and \wide,  and varied: \emph{i)} the number of vertexes in the pipeline template in [3,7], \emph{ii)} the window size in [1,$|$max$_v$$|$], where max$_v$ is the number of vertexes in the pipeline template, and \emph{iii)} the number of candidate services for each vertex in the pipeline template in [2, 7].
+We run our experiments using the two settings in Section \cref{subsec:experiments_infrastructure}, namely, \average and \wide,  and varied: \emph{i)} the number of vertexes in the pipeline template in [3,7], \emph{ii)} the window size in [1,$|$max$_v$$|$], where max$_v$ is the number of vertexes in the pipeline template, and \emph{iii)} the number of candidate services for each vertex in the pipeline template in [2, 7].
+
 
 \cref{fig:quality_window_average_perce,fig:quality_window_perce_wide} presents our results the quantitive metrics in \cref{subsec:metrics} for the \wide and \average settings, respectively.
 Value are normalized to the optimal solution retrieved by the exhaustive approach.
 %
-When a \wide setting is used, \cref{fig:quality_window_perce_wide}, the quality ratio ranges from 0.6 to 1, with the highest quality retrieved for the pipeline template with 3 vertices and the lowest with 7 vertices.
-%
-In particular, the quality ratio ranges from 0.88 (greedy approach) to 1 () for a 3-vertex pipeline with a loss of 12\% in the worst case, from 0.81 to 0.92 for a 4-vertex pipeline with a loss of 8,7\%, from 0.84 to 0.89 for a 5-vertex pipeline with a loss of 5,61\%, from 0.8 to 0.89 for a 6-vertex pipeline with a loss of 10,11\%, and from 0.72 to 0.88 for a 7-vertex pipeline with a loss of 18,18\%. W
-%
-We note that the benefit of an increasing window size can be appreciated with lower numbers, reaching a sort of saturation around the average length (e.g., window of length 6 with a 7-vertex pipeline) where the quality ratio overlaps. The only exception is for 6-vertex pipeline where the overapping starts with window size 2. However, this might be due to the specific setting and therefore does not generalize.
-%Thus because the heuristic has more services to choose from and can find a better combination.
-We also observe that, as the window size increase, the quality increase as well. This suggests that the heuristic performs better when it has a broader perspective of the data it is governing.
-It's worth noting that lower window sizes are more unstable, with the quality ratio varying significantly between different configuration while higher window sizes tend to stabilize the quality ratio across different configuration.
+When a \wide setting is employed, the average quality ratio in a configuration with three nodes for window of size one is 0.93, with a standard deviation of 0.02; it is 0.98 with a standard deviation of 0.01, when a window of size two is used. Increasing the number of nodes to four results in an average quality ratio of 0.88 for a window size of one with a standard deviation of 0.04, 0.96 with a standard deviation of 0.02,when a window of size two is used, 0.99 for a window size of three. Increasing to five nodes, the average quality ratio is 0.76 for a window size of one with a standard deviation of 0.09, 0.90 for a window of size two. Size two exhibited a standard deviation of 0.04, size three a standard deviation of 0.01, size 4 a standard deviation of 0.01.
+For 6 nodes, the average quality ratio was 0.78 for a window of size one with a standard deviation of 0.09; 0.87 for a window of size two with a standard deviation of 0.04; 0.95 for a window of size three with a standard deviation of 0.02; 0.97 for a window of size four with a standard deviation of 0.02; and 0.99 for a window of size five.In a configuration of 7 nodes, the average quality ratio was 0.73 for a window sizeof one with a standard deviation of 0.08; it is 0.87 for a window size of size two, with a standard deviation of 0.08.  window size of 3 nodes exhibited a quality ratio of 0.95  with a standard deviation of 0.02, it is 0.96 for a window size of 4 nodes, with a standard deviation of 0.02. The mean value of the quality ratio is 0.99 for a window size of 5 and 6 nodes, with a standard deviation of 0.02.
 
-When an \average setting is used, \cref{fig:quality_window_average_perce}, the quality ratio for the worst case ranges from 0.72 to 9.96, with the highest quality retrieved for the pipeline template with 3 vertices and the lowest with 7 vertices.
 
+When a \average setting is employed, in a configuration with three nodes and using a window size ranging from 1 to 2 the quality ratio is respectively: 0.95 and 0.99 with a standard deviation respectively of 0.017 and 0.006. For a configuration with four nodes and using a window size ranging from 1 to 3 the quality ratio is respectively: 0.93, 0.97 and 0.99 with a standard deviation respectively of 0.019, 0.006 and 0.007. For a configuration with five nodes and using a window size ranging from 1 to 4 the quality ratio is respectively:
+0.88, 0.93, 0.97 and 0.98 with a standard deviation respectively of 0.02, 0.03, 0.015 and 0.016. For a configuration with six nodes and using a window size ranging from 1 to 5 the quality ratio is respectively:
+0.87, 0.92, 0.96, 0.97 and 0.99 with a standard deviation respectively of 0.047, 0.058, 0.021, 0.014 and 0.004. For a configuration with seven nodes and using a window size ranging from 1 to 6 the quality ratio is respectively:
+0.83, 0.92, 0.98, 0.98, 0.99 and 0.99 with a standard deviation respectively of 0.068, 0.030, 0.007, 0.017, 0.006 and 0.004.
+
+
+\cref{fig:quality_window_wide_qualitative,fig:quality_window_average_qualitative} presents our results the qualitative metric in \cref{subsec:metrics} for the \wide and \average settings, respectively.
+Value are normalized to the optimal solution retrieved by the exhaustive approach.
+
+When a \wide setting is employed, in a configuration with three nodes and using a window size ranging from 1 to 2 the quality ratio is respectively: 0.98 and 0.998 with a standard deviation respectively of 0.014 and 0.005. For a configuration with four nodes and using a window size ranging from 1 to 3 the quality ratio is respectively: 0.97, 0.99, and 0.996 with a standard deviation respectively of 0.019, 0.004, and 0.004. For a configuration with five nodes and using a window size ranging from 1 to 4 the quality ratio is respectively:
+0.93, 0.97, 0.993, and 0.998 with a standard deviation respectively of 0.022, 0.015, 0.006, and 0.003. For a configuration with six nodes and using a window size ranging from 1 to 5 the quality ratio is respectively:
+0.92, 0.97, 0.995, 0.996, and 0.998 with a standard deviation respectively of 0.028, 0.018, 0.004, 0.005, and 0.003. For a configuration with seven nodes and using a window size ranging from 1 to 6 the quality ratio is respectively:
+0.90, 0.96, 0.97, 0.994, 0.997, and 0.999 with a standard deviation respectively of 0.016, 0.019, 0.010, 0.005, 0.003, and 0.003.
+
+
+
+When \average setting is employed, in a configuration with three nodes and using a window size ranging from 1 to 2 the quality ratio is respectively: 0.99 and 1.00 with a standard deviation respectively of 0.003, and 0.000.
+For a configuration with four nodes and using a window size ranging from 1 to 3 the quality ratio is respectively:
+0.98, 0.99, and 1.00 with a standard deviation respectively of 0.010, 0.003 and 0.003. For a configuration with five nodes and using a window size ranging from 1 to 4 the quality ratio is respectively:
+0.98, 0.99, 1.00 and 1.00 with a standard deviation respectively of 0.004, 0.003, 0.004, and 0.000. For a configuration with six nodes and using a window size ranging from 1 to 5 the quality ratio is respectively:
+0.97, 0.98, 1.00, 1.00 and 1.00 with a standard deviation respectively of 0.006, 0.003, 0.000, 0.003 and 0.003. For a configuration with seven nodes and using a window size ranging from 1 to 6  the quality ratio is respectively:
+0.96, 0.98, 0.99, 0.99, 1.00 and 1.00 with a standard deviation respectively of 0.019, 0.009, 0.005, 0.005, 0.003 and 0.000.
+
+
+% We note that the benefit of an increasing window size can be appreciated with lower numbers, reaching a sort of saturation around the average length (e.g., window of length 6 with a 7-vertex pipeline) where the quality ratio overlaps. The only exception is for 6-vertex pipeline where the overapping starts with window size 2. However, this might be due to the specific setting and therefore does not generalize.
+% %Thus because the heuristic has more services to choose from and can find a better combination.
+% We also observe that, as the window size increase, the quality increase as well. This suggests that the heuristic performs better when it has a broader perspective of the data it is governing.
+% It's worth noting that lower window sizes are more unstable, with the quality ratio varying significantly between different configuration while higher window sizes tend to stabilize the quality ratio across different configuration.
 
 
 \hl{QUESTO E' PIU' DA CONCLUSIONE FINALE.} Finally, the data suggest that while larger window sizes generally lead to better performance, there might exist a point where the balance between window size and performance is optimized. Beyond this point, the incremental gains in metric values may not justify the additional computational resources or the complexity introduced by larger windows.
@@ -263,6 +289,40 @@ When an \average setting is used, \cref{fig:quality_window_average_perce}, the q
   \label{fig:quality_window_wide_qualitative}
 \end{figure*}
 
+\begin{figure*}[h]
+  \centering
+  \begin{subfigure}{0.33\textwidth}
+    \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_qual_n7_s7_50_80_n3}
+    \caption{3 vertices}
+    \label{fig:quality_window_average_qualitative_n3}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.33\textwidth}
+    \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_qual_n7_s7_50_80_n4}
+    \caption{4 vertices}
+    \label{fig:quality_window_average_qualitative_n4}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.33\textwidth}
+    \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_qual_n7_s7_50_80_n5}
+    \caption{5 vertices}
+    \label{fig:quality_window_average_qualitative_n5}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.33\textwidth}
+    \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_qual_n7_s7_50_80_n6}
+    \caption{6 vertices}
+    \label{fig:quality_window_average_qualitative_n6}
+  \end{subfigure}
+  \begin{subfigure}{0.33\textwidth}
+    \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_qual_n7_s7_50_80_n7}
+    \caption{6 vertices}
+    \label{fig:quality_window_average_qualitative_n7}
+  \end{subfigure}
+
+  \caption{ Quality evaluation with \wide profile.}
+  \label{fig:quality_window_average_qualitative}
+\end{figure*}
 
 \begin{figure}
   \includegraphics[width=0.95\columnwidth]{graphs/exhaustive_performance.eps}

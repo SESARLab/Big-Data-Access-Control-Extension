@@ -33,7 +33,7 @@ We then define a \emph{pipeline instantiation} function that takes as input a \p
 
 \begin{figure}[ht!]
   \centering
-  \newcommand{\function}{$\instanceChartAnnotation{}$}
+  \newcommand{\function}[1]{$\instanceChartAnnotation{}_{#1}$}
   \begin{tikzpicture}[scale=0.7]
     % vertexes
     \node[draw, circle, fill,text=white,minimum size=1 ] (sr) at (0,0) {};
@@ -52,15 +52,15 @@ We then define a \emph{pipeline instantiation} function that takes as input a \p
     \node[draw, circle] (s7) at (9.5,0) {$\sii{7}$};
     % Text on top
     % \node[above] at (sr.north)  {\function{}};
-    \node[above] at (s1.north)  {\function{}};
+    \node[above] at (s1.north)  {\function{3}};
 
-    \node[above] at (s2.north)  {\function{}};
-    \node[above] at (s3.north)  {\function{}};
-    \node[above] at (s4.north)  {\function{}};
-    \node[above] at (s5.north)  {\function{}};
+    \node[above] at (s2.north)  {\function{1}};
+    \node[above] at (s3.north)  {\function{2}};
+    \node[above] at (s4.north)  {\function{4}};
+    \node[above] at (s5.north)  {\function{5}};
     % \node[above] at (s6.north)  {\function{}};
-    \node[above] at (s6.north)  {\function{}};
-    \node[above] at (s7.north)  {\function{}};
+    \node[above] at (s6.north)  {\function{6}};
+    \node[above] at (s7.north)  {\function{7}};
     % Connection
 
     % \draw[->] (node2) -- (node3);
