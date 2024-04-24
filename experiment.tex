@@ -34,66 +34,67 @@ Each experiment was repeated ten times and the results averaged to improve the r
 
 \begin{figure}[!t]
   \centering
+  \resizebox{\columnwidth}{!}{%
+    \begin{tikzpicture}[framed]
+      \node[draw, circle,fill=red!20] (s41) at (1,1.7) {$\sii{1}$};
+      \node[draw, circle, fill=green!20] (s42) at (1,0) {$\sii{2}$};
+      \node[draw, circle, fill=red!20] (s43) at (1,-1.7) {$\sii{3}$};
 
-  \begin{tikzpicture}[framed]
-    \node[draw, circle,fill=red!20] (s41) at (1,1.7) {$\sii{1}$};
-    \node[draw, circle, fill=green!20] (s42) at (1,0) {$\sii{2}$};
-    \node[draw, circle, fill=red!20] (s43) at (1,-1.7) {$\sii{3}$};
+      \node[draw, circle] (s1) at (3,1.7) {$\sii{11}$};
+      \node[draw, circle] (s2) at (3,0) {$\sii{12}$};
+      \node[draw, circle] (s3) at (3,-1.7) {$\sii{13}$};
 
-    \node[draw, circle] (s1) at (3,1.7) {$\sii{11}$};
-    \node[draw, circle] (s2) at (3,0) {$\sii{12}$};
-    \node[draw, circle] (s3) at (3,-1.7) {$\sii{13}$};
+      \node[draw, circle] (s11) at (5,1.7) {$\sii{21}$};
+      \node[draw, circle] (s12) at (5,0) {$\sii{22}$};
+      \node[draw, circle] (s13) at (5,-1.7) {$\sii{23}$};
 
-    \node[draw, circle] (s11) at (5,1.7) {$\sii{21}$};
-    \node[draw, circle] (s12) at (5,0) {$\sii{22}$};
-    \node[draw, circle] (s13) at (5,-1.7) {$\sii{23}$};
+      \node[draw, circle] (s21) at (7,1.7) {$\sii{31}$};
+      \node[draw, circle] (s22) at (7,0) {$\sii{32}$};
+      \node[draw, circle] (s23) at (7,-1.7) {$\sii{33}$};
 
-    \node[draw, circle] (s21) at (7,1.7) {$\sii{31}$};
-    \node[draw, circle] (s22) at (7,0) {$\sii{32}$};
-    \node[draw, circle] (s23) at (7,-1.7) {$\sii{33}$};
-
-    \node[draw, circle] (s31) at (9,1.7) {$\sii{41}$};
-    \node[draw, circle] (s32) at (9,0) {$\sii{42}$};
-    \node[draw, circle] (s33) at (9,-1.7) {$\sii{43}$};
-
-
-    % \draw[->] (node2) -- (node3);
-    \draw[->] (s42) -- (s1);
-    \draw[->] (s42) -- (s2);
-    \draw[->] (s42) -- (s3);
-
-    \draw[->] (s1) -- (s11);
-    \draw[->] (s1) -- (s12);
-    \draw[->] (s1) -- (s13);
-
-    \draw[->,dashdotted] (s2) -- (s11);
-    \draw[->,dashdotted] (s2) -- (s12);
-    \draw[->,dashdotted] (s2) -- (s13);
-
-    \draw[->,dashed] (s3) -- (s11);
-    \draw[->,dashed] (s3) -- (s12);
-    \draw[->,dashed] (s3) -- (s13);
+      \node[draw, circle] (s31) at (9,1.7) {$\sii{41}$};
+      \node[draw, circle] (s32) at (9,0) {$\sii{42}$};
+      \node[draw, circle] (s33) at (9,-1.7) {$\sii{43}$};
 
 
-    \draw[->] (s11) -- (s21);
-    \draw[->] (s11) -- (s22);
-    \draw[->] (s11) -- (s23);
+      % \draw[->] (node2) -- (node3);
+      \draw[->] (s42) -- (s1);
+      \draw[->] (s42) -- (s2);
+      \draw[->] (s42) -- (s3);
 
-    \draw[->,dashdotted] (s12) -- (s21);
-    \draw[->,dashdotted] (s12) -- (s22);
-    \draw[->,dashdotted] (s12) -- (s23);
+      \draw[->] (s1) -- (s11);
+      \draw[->] (s1) -- (s12);
+      \draw[->] (s1) -- (s13);
 
-    \draw[->,dashed] (s13) -- (s21);
-    \draw[->,dashed] (s13) -- (s22);
-    \draw[->,dashed] (s13) -- (s23);
+      \draw[->,dashdotted] (s2) -- (s11);
+      \draw[->,dashdotted] (s2) -- (s12);
+      \draw[->,dashdotted] (s2) -- (s13);
+
+      \draw[->,dashed] (s3) -- (s11);
+      \draw[->,dashed] (s3) -- (s12);
+      \draw[->,dashed] (s3) -- (s13);
 
 
-    \begin{scope}[on background layer]
-      \draw[thick, dashed, fill=red!10, opacity=0.5]
-      ([shift={(-0.5,0.5)}]s1.north west) rectangle ([shift={(0.5,-0.5)}]s23.south east);
+      \draw[->] (s11) -- (s21);
+      \draw[->] (s11) -- (s22);
+      \draw[->] (s11) -- (s23);
 
-    \end{scope}
-  \end{tikzpicture}
+      \draw[->,dashdotted] (s12) -- (s21);
+      \draw[->,dashdotted] (s12) -- (s22);
+      \draw[->,dashdotted] (s12) -- (s23);
+
+      \draw[->,dashed] (s13) -- (s21);
+      \draw[->,dashed] (s13) -- (s22);
+      \draw[->,dashed] (s13) -- (s23);
+
+
+      \begin{scope}[on background layer]
+        \draw[thick, dashed, fill=red!10, opacity=0.5]
+        ([shift={(-0.5,0.5)}]s1.north west) rectangle ([shift={(0.5,-0.5)}]s23.south east);
+
+      \end{scope}
+    \end{tikzpicture}
+  }
   \caption{Execution example}
   \label{fig:execution_example}
 \end{figure}
@@ -124,6 +125,11 @@ This empirical evidence highlights the heuristic's ability to reduce computation
 an aspect that becomes increasingly pivotal as the problem's complexity grows.
 The use of a logarithmic scale to illustrate the results linearizes the exponential growth associated with the exhaustive method,
 offering a clear visual confirmation of the heuristic's efficiency in decreasing computational time.
+\begin{figure}[htb!]
+  \includegraphics[width=0.95\columnwidth]{graphs/exhaustive_performance.eps}
+  \caption{Exhaustive execution time evaluation. The x-axis represents the number of services, while the y-axis represents the execution time in seconds. The execution time is expressed both in linear and logarithmic scales.}
+  \label{fig:perf_exhaustive}
+\end{figure}
 
 
 \subsection{Quality}\label{subsec:experiments_quality}
@@ -154,7 +160,6 @@ When a \wide setting is employed, in a configuration with three nodes and using 
 0.90, 0.96, 0.97, 0.994, 0.997, and 0.999 with a standard deviation respectively of 0.016, 0.019, 0.010, 0.005, 0.003, and 0.003.
 
 
-
 When \average setting is employed, in a configuration with three nodes and using a window size ranging from 1 to 2 the quality ratio is respectively: 0.99 and 1.00 with a standard deviation respectively of 0.003, and 0.000.
 For a configuration with four nodes and using a window size ranging from 1 to 3 the quality ratio is respectively:
 0.98, 0.99, and 1.00 with a standard deviation respectively of 0.010, 0.003 and 0.003. For a configuration with five nodes and using a window size ranging from 1 to 4 the quality ratio is respectively:
@@ -172,7 +177,7 @@ For a configuration with four nodes and using a window size ranging from 1 to 3 
 \hl{QUESTO E' PIU' DA CONCLUSIONE FINALE.} Finally, the data suggest that while larger window sizes generally lead to better performance, there might exist a point where the balance between window size and performance is optimized. Beyond this point, the incremental gains in metric values may not justify the additional computational resources or the complexity introduced by larger windows.
 
 
-\begin{figure*}[ht]
+\begin{figure*}[!htb]
   \centering
   \begin{subfigure}{0.33\textwidth}
     \includegraphics[width=\textwidth]{Images/graphs/newwindow_quality_performance_diff_perce_n7_s7_20_100_n3.png}
@@ -213,7 +218,7 @@ For a configuration with four nodes and using a window size ranging from 1 to 3 
 \end{figure*}
 
 
-\begin{figure*}[h]
+\begin{figure*}[!htb]
   \centering
   \begin{subfigure}{0.33\textwidth}
     \includegraphics[width=\textwidth]{Images/graphs/newwindow_quality_performance_diff_perce_n7_s7_50_89_n3}
@@ -254,7 +259,7 @@ For a configuration with four nodes and using a window size ranging from 1 to 3 
 \end{figure*}
 
 
-\begin{figure*}[h]
+\begin{figure*}[!htb]
   \centering
   \begin{subfigure}{0.33\textwidth}
     \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_qual_n7_s7_20_100_n3}
@@ -289,7 +294,7 @@ For a configuration with four nodes and using a window size ranging from 1 to 3 
   \label{fig:quality_window_wide_qualitative}
 \end{figure*}
 
-\begin{figure*}[h]
+\begin{figure*}[!htb]
   \centering
   \begin{subfigure}{0.33\textwidth}
     \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_qual_n7_s7_50_80_n3}
@@ -324,9 +329,4 @@ For a configuration with four nodes and using a window size ranging from 1 to 3 
   \label{fig:quality_window_average_qualitative}
 \end{figure*}
 
-\begin{figure}
-  \includegraphics[width=0.95\columnwidth]{graphs/exhaustive_performance.eps}
-  \caption{Exhaustive execution time evaluation. The x-axis represents the number of services, while the y-axis represents the execution time in seconds. The execution time is expressed both in linear and logarithmic scales.}
-  \label{fig:perf_exhaustive}
-\end{figure}
 
