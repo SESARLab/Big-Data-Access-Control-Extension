@@ -9,7 +9,7 @@ The simulator first defines the pipeline template as a sequence of vertexes in t
 We recall that alternative vertexes are modeled in different pipeline templates,
 while parallel vertexes only add a fixed execution time that is negligible and do not affect the quality of our approach.
 Each vertex is associated with a (set of) policy with transformations varying in two classes:
-\begin{itemize*}
+\begin{itemize*}[]
   \item \average: data removal percentage within $[0.5,0.8]$.
   \item \wide:    data removal percentage within $[0.20,1]$.
 \end{itemize*}
@@ -27,10 +27,8 @@ The simulator is used to assess the performance and quality of our sliding windo
 % Performance measures the heuristics execution time in different settings, while quality compares the results provided by our heuristics in terms of selected services with the optimal solution retrieved using the exhaustive approach.
 %We note that the exhaustive approach generates the best pipeline instance by executing all possible combinations of candidate services.
 %The emulator simplifies the execution of the service composition by removing the service selection phase, which is not relevant for the purpose of the experiment.
-Our experiments have been run on a workstation equipped with a 2.40GHz i5-8279U CPU with 16GB RAM and a 512GB SSD.
+Our experiments have been run on a virtual machine equipped with a Intel(R) Xeon(R) CPU E5-2620 v4 @ 2.10GHz CPU and 32GB RAM.
 Each experiment was repeated ten times and the results averaged to improve the reliability of the data.
-
-
 
 \begin{figure}[!t]
   \centering
@@ -148,7 +146,7 @@ In a seven-node configuration, the average quality ratios are as follows: 0.73 f
 In an \average setting with three nodes, the average quality ratios are 0.95 for a window size of one, with a standard deviation of 0.017, and 0.99 for a window size of two, with a standard deviation of 0.006. Expanding to four nodes, the quality ratios observed are 0.93 for a window size of one (standard deviation = 0.019), 0.97 for a window size of two (standard deviation = 0.006), and 0.99 for a window size of three (standard deviation = 0.007). Increasing the node count to five yields average quality ratios of 0.88 for a window size of one (standard deviation = 0.02), 0.93 for a window size of two (standard deviation = 0.03), 0.97 for a window size of three (standard deviation = 0.015), and 0.98 for a window size of four (standard deviation = 0.016).
 For six nodes, the quality ratios are as follows: 0.87 for a window size of one (standard deviation = 0.047), 0.92 for a window size of two (standard deviation = 0.058), 0.96 for a window size of three (standard deviation = 0.021), 0.97 for a window size of four (standard deviation = 0.014), and 0.99 for a window size of five (standard deviation = 0.004). For seven nodes, the respective quality ratios are 0.83 for a window size of one (standard deviation = 0.068), 0.92 for a window size of two (standard deviation = 0.030), 0.98 for both window sizes of three and four (standard deviation = 0.007 and 0.017), and 0.99 for window sizes of five and six (standard deviation = 0.006 and 0.004).
 
-\cref{fig:quality_window_wide_qualitative,fig:quality_window_average_qualitative} presents our results the qualitative metric in \cref{subsec:metrics} for the \wide and \average settings, respectively.
+\cref{fig:quality_window_wide_qualitative,fig:quality_window_average_qualitative} display the outcomes assessed by the \emph{qualitative} metric described in \cref{subsec:metrics}, corresponding to the \wide and \average settings, respectively.
 
 In a \wide setting with three nodes, average quality ratios were observed as 0.98 for a window size of one, with a standard deviation of 0.014, and 0.998 for a window size of two, with a standard deviation of 0.005. Increasing the node count to four, the quality ratios are 0.97 for a window size of one (standard deviation = 0.019), 0.99 for a window size of two (standard deviation = 0.004), and 0.996 for a window size of three (standard deviation = 0.004).
 
@@ -168,9 +166,10 @@ For seven nodes, with window sizes extending from one to six, the quality ratios
 % It's worth noting that lower window sizes are more unstable, with the quality ratio varying significantly between different configuration while higher window sizes tend to stabilize the quality ratio across different configuration.
 
 
-\hl{QUESTO E' PIU' DA CONCLUSIONE FINALE.} Finally, the data suggest that while larger window sizes generally lead to better performance, there might exist a point where the balance between window size and performance is optimized. Beyond this point, the incremental gains in metric values may not justify the additional computational resources or the complexity introduced by larger windows.
+Finally, the data suggest that while larger window sizes generally lead to better performance, there might exist a point where the balance between window size and performance is optimized. Beyond this point, the incremental gains in metric values may not justify the additional computational resources or the complexity introduced by larger windows.
+It's worth noting that lower window sizes are more unstable, with the quality ratio varying significantly between different configuration while higher window sizes tend to stabilize the quality ratio across different configuration.
 
-
+The proposed heuristics show ability to approximate the results obtained via an exhaustive approach. However, to comprehensively understand the influence of dataset selection on the metrics' performance and ensure their robustness across diverse scenarios, a dedicated investigation is essential. This further research will validate the preliminary findings and provide a deeper insight into the applicability of the heuristics in various contexts.
 \begin{figure*}[!htb]
   \centering
   \begin{subfigure}{0.33\textwidth}
@@ -207,8 +206,7 @@ For seven nodes, with window sizes extending from one to six, the quality ratios
   %   \caption{7 vertices}
   %   \label{fig:third}
   % \end{subfigure}
-  \caption{ Quality evaluation with \wide profile.}
-  \label{fig:quality_window_perce_wide}
+  \caption{Evaluation of Quality Using the \emph{Quantitative} Metric in a \wide Profile Configuration.}  \label{fig:quality_window_perce_wide}
 \end{figure*}
 
 
@@ -248,8 +246,7 @@ For seven nodes, with window sizes extending from one to six, the quality ratios
   %   \caption{7 vertices}
   %   \label{fig:third}
   % \end{subfigure}
-  \caption{ Quality evaluation with \average profile.}
-  \label{fig:quality_window_average_perce}
+  \caption{Evaluation of Quality Using the \emph{Quantitative} Metric in a \average Profile Configuration.}  \label{fig:quality_window_average_perce}
 \end{figure*}
 
 
@@ -284,8 +281,7 @@ For seven nodes, with window sizes extending from one to six, the quality ratios
     \label{fig:quality_window_wide_qualitative_n7}
   \end{subfigure}
 
-  \caption{ Quality evaluation with \wide profile.}
-  \label{fig:quality_window_wide_qualitative}
+  \caption{Evaluation of Quality Using the \emph{Qualitative} Metric in a \wide Profile Configuration.}  \label{fig:quality_window_wide_qualitative}
 \end{figure*}
 
 \begin{figure*}[!htb]
@@ -319,8 +315,7 @@ For seven nodes, with window sizes extending from one to six, the quality ratios
     \label{fig:quality_window_average_qualitative_n7}
   \end{subfigure}
 
-  \caption{ Quality evaluation with \wide profile.}
-  \label{fig:quality_window_average_qualitative}
+  \caption{Evaluation of Quality Using the \emph{Qualitative} Metric in a \average Profile Configuration.}  \label{fig:quality_window_average_qualitative}
 \end{figure*}
 
 
