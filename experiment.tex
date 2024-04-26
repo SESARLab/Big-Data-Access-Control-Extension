@@ -9,10 +9,10 @@ The simulator first defines the pipeline template as a sequence of vertexes in t
 We recall that alternative vertexes are modeled in different pipeline templates,
 while parallel vertexes only add a fixed execution time that is negligible and do not affect the quality of our approach.
 Each vertex is associated with a (set of) policy with transformations varying in two classes:
-\begin{itemize*}[]
+\begin{enumerate*}[label=\textit{\roman*})]
   \item \average: data removal percentage within $[0.5,0.8]$.
   \item \wide:    data removal percentage within $[0.20,1]$.
-\end{itemize*}
+\end{enumerate*}
 
 Upon setting the sliding window size, the simulator selects a subset of vertexes along with their corresponding candidate services.
 It then generates all possible service combinations for the chosen vertexes.

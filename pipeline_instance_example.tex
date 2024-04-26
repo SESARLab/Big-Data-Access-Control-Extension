@@ -1,3 +1,5 @@
+\subsection{Example}\label{sec:example_instace}
+
 \begin{example}[\bf \pipelineInstance]\label{ex:instance}
 
   Let us consider a subset \{\vi{5}, \vi{6}, \vi{7}\} of the pipeline template \tChartFunction in \cref{sec:example_instace}.
@@ -13,13 +15,11 @@
 
   For each vertex, we could select the initial matching servic from each set $S'_*$ and incorporate it into the instance.
   For instance, for \vi{6}, we select \s{61}; for \vi{7}, \s{72} is chosen, and for \vi{8}, \s{81} is the preferred option.
-  The instance thus formulated is depicted in \cref{tab:instance_example_valid}.
-  It is imperative to acknowledge that this instance is valid it satisfies all the policies in the pipeline template.
+  The instance thus formulated is depicted in \cref{tab:instance_example_valid} (a).
+  It is imperative to acknowledge that this instance is valid as it satisfies all the policies in the pipeline template.
   However, it does not represent the optimal instance achievable.
-  o determine the optimal instance, it is essential to evaluate services based on specific quality metrics that reflect their impact on data quality.
+  To determine the optimal instance, it is essential to evaluate services based on specific quality metrics that reflect their impact on data quality.
   In the next sections, we will introduce the metrics that we use to evaluate the quality of services and the results of the experiments conducted to evaluate the performance of our approach.
-
-
 
   % \begin{table*}
   %   \def\arraystretch{1.5}
@@ -64,7 +64,7 @@
           \multirow{ 3}{*}{\vi{6}  $\rightarrow$ \p{7},\p{8} } & $\s{61}$           & visualization\_location = "CT\_FACILITY" & \cmark             & \cmark            \\
                                                                & $\s{62}$           & visualization\_location = "CLOUD"        & \cmark             & \xmark            \\
         \end{tabular}
-         &
+                                   &
 
         \begin{tabular}{c|c}\label{tab:instance_example_maxquality}
 
@@ -80,7 +80,10 @@
           $\s{61}$           & 1                \\
           $\s{62}$           & 2                \\
         \end{tabular}
+        \\
+        (a) Valid Instance example & (b) Best Quality Instance example
       \end{tabular}
+
     }
   \end{table*}
 
