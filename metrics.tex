@@ -165,7 +165,7 @@ This strategy ensures that only services with low information loss are selected 
   }
   \end{lstlisting}
 
-  The function SlidingWindowHeuristic systematically processes a list of vertices, each associated with a list of services, to identify optimal service combinations using a sliding window approach, given the constraints set by parameters verticesList and w (window size).
+  The function SlidingWindowHeuristic processes a list of vertices, each associated with a list of services, to identify optimal service combinations using a sliding window approach, given the constraints set by parameters verticesList and w (window size).
 
   Initially, the function establishes  $\text{G'}$ to store the optimal services or combinations identified during the process (line 2). It iterates from the start to the feasible end of the vertex list to ensure each possible window of services is evaluated (line 3). For each window, the function initializes minMetric to infinity and an empty list minMetricCombination to store the best service combination found within that specific window (line 5-6).
 
