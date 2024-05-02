@@ -46,13 +46,14 @@ $M_{JDS}$ provides a weighted measure of dissimilarity, which is symmetric and a
 \subsubsection{Information Loss}
 %We note that our metrics can be applied either to the entire dataset or to specific features only. The features can be assigned with equal or varying importance, providing a weighted version of the metrics, thus enabling the prioritization of important features that might be possibly lost during the policy-driven transformation in Section~\cite{ADD}.
 
-Metrics $M_J$ and $M_{JDS}$ contribute to the calculation of the information loss \textit{dloss} throughout the pipeline execution. It is calculated as the average \emph{AVG} of the information loss at each vertex \vi{i}$\in$$\V_S$ of the service pipeline $G(V,E)$ as follows.
+Metrics $M_J$ and $M_{JDS}$ contribute to the calculation of the information loss \textit{dloss} throughout the pipeline execution as follows. %Information loss is calculated as the average \emph{AVG} of data at each vertex \vi{i}$\in$$\V_S$ of the service pipeline $G(V,E)$ as follows.
 
 \begin{definition}[\emph{dloss}]
-  Given a metrics M$\in$$\{M_J,M_{JDS}$\}, information loss \textit{dloss} is calculated as 1$-$\emph{AVG}($M_ij$), with $M_{ij}$ the value of the quality metric retrieved at each vertex \vi{i}$\in$$\V_S$ of the service pipeline $G(V,E)$ according to service \si{j}.
+  Given a metrics M$\in$$\{M_J,M_{JDS}$\} modeling the data quality, information loss \textit{dloss} is calculated as 1$-$\emph{AVG}($M_{ij}$), with $M_{ij}$ the value of the quality metric retrieved at each vertex \vii{i}$\in$$\V'_S$ of the pipeline instance $G'$ according to service \sii{j}.
 \end{definition}
 
-We note that \textit{dloss}$_{ij}$$=$1$-$$M_i$ models the quality loss at vertex \vi{i}$\in$$\V_S$ of the service pipeline $G(V,E)$ for service \si{j}.
+We note that \emph{AVG}($M_{ij}$) models the average data quality preserved within the pipeline instance $G'$
+We also note that \textit{dloss}$_{ij}$$=$1$-$$M_i$ models the quality loss at vertex \vii{i}$\in$$\V'_S$ of $G'$ for service \sii{j}. 
 %We also note that information loss \textit{dloss} is used to generate the Max-Quality pipeline instance in the remaining of this section.
 
 \subsection{NP-Hardness of the Max-Quality Pipeline Instantiation Problem}\label{sec:nphard}
@@ -63,7 +64,7 @@ The problem of computing a pipeline instance (\cref{def:instance}) with maximum 
   Given a pipeline template $G^{\myLambda,\myGamma}$ and a set $S^c$ of candidate services, find a max-quality pipeline instance $G'$ such that:
   \begin{itemize}
     \item $G'$ satisfies conditions in \cref{def:instance},
-    \item $\nexists$ a pipeline instance $G''$ that satisfies conditions in \cref{def:instance} and such that information loss \textit{dtloss}($G''$)$<$\textit{dtloss}($G'$), where \textit{dtloss}($\cdot$) is the information loss throughout the pipeline execution.
+    \item $\nexists$ a pipeline instance $G''$ that satisfies conditions in \cref{def:instance} and such that information loss \textit{dloss}($G''$)$<$\textit{dloss}($G'$), where \textit{dloss}($\cdot$) is the information loss throughout the pipeline execution.
     %computed after applying the transformation of the policy matching the service selected to instantiate vertex  \vi{i}$\in$$\V_S$, .
   \end{itemize}
 \end{definition}
@@ -76,7 +77,7 @@ The Max Quality \problem is a combinatorial selection problem and is NP-hard, as
 \emph{Proof: }
 The proof is a reduction from the multiple-choice knapsack problem (MCKP), a classified NP-hard combinatorial optimization problem, which is a generalization of the simple knapsack problem (KP) \cite{}. In the MCKP problem, there are $t$ mutually disjoint classes $N_1,N_2,\ldots,N_t$ of items to pack in some knapsack of capacity $C$, class $N_i$ having size $n_i$. Each item $j$$\in$$N_i$ has a profit $p_{ij}$ and a weight $w_{ij}$; the problem is to choose one item from each class such that the profit sum is maximized without having the weight sum to exceed C.
 
-The MCKP can be reduced to the Max quality \problem in polynomial time, with $N_1,N_2,\ldots,N_t$ corresponding to $S^c_{1}, S^c_{1}, \ldots, S^c_{u},$, $t$$=$$u$ and $n_i$ the size of $S^c_{i}$. The profit $p_{ij}$ of item $j$$\in$$N_i$ corresponds to \textit{dtloss}$_{ij}$ computed for each candidate service $s_j$$\in$$S^c_{i}$, while $w_{ij}$ is uniformly 1 (thus, C is always equal to the cardinality of $V_C$).
+The MCKP can be reduced to the Max quality \problem in polynomial time, with $N_1,N_2,\ldots,N_t$ corresponding to $S^c_{1}, S^c_{1}, \ldots, S^c_{u},$, $t$$=$$u$ and $n_i$ the size of $S^c_{i}$. The profit $p_{ij}$ of item $j$$\in$$N_i$ corresponds to \textit{dloss}$_{ij}$ computed for each candidate service $s_j$$\in$$S^c_{i}$, while $w_{ij}$ is uniformly 1 (thus, C is always equal to the cardinality of $V_C$).
 
 Since the reduction can be done in polynomial time, our problem is also NP-hard. (non è sufficiente, bisogna provare che la soluzione di uno e' anche soluzione dell'altro)
 
@@ -102,9 +103,9 @@ Since the reduction can be done in polynomial time, our problem is also NP-hard.
 %The exhaustive exploration of such combinations swiftly becomes impractical in terms of computational time and resources, particularly when dealing with the analysis of complex pipelines.
 %In response to this computational complexity, the incorporation of heuristic emerges as a strategy to try to efficiently address the problem.
 %\hl{HO RIVISTO IL PARAGRAFO VELOCEMENTE GIUSTO PER DARE UN'INDICAZIONE. DOBBIAMO USARE LA FORMALIZZAZIONE E MAGARI FORMALIZZARE ANCHE LO PSEUDOCODICE.}
-We design and implement a heuristic algorithm for computing the pipeline instance maximizing data quality. Our heuristic is built on a \emph{sliding window} and aims to minimize information loss according to quality metrics. At each step, a set of vertices in the pipeline template $\tChartFunction$ is selected according to a specific window size w=[i,j], where $i$ and $j$ are the starting and ending depth of window w. Service filtering and selection in \cref{sec:instance} are then executed to minimize information loss in window w. The heuristic returns as output the list of services instantiating vertexes at depth $i$. A new window w=[i+1,j+1] is considered until $j$+1 is equal to the max depth of $\tChartFunction$, that is, the window reaches the end of the template.
+We design and implement a heuristic algorithm for computing the pipeline instance maximizing data quality. Our heuristic is built on a \emph{sliding window} and aims to minimize information loss \emph{dloss} according to quality metrics. At each step, a set of vertices in the pipeline template $\tChartFunction$ is selected according to a specific window size \windowsize, that select a subset of the pipeline template starting at depth $i$ and ending at depth \windowsize+i-1. Service filtering and selection in \cref{sec:instance} are then executed to minimize \emph{dloss} in window $w$. The heuristic returns as output the list of services instantiating all vertices at depth $i$. The sliding window $w$ is then shifted by 1 (i.e., $i$=$i$+1) and the filtering and selection process executed until \windowsize+i-1 is equal to length $l$ (max depth) of $\tChartFunction$, that is, the sliding window reaches the end of the template.
 %For example, in our service selection problem where the quantity of information lost needs to be minimized, the sliding window algorithm can be used to select services composition that have the lowest information loss within a fixed-size window.
-This strategy ensures that only services with low information loss are selected at each step, minimizing the average information loss. Pseudo-code for the sliding window algorithm is presented in \cref{lst:slidingwindowfirstservice}.
+This strategy ensures that only services with low information loss are selected at each step, minimizing the information loss \emph{dloss}. The pseudocode of the heuristic algorithm is presented in \cref{lst:slidingwindowfirstservice}.
 
 \lstset{ %
   backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
@@ -136,14 +137,30 @@ This strategy ensures that only services with low information loss are selected 
 }
 
 \begin{lstlisting}[frame=single,mathescape, caption={Sliding Window Heuristic with Selection of First Service from Optimal Combination},label={lst:slidingwindowfirstservice}]
-  function SlidingWindowHeuristic(verticesList, w){
-      $\text{G'}$ = []
-      for i from 0 to length(verticesList) - w + 1
+  var $\text{G'}$ = [] //pipeline instance
+  $M$ = 0; //DATA QUALITY
+  \hl{DEFINIZIONE VARIABILI NON DEFINITE NELLA METODOLOGIA}
+  
+  
+  function SlidingWindowHeuristic(G^{\myLambda,\myGamma}, \windowsize){
+      for i = 1 to l - \windowsize + 1
       {
-          minMetric = $\infty$
-          minMetricCombination = []
-          for windowIndex from i to i + w - 1{
-              currentCombination = verticesList[windowIndex].services
+          for j = i to i + \windowsize - 1
+              $\text{G'}$ = $\text{G'}$ $\cup$ SelectService(j, \windowsize);
+      }
+      for j = 1 to $|V'_S|$
+          $M$=$M$+$M(\sii{j})$;
+      dloss = 1 - M;
+      return  $\text{G'}$, $M$;
+  }
+
+  function SelectService(j,\windowsize){
+    QUA DENTRO METTIAMO I PASSI CHE SERVONO PER CALCOLARE L'ISTANZA DEL PRIMO NODO DELLA FINESTRA. METTIAMO UN FOR PER TUTTE LE COMBINAZIONI DI VERTICI NELLA FINESTRA
+    CALCOLIAMO M CON UN FOR
+    CONTROLLIAMO LA METRICA, SE MINORE USIAMO QUELLA COMBINAZIONE
+    ALTRIMENTI AVANTI
+    ALLA FINE SE è L'ULTIMA PASSO RITORNIAMO UNA LISTA DI |W| SERVIZI, ALTRIMENTI SOLO IL PRIMO
+    currentCombination = verticesList[windowIndex].services
               totalMetric = 0
               for service in currentCombination{
                   totalMetric += M(service)
@@ -160,9 +177,8 @@ This strategy ensures that only services with low information loss are selected 
               if length(minMetricCombination) > 0
               $\text{G'}$.append(minMetricCombination[0])
           }
-      }
-      return  $\text{G'}$
   }
+
   \end{lstlisting}
 
   The function SlidingWindowHeuristic processes a list of vertices, each associated with a list of services, to identify optimal service combinations using a sliding window approach, given the constraints set by parameters verticesList and w (window size).
