@@ -7,21 +7,30 @@ The flip side of multitenancy is the increased complexity of data governace: the
 As a consequence, achieving a balance between data protection and data quality is crucial, as the removal or alteration of personally identifiable information from datasets to safeguard individuals' privacy can compromise the accuracy of analytics results.
 
 So far, all research endeavors have been concentrated on exploring these two issues separately: on one hand, the concept of data quality, encompassing accuracy, reliability, and suitability, has been investigated to understand the implications in analytical contexts. Although extensively studied, these investigations often prioritize enhancing the quality of source data rather than ensuring data quality throughout the entire processing pipeline, or the integrity of outcomes derived from data. On the other hand, there is a focus on data privacy and security, entailing the protection of confidential information and adherence to rigorous privacy regulations.
-There are very few solutions that  that find a good balance between them since it requires a holistic approach that integrates technological solutions, organizational policies, and ongoing monitoring and adaptation to emerging threats and regulatory changes. A valid solution should implement robust access control mechanisms, ensuring that only authorized users can access specific datasets or analytical tools.
-Additionally, data protection requirements should be identified at each stage of the data lifecycle, potentially incorporating techniques like data masking and anonymization to safeguard sensitive information by substituting it with realistic but fictional data, thereby preserving data privacy while enabling analysis. An ideal solution should prioritize data lineage, fostering a comprehensive understanding and optimization of data flows and transformations within complex analytical ecosystems. 
 
-To this aim, we propose a data governance framework tailored to contemporary data-driven pipelines, which aims to limit the privacy and security risks. The primary objective of this framework is to facilitate the assembly of data processing services, with a central focus on the selection of those services that optimize data quality, while upholding privacy and security requirements. 
+A valid solution requires a holistic approach that integrates technological solutions, organizational policies, and ongoing monitoring and adaptation to emerging threats and regulatory changes. The implementation of robust access control mechanisms, ensuring that only authorized users can access specific datasets or analytical tools is just an essential initial step.
+Indeed, we identified some additional requirements. First, data protection requirements should be identified at each stage of the data lifecycle, potentially incorporating techniques like data masking and anonymization to safeguard sensitive information, thereby preserving data privacy while enabling sharing and analysis. Second, data lineage should be prioritized, fostering a comprehensive understanding and optimization of data flows and transformations within complex analytical ecosystems. 
 
-Each service in the pipeline is tagged with \textit{annotations} to specify data protection requirements expressing transformation on data to enforce data protection, as well as functional specifications on services expressing data manipulations carried out during services execution. There is a catalog of services among which a user can choose. Services may be functionally equivalent (i.e., they perform the same task), but have different security policies, more or less restrictive\st{, depending on the provider's attributes}. Thus a user si trova a avere tutto l'interesse di capire come le sue scelte service selection possano avere un impatto sulla qualità del risultato finale. Our service selection approach focuses on maximizing data quality by retaining the maximum amount of information when applying data protection transformations;
-
-
-The key contributions are as follows:
+When evaluating a solution meeting these criteria, the following questions naturally arise:
 \begin{enumerate}
-  \item Service enrichment (metadati)
-  \item The composite selection problem is NP-hard, but we present a parametric heuristic tailored to address the computational
-        complexity. We evaluated the performance and quality of the algorithm by running some experiments on a dataset.
+\item How does a robust data protection policy affect analytics?
+%What impact does a robust and strong data protection policy have on analytics?
+%How does a strong data protection policy influence analytics?
+\item When considering a pipeline, is it more advantageous to perform data protection transformations at each step rather than filtering all data at the outset? 
+\item In a scenario where a user has the option to choose among various candidate services, how might these choices affect the analytics?
 \end{enumerate}
+%
+Based on the aforementioned considerations, we propose a data governance framework customized for modern data-driven pipelines, designed to mitigate privacy and security risks. The primary objective of this framework is to facilitate the assembly of data processing services, with a central focus on the selection of those services that optimize data quality, while upholding privacy and security requirements. 
 
-The rest of the paper is organized as follows. %In Section \ref{sec:requirements} In Section \ref{} In Section \ref{}
+In our solution, each element in the pipeline is tagged with \textit{annotations} to specify data protection requirements expressing transformation on data to enforce data protection, as well as functional specifications on services expressing data manipulations carried out during services execution. For each element in the pipeline, there is a catalog of candidate services among which the user running it can choose. Services may be functionally equivalent (i.e., they perform the same tasks), but have different security policies, more or less restrictive depending on the organization or service provider they belong to.
+Our data governance approach is based on the belief that maintaining a larger volume of data leads to higher data quality, thus our service selection approach focuses on maximizing data quality by retaining the maximum amount of information when applying data protection transformations. 
+We have a running example on which we conducted experiments to provide an initial answer to the questions highlighted earlier.
 
-ecosystem of services
+The primary contributions of the paper can be summarized as follows:
+\begin{enumerate}
+  \item Enriching services with meta-data that describes both data protection and functional requirements;
+  \item Proposing a parametric heuristic tailored to address the computational complexity of the NP-hard service selection problem;
+  \item Evaluating the performance and quality of the algorithm through experiments conducted using the dataset from the running example.
+\end{enumerate}
+%
+The remainder of the paper is structured as follows: Section 2, presents our system model, illustrating a reference scenario where data is owned by multiple organizations. In Section \ref{sec:template}, we introduce the pipeline template and describe the annotations. In Section \ref{sec:instance}, we describe the process of template instantiaton. In Section \ref{sec:heuristics}, we introduce the quality metrics used by the selection algorithm and the heuristic solving the service selection problem. Section \ref{sec:experiment} outlines the experiments conducted. Section \ref{sec:related} discusses the existing solutions. Section \ref{sec:conclusions} concludes the paper.
