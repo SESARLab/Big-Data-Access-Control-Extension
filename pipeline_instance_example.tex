@@ -6,13 +6,13 @@
 
   As presented in Table~\ref{tab:exisnt}(a), each vertex is labeled with policies (column \emph{candidate--$>$policy}) and then associated with different candidate services (column \emph{candidate}) and corresponding profile (column \emph{profile}). The filtering algorithm matches each candidate service profile with the policies in Table~\ref{tab:anonymization} annotating the corresponding vertex. It returns the set of services whose profile matches a policy (column \emph{filtering}):
   \begin{enumerate*}[label=\textit{\roman*})]
-    \item vertex \vi{6}, the filtering algorithm produces the set $S'_1=\{s_{61},s_{62}\}$. Assuming that the dataset owner is ``CT'', the service profile of \s{61} matches \p{1} and the one of \s{62} matches \p{2}. For \s{63}, there is no policy match and, thus, it is discarded;
-    \item vertex \vi{7}, the filtering algorithm returns the set $S'_2=\{s_{72},s_{73}\}$. Assuming that the dataset region is ``CT'', the service profile of \s{72} matches \p{5} and the one of \s{73} matches \p{6}. For \s{71}, there is no policy match and, thus, it is discarded;
-    \item vertex \vi{8}, the filtering algorithm returns the set $S'_3=\{s_{81},s_{82},s_{83}\}$. Since policy \p{7} matches with any subject, the filtering algorithm keeps all services.
+    \item vertex \vi{4}, the filtering algorithm produces the set $S'_1=\{s_{51},s_{52}\}$. Assuming that the dataset owner is ``CT'', the service profile of \s{61} matches \p{1} and the one of \s{62} matches \p{2}. For \s{63}, there is no policy match and, thus, it is discarded;
+    \item vertex \vi{5}, the filtering algorithm returns the set $S'_2=\{s_{62},s_{63}\}$. Assuming that the dataset region is ``CT'', the service profile of \s{72} matches \p{5} and the one of \s{73} matches \p{6}. For \s{71}, there is no policy match and, thus, it is discarded;
+    \item vertex \vi{6}, the filtering algorithm returns the set $S'_3=\{s_{71},s_{72},s_{73}\}$. Since policy \p{7} matches with any subject, the filtering algorithm keeps all services.
   \end{enumerate*}
 
   For each vertex \vii{i}, we select the matching service \sii{j} from $S'_i$ and incorporate it into a valid instance. For instance, we select \s{61} for \vi{6}; \s{72} for \vi{7}, and \s{81} for \vi{8}
-  as depicted in \cref{tab:instance_example_valid} (a) (column \emph{instance}). We note that to move from a valid to an optimal instance, it is mandatory to evaluate candidate services based on specific quality metrics that reflect their impact on data quality, as discussed in the following of this paper. 
+  as depicted in \cref{tab:instance_example_valid} (a) (column \emph{instance}). We note that to move from a valid to an optimal instance, it is mandatory to evaluate candidate services based on specific quality metrics that reflect their impact on data quality, as discussed in the following of this paper.
   %In the next sections, we will introduce the metrics that we use to evaluate the quality of services and the results of the experiments conducted to evaluate the performance of our approach.
 
   % \begin{table*}
@@ -47,32 +47,32 @@
         \begin{tabular}{c|c|c|c|c}\label{tab:instance_example_valid}
 
           \textbf{Vertex$\rightarrow$Policy}                   & \textbf{Candidate} & \textbf{Profile}                         & \textbf{Filtering} & \textbf{Instance} \\\hline
-          \multirow{ 3}{*}{\vi{4}  $\rightarrow$ \p{1},\p{2} } & $\s{41}$           & service\_owner =    "CT"                 & \cmark             & \cmark            \\
-                                                               & $\s{42}$           & service\_owner =    "NY"                 & \cmark             & \xmark            \\
-                                                               & $\s{43}$           & service\_owner =    "CA"                 & \xmark             & \xmark            \\
+          \multirow{ 3}{*}{\vi{5}  $\rightarrow$ \p{1},\p{2} } & $\s{51}$           & service\_owner =    "CT"                 & \cmark             & \cmark            \\
+                                                               & $\s{52}$           & service\_owner =    "NY"                 & \cmark             & \xmark            \\
+                                                               & $\s{53}$           & service\_owner =    "CA"                 & \xmark             & \xmark            \\
           \hline
-          \multirow{ 3}{*}{\vi{5}  $\rightarrow$ \p{5},\p{6} } & $\s{51}$           & service\_region =    "CA"                & \xmark             & \xmark            \\
-                                                               & $\s{52}$           & service\_region =    "CT"                & \cmark             & \cmark            \\
-                                                               & $\s{53}$           & service\_region =    "NY"                & \cmark             & \xmark            \\
+          \multirow{ 3}{*}{\vi{6}  $\rightarrow$ \p{3},\p{4} } & $\s{61}$           & service\_region =    "CA"                & \xmark             & \xmark            \\
+                                                               & $\s{62}$           & service\_region =    "CT"                & \cmark             & \cmark            \\
+                                                               & $\s{63}$           & service\_region =    "NY"                & \cmark             & \xmark            \\
           \hline
-          \multirow{ 3}{*}{\vi{6}  $\rightarrow$ \p{7},\p{8} } & $\s{61}$           & visualization\_location = "CT\_FACILITY" & \cmark             & \cmark            \\
-                                                               & $\s{62}$           & visualization\_location = "CLOUD"        & \cmark             & \xmark            \\
+          \multirow{ 3}{*}{\vi{7}  $\rightarrow$ \p{5},\p{6} } & $\s{71}$           & visualization\_location = "CT\_FACILITY" & \cmark             & \cmark            \\
+                                                               & $\s{72}$           & visualization\_location = "CLOUD"        & \cmark             & \xmark            \\
         \end{tabular}
                                    &
 
         \begin{tabular}{c|c}\label{tab:instance_example_maxquality}
 
           \textbf{Candidate} & \textbf{Ranking} \\\hline
-          $\s{41}$           & 1                \\
-          $\s{42}$           & 2                \\
-          $\s{43}$           & --               \\
+          $\s{51}$          & 1                \\
+          $\s{52}$           & 2                \\
+          $\s{53}$           & --               \\
           \hline
-          $\s{51}$           & --               \\
-          $\s{52}$           & 1                \\
-          $\s{53}$           & 2                \\
+          $\s{61}$           & --               \\
+          $\s{62}$           & 1                \\
+          $\s{63}$           & 2                \\
           \hline
-          $\s{61}$           & 1                \\
-          $\s{62}$           & 2                \\
+          $\s{71}$           & 1                \\
+          $\s{72}$           & 2                \\
         \end{tabular}
         \\
         (a) Valid Instance example & (b) Best Quality Instance example

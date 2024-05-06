@@ -53,7 +53,7 @@ Metrics $M_J$ and $M_{JDS}$ contribute to the calculation of the information los
 \end{definition}
 
 We note that \emph{AVG}($M_{ij}$) models the average data quality preserved within the pipeline instance $G'$
-We also note that \textit{dloss}$_{ij}$$=$1$-$$M_i$ models the quality loss at vertex \vii{i}$\in$$\V'_S$ of $G'$ for service \sii{j}. 
+We also note that \textit{dloss}$_{ij}$$=$1$-$$M_i$ models the quality loss at vertex \vii{i}$\in$$\V'_S$ of $G'$ for service \sii{j}.
 %We also note that information loss \textit{dloss} is used to generate the Max-Quality pipeline instance in the remaining of this section.
 
 \subsection{NP-Hardness of the Max-Quality Pipeline Instantiation Problem}\label{sec:nphard}
@@ -136,17 +136,17 @@ This strategy ensures that only services with low information loss are selected 
   columns=fixed                    % Using fixed column width (for e.g. nice alignment)
 }
 
-\begin{lstlisting}[frame=single,mathescape, caption={Sliding Window Heuristic with Selection of First Service from Optimal Combination},label={lst:slidingwindowfirstservice}]
+\begin{lstlisting}[frame=single, escapechar=\%,mathescape, caption={Sliding Window Heuristic with Selection of First Service from Optimal Combination},label={lst:slidingwindowfirstservice}]
   var $\text{G'}$ = [] //pipeline instance
   $M$ = 0; //DATA QUALITY
   \hl{DEFINIZIONE VARIABILI NON DEFINITE NELLA METODOLOGIA}
-  
-  
-  function SlidingWindowHeuristic(G^{\myLambda,\myGamma}, \windowsize){
-      for i = 1 to l - \windowsize + 1
+
+
+  function SlidingWindowHeuristic(G^{%\myLambda%,%\myGamma%}, %\windowsize%){
+      for i = 1 to l - %\windowsize% + 1
       {
-          for j = i to i + \windowsize - 1
-              $\text{G'}$ = $\text{G'}$ $\cup$ SelectService(j, \windowsize);
+          for j = i to i + %\windowsize% - 1
+              $\text{G'}$ = $\text{G'}$ $\cup$ SelectService(j, %\windowsize%);
       }
       for j = 1 to $|V'_S|$
           $M$=$M$+$M(\sii{j})$;
@@ -154,12 +154,13 @@ This strategy ensures that only services with low information loss are selected 
       return  $\text{G'}$, $M$;
   }
 
-  function SelectService(j,\windowsize){
-    QUA DENTRO METTIAMO I PASSI CHE SERVONO PER CALCOLARE L'ISTANZA DEL PRIMO NODO DELLA FINESTRA. METTIAMO UN FOR PER TUTTE LE COMBINAZIONI DI VERTICI NELLA FINESTRA
+  function SelectService(j,%\windowsize%){
+    QUA DENTRO METTIAMO I PASSI CHE SERVONO PER CALCOLARE L'ISTANZA DEL PRIMO NODO DELLA FINESTRA.
+    METTIAMO UN FOR PER TUTTE LE COMBINAZIONI DI VERTICI NELLA FINESTRA
     CALCOLIAMO M CON UN FOR
     CONTROLLIAMO LA METRICA, SE MINORE USIAMO QUELLA COMBINAZIONE
     ALTRIMENTI AVANTI
-    ALLA FINE SE è L'ULTIMA PASSO RITORNIAMO UNA LISTA DI |W| SERVIZI, ALTRIMENTI SOLO IL PRIMO
+    ALLA FINE SE e' L'ULTIMA PASSO RITORNIAMO UNA LISTA DI |W| SERVIZI, ALTRIMENTI SOLO IL PRIMO
     currentCombination = verticesList[windowIndex].services
               totalMetric = 0
               for service in currentCombination{
@@ -171,12 +172,11 @@ This strategy ensures that only services with low information loss are selected 
                   minMetricCombination = currentCombination
               }
           }
+
           if isLastWindowFrame(){
-            $\text{G'}$.append(minMetricCombination)
-          }else{
-              if length(minMetricCombination) > 0
-              $\text{G'}$.append(minMetricCombination[0])
-          }
+            return minMetricCombination
+
+          return minMetricCombination[0]
   }
 
   \end{lstlisting}
