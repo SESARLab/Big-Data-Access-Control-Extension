@@ -10,11 +10,11 @@
       \begin{tabular}[t]{c|c|l}
         \textbf{Vertex}      & \textbf{Policy} & \policy{subject}{object}{action}{environment}{transformation}                           \\ \hline
         \vi{1},\vi{2},\vi{3} & $\p{0}$         & \policy{ANY}{dataset}{READ}{ANY}{\tp{0}}                                                \\
-        \vi{4},\vi{5}        & $\p{1}$         & \policy{\pone}{dataset}{READ}{ANY}{\tp{0}}                                              \\
-        \vi{4},\vi{5}        & $\p{2}$         & \policy{\ptwo}{dataset}{READ}{ANY}{\tp{1}}                                              \\
+        \vi{4},\vi{5}        & $\p{1}$         & \policy{\{\pone\}}{dataset}{READ}{ANY}{\tp{0}}                                              \\
+        \vi{4},\vi{5}        & $\p{2}$         & \policy{\{\ptwo\}}{dataset}{READ}{ANY}{\tp{1}}                                              \\
         %\vi{4},\vi{6}        & $\p{3}$         & \policy{\pthree}{dataset}{READ}{ANY}{\tp{2}}                                                    \\
-        \vi{6}               & $\p{3}$         & \policy{$\langle service\_region= dataset\_origin\rangle$}{dataset}{WRITE}{ANY}{\tp{0}} \\
-        \vi{6}               & $\p{4}$         & \policy{$\langle service\_region=``\{NY,NH\}"\rangle$}{dataset}{WRITE}{ANY}{\tp{1}}     \\
+        \vi{6}               & $\p{3}$         & \policy{\{$(service\_region= dataset\_origin)$\}}{dataset}{WRITE}{ANY}{\tp{0}} \\
+        \vi{6}               & $\p{4}$         & \policy{\{$(service\_region=\{NY,NH\})$\}}{dataset}{WRITE}{ANY}{\tp{1}}     \\
         \vi{7}               & $\p{5}$         & \policy{ANY}{dataset} {READ}{\langle$environment = risky$\rangle}{\tp{3}}                             \\
         \vi{7}               & $\p{6}$         & \policy{ANY}{dataset} {READ}{\langle$environment = not\_risky$\rangle}{\tp{4}}                        \\
       \end{tabular}

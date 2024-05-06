@@ -6,9 +6,9 @@
 
   As presented in Table~\ref{tab:exisnt}(a), each vertex is labeled with policies (column \emph{candidate--$>$policy}) and then associated with different candidate services (column \emph{candidate}) and corresponding profile (column \emph{profile}). The filtering algorithm matches each candidate service profile with the policies in Table~\ref{tab:anonymization} annotating the corresponding vertex. It returns the set of services whose profile matches a policy (column \emph{filtering}):
   \begin{enumerate*}[label=\textit{\roman*})]
-    \item vertex \vi{4}, the filtering algorithm produces the set $S'_1=\{s_{51},s_{52}\}$. Assuming that the dataset owner is ``CT'', the service profile of \s{61} matches \p{1} and the one of \s{62} matches \p{2}. For \s{63}, there is no policy match and, thus, it is discarded;
-    \item vertex \vi{5}, the filtering algorithm returns the set $S'_2=\{s_{62},s_{63}\}$. Assuming that the dataset region is ``CT'', the service profile of \s{72} matches \p{5} and the one of \s{73} matches \p{6}. For \s{71}, there is no policy match and, thus, it is discarded;
-    \item vertex \vi{6}, the filtering algorithm returns the set $S'_3=\{s_{71},s_{72},s_{73}\}$. Since policy \p{7} matches with any subject, the filtering algorithm keeps all services.
+    \item vertex \vi{5}, the filtering algorithm produces the set $S'_1=\{s_{51},s_{52}\}$. Assuming that the dataset owner is ``CT'', the service profile of \s{51} matches \p{1} and the one of \s{52} matches \p{2}. For \s{53}, there is no policy match and, thus, it is discarded;
+    \item vertex \vi{6}, the filtering algorithm returns the set $S'_2=\{s_{62},s_{63}\}$. Assuming that the dataset region is ``CT'', the service profile of \s{62} matches \p{5} and the one of \s{63} matches \p{6}. For \s{61}, there is no policy match and, thus, it is discarded;
+    \item vertex \vi{7}, the filtering algorithm returns the set $S'_3=\{s_{71},s_{72}\}$. Since policy \p{7} matches with any subject, the filtering algorithm keeps all services.
   \end{enumerate*}
 
   For each vertex \vii{i}, we select the matching service \sii{j} from $S'_i$ and incorporate it into a valid instance. For instance, we select \s{61} for \vi{6}; \s{72} for \vi{7}, and \s{81} for \vi{8}
