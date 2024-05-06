@@ -15,7 +15,7 @@ In this paper, we use two metrics, one quantitative and one qualitative, to comp
 
 \subsubsection{Quantitative metric}
 %We propose a metric that measures the similarity between two datasets, for this purpose, we use the Jaccard coefficient.
-We propose a quantitative metric $M_J$ based on the Jaccard coefficient that assesses the similarity between two datasets. The Jaccard coefficient is defined as follows: \[J(X,Y) = \frac{|X \cap Y|}{|X \cup Y|}\]
+We propose a quantitative metric $M_J$ based on the Jaccard coefficient that assesses the similarity between two datasets. The Jaccard coefficient is defined as follows \cite{RAHMAN20102707}: \[J(X,Y) = \frac{|X \cap Y|}{|X \cup Y|}\]
 where X and Y are two datasets of the same size.
 
 The coefficient is calculated by dividing the cardinality of the intersection of two datasets by the cardinality of their union. It ranges from 0 to 1, with 0 indicating no similarity and 1 indicating complete similarity between the datasets. It has several advantages. Unlike other similarity measures, such as Euclidean distance, it is not affected by the magnitude of the values in the dataset. It is suitable for datasets with categorical variables or nominal data, where the values do not have a meaningful numerical interpretation.
