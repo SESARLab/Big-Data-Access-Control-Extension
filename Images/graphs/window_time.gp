@@ -1,17 +1,21 @@
-base_path = 'data/
-file_base = 'window_quality_performance_diff_qual_n7_s7_50_80'
-
+base_path = 'data/'
+file_base = 'window_time_performance_n7_s7_20_100'
+#file_base = 'window_time_performance_n7_s7_50_89'
 # set terminal png enhanced
 set terminal postscript eps color enhanced
 set key box top left inside Left samplen 1
 set xtics autofreq 1
+set ytics autofreq
 # set yrange [0.85:1]
-set ytics 0.02
+
+set yrange [0:10000000]
 set size 1,1
-set origin 0,0
+# set origin 0,0
 set border 3
-set ylabel "Metric Value"
+set ylabel "Execution Time (ms)"
 set xlabel "Number Of Services"
+set logscale y
+
 # set grid
 set tics nomirror
 set key bottom right
