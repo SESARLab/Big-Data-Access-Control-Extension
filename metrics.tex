@@ -156,28 +156,21 @@ This strategy ensures that only services with low information loss are selected 
   }
 
   function SelectService(j,%\windowsize%){
-    QUA DENTRO METTIAMO I PASSI CHE SERVONO PER CALCOLARE L'ISTANZA DEL PRIMO NODO DELLA FINESTRA.
-    METTIAMO UN FOR PER TUTTE LE COMBINAZIONI DI VERTICI NELLA FINESTRA
-    CALCOLIAMO M CON UN FOR
-    CONTROLLIAMO LA METRICA, SE MINORE USIAMO QUELLA COMBINAZIONE
-    ALTRIMENTI AVANTI
-    ALLA FINE SE e' L'ULTIMA PASSO RITORNIAMO UNA LISTA DI |W| SERVIZI, ALTRIMENTI SOLO IL PRIMO
     currentCombination = verticesList[windowIndex].services
-              totalMetric = 0
-              for service in currentCombination{
-                  totalMetric += M(service)
-              }
-              currentMetric = totalMetric / length(currentCombination)
-              if currentMetric < minMetric{
-                  minMetric = currentMetric
-                  minMetricCombination = currentCombination
-              }
-          }
+    totalMetric = 0
+    for service in currentCombination{
+        totalMetric += M(service)
+    }
+    currentMetric = totalMetric / length(currentCombination)
+    if currentMetric < minMetric{
+        minMetric = currentMetric
+        minMetricCombination = currentCombination
+    }
 
-          if isLastWindowFrame(){
-            return minMetricCombination
-
-          return minMetricCombination[0]
+    if isLastWindowFrame(){
+      return minMetricCombination
+      return minMetricCombination[0]
+    }
   }
 
   \end{lstlisting}
