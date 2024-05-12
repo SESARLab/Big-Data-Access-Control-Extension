@@ -107,7 +107,9 @@ Since the reduction can be done in polynomial time, our problem is also NP-hard.
 We design and implement a heuristic algorithm for computing the pipeline instance maximizing data quality. Our heuristic is built on a \emph{sliding window} and aims to maximize information \quality \emph{\q} according to quality metrics. At each step, a set of vertices in the pipeline template $\tChartFunction$ is selected according to a specific window size \windowsize, that select a subset of the pipeline template starting at depth $i$ and ending at depth \windowsize+i-1. Service filtering and selection in \cref{sec:instance} are then executed to maximiza \emph{\quality} in window $w$. The heuristic returns as output the list of services instantiating all vertices at depth $i$. The sliding window $w$ is then shifted by 1 (i.e., $i$=$i$+1) and the filtering and selection process executed until \windowsize+i-1 is equal to length $l$ (max depth) of $\tChartFunction$, that is, the sliding window reaches the end of the template.
 %For example, in our service selection problem where the quantity of information lost needs to be minimized, the sliding window algorithm can be used to select services composition that have the lowest information loss within a fixed-size window.
 This strategy ensures that only services with low information loss are selected at each step, maximizing the information \quality \emph{\q}. The pseudocode of the heuristic algorithm is presented in \cref{lst:slidingwindowfirstservice}.
-
+\definecolor{commentsColor}{rgb}{0.497495, 0.497587, 0.497464}
+\definecolor{keywordsColor}{rgb}{0.000000, 0.000000, 0.0}
+\definecolor{stringColor}{rgb}{0.558215, 0.000000, 0.135316}
 \lstset{ %
   backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
   basicstyle=\footnotesize,        % the size of the fonts that are used for the code
@@ -118,7 +120,8 @@ This strategy ensures that only services with low information loss are selected 
   deletekeywords={list},            % if you want to delete keywords from the given language
   escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
   extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
-  frame=tb,	                   	   % adds a frame around the code
+  frame=tb,
+  xleftmargin=1.2em,           	   % adds a frame around the code
   keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
   keywordstyle=\color{keywordsColor}\bfseries,       % keyword style
   language=Python,                 % the language of the code (can be overrided per snippet)
@@ -137,30 +140,31 @@ This strategy ensures that only services with low information loss are selected 
   columns=fixed                    % Using fixed column width (for e.g. nice alignment)
 }
 
-\begin{lstlisting}[frame=single, escapechar=\%,mathescape, caption={Sliding Window Heuristic with Selection of First Service from Optimal Combination},label={lst:slidingwindowfirstservice}]
+\begin{lstlisting}[frame=bt, escapechar=\%,mathescape, caption={Sliding Window Heuristic with Selection of First Service from Optimal Combination},label={lst:slidingwindowfirstservice}]
   var $\text{G'}$ = [] //pipeline instance
   $M$ = 0; //DATA QUALITY
-  \hl{DEFINIZIONE VARIABILI NON DEFINITE NELLA METODOLOGIA}
-
 
   function SlidingWindowHeuristic(G^{%\myLambda%,%\myGamma%}, %\windowsize%){
-      for i = 1 to l - %\windowsize% + 1
-      {
-          for j = i to i + %\windowsize% - 1
-              $\text{G'}$ = $\text{G'}$ $\cup$ SelectService(j, %\windowsize%);
+    for i = 1 to l - %\windowsize% + 1 {
+      for j = i to i + %\windowsize% - 1 {
+        $\text{G'}$ = $\text{G'}$ $\cup$ SelectService(j, %\windowsize%);
       }
-      for j = 1 to $|V'_S|$
-          $M$=$M$+$M(\sii{j})$;
-      dloss = 1 - M;
-      return  $\text{G'}$, $M$;
+
+      for j = 1 to $|V'_S|$ {
+        $M$=$M$+$M(\sii{j})$;
+      }
+    }
+    return  $\text{G'}$, $M$;
   }
 
   function SelectService(j,%\windowsize%){
     currentCombination = verticesList[windowIndex].services
     totalMetric = 0
+
     for service in currentCombination{
         totalMetric += M(service)
     }
+
     currentMetric = totalMetric / length(currentCombination)
     if currentMetric < minMetric{
         minMetric = currentMetric
