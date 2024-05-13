@@ -45,7 +45,7 @@ where $\sum_{i=1}^n w_i$$=$1 and each \(\text{JSD}(x_i,y_i)\) accounts for the J
 $M_{JDS}$ provides a weighted measure of similarity, which is symmetric and accounts for the contribution from both datasets and specific features. It can compare the similarity of the two datasets, providing a symmetric and normalized measure that considers the overall data distributions.
 
 
-\subsubsection{Pipeline Quality (\q)}
+\subsubsection{Pipeline Quality}
 %We note that our metrics can be applied either to the entire dataset or to specific features only. The features can be assigned with equal or varying importance, providing a weighted version of the metrics, thus enabling the prioritization of important features that might be possibly lost during the policy-driven transformation in Section~\cite{ADD}.
 
 Metrics $M_J$ and $M_{JSD}$ contribute to the calculation of the pipeline quality \q\ as follows. %Information loss is calculated as the average \emph{AVG} of data at each vertex \vi{i}$\in$$\V_S$ of the service pipeline $G(V,E)$ as follows.
@@ -71,7 +71,7 @@ The problem of computing a pipeline instance (\cref{def:instance}) with maximum 
   \end{itemize}
 \end{definition}
 
-The Max Quality \problem is a combinatorial selection problem and is NP-hard, as stated by Theorem \cref{theorem:NP}. However, while the overall problem is NP-hard, there is a component of the problem that is solvable in polynomial time: matching the profile of each service with the corresponding vertex policy. This can be done by iterating over each vertex and each service, checking if the service matches the vertex policy. This process take polynomial time complexity $O(|N|*|S|)$.
+The Max Quality \problem is a combinatorial selection problem and is NP-hard, as stated by Theorem \cref{theorem:NP}. However, while the overall problem is NP-hard, there is a component of the problem that is solvable in polynomial time: matching the profile of each service with the corresponding vertex policy. This can be done by iterating over each vertex and each service, checking if the service matches the vertex policy. This process takes polynomial time complexity $O(|N|*|S|)$.
 
 \begin{theorem}\label{theorem:NP}
   The Max-Quality \problem is NP-Hard.
