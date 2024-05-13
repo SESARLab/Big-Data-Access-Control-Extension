@@ -38,7 +38,7 @@ where X and Y are two distributions of the same size, and M$=$0.5*(X+Y) is the a
 JSD incorporates both the KL divergence from X to M and from Y to M.
 
 To make JSD applicable to datasets, where each feature in the dataset has its own statistical distribution, metric $M_{JDS}$ applies JSD to each column of the dataset. The obtained results are then aggregated using a weighted average, thus enabling the prioritization of important features that can be lost during the policy-driven transformation in \cref{sec:heuristics}, as follows: \[M_{JSD} = 1 - \sum_{i=1}^n w_i \cdot \text{JSD}(x_i,y_i)\]
-%where \(w_i = \frac{n_i}{N}\) represents the weight for the \(i\)-th column, with \(n_i\) being the number of distinct elements in the $i$-th feature and \(N\) the total number of elements in the dataset. 
+%where \(w_i = \frac{n_i}{N}\) represents the weight for the \(i\)-th column, with \(n_i\) being the number of distinct elements in the $i$-th feature and \(N\) the total number of elements in the dataset.
 where $\sum_{i=1}^n w_i$$=$1 and each \(\text{JSD}(x_i,y_i)\) accounts for the Jensen-Shannon Divergence computed for the \(i\)-th feature in datasets X and Y. It ranges from 0 to 1, with 0 indicating no similarity (minimum quality) and 1 indicating complete similarity (maximum quality) between the datasets.
 %Must be noted that the one minus has been added to the formula to transfrom the metric into a similarity metric, where 1 indicates complete similarity and 0 indicates no similarity.
 
@@ -85,7 +85,7 @@ Since the reduction can be done in polynomial time, our problem is also NP-hard.
 
 
 \begin{example}[Max-Quality Pipeline Instance]
-  We extend \cref{ex:instance} with the selection algorithm in \cref{sec:instance} built on pipeline quality \q. The selection algorithm is applied to the set $S'_*$ of compatible services and returns three service rankings, one for each vertex \vi{4}, \vi{5}, \vi{6}, according to quality metric $M_J$ measuring the amount of preserved data after anonymization. The ranking is presented in \cref{tab:instance_example_maxquality}(b), according to the transformation function in the corresponding policies. 
+  We extend \cref{ex:instance} with the selection algorithm in \cref{sec:instance} built on pipeline quality \q. The selection algorithm is applied to the set $S'_*$ of compatible services and returns three service rankings, one for each vertex \vi{4}, \vi{5}, \vi{6}, according to quality metric $M_J$ measuring the amount of preserved data after anonymization. The ranking is presented in \cref{tab:instance_example_maxquality}(b), according to the transformation function in the corresponding policies.
   We assume that the more restrictive the transformation function (i.e., it anonymizes more data), the lower is the service position in the ranking.
   For example, \s{11} is ranked first because it anonymizes less data than \s{12} and \s{13}, that is, $Q_{11}$$>$$Q_{12}$ and $Q_{11}$$>$$Q_{13}$.  The same applies for the ranking of \s{22} and \s{23}.
   The ranking of \s{31} and \s{32} is affected by the environment state at the time of the ranking.   For example, if the environment where the visualization is performed is a CT facility, then \s{31} is ranked first and \s{32} second because the facility is considered less risky than the cloud, and $Q_{31}$$>$$Q_{32}$.
@@ -104,9 +104,9 @@ Since the reduction can be done in polynomial time, our problem is also NP-hard.
 %The exhaustive exploration of such combinations swiftly becomes impractical in terms of computational time and resources, particularly when dealing with the analysis of complex pipelines.
 %In response to this computational complexity, the incorporation of heuristic emerges as a strategy to try to efficiently address the problem.
 %\hl{HO RIVISTO IL PARAGRAFO VELOCEMENTE GIUSTO PER DARE UN'INDICAZIONE. DOBBIAMO USARE LA FORMALIZZAZIONE E MAGARI FORMALIZZARE ANCHE LO PSEUDOCODICE.}
-We design and implement a heuristic algorithm built on a \emph{sliding window} for computing the pipeline instance maximizing quality \q. 
-%Our heuristic is built on a \emph{sliding window} and aims to maximize information \quality \emph{\q} according to quality metrics. 
-%At each step, a set of vertices in the pipeline template $\tChartFunction$ is selected according to a window of size \windowsize, which select a subset of the pipeline template starting at depth $i$ and ending at depth \windowsize+i-1. 
+We design and implement a heuristic algorithm built on a \emph{sliding window} for computing the pipeline instance maximizing quality \q.
+%Our heuristic is built on a \emph{sliding window} and aims to maximize information \quality \emph{\q} according to quality metrics.
+%At each step, a set of vertices in the pipeline template $\tChartFunction$ is selected according to a window of size \windowsize, which select a subset of the pipeline template starting at depth $i$ and ending at depth \windowsize+i-1.
 At each step, a window of size \windowsize\ selects a subset of vertices in the pipeline template $\tChartFunction$ starting at depth $i$ and ending at depth \windowsize+i-1.
 Service filtering and selection in \cref{sec:instance} are then executed to maximize quality $Q_w$ in window $w$. The heuristic returns as output the list of services instantiating all vertices at depth $i$. The sliding window $w$ is then shifted by 1 (i.e., $i$=$i$+1) and the filtering and selection process executed until \windowsize+i-1 is equal to length $l$ (max depth) of $\tChartFunction$, that is, the sliding window reaches the end of the template.
 %For example, in our service selection problem where the quantity of information lost needs to be minimized, the sliding window algorithm can be used to select services composition that have the lowest information loss within a fixed-size window.

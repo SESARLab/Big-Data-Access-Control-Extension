@@ -1,4 +1,4 @@
-base_path = 'data/
+base_path = 'data/'
 file_base = 'window_quality_performance_diff_qual_n7_s7_50_80'
 
 # set terminal png enhanced

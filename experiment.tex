@@ -31,6 +31,7 @@ Each experiment was repeated 10 times and the results averaged to improve the re
   \resizebox{\columnwidth}{!}{%
     \begin{tikzpicture}[framed]
 
+
       \node[draw, circle, fill=gray!20,minimum width=0.8cm] (v1) at (1,5.2) {$\vi{1}$};
       \node[draw, circle, fill=gray!20,minimum width=0.8cm] (v2) at (3,5.2) {$\vi{2}$};
       \node[draw, circle, fill=gray!20,minimum width=0.8cm] (v3) at (5,5.2) {$\vi{3}$};
@@ -42,21 +43,22 @@ Each experiment was repeated 10 times and the results averaged to improve the re
       \node[draw, rectangle, fill=green!20] (s2) at (1,1.7) {$\sii{2}$};
       \node[draw, rectangle, fill=red!20] (s3) at (1,0) {$\sii{3}$};
 
-      \node[draw, rectangle] (s11) at (3,3.4) {$\sii{11}$};
-      \node[draw, rectangle] (s12) at (3,1.7) {$\sii{12}$};
-      \node[draw, rectangle] (s13) at (3,0) {$\sii{13}$};
+      \node[draw, rectangle,thick] (s11) at (3,3.4) {$\sii{11}$};
+      \node[draw, rectangle,opacity=.6] (s12) at (3,1.7) {$\sii{12}$};
+      \node[draw, rectangle,opacity=.6] (s13) at (3,0) {$\sii{13}$};
 
-      \node[draw, rectangle] (s21) at (5,3.4) {$\sii{21}$};
-      \node[draw, rectangle] (s22) at (5,1.7) {$\sii{22}$};
-      \node[draw, rectangle] (s23) at (5,0) {$\sii{23}$};
+      \node[draw, rectangle,opacity=.6] (s21) at (5,3.4) {$\sii{21}$};
+      \node[draw, rectangle,thick] (s22) at (5,1.7) {$\sii{22}$};
+      \node[draw, rectangle,opacity=.6] (s23) at (5,0) {$\sii{23}$};
 
-      \node[draw, rectangle] (s31) at (7,3.4) {$\sii{31}$};
-      \node[draw, rectangle] (s32) at (7,1.7) {$\sii{32}$};
-      \node[draw, rectangle] (s33) at (7,0) {$\sii{33}$};
+      \node[draw, rectangle, thick] (s31) at (7,3.4) {$\sii{31}$};
+      \node[draw, rectangle,opacity=.6] (s32) at (7,1.7) {$\sii{32}$};
+      \node[draw, rectangle,opacity=.6] (s33) at (7,0) {$\sii{33}$};
 
       \node[draw, rectangle] (s41) at (9,3.4) {$\sii{41}$};
       \node[draw, rectangle] (s42) at (9,1.7) {$\sii{42}$};
       \node[draw, rectangle] (s43) at (9,0) {$\sii{43}$};
+
 
 
       % \draw[->] (node2) -- (node3);
@@ -68,11 +70,11 @@ Each experiment was repeated 10 times and the results averaged to improve the re
       % \draw[->] (s1) -- (s12);
       % \draw[->] (s1) -- (s13);
 
-      \draw[->,line width= 0.6pt] (s2) -- (s11);
+      \draw[->,line width= 0.7pt] (s2) -- (s11);
       \draw[->,dashdotted] (s2) -- (s12);
       \draw[->,dashdotted] (s2) -- (s13);
 
-      \draw[->,line width= 0.6pt] (s11) -- (s22);
+      \draw[->,line width= 0.7pt] (s11) -- (s22);
       % \draw[->,dashdotted] (s2) -- (s12);
       % \draw[->,dashdotted] (s2) -- (s13);
 
@@ -92,7 +94,7 @@ Each experiment was repeated 10 times and the results averaged to improve the re
       \draw[->,dashdotted] (s21) -- (s32);
       \draw[->,dashdotted] (s21) -- (s33);
 
-      \draw[->,line width=0.6pt] (s22) -- (s31);
+      \draw[->,line width=0.7pt] (s22) -- (s31);
       \draw[->,dashdotted] (s22) -- (s32);
       \draw[->,dashdotted] (s22) -- (s33);
 
@@ -121,6 +123,7 @@ Each experiment was repeated 10 times and the results averaged to improve the re
 
       \end{scope}
 
+      \node[align = center, below,yshift=-20pt ] at (s23.south) {\ttfamily \scriptsize vertices=5  services=3  \windowsize=3  i=1};
 
     \end{tikzpicture}
   }
