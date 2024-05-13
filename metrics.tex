@@ -28,7 +28,7 @@ It is computed by dividing the cardinality of the intersection of two datasets b
 
 \subsubsection{Qualitative Metric}
 %We propose a metric that enables the measurement of the distance of two distributions.
-We propose a qualitative metric $M_{JDS}$ based on the Jensen-Shannon Divergence (JSD) that assesses the similarity (distance) between the probability distributions of two datasets.
+We propose a qualitative metric $M_{JSD}$ based on the Jensen-Shannon Divergence (JSD) that assesses the similarity (distance) between the probability distributions of two datasets.
 
 JSD is a symmetrized version of the KL divergence~\cite{Fuglede} and is applicable to a pair of statistical distributions only. It is defined as follows:
 \[JSD(X, Y) = \frac{1}{2} \left( KL(X || M)
@@ -37,12 +37,12 @@ JSD is a symmetrized version of the KL divergence~\cite{Fuglede} and is applicab
 where X and Y are two distributions of the same size, and M$=$0.5*(X+Y) is the average distribution.
 JSD incorporates both the KL divergence from X to M and from Y to M.
 
-To make JSD applicable to datasets, where each feature in the dataset has its own statistical distribution, metric $M_{JDS}$ applies JSD to each column of the dataset. The obtained results are then aggregated using a weighted average, thus enabling the prioritization of important features that can be lost during the policy-driven transformation in \cref{sec:heuristics}, as follows: \[M_{JSD} = 1 - \sum_{i=1}^n w_i \cdot \text{JSD}(x_i,y_i)\]
+To make JSD applicable to datasets, where each feature in the dataset has its own statistical distribution, metric $M_{JSD}$ applies JSD to each column of the dataset. The obtained results are then aggregated using a weighted average, thus enabling the prioritization of important features that can be lost during the policy-driven transformation in \cref{sec:heuristics}, as follows: \[M_{JSD} = 1 - \sum_{i=1}^n w_i \cdot \text{JSD}(x_i,y_i)\]
 %where \(w_i = \frac{n_i}{N}\) represents the weight for the \(i\)-th column, with \(n_i\) being the number of distinct elements in the $i$-th feature and \(N\) the total number of elements in the dataset.
 where $\sum_{i=1}^n w_i$$=$1 and each \(\text{JSD}(x_i,y_i)\) accounts for the Jensen-Shannon Divergence computed for the \(i\)-th feature in datasets X and Y. It ranges from 0 to 1, with 0 indicating no similarity (minimum quality) and 1 indicating complete similarity (maximum quality) between the datasets.
 %Must be noted that the one minus has been added to the formula to transfrom the metric into a similarity metric, where 1 indicates complete similarity and 0 indicates no similarity.
 
-$M_{JDS}$ provides a weighted measure of similarity, which is symmetric and accounts for the contribution from both datasets and specific features. It can compare the similarity of the two datasets, providing a symmetric and normalized measure that considers the overall data distributions.
+$M_{JSD}$ provides a weighted measure of similarity, which is symmetric and accounts for the contribution from both datasets and specific features. It can compare the similarity of the two datasets, providing a symmetric and normalized measure that considers the overall data distributions.
 
 
 \subsubsection{Pipeline Quality}
