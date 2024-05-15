@@ -24,12 +24,11 @@ struct Service: CustomStringConvertible, Equatable {
   }
 
   func run(_ input: PythonObject, weight: Double) -> PythonObject {
-    np.random.seed(EXPERIMENT_SEED)
+
     return input.sample(
       frac: weight,
-      random_state: EXPERIMENT_SEED,
-      weights: np.random.gamma(shape: weight * 100, scale: 1.0, size: input.count)
-    )
+      random_state: EXPERIMENT_SEED
+        )
   }
 
   static func == (lhs: Service, rhs: Service) -> Bool {
