@@ -14,6 +14,7 @@ let np = Python.import("numpy")
 let dataframe = pd.read_csv("Input/inmates_enriched_10k.csv")
 let lib = Python.import("functions")
 
+
 var EXPERIMENT_SEED: Int = 0
 // Read Experiment number, number of nodes and number of services from command line
 struct MyCLI: ParsableCommand {
@@ -26,10 +27,20 @@ struct MyCLI: ParsableCommand {
   @Argument(help: "Number of services")
   var numberOfServices: Int
 
+  @Argument(help: "lower bound")
+  var lowerBound: Float
+
+  @Argument(help: " upper bound")
+  var upperBound: Float
+
   func run() throws {
     let experimentRange = experimentNumber
     let nodesRange = 3...numberOfNodes
     let servicesRange = 2...numberOfServices
+    lib.lowerBound = PythonObject( lowerBound )
+    lib.upperBound = PythonObject( upperBound )
+    lib.number_of_nodes = PythonObject( numberOfNodes )
+    lib.number_of_services = PythonObject( numberOfServices )
 
     EXPERIMENT_SEED = experimentRange
 

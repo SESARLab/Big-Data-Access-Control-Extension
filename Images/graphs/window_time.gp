@@ -1,8 +1,8 @@
 base_path = 'data/'
 file_base = 'window_time_performance_n7_s7_20_100'
-#file_base = 'window_time_performance_n7_s7_50_89'
+file_base = 'window_time_performance_n7_s7_50_89'
 # set terminal png enhanced
-#set terminal postscript eps color enhanced
+set terminal postscript eps color enhanced
 set key box top left inside Left samplen 1
 set xtics autofreq 1
 set ytics autofreq
@@ -36,7 +36,7 @@ do for [i=3:4] {
   unset label
 }
 
-replot
+
 
 # Optional: Uncomment if using multiplot
 # unset multiplot
