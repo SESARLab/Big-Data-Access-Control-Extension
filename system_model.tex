@@ -11,7 +11,7 @@ We consider a service-based environment where a service pipeline is designed to 
  \textcolor{red}{ \item[Dataset,] data target of the analytics pipeline. We assume they are ready for analysis, i.e., they underwent a preparatory phase addressing issues such as missing values, outliers, and formatting discrepancies. This ensures that the data are in an optimal state for subsequent analysis.}
 \end{description}
 %
-We define a service pipeline as a graph defined as follows. % and depicted in \cref{fig:service_pipeline}.
+We define a service pipeline as a graph structured as follows. % and depicted in \cref{fig:service_pipeline}.
 \begin{definition}[\pipeline]\label{def:pipeline}
   % A \pipeline is as a direct acyclic graph G(\V,\E), where \V\ is a set of vertices and \E\ is a set of edges connecting two vertices \vi{i},\vi{k}$\in$\V. The graph has a root \vi{r}$\in$\V, a vertex \vi{i}$\in$\V$_S$ for each service $s_i$, two additional vertices \vi{c},\vi{m}$\in$\V$_{\timesOperator}$$\subset$\V\ for each alternative ($\timesOperator$) structure modeling the alternative execution (\emph{choice}) of operations and the retrieval (\emph{merge}) of the results, respectively, and one additional vertex \vi{f} $\in$\V$_{\plusOperator}$$\subset$\V\ for each parallel ($\plusOperator$) structure modeling the contemporary execution (\emph{fork}) of operations.
   A \pipeline is as a direct acyclic graph G(\V,\E), where \V\ is a set of vertices and \E\ is a set of edges connecting two vertices \vi{i},\vi{k}$\in$\V.
