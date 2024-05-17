@@ -3,7 +3,7 @@ Our approach integrates data protection and data management into the service pip
 To this aim, we extend the service pipeline in \cref{def:pipeline} with: \emph{i)} data protection annotations that also express transformations on data, ensuring compliance with data protection requirements, \emph{ii)} functional annotations to express data manipulations carried out during services execution.
 These annotations enable the implementation of an advanced data lineage, tracking the entire data lifecycle by monitoring changes that result from functional service execution and data protection requirements.
 
-In the following, we first introduce the annotated service pipeline, called pipeline template (Section \ref{sec:templatedefinition}). Then, we present both functional annotations (Section \ref{sec:funcannotation}) and data protection annotations (Section \ref{sec:nonfuncannotation}), providing an example of a pipeline template in the context of the reference scenario.
+In the following, we first introduce the annotated service pipeline, called pipeline template (Section \ref{sec:templatedefinition}). Then, we present both data protection annotations (Section \ref{sec:nonfuncannotation}) and functional annotations (Section \ref{sec:funcannotation}), providing an example of a pipeline template in the context of the reference scenario.
 
 
 \subsection{Pipeline Template Definition}\label{sec:templatedefinition}
@@ -52,6 +52,7 @@ We note that, at this stage, the template is not yet linked to any service. We a
           \node[draw, circle] (s7) at (7.5,0) {$\vi{6}$};
           \node[draw, circle] (s8) at (9,0) {$\vi{7}$};
           % Text on top
+          \node[above] at (sr.north)  {$\vi{r}$};
 
           \node[above] at (s1.north)  {\function{3}};
 
@@ -91,29 +92,29 @@ We note that, at this stage, the template is not yet linked to any service. We a
 
       \subsection{Data Protection Annotation}\label{sec:nonfuncannotation}
       Data Protection Annotation \myLambda\ expresses data protection requirements in the form of access control policies. We consider an attribute-based access control model that offers flexible fine-grained authorization and adapts its standard key components to address the unique characteristics of a big data environment. Access requirements are expressed in the form of policy conditions that are defined as follows.
-
+      \vspace{0.5em}
       \begin{definition}[Policy Condition]\label{def:policy_cond}
         A \emph{Policy Condition pc} is a Boolean expression of the form $($\emph{attr\_name} op \emph{attr\_value}$)$, with op$\in$\{$<$,$>$,$=$,$\neq$,$\leq$,$\geq$\}, \emph{attr\_name} an attribute label, and \emph{attr\_value} the corresponding attribute value.
       \end{definition}
-
+      \vspace{0.5em}
       Built on policy conditions, an access control policy is then defined as follows.
-
+      \vspace{0.5em}
       \begin{definition}[Policy]\label{def:policy_rule}
         A {\it policy p}$\in$\P{} is 5-uple $<$\textit{subj}, \textit{obj}, \textit{act}, \textit{env}, \textit{\TP}$>$ that specifies who (\emph{subject}) can access what (\emph{object}) with action (\emph{action}), in a specific context (\emph{environment}) and under specific obligations (\emph{data transformation}).
       \end{definition}
-
-      More in detail, \textit{subject subj} specifies a service $s_i$ issuing an access request to perform an action on an object. It is a set \{$pc_i$\} of \emph{Policy Conditions} as defined in Definition \ref{def:policy_cond}. For instance, (classifier $=$ "SVM") specifies a service providing a SVM classifier. We note that \textit{subj} can also specify conditions on the service owner (\textit{e.g.}, owner\_location $=$ "EU") and the service user (\textit{e.g.}, service\_user\_role $=$ "DOC Director").
+      \vspace{0.5em}
+      More in detail, \textit{subject subj} specifies a service $s_i$ issuing an access request to perform an action on an object. It is a set \{$pc_i$\} of \emph{Policy Conditions} as defined in Definition \ref{def:policy_cond}. For instance, (classifier $=$ ``SVM") specifies a service providing a SVM classifier. We note that \textit{subj} can also specify conditions on the service owner (\textit{e.g.}, owner\_location $=$ ``EU") and the service user (\textit{e.g.}, service\_user\_role $=$  ``DOC Director").
 
       %\item
       \textit{Object obj} defines those data whose access is governed by the policy. It is a set \{$pc_i$\} of \emph{Policy Conditions} as defined in Definition \ref{def:policy_cond}.
       %It can specify the \emph{type} of object, such as a file (e.g., a video, text file, image, etc.), a SQL or noSQL database, a table, a column, a row, or a cell of a table, or any other characteristics of the data.
-      For instance, \{(type $=$ "dataset"), (region $=$ CT)\} refers to an object of type dataset and whose region is Connecticut.
+      For instance, \{(type $=$  ``dataset"), (region $=$  ``CT")\} refers to an object of type dataset and whose region is Connecticut.
 
       %\item
       \textit{Action act} defines those operations that can be performed within a big data environment, from traditional atomic operations on databases (e.g., CRUD operations) to coarser operations, such as an Apache Spark Direct Acyclic Graph (DAG), Hadoop MapReduce, an analytics function call, and an analytics pipeline.
 
       %\item
-      \textit{Environment env} defines a set of conditions on contextual attributes, such as time of the day, location, IP address, risk level, weather condition, holiday/workday, emergency. It is a set \{$pc_i$\} of \emph{Policy Conditions} as defined in Definition \ref{def:policy_cond}. For instance, (\textit{e.g.}, time $=$ "night") refers to a policy that is applicable only at night.
+      \textit{Environment env} defines a set of conditions on contextual attributes, such as time of the day, location, IP address, risk level, weather condition, holiday/workday, emergency. It is a set \{$pc_i$\} of \emph{Policy Conditions} as defined in Definition \ref{def:policy_cond}. For instance, (\textit{e.g.}, time $=$  ``night") refers to a policy that is applicable only at night.
 
       %\item
       \textit{Data Transformation \TP} defines a set of security and privacy-aware transformations on \textit{obj} that must be enforced before any access to data is given. Transformations focus on data protection, as well as on compliance to regulations and standards, in addition to simple format conversions. For instance, let us define three transformations that can be applied to the dataset in \cref{tab:dataset}:
@@ -122,35 +123,10 @@ We note that, at this stage, the template is not yet linked to any service. We a
         \item \emph{level1} (\tp{1}): partial anonymization with only first and last name being anonymized;
         \item \emph{level2} (\tp{2}): full anonymization with first name, last name, identifier and age being anonymized.
       \end{enumerate*}
-      %\end{description}
 
-      % Each component of a policy \emph{p} is further defined
-      %   \begin{description}
-      %     \item
-      % More in detail, \textit{subject subj} defines a service $s_i$ issuing an access request to perform an action on an object. It is of the form $<$\emph{id}, \{$pc_i$\}$>$, where \emph{id} defines a class of services (e.g., classifier), and \{$pc_i$\} is a set of \emph{Policy Conditions} on the subject, as defined in Definition \ref{def:policy_cond}. For instance, $<$\emph{service},\{(classifier $=$ "SVM")\}$>$ refers to a service providing a SVM classifier. We note that \textit{subj} can also specify conditions on the service owner, such as, $<$\emph{service},\{(owner\_location $=$ "EU")\}$>$ and on the service user, such as, $<$\emph{service},\{(service\_user\_role $=$ "DOC Director")\}$>$.
-
-      %     %\item
-      % \textit{Object obj} defines any data whose access is governed by the policy. It is of the form $<$\emph{type}, \{$pc_i$\}$>$, where: \emph{type} defines the type of object, such as a file (e.g., a video, text file, image, etc.), a SQL or noSQL database, a table, a column, a row, or a cell of a table, and \{$pc_i$\} is a set of \emph{Policy Conditions} defined on the object's attributes. For instance, $<$\emph{dataset},\{(region $=$ CT)\}$>$ refers to a dataset whose region is Connecticut.
-
-      %     %\item
-      % \textit{Action act} defines any operations that can be performed within a big data environment, from traditional atomic operations on databases (e.g., CRUD operations) to coarser operations, such as an Apache Spark Direct Acyclic Graph (DAG), Hadoop MapReduce, an analytics function call, an analytics pipeline.
-
-      %     %\item
-      % \textit{Environment env} defines a set of conditions on contextual attributes, such as time of the day, location, IP address, risk level, weather condition, holiday/workday, emergency. It is a set \{$pc_i$\} of \emph{Policy Conditions} as defined in Definition \ref{def:policy_cond}. For instance, $<$\emph{env},\{(time $=$ "night")\}$>$ refers to a policy that is applicable only at night.
-
-      %     %\item
-      % \textit{Data Transformation \TP} defines a set of security and privacy-aware transformations on \textit{obj}, which must be enforced before any access to data. Transformations focus on data protection, as well as compliance to regulations and standards, in addition to simple format conversions. For instance, let us define three transformations that can be applied to \cref{tab:dataset}:
-      %           \begin{enumerate*}[label=\roman*)]
-      %             \item \emph{level0} (\tp{0}): no anonymization;
-      %             \item \emph{level1} (\tp{1}): partial anonymization with only the first name and last name being anonymized;
-      %             \item \emph{level2} (\tp{2}): full anonymization with the first name, last name, identifier, and age being anonymized.
-      %           \end{enumerate*}
-      %   %\end{description}
 
 
 \textcolor{red}{Access control policies $p_j$$\in$\P{i} annotating a vertex \vi{i} in a pipeline template $G^{\myLambda,\myGamma}$ specify the data protection requirements that candidate service must fulfill in order to be selected in the pipeline instance. In Section~\ref{sec:instance} we describe the selection process.}
-
- %     To conclude, access control policies $p_j$$\in$\P{i} annotating vertex \vi{i} in a pipeline template $G^{\myLambda,\myGamma}$ filters out those candidate services $s$$\in$$S^c$ that do not match data protection requirements. Specifically, each policy $p_j$$\in$\P{i} verifies whether a candidate service $s$$\in$$S^c$ for vertex \vi{i} is compatible with data protection requirements in \myLambda(\vi{i}). Policy evaluation matches the profile \profile\ of a candidate service $s$$\in$$S^c$ with the policy conditions in each $p_j$$\in$\P{i}. If the credentials and declarations, defined as a set of attributes in the form (\emph{name}, \emph{value}), in the candidate service profile fails to meet the policy conditions, meaning that no policies $p_j$ evaluates to \emph{true}, the service is discarded; otherwise it is added to the set $S'$ of compatible service, which is used in Section~\ref{sec:instance} to generate the pipeline instance $G'$. No policy enforcement is done at this stage.
 
     \subsection{Functional Annotations}\label{sec:funcannotation}
     A proper data management approach must track functional data manipulations across the entire pipeline execution, defining the functional requirements of each service operating on data.

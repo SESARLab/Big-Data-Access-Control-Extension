@@ -63,8 +63,8 @@ Functional requirement \F{5} prescribes a dataset as input and the results of th
 % 5° NODO %
 
 The fourth stage consists of vertex \vi{6}, managing data storage. Data protection annotation \myLambda(\vi{6}) refers to policies \p{3} and \p{4}, which apply different data transformations depending on the relation between the dataset and the service region.
-If the service region is the dataset origin ($\langle service\_region=dataset\_origin\rangle$) (\p{3}), the dataset is anonymized at level $l_0$ (\tp{0}).
-If the service region is in a partner region ($\langle service,region={NY,NH}"\rangle$) (\p{4}), the dataset is anonymized at level $l_1$ (\tp{1}).
+If the service region is the dataset origin (\p{3}: $\{(service\_region=dataset\_origin)\}$) , the dataset is anonymized at level $l_0$ (\tp{0}).
+If the service region is in a partner region (\p{4}: $\{(service,region={NY,NH})\}$), the dataset is anonymized at level $l_1$ (\tp{1}).
 Functional requirement \F{7} prescribes a dataset as input and the URI of the stored data as output.
 
 % 6° NODO %

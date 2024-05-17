@@ -2,12 +2,12 @@
 In the following of this section, we present our system model (Section \ref{sec:systemmodel}) and our reference scenario (Section \ref{sec:service_definition}) \textcolor{red}{that consists of a service pipeline for analyzing a dataset of individuals awaiting trial detained in the Department of Correction facilities in the state of Connecticut}.
 
 \subsection{System Model}\label{sec:systemmodel}
-We consider a service-based environment where a service pipeline is designed to analyze data. Our system model is derived by a generic big-data framework  \textcolor{red}{enriched with metadata specifying data protection requirements and functional specifications. } It is composed of the following parties: 
+We consider a service-based environment where a service pipeline is designed to analyze data. Our system model is derived by a generic big-data framework  \textcolor{red}{enriched with metadata specifying data protection requirements and functional specifications. } It is composed of the following parties:
 \begin{description}
-  \item[Service,] a software distributed by a \textbf{service provider} that performs a specific task;   
+  \item[Service,] a software distributed by a \textbf{service provider} that performs a specific task;
   \item[Pipeline,] a sequence of connected services that collect, prepare, process, and analyze data in a structured and automated manner;
   \item[Data Governance Policy,] a structured set of privacy guidelines, rules, and procedures regulating data access and protection. \textcolor{red}{In particular, each component service in the pipeline is annotated with data protection requirements and functional specifications.}
-  \item[User,] executing an analytics pipeline on the data. 
+  \item[User,] executing an analytics pipeline on the data.
  \textcolor{red}{ \item[Dataset,] data target of the analytics pipeline. We assume they are ready for analysis, i.e., they underwent a preparatory phase addressing issues such as missing values, outliers, and formatting discrepancies. This ensures that the data are in an optimal state for subsequent analysis.}
 \end{description}
 %
@@ -15,7 +15,7 @@ We define a service pipeline as a graph structured as follows. % and depicted in
 \begin{definition}[\pipeline]\label{def:pipeline}
   % A \pipeline is as a direct acyclic graph G(\V,\E), where \V\ is a set of vertices and \E\ is a set of edges connecting two vertices \vi{i},\vi{k}$\in$\V. The graph has a root \vi{r}$\in$\V, a vertex \vi{i}$\in$\V$_S$ for each service $s_i$, two additional vertices \vi{c},\vi{m}$\in$\V$_{\timesOperator}$$\subset$\V\ for each alternative ($\timesOperator$) structure modeling the alternative execution (\emph{choice}) of operations and the retrieval (\emph{merge}) of the results, respectively, and one additional vertex \vi{f} $\in$\V$_{\plusOperator}$$\subset$\V\ for each parallel ($\plusOperator$) structure modeling the contemporary execution (\emph{fork}) of operations.
   A \pipeline is as a direct acyclic graph G(\V,\E), where \V\ is a set of vertices and \E\ is a set of edges connecting two vertices \vi{i},\vi{k}$\in$\V.
-  The graph has a root \vi{r}$\in$\V, a vertex \vi{i}$\in$\V$_S$ for each service $s_i$, an additional vertex \vi{f}$\in$\V\ for each parallel ($\plusOperator$) structure modeling the contemporary execution (\emph{fork}) of services.
+  The graph has a root \vi{r}$\in$\V ($\bullet$), a vertex \vi{i}$\in$\V$_S$ for each service $s_i$, an additional vertex \vi{f}$\in$\V\ for each parallel ($\plusOperator$) structure modeling the contemporary execution (\emph{fork}) of services.
 \end{definition}
 
 We note that \V$=$\{\vi{r},\vi{f}\}$\cup$\V$_S$, with vertices \vi{f} modeling branching for parallel structures, and root \vi{r} possibly representing the orchestrator. In addition, for simplicity but no lack of generality, alternative structures modeling the alternative execution of services are specified as alternative service pipelines, that is, there is no alternative structure in a single service pipeline.
