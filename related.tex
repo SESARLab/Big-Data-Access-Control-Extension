@@ -1,50 +1,34 @@
 \section{Related Work}\label{sec:related}
 
+
+Given the breadth of topics covered, the related work is discussed separately to provide a more detailed and organized review.
+In Section \ref{sec:dataquality} In Section \ref{sec:datagov} data governance solution security aware
+
 %%%%%%%%%%%%%%%%%%%%
-\subsection{Data quality}
+\subsection{Data protection and data quality}\label{sec:dataquality}
 %%%%%%%%%%%%%%%%%%%%
 
-Data quality is a largely studied research topic, from different communities. 
-
-to perform the data mining tasks in
-a privacy-preserving way. These techniques for performing privacy-preserving
-data mining are drawn from a wide array of related topics such as data mining,
-cryptography and information hiding.
-
-The main problem with data quality is that its evaluation is relative [18], in
-that it usually depends on the context in which data are used.
-non c'è un unica metrica, ci sono diverse metriche 
-
-In our selection we tried to choose una che potesse andare bene. E soprattutto abbiamo cercato di fare delle considerazioni rispetto a tutto il ciclo di vita del dato
-
-citare nostro journal
+Data quality is a largely studied research topic, from different communities and from different points of view. perspectives
+Nell'ambito big data, principalmente Big data quality refers to the degree to which big data meets the requirements and expectations of its intended use. It encompasses various dimensions and characteristics to ensure that the data is reliable, accurate, and valuable for analysis and decision-making. Key dimensions of big data quality include:
+    Accuracy: The correctness of the data, ensuring it accurately represents the real-world entities and events it is supposed to model.
+    Consistency: The uniformity of the data across different datasets and over time, ensuring that data does not contradict itself.
+    Validity: The data must conform to defined formats and constraints, ensuring it is suitable for the intended use.
 
 
-The main feature of the most PPDM algorithms is that they usually modify
-the database through insertion of false information or through the blocking of
-data values in order to hide sensitive information. Such perturbation techniques
-cause the decrease of the data quality. It is obvious that the more the changes
-are made to the database, the less the database reflects the domain of interest.
-Therefore, data quality metrics are very important in the evaluation of PPDM
+Con l'avvento della necessità di proteggere i dati sensibili la questione della qualità ha iniziato anche a encompass a larger notion of accuracy, inteso nel senso di quanto sia valido. - Accuracy: it measures the proximity of a sanitized value to the original
+value.
+Per altro nell'ambito di Privacy Preserving Data Mining, il problema è opposto, perché si vuole calcolare la qualità del dato quality of data resulting from the anonymization process. data quality metrics are very important in the evaluation of PPDM
 techniques.
-In existing works, several data quality metrics have been proposed that are
-either generic or data-use-specific. However, currently, there is no metric that
-is widely accepted by the research community.
-In evaluating the data quality after the privacy preserving process, it can be
-useful to assess both the quality of the data resulting from the PPDM process
-and the quality of the data mining results.
-The quality of the data themselves
-can be considered as a general measure evaluating the state of the individual
-items contained in the database after the enforcement of a privacy preserving
-technique. The quality of the data mining results evaluates the alteration in the
-information that is extracted from the database after the privacy preservation
-process, on the basis of the intended data use.
-The main problem with data quality is that its evaluation is relative [18], in
-that it usually depends on the context in which data are used.
 
+e anche la necessità di avere delle metriche che misurino la qualità
+
+
+
+In existing works, several data quality metrics have been proposed that are
+either generic or data-use-specific \cite{Majeed2021AnonymizationTF}. METTERE ESEMPI E RIFERIMENTI PRESI DA LI However, currently, there is no metric that is widely accepted by the research community. The main problem with data quality is that its evaluation is relative  \cite{dataAccuracy,dataQuality}, in that it usually depends on the context in which data are used.
 In the scientific literature data quality is generally
 considered a multi-dimensional concept that in certain contexts involves
-both objective and subjective parameters [3, 34]. Among the various possible
+both objective and subjective parameters. Among the various possible
 parameters, the following ones are usually considered the most relevant:
 - Accuracy: it measures the proximity of a sanitized value to the original
 value.
@@ -61,6 +45,14 @@ In what follows, we discuss how different approaches measure the
 accuracy.
 
 
+In our selection we tried to choose una che potesse andare bene. E soprattutto abbiamo cercato di fare delle considerazioni rispetto a tutto il ciclo di vita del dato
+
+citare nostro journal
+
+
+In evaluating the data quality after the privacy preserving process, it can be
+useful to assess both the quality of the data resulting from the PPDM process
+
 
 The database management research community mainly focused on increasing the quality of the source data rather than guaranteeing data quality along the whole processing pipeline or the quality of outcomes built on data.
 In \cite{BigDataQaulitySurvey}, a survey on big data quality is proposed mentioning the well known categories of big data quality grouped by intrinsic, contextual representational and accessibility categories.
@@ -68,16 +60,19 @@ It also presents an holistic quality management model where the importance of da
 In this paper we depart from this idea on data quality at pre processing time only measuring it at each step of the big data pipeline.
 
 tecniche di crittografia
-\cite{8863330} \cite{Majeed2021AnonymizationTF}
+%\cite{8863330} 
+
 
 cose simile a noi, nel senso che si rendono conto del problema e lo studiano
 Privacy and analytics can work in tandem, but the mining outcome of a privacy aware design suffers from data quality
  in quello che segue ci sono anche in una tabella gli articoli citati
  NON SO SE METTERLI QUI O NELLA SEZIONE DOPO
- \cite{10.1007/978-981-15-0372-6_19}
+ \cite{dataProtection}
+ 
+Nel nostro caso abbiamo scelto due metriche, una di un tipo l'altra di un altro, ma il framework e l'approccio rimangono validi anche scegliendo un'altra metrica.
 
 %%%%%%%%%%%%%%%%%%
-\subsection{Data protection}
+\subsection{Data protection and data governance}\label{ssec:datagov}
 %%%%%%%%%%%%%%%%%%
 
 Research on data governance and protection focuses on the definition of new approaches and techniques aimed to protect the security and privacy of big data (e.g., CIA triad), as well as managing their life cycle with security and privacy in mind. Often, the research community is targeting specific security and privacy problems, resulting in a proliferation of solutions and tools, which are difficult to integrate in a coherent framework. Many solutions have been developed to protect the users' identity (e.g., anonymity \cite{wallace1999anonymity}, pseudonimity \cite{pfitzmann2001pseudonymity}, k-anonymity \cite{k-anon}), to guarantee data confidentiality and integrity (e.g., encryption \cite{thambiraja2012survey}, differential privacy \cite{hassan2019differential}, access control \cite{tolone2005access,servos2017current}), and to govern data sharing and analysis (e.g., data lineage \cite{woodruff1997supporting}, ETL/ELT ingestion \cite{vassiliadis2009survey}).
@@ -99,6 +94,6 @@ This paper proposes a general purpose AC scheme for distributed BD processing cl
 \cite{balancingInMedicine} However centralized data-storage has its pitfalls, especially regarding data privacy. We therefore drafted an IT infrastructure that uses decentralized storage to ensure data privacy, but still enables data transfer between participating hospitals. It implements an independent information broker to ensure anonymity of patients. Still it provides a way for researchers to request data and hospitals to contribute data on an opt-in basis. Although not an entirely new approach, the emphasis on data privacy throughout the design is a novel aspect providing a better balance between the need for big sample sizes and patient privacy. 
 
 %%%%%%%%%%%%%%%%%%%
-\subsection{Service Selection} 
+\subsection{Service Selection based on data quality} 
 %%%%%%%%%%%%%%%%%%%
 citare TWEB
