@@ -1,5 +1,5 @@
 base_path = 'data/'
-file_base = 'window_quality_performance_diff_qual_n7_s7_50_80'
+file_base = 'window_quality_performance_diff_qual_n7_s7_20_100'
 
 # set terminal png enhanced
 set terminal postscript eps color enhanced
