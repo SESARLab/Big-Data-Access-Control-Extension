@@ -1,6 +1,7 @@
 base_path = 'data/'
 file_base = 'window_time_performance_n7_s7_20_100'
-file_base = 'window_time_performance_n7_s7_50_89'
+file_base = 'window_time_performance_qualitative_n7_s7_50_80'
+
 # set terminal png enhanced
 set terminal postscript eps color enhanced
 set key box top left inside Left samplen 1
@@ -8,7 +9,7 @@ set xtics autofreq 1
 set ytics autofreq
 # set yrange [0.85:1]
 
-set yrange [*:10000000]
+set yrange [*:150000000]
 set size 1,1
 set origin 0,0
 set border 3
@@ -27,7 +28,7 @@ set key outside
 # Optional: Uncomment for multiplot layout
 # set multiplot layout 2,3 rowsfirst scale 1.1,0.9
 
-do for [i=3:4] {
+do for [i=3:7] {
 
   set output sprintf('%s_n%d.eps', file_base,i)
   set label sprintf("%d Vert", i) at graph 0.5, graph -0.3 center
