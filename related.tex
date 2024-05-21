@@ -3,7 +3,7 @@
 Given the breadth of topics covered, the related work is discussed separately to provide a more detailed and organized review. In Section  \ref{sec:dataquality}, we address the issue of the lack of consensus on the definition of data quality and, consequently, on data quality metrics when applying data protection transformations. In Section \ref{sec:datagov}, we examine existing data governance solutions that tackle the problem of data protection when sharing data among different services. In Section \ref{sec:servicesel}, we review the literature on QoS (Quality of Service) service selection.
 
 %%%%%%%%%%%%%%%%%%%%
-\subsection{Data protection and data quality}\label{sec:dataquality}
+\subsection{Data quality and data protection}\label{sec:dataquality}
 %%%%%%%%%%%%%%%%%%%%
 
 Data quality is a widely studied research topic across various communities and perspectives, such as the database community or when evaluating privacy preserving data mining techniques. In the context of big data, data quality primarily refers to the extent to which big data meets the requirements and expectations of its intended use, encompassing various dimensions and characteristics to ensure the data is reliable, accurate, and valuable for analysis and decision-making. Specifically, accuracy denotes the correctness of the data, ensuring it accurately represents the real-world entities and events it models.
@@ -18,13 +18,20 @@ Another critical consideration is the integration of data quality throughout the
 the authors propose a holistic quality management model that briefly considers data quality during processing, primarily in the context of prerequisites for preprocessing tasks (e.g., data refinement and enhancement through cleaning processes). In contrast, our approach diverges from this notion of assessing data quality solely during preprocessing, instead advocating for its evaluation at each stage of the big data pipeline. We build upon the evaluation conducted in \cite{impetusPaper} within a specific case study, wherein data protection transformations were implemented at each stage, albeit with only one candidate service.
 
 %%%%%%%%%%%%%%%%%%
-\subsection{Data protection and data governance}\label{sec:datagov}
+\subsection{Data governance and data protection}\label{sec:datagov}
 %%%%%%%%%%%%%%%%%%
 
- 
+As organizations realize practical benefits and significant value from big data, they also acknowledge the limitations of current big data ecosystems, particularly regarding data governance and data protection, and the need for privacy-aware systems enforcing sensitive data protection. Recently, both industry and academic communities have begun to investigate the issue, recognizing the need of new security requirements \cite{Colombo:JournCybersec:2019} and the importance of addressing the conflict between the need to share and the need to protect information \cite{balancingact,VANDENBROEK2018330,balancingInMedicine,needtobalance,dataProtection}, or from a data governance perspective \cite{al2018exploring,aissa2020decide}.
 
+Various proposals address data protection by implementing robust access control on big data platforms. Some approaches are platform-specific, tailored to single systems like MongoDB or Hadoop, and leverage the native access control features of these platforms \cite{rathore2017hadoop,anisetti2018privacy,FederationAC:Journ:2020,Sandhu:ABAC:2018,GuptaSandu:2017}. Other approaches focus on specific databases, such as NoSQL or graph databases, or specific types of analytical pipelines  \cite{AConGraphDB:2021, AConMongoDB:2022, ABACforHBase:2019}. However, these solutions often rely on query rewriting mechanisms, resulting in high complexity and low efficiency. Some solutions are designed for specific scenarios, such as federated cloud environments, edge microservices, or IoT, and lack the flexibility to adapt to multiple contexts \cite{MultipartyAC:2019, IoTSecurity}.
+
+The most similar to our approach are platform-independent solutions that, like ours, adopt Attribute-Based Access Control (ABAC) \cite{XACML3.0} as a common underlying model, given its ability to support highly flexible and dynamic forms of data protection to business-critical data. They have the advantage of being more general than platform-specific solutions. However, the currently available platforms either model resources to be accessed as monolithic files (e.g., Microsoft DAC) or lack scalability. A relevant work by Hu et al.  \cite{ HUFerraiolo:2014} introduced a generalized access control model for big data processing frameworks that can be extended to the Hadoop environment. However, their work discusses the issues only from a high-level architectural perspective and does not offer a tangible solution or address data quality issues. Another relevant work by Xue et al.  \cite{GuardSpark:ACSAC:2020} proposes a solution based on purpose-aware access control \cite{Byun2008}, focusing on Apache Spark. 
+%
+Our definition of pipeline template addresses the various challenges by allowing to express the security policies at the right level of granularity, considering individual services in the pipeline. It can also be easily mapped onto specific platforms, such as Apache-based systems, as we have demonstrated in \cite{medes2021}.
 
 %%%%%%%%%%%%%%%%%%%
 \subsection{Service Selection based on data quality}\label{sec:servicesel}
 %%%%%%%%%%%%%%%%%%%
+
+%Quality of Service (QoS) is a critical factor in the selection of services within a big data environment. Several studies have explored the integration of QoS metrics into service selection algorithms to ensure that selected services meet specific performance, reliability, and security standards. These studies emphasize the importance of considering both functional and non-functional requirements in service selection to optimize overall system performance and user satisfaction. The evaluation of QoS metrics often involves assessing various parameters, such as response time, availability, throughput, and security features, to ensure that services align with the desired quality standards.
 
