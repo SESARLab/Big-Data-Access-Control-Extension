@@ -1,19 +1,20 @@
 base_path = 'data/'
 file_base = 'window_quality_performance_diff_qual_n7_s7_50_80'
-file_base = 'window_quality_performance_diff_qual_n7_s7_20_100'
-file_base = 'window_quality_performance_diff_perce_n7_s7_20_100'
+#file_base = 'window_quality_performance_diff_qual_n7_s7_20_100'
 #file_base = 'window_quality_performance_diff_perce_n7_s7_50_89'
+#file_base = 'window_quality_performance_diff_perce_n7_s7_20_100'
 # set terminal png enhanced
 set terminal postscript eps color enhanced
 set key box top left inside Left samplen 1
-set xtics autofreq 1
-# set yrange [0.85:1]
-set ytics 0.02
+set xtics autofreq 1 font ",20"
+set ytics autofreq 0.04 font ",20"
+set yrange [0.84:1]
+#set ytics 0.02
 set size 1,1
 set origin 0,0
 set border 3
-set ylabel "Metric Value"
-set xlabel "Number Of Services"
+set ylabel "Metric Value" font ",22"
+set xlabel "Number Of Services" font ",22"
 # set grid
 set tics nomirror
 set key bottom right
