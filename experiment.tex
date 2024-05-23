@@ -131,23 +131,8 @@ The simulator first defines the pipeline template as a sequence of vertices, wit
   \end{figure}
 
   \subsection{Perfomance}\label{subsec:experiments_performance}
-  % \subsection{performance}
-  % \begin{itemize}
-  %   \item Finestra scorrevole da 1 a N=Nodi
-  %   \item Servizi 5 a 20 passo 5 + 50??
-  %   \item
-  % \end{itemize}
-  % \subsection{Metriche/Euristiche}
-  We first measured the performance (execution time) of our exhaustive and heuristic solutions. To this aim, we varied the number of vertices in the pipeline template from 2 to 7 (step 1) and the number of services per vertex from 2 to 7 (step 1). \cref{fig:perf_exhaustive} presents our results for the exhaustive solution, showing an exponential trend in the execution time. We can observe that, as the number of vertices increases, the execution time grows exponentially.
-  %Subsequently, the logical extension of this empirical inquiry involves evaluating the execution time efficiency attributable to the implementation of the sliding window heuristic.
-
-  We then evaluated our heuristic and measured its performance (execution time) varying the window size \windowsize\ from 2 to Y (step 1). \cref{fig:time_window_perce_average} presents our results for the heuristic solution. We can observe a substantial reduction in execution time, with the heuristic always able to produce an instance in less than \hl{TO ADD}.
-  % \begin{figure}[htb!]
-  %   \includegraphics[width=0.95\columnwidth]{graphs/exhaustive_performance.eps}
-  %   \caption{Exhaustive execution time evaluation. The x-axis represents the number of services, while the y-axis represents the execution time in seconds. The execution time is expressed both in linear and logarithmic scales.}
-  %   \label{fig:perf_exhaustive}
-  % \end{figure}
-
+  We first measured the performance (execution time) of our exhaustive and heuristic solutions by varying the number of vertices in the pipeline template from 2 to 7 and the number of services per vertex from 2 to 7. \cref{fig:time_window_perce_average} presents our results for both the exhaustive and heuristic solutions.
+  The exhaustive approach is able to provide the optimal solution for all configurations, but its execution time grows exponentially with the number of vertices and services, making it impractical for large instances. For \windowsize from 1 to 3 (step 1), we observed a substantial reduction in execution time, with the heuristic always able to produce an instance in less than $\approx2.7\times10^5ms$ . The worst heuristic performance (7 vertices, 7 services, \windowsize=6) is $\approx3.8\times10^7ms$ is still one order of magnitude lower than the best exhaustive performance (7 vertices, 7 services, \windowsize=7) $\approx1.35\times10^8ms$.
   \begin{figure}[!htb]
     \centering
     \begin{subfigure}{0.45\textwidth}
