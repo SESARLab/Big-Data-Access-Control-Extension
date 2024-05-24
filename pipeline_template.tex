@@ -15,6 +15,8 @@ Given the service pipeline in Definition~\ref{def:pipeline}, we use annotations 
 
 The template is formally defined as follows.
 
+\vspace{0.5em}
+
 \begin{definition}[Pipeline Template] \label{def:template}
   Given a service pipeline G(\V,\E), a pipeline template \tChartFunction is a direct acyclic graph extendend with two annotation functions:
   \begin{enumerate}%[label=\textit{\roman*}]
@@ -22,6 +24,8 @@ The template is formally defined as follows.
     \item \emph{Functional Annotation} \myGamma that assigns a label \myGamma(\vi{i}) to each vertex $\vi{i}\in\V_S$. Label \myGamma(\vi{i}) corresponds to the functional description $F_i$ of service $s_i$ represented by \vi{i}.
   \end{enumerate}
 \end{definition}
+
+\vspace{0.5em}
 
 We note that, at this stage, the template is not yet linked to any service. We also note that policies $p_j$$\in$\P{i} in \myLambda(\vi{i}) are combined using logical OR, meaning that the access decision is positive if at least one policy $p_j$ evaluates to \emph{true}.
       %We also note that functional description $F_i$ includes the specific data transformation triggered as the result of a service execution.
@@ -91,16 +95,22 @@ We note that, at this stage, the template is not yet linked to any service. We a
 
       \subsection{Data Protection Annotation}\label{sec:nonfuncannotation}
       Data Protection Annotation \myLambda\ expresses data protection requirements in the form of access control policies. We consider an attribute-based access control model that offers flexible fine-grained authorization and adapts its standard key components to address the unique characteristics of a big data environment. Access requirements are expressed in the form of policy conditions that are defined as follows.
+      
       \vspace{0.5em}
+      
       \begin{definition}[Policy Condition]\label{def:policy_cond}
         A \emph{Policy Condition pc} is a Boolean expression of the form $($\emph{attr\_name} op \emph{attr\_value}$)$, with op$\in$\{$<$,$>$,$=$,$\neq$,$\leq$,$\geq$\}, \emph{attr\_name} an attribute label, and \emph{attr\_value} the corresponding attribute value.
       \end{definition}
+      
       \vspace{0.5em}
+      
       Built on policy conditions, an access control policy is then defined as follows.
       \vspace{0.5em}
       \begin{definition}[Policy]\label{def:policy_rule}
         A {\it policy p}$\in$\P{} is 5-uple $<$\textit{subj}, \textit{obj}, \textit{act}, \textit{env}, \textit{\TP}$>$ that specifies who (\emph{subject}) can access what (\emph{object}) with action (\emph{action}), in a specific context (\emph{environment}) and under specific obligations (\emph{data transformation}).
       \end{definition}
+
+      \vspace{0.5em}
 
       More in detail, \textit{subject subj} specifies a service $s_i$ issuing an access request to perform an action on an object. It is a set \{$pc_i$\} of \emph{Policy Conditions} as defined in Definition \ref{def:policy_cond}. For instance, (classifier$=$"SVM") specifies a service providing a SVM classifier. We note that \textit{subj} can also specify conditions on the service owner (\textit{e.g.}, owner\_location$=$"EU") and the service user (\textit{e.g.}, service\_user\_role$=$"DOC Director").
 

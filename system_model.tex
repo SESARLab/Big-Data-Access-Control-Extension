@@ -3,20 +3,27 @@ We present our system model (Section \ref{sec:systemmodel}) and our reference sc
 
 \subsection{System Model}\label{sec:systemmodel}
 We consider a service-based environment where a service pipeline is designed to analyze data. Our system model is derived by a generic big-data framework and enriched with metadata specifying data protection requirements and functional specifications. It is composed of the following parties: 
-\begin{description}
-  \item[Service,] a software distributed by a service provider that performs a specific task;   
-  \item[Service Pipeline,] a sequence of connected services that collect, prepare, process, and analyze data in a structured and automated manner;
-  \item[Data Governance Policy,] a structured set of privacy guidelines, rules, and procedures regulating data access, sharing, and protection; %\textcolor{red}{In particular, each component service in the pipeline is annotated with data protection requirements and functional specifications.}
-  \item[User,] executing an analytics pipeline on the data.  \textcolor{red}{ We assume the user is authorized to perform this operation, either as the data owner or as a data processor with the owner's consent.}
-  \item[Dataset,] the data target of the analytics pipeline. We assume all data are ready for analysis, that is, they underwent a preparatory phase addressing issues such as missing values, outliers, and formatting discrepancies. %This ensures that the data are in an optimal state for subsequent analysis.}
-\end{description}
+\begin{itemize}
+  \item \emph{Service}, a software distributed by a service provider that performs a specific task;   
+  \item \emph{Service Pipeline}, a sequence of connected services that collect, prepare, process, and analyze data in a structured and automated manner;
+  \item \emph{Data Governance Policy}, a structured set of privacy guidelines, rules, and procedures regulating data access, sharing, and protection; %\textcolor{red}{In particular, each component service in the pipeline is annotated with data protection requirements and functional specifications.}
+  \item \emph{User}, executing an analytics pipeline on the data. We assume the user is authorized to perform this operation, either as the data owner or as a data processor with the owner's consent.
+  \item \emph{Dataset}, the data target of the analytics pipeline. We assume all data are ready for analysis, that is, they underwent a preparatory phase addressing issues such as missing values, outliers, and formatting discrepancies. %This ensures that the data are in an optimal state for subsequent analysis.}
+\end{itemize}
+
+\vspace{0.5em}
 
 A service pipeline is a graph formally defined as follows. % and depicted in \cref{fig:service_pipeline}.
+
+\vspace{0.5em}
+
 \begin{definition}[\pipeline]\label{def:pipeline}
   % A \pipeline is as a direct acyclic graph G(\V,\E), where \V\ is a set of vertices and \E\ is a set of edges connecting two vertices \vi{i},\vi{k}$\in$\V. The graph has a root \vi{r}$\in$\V, a vertex \vi{i}$\in$\V$_S$ for each service $s_i$, two additional vertices \vi{c},\vi{m}$\in$\V$_{\timesOperator}$$\subset$\V\ for each alternative ($\timesOperator$) structure modeling the alternative execution (\emph{choice}) of operations and the retrieval (\emph{merge}) of the results, respectively, and one additional vertex \vi{f} $\in$\V$_{\plusOperator}$$\subset$\V\ for each parallel ($\plusOperator$) structure modeling the contemporary execution (\emph{fork}) of operations.
   A \pipeline is as a direct acyclic graph G(\V,\E), where \V\ is a set of vertices and \E\ is a set of edges connecting two vertices \vi{i},\vi{k}$\in$\V.
   The graph has a root ($\bullet$) vertex \vi{r}$\in$\V , a vertex \vi{i}$\in$\V$_S$ for each service $s_i$, an additional vertex \vi{f}$\in$\V\ for each parallel ($\plusOperator$) structure modeling the contemporary execution (\emph{fork}) of services.
 \end{definition}
+
+\vspace{0.5em}
 
 We note that \V$=$\{\vi{r},\vi{f}\}$\cup$\V$_S$, with vertices \vi{f} modeling branching for parallel structures, and root \vi{r} possibly representing the orchestrator. In addition, for simplicity but no lack of generality, alternative structures modeling the alternative execution of services are specified as alternative service pipelines, that is, there is no alternative structure in a single service pipeline.
 
