@@ -200,6 +200,6 @@ Function \textbf{SelectService} takes as input index $j$ representing the starti
 
 Function \textbf{SelectService} checks whether it is processing the last window (line 25). If yes, it returns the best combination $G^*_w$ (line 26). Otherwise, it returns the (set of) service at depth $j$ of $G^*_w$ (line 28).
 
-Within each window, function \textbf{SlidingWindowHeuristic} iterates through the selected services to calculate the total quality metric $M$ (\textbf{for cycle} in lines 10-11).\hl{il ciclo non mi è chiarissimo secondo me manca qualcosa o è sbagliato l'indice} This metric is updated by summing the quality metrics of the selected services. The function concludes by returning the best pipeline instance $G'$ and the corresponding quality metric $M$ (line 14).
+Within each window, function \textbf{SlidingWindowHeuristic} iterates through the selected services to calculate the total quality metric $M$ (\textbf{for cycle} in lines 10-11).\hl{il ciclo non mi e' chiarissimo secondo me manca qualcosa o e' sbagliato l'indice} This metric is updated by summing the quality metrics of the selected services. The function concludes by returning the best pipeline instance $G'$ and the corresponding quality metric $M$ (line 14).
 
 
