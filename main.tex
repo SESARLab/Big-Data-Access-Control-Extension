@@ -1,5 +1,5 @@
 %\documentclass[10pt,journal,compsoc]{IEEEtran}
-\documentclass[sn-mathphys-num]{sn-jnl}
+\documentclass[sn-mathphys-num,referee]{sn-jnl}
 \usepackage{natbib} % For citations
 
 %\usepackage{cite}
@@ -99,7 +99,17 @@
 \input{related}
 
 \section{Conclusions}\label{sec:conclusions}
-To comprehensively understand the influence of dataset selection on the retrieved quality and ensure heuristic robustness across diverse scenarios, a dedicated investigation is left for our future work. This further research will validate the findings in this paper and provide a deeper insight into the applicability of the heuristics in various contexts.
+In the realm of distributed big data pipelines, managing data while ensuring both quality and protection presents numerous challenges.
+This paper introduced a framework specifically designed to address these dual concerns.
+Our data governance model employs policies and ongoing monitoring to address data security and privacy challenges, without compromising data integrity.
+The key point of the framework is its ability to annotate each element of the pipeline with specific data protection requirements and functional specifications.
+This method can enhances compliance with regulatory standards and improves data quality by preserving maximum information during transformation processes.
+Experimental results have confirmed the effectiveness of our parametric heuristic in addressing the computationally complex NP-hard service selection problem.
+Making use of a realistic dataset, these experiments trying to evaluate the framework’s ability to sustain high data quality while ensuring robust data protection, which is essential for applications where both data utility and privacy must coexist.
+
+To fully understand the impact of dataset selection on the retrieved quality and to ensure heuristic robustness across various scenarios, further investigation is planned for future work.
+This research will aim to validate the findings of this paper and explore deeper insights into the applicability of the heuristics across different contexts.
+
 
 \clearpage
 %\bibliographystyle{spbasic}      % basic style, author-year citations
