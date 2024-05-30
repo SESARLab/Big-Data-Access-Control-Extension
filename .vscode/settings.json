@@ -11,5 +11,25 @@
   ],
   "editor.lineNumbers": "on",
   "python.analysis.autoImportCompletions": true,
-  "python.analysis.typeCheckingMode": "off"
+  "python.analysis.typeCheckingMode": "off",
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#9d0150",
+    "activityBar.background": "#9d0150",
+    "activityBar.foreground": "#e7e7e7",
+    "activityBar.inactiveForeground": "#e7e7e799",
+    "activityBarBadge.background": "#102000",
+    "activityBarBadge.foreground": "#e7e7e7",
+    "commandCenter.border": "#e7e7e799",
+    "sash.hoverBorder": "#9d0150",
+    "statusBar.background": "#6a0136",
+    "statusBar.foreground": "#e7e7e7",
+    "statusBarItem.hoverBackground": "#9d0150",
+    "statusBarItem.remoteBackground": "#6a0136",
+    "statusBarItem.remoteForeground": "#e7e7e7",
+    "titleBar.activeBackground": "#6a0136",
+    "titleBar.activeForeground": "#e7e7e7",
+    "titleBar.inactiveBackground": "#6a013699",
+    "titleBar.inactiveForeground": "#e7e7e799"
+  },
+  "peacock.color": "#6A0136"
 }
