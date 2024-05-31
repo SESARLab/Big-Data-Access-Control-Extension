@@ -119,9 +119,9 @@ We design and implement a heuristic algorithm built on a \emph{sliding window} f
 %Our heuristic is built on a \emph{sliding window} and aims to maximize information \quality \emph{\q} according to quality metrics.
 %At each step, a set of vertices in the pipeline template $\tChartFunction$ is selected according to a window of size \windowsize, which select a subset of the pipeline template starting at depth $i$ and ending at depth \windowsize+i-1.
 At each iteration $i$, a window of size \windowsize\ selects a subset of vertices in the pipeline template $\tChartFunction$, from vertices at depth $i$ to vertices at depth \windowsize$+$$i$$-$1.
-Service filtering and selection in \cref{sec:instance} are then executed to maximize quality $Q_w$ in window $w$. The heuristic returns as output the list of services instantiating all vertices at depth $i$. The sliding window $w$ is then shifted by 1 (i.e., $i$$=$$i$+1) and the filtering and selection process executed until \windowsize$+$$i$$-$1 is equal to length $l$ (max depth) of $\tChartFunction$, that is, the sliding window reaches the end of the template. In the latter case, the heuristic instantiates all remaining vertices and returns the pipeline instance $G'$.
+Service filtering and selection in \cref{sec:instance} are then executed to maximize quality $Q_w$ in window $w$. The heuristic returns as output the list of services instantiating all vertices at depth $i$. The sliding window $w$ is then shifted by 1 (i.e., $i$$=$$i$+1) and the filtering and selection process executed until \windowsize$+$$i$$-$1 is equal to length $l$ (max depth) of $\tChartFunction$, that is, the sliding window reaches the end of the template. In the latter case, the heuristic instantiates all remaining vertices and returns the pipeline instance.
 %For example, in our service selection problem where the quantity of information lost needs to be minimized, the sliding window algorithm can be used to select services composition that have the lowest information loss within a fixed-size window.
-This strategy ensures that only services with low information loss are selected at each step, maximizing the pipeline quality \q. 
+This strategy ensures that only services with low information loss are selected at each step, maximizing the pipeline quality \q. The pseudocode of the heuristic algorithm is presented in \cref{fig:slidingwindow-pseudocode}.
 \newenvironment{redtext}{\footnotesize	\color{gray}}{~~}
 \begin{figure}[!t]
     % \begin{}
@@ -135,37 +135,36 @@ This strategy ensures that only services with low information loss are selected 
                         $G'$: Pipeline Instance\\
                         $M$: Quality Metric\\
                         ~\\[1pt]
-                    \funcname{Sliding\_Window\_Heuristic ($G^{\myLambda,\myGamma}$, \windowsize)}\\
+                    \funcname{Sliding Window Heuristic}\\
+                    \\
                     \begin{redtext}1\end{redtext}\commentall{For each window frame choose the best combination of services}\\
                     \begin{redtext}2\end{redtext}\com{for} \= i = 0 to l - \windowsize + 1;\\
-                    \begin{redtext}3\end{redtext}\tabone\com{for} \= j = i \com{to} i + \windowsize - 1;\\
-                        % \tabtwo \commentall{ciao}\\
-                        \begin{redtext}4\end{redtext}\tabtwo $G'$ = $G'$ $\cup$ Select\_Service(j, \windowsize);\\
-                        \begin{redtext}5\end{redtext}\tabone\com{endfor};\\
-                        \begin{redtext}6\end{redtext}\com{endfor};\\
+                        \begin{redtext}3\end{redtext}\tabone $G'$ = $G'$ $\cup$ Select Service(j, \windowsize);\\
+                        \begin{redtext}4\end{redtext}\com{endfor};\\
                     \\
-                    \begin{redtext}7\end{redtext}\commentall{Calculate the total quality metric}\\
-                    \begin{redtext}8\end{redtext}\com{for} \= j = 0 to $|V'_S|$;\\
-                    \begin{redtext}9\end{redtext}\tabone $M$=$M$+$M(\sii{j})$;\\
-                    \begin{redtext}10\end{redtext}\com{endfor};\\
+                    \begin{redtext}5\end{redtext}\commentall{Calculate the total quality metric}\\
+                    \begin{redtext}6\end{redtext}\com{for} \= j = 0 to $|V'_S|$;\\
+                    \begin{redtext}7\end{redtext}\tabone $M$=$M$+$M(\sii{j})$;\\
+                    \begin{redtext}8\end{redtext}\com{endfor};\\
                     \\
-                    \begin{redtext}11\end{redtext}\com{return}  $G'$, $M$;\\
+                    \begin{redtext}9\end{redtext}\com{return}  $G'$, $M$;\\
                     \\
                     \\
-                    \begin{redtext}12\end{redtext}\funcname{Select\_Service (j,\windowsize)}\\
-                    \begin{redtext}13\end{redtext}\bestcombination = best combination (\textit{empty});\\
-                    \begin{redtext}14\end{redtext}\commentall{Select the best combination of services}\\
-                    \begin{redtext}15\end{redtext}\com{for}\=~\currentcombination $\in$  $\bigotimes_{k=j}^{j+|w|-1} verticesList[k]$\\
-                    \begin{redtext}16\end{redtext}\tabone \com{if}\=~M(\currentcombination) $<$ M(\bestcombination)\\
-                    \begin{redtext}17\end{redtext}\tabtwo \bestcombination = \currentcombination\\
+                    \begin{redtext}10\end{redtext}\funcname{Select Service}\\
+                    \\
+                    \begin{redtext}11\end{redtext}\bestcombination = best combination (\textit{empty});\\
+                    \begin{redtext}12\end{redtext}\commentall{Select the best combination of services}\\
+                    \begin{redtext}13\end{redtext}\com{for}\=~\currentcombination $\in$  $\bigotimes_{k=j}^{j+|w|-1} verticesList[k]$\\
+                    \begin{redtext}14\end{redtext}\tabone \com{if}\=~M(\currentcombination) $<$ M(\bestcombination)\\
+                    \begin{redtext}15\end{redtext}\tabtwo \bestcombination = \currentcombination\\
 
-                    \begin{redtext}18\end{redtext}\com{endfor};\\
+                    \begin{redtext}16\end{redtext}\com{endfor};\\
                     \\
-                    \begin{redtext}19\end{redtext}\commentall{If it is the last window frame, return all services }\\
-                    \begin{redtext}20\end{redtext}\com{if}\=~isLastWindowFrame()\\
-                    \begin{redtext}21\end{redtext}\tabone\com{return} \bestcombination\\
-                    \begin{redtext}22\end{redtext}\com{else}\\
-                    \begin{redtext}23\end{redtext}\tabone\com{return} \bestcombination[0]\\
+                    \begin{redtext}17\end{redtext}\commentall{If it is the last window frame, return all services }\\
+                    \begin{redtext}18\end{redtext}\com{if}\=~isLastWindowFrame()\\
+                    \begin{redtext}19\end{redtext}\tabone\com{return} \bestcombination\\
+                    \begin{redtext}20\end{redtext}\com{else}\\
+                    \begin{redtext}21\end{redtext}\tabone\com{return} \bestcombination[0]\\
 
 
 
@@ -176,16 +175,16 @@ This strategy ensures that only services with low information loss are selected 
     % \end{footnotesize}
 \end{figure}
 
-The pseudocode of the heuristic algorithm is presented in \cref{fig:slidingwindow-pseudocode}.
-Function \textbf{SlidingWindowHeuristic} implements our heuristic; it takes the pipeline template $\tChartFunction$ and the window size \windowsize\ as input and returns the pipeline instance $G'$ and corresponding metric $M$ as output. Function \textbf{SlidingWindowHeuristic} retrieves the optimal service combination composing $G'$, considering the candidate services associated with each vertex in $\tChartFunction$ and the constraints (policies) in \emph{verticesList}.
+
+Function \textbf{SlidingWindowHeuristic} implements our heuristic; it takes the pipeline template $\tChartFunction$ and the window size \windowsize\ as input and returns the pipeline instance $G'$ and corresponding metric $M$ as output. Its goal is to identify the optimal service combination using a sliding window approach, given the candidate services associated with each vertex in $\tChartFunction$ and the constraints (policies) in \emph{verticesList}.
 
 %Initially, the function initializes $G'$ to store the pipeline instance (line 1).
-It iterates all sliding windows $w$ step 1 until the end of the pipeline template is reached (\textbf{for cycle} in line 2). \hl{la frase che segue e' un poco contorta. servono davvero entrambi i cicli a riga 2 e 3.}For each window, the function iterates through all vertices in the window according to its length \windowsize\ (\textbf{for cycle} in line 3), adding the service(s) selected at step $j$ to $G'$ by function \textbf{SelectService} (line 12).
+It iterates all sliding windows $w$ step 1 until the end of the pipeline template is reached (\textbf{for cycle} in line 2). Adding the service(s) selected at step $i$ to $G'$ by function \textbf{SelectService} (definied in line 10).
 
-Function \textbf{SelectService} takes as input index $j$ representing the starting depth of the window and the corresponding window size \windowsize. It initializes the best combination of services to \textit{empty} (line 13). It iterates through all possible combinations of services in the window using the Cartesian product of the service lists (\textbf{for cycle} in lines 15-18). If the current combination has quality metric M($G'_w$) higher than the best quality metric M($G^*_w$), current combination $G'_w$ updates the best combination $G^*_w$ (lines 16-17).
+Function \textbf{SelectService} takes as input index $i$ representing the starting depth of the window and corresponding window size \windowsize. It initializes the best combination of services to \textit{empty} (line 11). It iterates through all possible combinations of services in the window using the Cartesian product of the service lists (\textbf{for cycle} in lines 13-16). If the current combination has quality metric M($G'_w$) higher than the best quality metric M($G^*_w$), current combination $G'_w$ updates the best combination $G^*_w$ (lines 14-15).
 
-Function \textbf{SelectService} then checks whether it is processing the last window (line 20). If yes, it returns the best combination $G^*_w$ (line 21). Otherwise, it returns the (set of) service at depth $j$ in the best combination $G^*_w$ (line 23).
+Function \textbf{SelectService} checks whether it is processing the last window (line 18). If yes, it returns the best combination $G^*_w$ (line 19). Otherwise, it returns the first service in the best combination $G^*_w$ (line 21).
 
-Within each window, function \textbf{SlidingWindowHeuristic} finally iterates through the selected services to calculate the total quality metric $M$ (\textbf{for cycle} in lines 8-10). This metric is updated by summing the quality metrics of the selected services. The function concludes by returning the best pipeline instance $G'$ and the corresponding quality metric $M$ (line 14).
+Within each window, function \textbf{SlidingWindowHeuristic} iterates through the selected services to calculate the total quality metric $M$ (\textbf{for cycle} in lines 6-8). This metric is updated by summing the quality metrics of the selected services. The function concludes by returning the best pipeline instance $G'$ and the corresponding quality metric $M$ (line 9).
 
 
