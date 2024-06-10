@@ -2,9 +2,9 @@ base_path = 'data/'
 file_base = 'window_time_performance_n7_s7_20_100'
 file_base = 'window_time_performance_qualitative_n7_s7_50_80'
 
-# set terminal png enhanced
+# set terminal png enhancedà
 set terminal postscript eps color enhanced
-set key box top left inside Left samplen 1
+set key box top left inside Left samplen 1 spacing 1.15
 set xtics autofreq 1
 set ytics autofreq
 # set yrange [0.85:1]
@@ -20,9 +20,11 @@ set logscale y
 
 # set grid
 set tics nomirror
-set key bottom right
+
 set key enhanced
-set key outside
+set key font ",16"
+set tics font ",18"
+#set key outside
 
 
 # Optional: Uncomment for multiplot layout
