@@ -13,30 +13,6 @@ As presented in Table~\ref{tab:exisnt}(a), each vertex is labeled with policies 
 
 For each vertex \vii{i}, we select the matching service \sii{j} from $S'_i$ and incorporate it into a valid instance. For instance, we select $\s{51}$ for \vi{5}; $\s{62}$ for \vi{6}, and $\s{71}$ for \vi{7}
 as depicted in \cref{tab:instance_example_valid}(a) (column \emph{instance}). We note that to move from a valid to an optimal instance, it is mandatory to evaluate candidate services based on specific quality metrics that reflect their impact on data quality, as discussed in the following of this paper.
-%In the next sections, we will introduce the metrics that we use to evaluate the quality of services and the results of the experiments conducted to evaluate the performance of our approach.
-
-% \begin{table*}
-%   \def\arraystretch{1.5}
-%   \caption{Instance example}\label{tab:instance_example}
-
-%   \centering
-%   \begin{tabular}{l|l|c|c|c}
-
-%     \textbf{Vertex$\rightarrow$Policy}                   & \textbf{Candidate} & \textbf{Profile}                         & \textbf{Filtering} & \textbf{Ranking} \\
-%     \multirow{ 3}{*}{\vi{4}  $\rightarrow$ \p{1},\p{2} } & $\s{41}$           & service\_owner =    "CT"                 & \cmark             & 1                \\
-%                                                          & $\s{42}$           & service\_owner =    "NY"                 & \cmark             & 2                \\
-%                                                          & $\s{43}$           & service\_owner =    "CA"                 & \xmark             & --               \\
-%     \hline
-%     \multirow{ 3}{*}{\vi{7}  $\rightarrow$ \p{5},\p{6} } & $\s{71}$           & service\_region =    "CA"                & \xmark             & --               \\
-%                                                          & $\s{72}$           & service\_region =    "CT"                & \cmark             & 1                \\
-%                                                          & $\s{73}$           & service\_region =    "NY"                & \cmark             & 2                \\
-%     \hline
-%     \multirow{ 3}{*}{\vi{8}  $\rightarrow$ \p{7},\p{8} } & $\s{81}$           & visualization\_location = "CT\_FACILITY" & \cmark             & 1                \\
-%                                                          & $\s{82}$           & visualization\_location = "CLOUD"        & \cmark             & 2                \\
-%     \hline
-%   \end{tabular}
-% \end{table*}
-
 
 \begin{table*}
   \def\arraystretch{1.5}
@@ -47,16 +23,16 @@ as depicted in \cref{tab:instance_example_valid}(a) (column \emph{instance}). We
       \begin{tabular}{c|c|c|c|c}\label{tab:instance_example_valid}
 
         \textbf{Vertex$\rightarrow$Policy}                   & \textbf{Candidate} & \textbf{Profile}                         & \textbf{Filtering} & \textbf{Instance} \\\hline
-        \multirow{ 3}{*}{\vi{5}  $\rightarrow$ \p{1},\p{2} } & $\s{51}$           & service\_owner =    "CT"                 & \cmark             & \cmark            \\
-                                                              & $\s{52}$           & service\_owner =    "NY"                 & \cmark             & \xmark            \\
-                                                              & $\s{53}$           & service\_owner =    "CA"                 & \xmark             & \xmark            \\
+        \multirow{ 3}{*}{\vi{5}  $\rightarrow$ \p{1},\p{2} } & $\s{51}$           & service\_owner =    ``CT"                 & \cmark             & \cmark            \\
+                                                              & $\s{52}$           & service\_owner =    ``NY"                 & \cmark             & \xmark            \\
+                                                              & $\s{53}$           & service\_owner =   ``CA"                 & \xmark             & \xmark            \\
         \hline
-        \multirow{ 3}{*}{\vi{6}  $\rightarrow$ \p{3},\p{4} } & $\s{61}$           & service\_region =    "CA"                & \xmark             & \xmark            \\
-                                                              & $\s{62}$           & service\_region =    "CT"                & \cmark             & \cmark            \\
-                                                              & $\s{63}$           & service\_region =    "NY"                & \cmark             & \xmark            \\
+        \multirow{ 3}{*}{\vi{6}  $\rightarrow$ \p{3},\p{4} } & $\s{61}$           & service\_region =    ``CA"                & \xmark             & \xmark            \\
+                                                              & $\s{62}$           & service\_region =    ``CT"                & \cmark             & \cmark            \\
+                                                              & $\s{63}$           & service\_region =    ``NY"                & \cmark             & \xmark            \\
         \hline
-        \multirow{ 3}{*}{\vi{7}  $\rightarrow$ \p{5},\p{6} } & $\s{71}$           & visualization\_location = "CT\_FACILITY" & \cmark             & \cmark            \\
-                                                              & $\s{72}$           & visualization\_location = "CLOUD"        & \cmark             & \xmark            \\
+        \multirow{ 3}{*}{\vi{7}  $\rightarrow$ \p{5},\p{6} } & $\s{71}$           & visualization\_location = ``CT\_FACILITY" & \cmark             & \cmark            \\
+                                                              & $\s{72}$           & visualization\_location = ``CLOUD"        & \cmark             & \xmark            \\
       \end{tabular}
                                   &
 

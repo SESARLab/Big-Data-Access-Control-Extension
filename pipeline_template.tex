@@ -95,15 +95,15 @@ We note that, at this stage, the template is not yet linked to any service. We a
 
       \subsection{Data Protection Annotation}\label{sec:nonfuncannotation}
       Data Protection Annotation \myLambda\ expresses data protection requirements in the form of access control policies. We consider an attribute-based access control model that offers flexible fine-grained authorization and adapts its standard key components to address the unique characteristics of a big data environment. Access requirements are expressed in the form of policy conditions that are defined as follows.
-      
+
       \vspace{0.5em}
-      
+
       \begin{definition}[Policy Condition]\label{def:policy_cond}
         A \emph{Policy Condition pc} is a Boolean expression of the form $($\emph{attr\_name} op \emph{attr\_value}$)$, with op$\in$\{$<$,$>$,$=$,$\neq$,$\leq$,$\geq$\}, \emph{attr\_name} an attribute label, and \emph{attr\_value} the corresponding attribute value.
       \end{definition}
-      
+
       \vspace{0.5em}
-      
+
       Built on policy conditions, an access control policy is then defined as follows.
       \vspace{0.5em}
       \begin{definition}[Policy]\label{def:policy_rule}
@@ -123,7 +123,7 @@ We note that, at this stage, the template is not yet linked to any service. We a
       \textit{Action act} specifies the operations that can be performed within a big data environment, from traditional atomic operations on databases (e.g., CRUD operations) to coarser operations, such as an Apache Spark Direct Acyclic Graph (DAG), Hadoop MapReduce, an analytics function call, and an analytics pipeline.
 
       %\item
-      \textit{Environment env} defines a set of conditions on contextual attributes, such as time of the day, location, IP address, risk level, weather condition, holiday/workday, and emergency. It is a set \{$pc_i$\} of \emph{Policy Conditions} as defined in Definition \ref{def:policy_cond}. For instance, (time$=$"night") refers to a policy that is applicable only at night.
+      \textit{Environment env} defines a set of conditions on contextual attributes, such as time of the day, location, IP address, risk level, weather condition, holiday/workday, and emergency. It is a set \{$pc_i$\} of \emph{Policy Conditions} as defined in Definition \ref{def:policy_cond}. For instance, (time$=$``night") refers to a policy that is applicable only at night.
 
       %\item
       \textit{Data Transformation \TP} defines a set of security and privacy-aware transformations on \textit{obj} that must be enforced before any access to data is given. Transformations focus on data protection, as well as on compliance to regulations and standards, in addition to simple format conversions. For instance, let us define three transformations that can be applied to the dataset in \cref{tab:dataset}, each performing different levels of anonymization:
