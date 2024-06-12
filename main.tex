@@ -56,16 +56,7 @@
 \maketitle
 
 \abstract{
-  The conflict between the need of protecting and sharing data is hampering the spread of big data applications.
-  Proper security and privacy assurance is required to protect data owners, while proper data access and sharing are fundamental to implement smart big data solutions.
-  In this context, access control systems assume a central role for balancing the need of data protection and sharing.
-  However, given the software and technological complexity of big data ecosystems, existing solutions are not suitable because they are neither general nor scalable, and do not support a dynamic and collaborative environment.
-  In this paper, we propose an access control system that enforces access to data in a distributed, multi-party big data environment.
-  It is based on data annotations and secure data transformations performed at ingestion time.
-  We show the feasibility of our approach with a case study in a smart city domain using an Apache-based big data engine.
-
-  In today's data landscape, the coexistence of data quality and data privacy is critical to support high-value services and pipelines.
-  Our approach seeks to harmonize these objectives by establishing a data governance framework that balances privacy and data quality.
+  Today, the increasing ability of collecting and managing huge volume of data, coupled with a paradigm shift in service delivery models, has significantly enhanced scalability and efficiency in data analytics, particularly in multi-tenant environments. Data are today treated as digital products, which are managed and analyzed by multiple services orchestrated in data pipelines. This scenario calls for innovative solutions to data pipeline management that primarily seek to balance data quality and data protection. Departing from the state of the art that traditionally optimizes data protection and data quality as independent factors, we propose a framework that enhances service selection and composition in distributed data pipelines to the aim of maximizing data quality, while providing a minimum level of data protection. Our approach first retrieves a set of candidate services compatible with data protection requirements in the form of access control policies; it then selects the subset of compatible services, to be integrated within the data pipeline, which maximizes the overall data quality. Being our approach NP-hard, a sliding-window heuristic is defined and experimentally evaluated in terms of performance and quality with respect to the exhaustive approach. Our results demonstrate a significant reduction in computational overhead, while maintaining high data quality.
 }
 
 \tikzset{
