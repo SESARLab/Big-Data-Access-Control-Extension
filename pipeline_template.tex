@@ -1,6 +1,6 @@
 \section{Pipeline Template}\label{sec:template}
 Our approach integrates data protection and data management into the service pipeline using annotations.
-To this aim, we extend the service pipeline in \cref{def:pipeline} with: \emph{i)} data protection annotations that also express transformations on data, ensuring compliance with data protection requirements, \emph{ii)} functional annotations to express data manipulations carried out during services execution.
+To this aim, we extend the service pipeline in \cref{def:pipeline} with: \emph{i)} data protection annotations that also express transformations on data, ensuring compliance with data protection requirements, \emph{ii)} functional annotations to express data manipulations carried out during service execution.
 These annotations enable the implementation of an advanced data lineage, tracking the entire data lifecycle by monitoring changes that result from functional service execution and data protection requirements.
 
 In the following, we first introduce the annotated service pipeline, called pipeline template (Section \ref{sec:templatedefinition}). We then present both functional annotations (Section \ref{sec:funcannotation}) and data protection annotations (Section \ref{sec:nonfuncannotation}), providing an example of a pipeline template in the context of the reference scenario.
@@ -18,7 +18,7 @@ The template is formally defined as follows.
 \vspace{0.5em}
 
 \begin{definition}[Pipeline Template] \label{def:template}
-  Given a service pipeline G(\V,\E), a pipeline template \tChartFunction is a direct acyclic graph extendend with two annotation functions:
+  Given a service pipeline G(\V,\E), a pipeline template \tChartFunction is a direct acyclic graph extended with two annotation functions:
   \begin{enumerate}%[label=\textit{\roman*}]
     \item \emph{Data Protection Annotation} \myLambda that assigns a label \myLambda(\vi{i}) to each vertex $\vi{i}\in\V_S$. Label \myLambda(\vi{i}) corresponds to a set \P{i} of policies $p_j$ to be satisfied by service $s_i$ represented by \vi{i};
     \item \emph{Functional Annotation} \myGamma that assigns a label \myGamma(\vi{i}) to each vertex $\vi{i}\in\V_S$. Label \myGamma(\vi{i}) corresponds to the functional description $F_i$ of service $s_i$ represented by \vi{i}.
@@ -112,18 +112,18 @@ We note that, at this stage, the template is not yet linked to any service. We a
 
       \vspace{0.5em}
 
-      More in detail, \textit{subject subj} specifies a service $s_i$ issuing an access request to perform an action on an object. It is a set \{$pc_i$\} of \emph{Policy Conditions} as defined in Definition \ref{def:policy_cond}. For instance, (classifier$=$"SVM") specifies a service providing a SVM classifier. We note that \textit{subj} can also specify conditions on the service owner (\textit{e.g.}, owner\_location$=$"EU") and the service user (\textit{e.g.}, service\_user\_role$=$"DOC Director").
+      More in detail, \textit{subject subj} specifies a service $s_i$ issuing an access request to perform an action on an object. It is a set \{$pc_i$\} of \emph{Policy Conditions} as defined in Definition \ref{def:policy_cond}. For instance, (classifier$=$``SVM'') specifies a service providing a SVM classifier. We note that \textit{subj} can also specify conditions on the service owner (\textit{e.g.}, owner\_location$=$``EU'') and the service user (\textit{e.g.}, service\_user\_role$=$``DOC Director'').
 
       %\item
       \textit{Object obj} defines the data governed by the access policy. In this case, it is a set \{$pc_i$\} of \emph{Policy Conditions} on the object's attributes. %as defined in Definition \ref{def:policy_cond}.
       %It can specify the \emph{type} of object, such as a file (e.g., a video, text file, image, etc.), a SQL or noSQL database, a table, a column, a row, or a cell of a table, or any other characteristics of the data.
-      For instance, \{(type$=$"dataset"), (region$=$CT)\} refers to an object of type dataset and whose region is Connecticut.
+      For instance, \{(type$=$``dataset''), (region$=$CT)\} refers to an object of type dataset and whose region is Connecticut.
 
       %\item
       \textit{Action act} specifies the operations that can be performed within a big data environment, from traditional atomic operations on databases (e.g., CRUD operations) to coarser operations, such as an Apache Spark Direct Acyclic Graph (DAG), Hadoop MapReduce, an analytics function call, and an analytics pipeline.
 
       %\item
-      \textit{Environment env} defines a set of conditions on contextual attributes, such as time of the day, location, IP address, risk level, weather condition, holiday/workday, emergency. It is a set \{$pc_i$\} of \emph{Policy Conditions} as defined in Definition \ref{def:policy_cond}. For instance, (time$=$"night") refers to a policy that is applicable only at night.
+      \textit{Environment env} defines a set of conditions on contextual attributes, such as time of the day, location, IP address, risk level, weather condition, holiday/workday, and emergency. It is a set \{$pc_i$\} of \emph{Policy Conditions} as defined in Definition \ref{def:policy_cond}. For instance, (time$=$"night") refers to a policy that is applicable only at night.
 
       %\item
       \textit{Data Transformation \TP} defines a set of security and privacy-aware transformations on \textit{obj} that must be enforced before any access to data is given. Transformations focus on data protection, as well as on compliance to regulations and standards, in addition to simple format conversions. For instance, let us define three transformations that can be applied to the dataset in \cref{tab:dataset}, each performing different levels of anonymization:
@@ -153,7 +153,7 @@ Function $\tf{i}$$\in$$\TF{}$ can be:
   \item an empty function \tf{\epsilon} that applies no transformation or processing on the data;
   \item an additive function \tf{a} that expands the amount of data received, for example, by integrating data from other sources;
   \item a transformation function \tf{t} that transforms some records in the dataset without altering the domain;
-  \item a transformation function \tf{d} (out of the scope of this work) that changes the domain of the data by applying, for instance, PCA or K-means.
+  \item a transformation function \tf{d} (out of the scope of this work) that changes the domain of the data by applying, for instance, the PCA.
 \end{enumerate*}
 
 For simplicity but with no loss of generality, we assume that all candidate services meet functional annotation \F{} and that \TF{}=\tf{}. As a consequence, all candidate services apply the same transformation to the data during the pipeline execution.
