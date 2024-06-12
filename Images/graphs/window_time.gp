@@ -3,7 +3,7 @@ file_base = 'window_time_performance_n7_s7_20_100'
 file_base = 'window_time_performance_qualitative_n7_s7_50_80'
 
 # set terminal png enhancedà
-set terminal postscript eps color enhanced
+#set terminal postscript eps color enhanced
 set key box top left inside Left samplen 1 spacing 1.15
 set xtics autofreq 1
 set ytics autofreq
