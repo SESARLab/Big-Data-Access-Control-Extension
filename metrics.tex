@@ -52,8 +52,8 @@ Metrics $M_J$ and $M_{JSD}$ contribute to the calculation of the pipeline qualit
 
 \vspace{0.5em}
 
-\begin{definition}[\emph{\quality}]\label{def:quality}
-  Given a metric $M$$\in$$\{M_J,M_{JSD}$\} modeling the data quality, pipeline quality \q$=$$M_{ij}$, with $M_{ij}$ the value of the quality metric retrieved at each vertex \vii{i}$\in$$\V'_S$ of the pipeline instance $G'$ according to service \sii{j}.
+\begin{definition}[\emph{\Quality}]\label{def:quality}
+  Given a metric $M$$\in$$\{M_J,M_{JSD}$\} modeling data quality, the pipeline quality \q is equal to $\sum_{i=1}^{n}M_{ij}$, with $M_{ij}$ the value of the quality metric retrieved at each vertex \vii{i}$\in$$\V'_S$ of the pipeline instance $G'$ according to service \sii{j}.
 \end{definition}
 
 \vspace{0.5em}
@@ -87,7 +87,7 @@ The Max Quality \problem is a combinatorial selection problem and is NP-hard, as
   The Max-Quality \problem is NP-Hard.
 \end{theorem}
 \emph{Proof: }
-The proof is a reduction from the multiple-choice knapsack problem (MCKP), a classified NP-hard combinatorial optimization problem, which is a generalization of the simple knapsack problem (KP) \cite{}\hl{CITA}. In the MCKP problem, there are $t$ mutually disjoint classes $N_1,N_2,\ldots,N_t$ of items to pack in some knapsack of capacity $C$, class $N_i$ having size $n_i$. Each item $j$$\in$$N_i$ has a profit $p_{ij}$ and a weight $w_{ij}$; the problem is to choose one item from each class such that the profit sum is maximized without having the weight sum to exceed C.
+The proof is a reduction from the multiple-choice knapsack problem (MCKP), a classified NP-hard combinatorial optimization problem, which is a generalization of the simple knapsack problem (KP) \cite{Kellerer2004}. In the MCKP problem, there are $t$ mutually disjoint classes $N_1,N_2,\ldots,N_t$ of items to pack in some knapsack of capacity $C$, class $N_i$ having size $n_i$. Each item $j$$\in$$N_i$ has a profit $p_{ij}$ and a weight $w_{ij}$; the problem is to choose one item from each class such that the profit sum is maximized without having the weight sum to exceed C.
 
 The MCKP can be reduced to the Max quality \problem in polynomial time, with $N_1,N_2,\ldots,N_t$ corresponding to $S^c_{1}, S^c_{1}, \ldots, S^c_{u},$, $t$$=$$u$ and $n_i$ the size of $S^c_{i}$. The profit $p_{ij}$ of item $j$$\in$$N_i$ corresponds to \textit{\q}$_{ij}$ computed for each candidate service $s_j$$\in$$S^c_{i}$, while $w_{ij}$ is uniformly 1 (thus, C is always equal to the cardinality of $V_C$).
 
