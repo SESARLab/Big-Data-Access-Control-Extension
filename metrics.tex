@@ -52,14 +52,13 @@ Metrics $M_J$ and $M_{JSD}$ contribute to the calculation of the pipeline qualit
 
 \vspace{0.5em}
 
-\begin{definition}[\emph{\Quality}]\label{def:quality}
-  Given a metric $M$$\in$$\{M_J,M_{JSD}$\} modeling data quality, the pipeline quality \q is equal to $\sum_{i=1}^{n}M_{ij}$, with $M_{ij}$ the value of the quality metric retrieved at each vertex \vii{i}$\in$$\V'_S$ of the pipeline instance $G'$ according to service \sii{j}.
+\begin{definition}[\emph{\PipQuality}]\label{def:quality}
+Given a metric $M$$\in$$\{M_J,M_{JSD}$\} modeling data quality, the pipeline quality \q is equal to $\sum_{i=1}^{|S|}M_{ij}$, with $M_{ij}$ the value of the quality metric computed at each vertex \vii{i}$\in$$\V'_S$ of the pipeline instance $G'$ with respect to the service instance \sii{j}, with $1 \leq j <  |S^c_{i}|$.
 \end{definition}
 
 \vspace{0.5em}
-
-We note that $M_{ij}$ models the average data quality preserved within the pipeline instance $G'$.
-We also note that $\q_{ij}$$=$$M_{ij}$ models the \quality at vertex \vii{i}$\in$$\V'_S$ of $G'$ for \sii{j}.
+%We note that $M_{ij}$ models the average data quality preserved within the pipeline instance $G'$.
+We also use the notation $\q_{ij}$, with $\q_{ij} = M_{ij}$, to specify the \quality at vertex \vii{i}$\in$$\V'_S$ of $G'$ for service \sii{j}.
 %We also note that information loss \textit{dloss} is used to generate the Max-Quality pipeline instance in the remaining of this section.
 
 \subsection{NP-Hardness of the Max-Quality Pipeline Instantiation Problem}\label{sec:nphard}
@@ -79,7 +78,9 @@ The problem of computing a pipeline instance (\cref{def:instance}) with maximum 
 
 \vspace{0.5em}
 
-The Max Quality \problem is a combinatorial selection problem and is NP-hard, as stated by Theorem \cref{theorem:NP}. However, while the overall problem is NP-hard, there is a component of the problem that is solvable in polynomial time: matching the profile of each service with the corresponding vertex policy. This can be done by iterating over each vertex and each service, checking if the service matches the vertex policy. This process takes polynomial time complexity $O(|N|*|S|)$.
+The Max-Quality \problem is a combinatorial selection problem and is NP-hard, as stated by \cref{theorem:NP}. However, while the overall problem is NP-hard, the filtering step of the process, is solvable in polynomial time. 
+%However, while the overall problem is NP-hard, there is a component of the problem, i.e., matching the profile of each service with the corresponding vertex policy, that is solvable in polynomial time. 
+It can be done by iterating over each vertex and each service, checking if the service matches the vertex policy. This process takes polynomial time complexity $O(|N|*|S|)$.
 
 \vspace{0.5em}
 
@@ -89,9 +90,7 @@ The Max Quality \problem is a combinatorial selection problem and is NP-hard, as
 \emph{Proof: }
 The proof is a reduction from the multiple-choice knapsack problem (MCKP), a classified NP-hard combinatorial optimization problem, which is a generalization of the simple knapsack problem (KP) \cite{Kellerer2004}. In the MCKP problem, there are $t$ mutually disjoint classes $N_1,N_2,\ldots,N_t$ of items to pack in some knapsack of capacity $C$, class $N_i$ having size $n_i$. Each item $j$$\in$$N_i$ has a profit $p_{ij}$ and a weight $w_{ij}$; the problem is to choose one item from each class such that the profit sum is maximized without having the weight sum to exceed C.
 
-The MCKP can be reduced to the Max quality \problem in polynomial time, with $N_1,N_2,\ldots,N_t$ corresponding to $S^c_{1}, S^c_{1}, \ldots, S^c_{u},$, $t$$=$$u$ and $n_i$ the size of $S^c_{i}$. The profit $p_{ij}$ of item $j$$\in$$N_i$ corresponds to \textit{\q}$_{ij}$ computed for each candidate service $s_j$$\in$$S^c_{i}$, while $w_{ij}$ is uniformly 1 (thus, C is always equal to the cardinality of $V_C$).
-
-Since the reduction can be done in polynomial time, our problem is also NP-hard. \hl{CHIARA (non e' sufficiente, bisogna provare che la soluzione di uno e' anche soluzione dell'altro).}
+The MCKP can be reduced to the Max quality \problem in polynomial time, with $N_1,N_2,\ldots,N_t$ corresponding to the sets of compatible services $S^c_{1}, S^c_{2}, \ldots, S^c_{u}$, with $t$$=$$u$ and $n_i$ also the size of each set $S^c_{i}$. The profit $p_{ij}$ of item $j$$\in$$N_i$ corresponds to quality \textit{\q}$_{ij}$ computed for each candidate service $s_j$$\in$$S^c_{i}$, while $w_{ij}$ is uniformly 1 (thus, C is always equal to the cardinality of $V_C$). It is evident that the solution to one problem is also the solution to the other (and vice versa). Since the reduction can be done in polynomial time, the Max-Quality \problem is also NP-hard. 
 
 \vspace{0.5em}
 
