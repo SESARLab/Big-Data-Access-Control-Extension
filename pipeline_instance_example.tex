@@ -1,18 +1,15 @@
-%\subsection{Example}\label{sec:example_instace}
-
 \begin{example}[\bf \pipelineInstance]\label{ex:instance}
 
 Let us consider a subset \{\vi{5}, \vi{6}, \vi{7}\} of the pipeline template $G^{\myLambda,\myGamma}$ in Example~\ref{ex:template}.
 
-As presented in Table~\ref{tab:exisnt}(a), each vertex is labeled with policies (column \emph{candidate--$>$policy}), and then associated with different candidate services (column \emph{candidate}) and corresponding profile (column \emph{profile}). The filtering algorithm matches each candidate service profile with the policies in Table~\ref{tab:anonymization} annotating the corresponding vertex. It returns the set of services whose profile matches a policy (column \emph{filtering}):
+As presented in Table~\ref{tab:exisnt}(a), each vertex is labeled with policies (column \emph{Vertex$\rightarrow$Policy}), and is associated with different candidate services (column \emph{Candidate}) and corresponding profile (column \emph{Profile}). The filtering algorithm matches each candidate service profile against the policies annotating the corresponding vertex (Table~\ref{tab:anonymization}). It returns the set of services whose profile satisfies a policy (column \emph{Filtering}):
 \begin{enumerate*}[label=\textit{\roman*})]
-  \item vertex \vi{5}, the filtering algorithm produces the set $S_{1}=\{s_{51},s_{52}\}$. Assuming that the dataset owner is ``CT'', the service profile of \s{51} matches \p{1} and the one of $\s{52}$ matches \p{2}. For $\s{53}$, there is no policy match and, thus, it is discarded;
-  \item vertex \vi{6}, the filtering algorithm returns the set $S'_2=\{s_{62},s_{63}\}$. Assuming that the dataset region is ``CT'', the service profile of $\s{62}$ matches \p{5} and the one of $\s{63}$ matches \p{6}. For $\s{61}$, there is no policy match and, thus, it is discarded;
-  \item vertex \vi{7}, the filtering algorithm returns the set $S'_3=\{s_{71},s_{72}\}$. Since policy \p{7} matches with any subject, the filtering algorithm keeps all services.
+  \item for vertex \vi{5}, the filtering algorithm produces the set $S_{1}=\{s_{51},s_{52}\}$. Assuming that the dataset owner is ``CT'', the service profile of \s{51} matches \p{1} and the one of $\s{52}$ matches \p{2}. For $\s{53}$, there is no policy match and, thus, it is discarded;
+  \item for vertex \vi{6}, the filtering algorithm returns the set $S'_2=\{s_{62},s_{63}\}$. Assuming that the dataset region is ``CT'', the service profile of $\s{62}$ matches \p{5} and the one of $\s{63}$ matches \p{6}. For $\s{61}$, there is no policy match and, thus, it is discarded;
+  \item for vertex \vi{7}, the filtering algorithm returns the set $S'_3=\{s_{71},s_{72}\}$. Since policy \p{7} matches against any subject, the filtering algorithm keeps all services.
 \end{enumerate*}
 
-For each vertex \vii{i}, we select the matching service \sii{j} from $S'_i$ and incorporate it into a valid instance. For instance, we select $\s{51}$ for \vi{5}; $\s{62}$ for \vi{6}, and $\s{71}$ for \vi{7}
-as depicted in \cref{tab:instance_example_valid}(a) (column \emph{instance}). We note that to move from a valid to an optimal instance, it is mandatory to evaluate candidate services based on specific quality metrics that reflect their impact on data quality, as discussed in the following of this paper.
+For each vertex \vii{i}, we select a matching service \sii{j} from $S'_i$ and incorporate it into a valid instance. For instance, we select $\s{51}$ for \vi{5}; $\s{62}$ for \vi{6}, and $\s{71}$ for \vi{7} as depicted in \cref{tab:instance_example_valid}(a) (column \emph{instance}). We note that to move from a valid to an optimal instance, it is mandatory to evaluate candidate services based on specific quality metrics that reflect their impact on data quality, as discussed in the following of this paper.
 
 \begin{table*}
   \def\arraystretch{1.5}
