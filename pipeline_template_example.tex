@@ -11,7 +11,7 @@
         \vi{4},\vi{5}        & $\p{1}$         & \policy{\{\pone\}}{dataset}{READ}{ANY}{\tp{0}}                                              \\
         \vi{4},\vi{5}        & $\p{2}$         & \policy{\{\ptwo\}}{dataset}{READ}{ANY}{\tp{1}}                                              \\
         \vi{6}               & $\p{3}$         & \policy{\{$(service\_region=dataset\_origin)$\}}{dataset}{WRITE}{ANY}{\tp{0}} \\
-        \vi{6}               & $\p{4}$         & \policy{\{$(service\_region=\{``NY'',``NH''\})$\}}{dataset}{WRITE}{ANY}{\tp{1}}     \\
+        \vi{6}               & $\p{4}$         & \policy{\{$(service\_region=\{``NY",``NH"\})$\}}{dataset}{WRITE}{ANY}{\tp{1}}     \\
         \vi{7}               & $\p{5}$         & \policy{ANY}{dataset} {READ}{\langle$environment=``risky''$\rangle}{\tp{3}}                             \\
         \vi{7}               & $\p{6}$         & \policy{ANY}{dataset} {READ}{\langle$environment=``not\_risky''$\rangle}{\tp{4}}                        \\
       \end{tabular}
@@ -53,7 +53,7 @@ Functional requirement \F{5} prescribes a dataset as input and the results of th
 % 5° NODO %
 The fourth stage consists of vertex \vi{6}, managing data storage. Data protection annotation \myLambda(\vi{6}) refers to policies \p{3} and \p{4}, which apply different data transformations depending on the relation between the dataset and the service region.
 If the service region is the dataset origin (condition $(service\_region$$=$$dataset\_origin)$ in \p{3}), the dataset is anonymized at level $l_0$ (\tp{0}).
-If the service region is in a partner region (condition ($service\_region$=\{``$NY$'',``$NH$''\}) in \p{4}), the dataset is anonymized at level $l_1$ (\tp{1}).
+If the service region is in a partner region (condition ($service\_region$=\{``$NY$",``$NH$"\}) in \p{4}), the dataset is anonymized at level $l_1$ (\tp{1}).
 Functional requirement \F{7} prescribes a dataset as input and the URI of the stored data as output.
 
 % 6° NODO %
