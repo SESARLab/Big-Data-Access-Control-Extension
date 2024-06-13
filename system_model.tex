@@ -1,44 +1,39 @@
 \section{System Model and Reference Scenario}\label{sec:requirements}
-We present our system model (Section \ref{sec:systemmodel}) and our reference scenario (Section \ref{sec:service_definition}). %\textcolor{red}{that consists of a service pipeline for analyzing a dataset of individuals awaiting trial detained in the Department of Correction facilities in the state of Connecticut}.
+We present our system model (Section \ref{sec:systemmodel}) and our reference scenario (Section \ref{sec:service_definition}). 
 
 \subsection{System Model}\label{sec:systemmodel}
 We consider a service-based environment where a service pipeline is designed to analyze data. Our system model is derived by a generic big-data framework and enriched with metadata specifying data protection requirements and functional specifications. It is composed of the following parties: 
 \begin{itemize}
   \item \emph{Service}, a software distributed by a service provider that performs a specific task;   
   \item \emph{Service Pipeline}, a sequence of connected services that collect, prepare, process, and analyze data in a structured and automated manner;
-  \item \emph{Data Governance Policy}, a structured set of privacy guidelines, rules, and procedures regulating data access, sharing, and protection; %\textcolor{red}{In particular, each component service in the pipeline is annotated with data protection requirements and functional specifications.}
+  \item \emph{Data Governance Policy}, a structured set of privacy guidelines, rules, and procedures regulating data access, sharing, and protection; 
   \item \emph{User}, executing an analytics pipeline on the data. We assume the user is authorized to perform this operation, either as the data owner or as a data processor with the owner's consent.
-  \item \emph{Dataset}, the data target of the analytics pipeline. We assume all data are ready for analysis, that is, they underwent a preparatory phase addressing issues such as missing values, outliers, and formatting discrepancies. %This ensures that the data are in an optimal state for subsequent analysis.}
+  \item \emph{Dataset}, the data target of the analytics pipeline. We assume all data are ready for analysis, that is, they underwent a preparatory phase addressing issues such as missing values, outliers, and formatting discrepancies. 
 \end{itemize}
 
 \vspace{0.5em}
 
-A service pipeline is a graph formally defined as follows. % and depicted in \cref{fig:service_pipeline}.
+A service pipeline is a graph formally defined as follows. 
 
 \vspace{0.5em}
 
-\begin{definition}[\pipeline]\label{def:pipeline}
-  % A \pipeline is as a direct acyclic graph G(\V,\E), where \V\ is a set of vertices and \E\ is a set of edges connecting two vertices \vi{i},\vi{k}$\in$\V. The graph has a root \vi{r}$\in$\V, a vertex \vi{i}$\in$\V$_S$ for each service $s_i$, two additional vertices \vi{c},\vi{m}$\in$\V$_{\timesOperator}$$\subset$\V\ for each alternative ($\timesOperator$) structure modeling the alternative execution (\emph{choice}) of operations and the retrieval (\emph{merge}) of the results, respectively, and one additional vertex \vi{f} $\in$\V$_{\plusOperator}$$\subset$\V\ for each parallel ($\plusOperator$) structure modeling the contemporary execution (\emph{fork}) of operations.
+\begin{definition}[Service \pipeline]\label{def:pipeline}
   A \pipeline is as a direct acyclic graph G(\V,\E), where \V\ is a set of vertices and \E\ is a set of edges connecting two vertices \vi{i},\vi{k}$\in$\V.
-  The graph has a root ($\bullet$) vertex \vi{r}$\in$\V , a vertex \vi{i}$\in$\V$_S$ for each service $s_i$, an additional vertex \vi{f}$\in$\V\ for each parallel ($\plusOperator$) structure modeling the contemporary execution (\emph{fork}) of services.
+  The graph has a root ($\bullet$) vertex \vi{r}$\in$\V, a vertex \vi{i}$\in$$V_S$ for each service $s_i$, an additional vertex \vi{f}$\in$\V\ for each parallel ($\plusOperator$) structure modeling the contemporary execution (\emph{fork}) of services.
 \end{definition}
 
 \vspace{0.5em}
 
-We note that \V$=$\{\vi{r},\vi{f}\}$\cup$\V$_S$, with vertices \vi{f} modeling branching for parallel structures, and root \vi{r} possibly representing the orchestrator. In addition, for simplicity but no lack of generality, alternative structures modeling the alternative execution of services are specified as alternative service pipelines, that is, there is no alternative structure in a single service pipeline.
+We note that \V$=$\{\vi{r},\vi{f}\}$\cup$$V_S$, with vertices \vi{f} modeling branching for parallel structures, and root \vi{r} possibly representing the orchestrator. In addition, for simplicity but no lack of generality, alternative structures modeling the alternative execution of services are specified as alternative service pipelines, that is, there is no alternative structure in a single service pipeline.
 
-We refer to the service pipeline annotated with both functional and non-functional requirements, as the \textbf{pipeline template}. It acts as a skeleton, specifying both the structure of the pipeline, that is, the chosen sequence of desired services, and the functional and non-functional requirements. We note that, in our multi-tenant cloud-based ecosystem, each element within the pipeline may have a catalog of candidate services. A pipeline template is then instantiated in a \textbf{pipeline instance} by selecting the most suitable candidates from the pipeline template.
+We refer to the service pipeline annotated with both functional and non-functional requirements, as the \textbf{pipeline template}. It acts as a skeleton, specifying both the structure of the pipeline, that is, the chosen sequence of desired services, and the functional and non-functional requirements for each component service. We note that, in our multi-tenant cloud-based ecosystem, each element within the pipeline may have a catalog of candidate services. A pipeline template is then instantiated in a \textbf{pipeline instance} by selecting the most suitable candidates from the pipeline template.
 
 This process involves retrieving a set of compatible services for each vertex in the template, ensuring that each service meets the functional requirements and aligns with the policies specified in the template. Since we also consider security policies that may necessitate security and privacy-aware data transformations, compatible services are ranked based on their capacity to fulfill the policy while preserving the maximum amount of information (\emph{data quality} in this paper). Indeed, our data governance approach, though applicable in a generic scenario, operates under the assumption that \textit{preserving a larger quantity of data correlates with enhanced data quality}, a principle that represents many real-world scenarios. However, we acknowledge that this assumption may not universally apply and remain open to exploring alternative solutions in future endeavors.
 %
 The best service is then selected to instantiate the corresponding component service in the template.
 Upon selecting the most suitable service for each component service in the pipeline template, the pipeline instance is completed and ready for execution.
 
-%This because our data governance approach builds on the following assumption: \emph{upholding a larger quantity of data is linked to better data quality.}
-%While this assumption is not true in all settings, it correctly represents many real-world scenarios. We leave a solution that departs from this assumption to our future work.
-
 \subsection{Reference Scenario}\label{sec:service_definition}
-
 Our reference scenario considers a service pipeline analyzing a dataset of individuals detained in the Department of Correction facilities in the state of Connecticut while awaiting trial\footnote{https://data.ct.gov/Public-Safety/Accused-Pre-Trial-Inmates-in-Correctional-Faciliti/b674-jy6w}.
 
 \cref{tab:dataset} presents a sample of the adopted dataset. Each row represents an inmate; each column includes the following attributes: date of download, a unique identifier, last entry date, race, gender, age of the individual, the bound value, offense, entry facility, and detainer. To serve the objectives of our study, we extended this dataset by introducing randomly generated first and last names.
@@ -68,22 +63,17 @@ Our reference scenario considers a service pipeline analyzing a dataset of indiv
 
 \end{table*}
 
-In this context, the user, a member of the Connecticut Department of Correction (DOC), is interested to compare admission trends in Connecticut prisons with the ones in New York and New Hampshire. We assume that the three DOCs are partners and share data according to their privacy policies. The entire service execution must occur within the Connecticut Department of Correction. Moreover, if data transmission extends beyond Connecticut's borders, data protection measures must be implemented.
+In this context, the user, a member of the Connecticut Department of Correction (DOC), is interested to compare the admission trends in Connecticut prisons with the ones in New York and New Hampshire. We assume that the three DOCs are partners and share data according to their privacy policies. Moreover, the policy specifies that the entire service execution must occur within the Connecticut Department of Correction. In case data transmission extends beyond Connecticut's borders, data protection measures must be implemented.
 
-The user's objective aligns with a predefined service pipeline %\st{template} 
-that orchestrates the following sequence of operations:
+The user's objective aligns with the predefined service pipeline in Figure \ref{fig:reference_scenario} that orchestrates the following sequence of operations:
 \begin{enumerate*}[label=(\roman*)]
   \item \emph{Data fetching}, including the download of the dataset from other states;
   \item \emph{Data preparation}, including data merging, cleaning, and anonymization;
-        % \hl{QUESTO E' MERGE (M). IO PENSAVO DIVENTASSE UN NODO $v_i$. NEL CASO CAMBIANDO LA DEFINIZIONE 3.1 DOVE NON ESISTONO PIU' I NODI MERGE E JOIN.}
   \item \emph{Data analysis}, including statistical measures like average, median, and clustering-based statistics;
   \item \emph{Data storage}, including the storage of the results;
   \item \emph{Data visualization}, including the visualization of the results.
 \end{enumerate*}
-A visual representation of the service pipeline is presented in Figure \ref{fig:reference_scenario}.
 
-%\textcolor{red}{The department has specified some security requirements: the entire service execution must occur within the Connecticut Department of Correction. Moreover, if data transmission extends beyond Connecticut's borders, data protection measures must be implemented.}
-%
 \begin{figure}[ht!]
   \centering
   \begin{tikzpicture}[scale=0.9,y=-1cm]
@@ -100,34 +90,14 @@ A visual representation of the service pipeline is presented in Figure \ref{fig:
     \node[draw, circle,below=1em] (merge) at (node2.south)  {$\vi{4}$};
     \node[draw, circle,below=1em] (node5) at (merge.south)  {$\vi{5}$};
 
-    % \node[draw, circle, cross , minimum size=1.5em,below=1em] (fork) at (merge.south)  {};
-    % \node[draw, circle,below =1.5em, left=2em] (ml) at (fork.south) {$\vi{5}$};
-    % \node[draw, circle,below =1.5em, right=2em] (analysis) at (fork.south) {$\vi{6}$};
-    % \node[draw, circle, cross , minimum size=1.5em,below=3em] (join) at (fork.south)  {};
-
     \node[draw, circle,below =1em ] (storage) at (node5.south) {$\vi{6}$};
     \node[draw, circle,below =1.5em] (visualization) at (storage.south) {$\vi{7}$};
-
-    % Labels
-
-    % \node[right=1em] at (node3.east) {Data fetching};
-    % \node[right=1em] at (merge.east) {Data preparation};
-    % \node[right=1em] at (split.east) {$parallel$};
-    % % \node[right=1em] at (fork.east) {$alternative$};
-    % % \node[right=1em] at (analysis.east) {ML task};
-    % % \node[left=1em] at (ml.west) {Data analysis};
-    % \node[right=1em] at (storage.east) {Data Storage};
-    % \node[right=1em] at (visualization.east) {Data Visualization};
-    % \node[draw, circle,below =1em ] (storage) at (node5.south) {$\vi{6}$};
-    % \node[draw, circle,below =1.5em] (visualization) at (storage.south) {$\vi{7}$};
 
     % Labels
 
     \node[right=1em] at (node3.east) {i) Data fetching};
     \node[right=1em] at (merge.east) {ii) Data preparation};
     \node[right=1em] at (split.east) {$parallel$};
-    % \node[right=1em] at (fork.east) {$alternative$};
-    % \node[right=1em] at (analysis.east) {ML task};
     \node[right=1em] at (node5.east) {iii) Data analysis};
     \node[right=1em] at (storage.east) {iv) Data Storage};
     \node[right=1em] at (visualization.east) {v) Data Visualization};
@@ -144,24 +114,10 @@ A visual representation of the service pipeline is presented in Figure \ref{fig:
     \draw[->] (node3) -- (merge);
     \draw[->] (merge) -- (node5);
     \draw[->] (node5) -- (storage);
-    % \draw[->] (fork) -- (ml);
-    % \draw[->] (fork) -- (analysis);
-
-    % \draw[->] (analysis) -- (storage);
-    % \draw[->] (ml) -- (storage);
-    % \draw[->] (merge) -- (fork);
+    
     \draw[->] (storage) -- (visualization);
-    % \draw[->] (node3) -- (node6);
-    % \draw[->] (node4) -- (node6);
-    % \draw[->] (node5) -- (node6);
-    % \draw[->] (node6) -- (node7);
 
   \end{tikzpicture}
-  \caption{Service pipeline of the reference scenario}
+  \caption{Service pipeline in the reference scenario}
   \label{fig:reference_scenario}
 \end{figure}
-
-% Scarichiamo tre dataset, nessuna anonimizzazione, nodo di merge, anonimizzo e pulisco tutto,
-%nodi alternativa ML e analisi, merge, storage, visulazzionezione
-%aggiungere nodo finale
-%agigungere nodo

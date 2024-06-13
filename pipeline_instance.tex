@@ -1,5 +1,4 @@
 \section{Pipeline Instance}\label{sec:instance}
-%Given a set of candidate services, a
 A \pipelineInstance $\iChartFunction$ instantiates a \pipelineTemplate \tChartFunction by selecting and composing services according to data protection and functional annotations in the template. It is formally defined as follows.
 \vspace{0.5em}
 \begin{definition}[Pipeline Instance]\label{def:instance}
@@ -14,7 +13,9 @@ A \pipelineInstance $\iChartFunction$ instantiates a \pipelineTemplate \tChartFu
     \item $s'_i$ satisfies functional annotation \myGamma(\vi{i}) in \tChartFunction.
   \end{enumerate}
 \end{definition}
+
 \vspace{0.5em}
+
 Condition 1 requires that each selected service \sii{i} satisfies the policy requirements \P{i} of the corresponding vertex \vi{i} in the \pipelineTemplate, whereas Condition 2 is needed to preserve the process functionality, as it simply states that each service \sii{i} must satisfy the functional requirements \F{i} of the corresponding vertex \vi{i} in the \pipelineTemplate.
 
 We then define a \emph{pipeline instantiation} function that takes as input a \pipelineTemplate \tChartFunction and a set $S^c$ of candidate services, split in a specific set of services $S^c_{i}$ for each vertex \vi{i}$\in$$\V_S$, and returns as output a \pipelineInstance \iChartFunction. Recall from Section~\ref{sec:funcannotation} that all candidate services meet the functional annotation in the template, meaning that Condition 2 in Definition~\ref{def:instance} is satisfied for all candidate services.
@@ -37,7 +38,6 @@ When all vertices $\vi{i}$$\in$$V$ in $G^{\myLambda,\myGamma}$ have been visited
     % vertexes
     \node[draw, circle, fill,text=white,minimum size=1 ] (sr) at (0,0) {};
 
-    % \node[draw, circle] (node2) at (1,0) {$\s{1}$};
     \node[draw, circle, plus,minimum size=1.5em] (plus) at (1.5,0) {};
 
     \node[draw, circle] (s2) at (3.5,-2) {$\sii{1}$};
@@ -57,12 +57,10 @@ When all vertices $\vi{i}$$\in$$V$ in $G^{\myLambda,\myGamma}$ have been visited
     \node[above] at (s3.north)  {\function{2}};
     \node[above] at (s4.north)  {\function{4}};
     \node[above] at (s5.north)  {\function{5}};
-    % \node[above] at (s6.north)  {\function{}};
     \node[above] at (s6.north)  {\function{6}};
     \node[above] at (s7.north)  {\function{7}};
     % Connection
 
-    % \draw[->] (node2) -- (node3);
     \draw[->] (sr) -- (plus);
     \draw[->] (plus) -- (s1);
     \draw[->] (plus) -- (s2);
@@ -71,14 +69,8 @@ When all vertices $\vi{i}$$\in$$V$ in $G^{\myLambda,\myGamma}$ have been visited
     \draw[->] (s1) -- (s4);
     \draw[->] (s2) -- (s4);
     \draw[->] (s3) -- (s4);
-    % \draw[->] (node6) -- (node65);
-    % \draw[->] (node65) -- (node7);3
     \draw[->] (s4) -- (s5);
     \draw[->] (s5) -- (s6);
-    % \draw[->] (cross) -- (s5);
-    % \draw[->] (cross) -- (s6);
-    % \draw[->] (s5) -- (s7);
-    % \draw[->] (s6) -- (s7);
     \draw[->] (s6) -- (s7);
 
   \end{tikzpicture}

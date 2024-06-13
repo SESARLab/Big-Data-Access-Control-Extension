@@ -1,6 +1,5 @@
 \section{Introduction}
 The wide success and adoption of cloud infrastructures and their intrinsic multitenancy represent a paradigm shift in the big data scenario, redefining scalability and efficiency in data analytics. Multitenancy enables multiple users to share resources, such as computing power and storage, optimizing their utilization and reducing operational costs. Leveraging cloud infrastructure further enhances flexibility and scalability.
-%allowing organizations to dynamically allocate resources based on demand while ensuring seamless access to cutting-edge data analytics tools and services.
 %
 The flip side of multitenancy is the increased complexity in data governance: the shared model introduces unique security challenges, as tenants may have different security requirements, access levels, and data sensitivity. Adequate measures such as encryption, access control mechanisms, and data anonymization techniques must be implemented to safeguard data against unauthorized access and ensure compliance with regulatory requirements such as GDPR or HIPAA.
 %
@@ -13,25 +12,19 @@ A valid solution however requires a holistic approach that integrates technologi
 When evaluating a solution meeting these criteria, the following questions naturally arise:
 \begin{enumerate}
 \item How does a robust data protection policy affect analytics?
-%What impact does a robust and strong data protection policy have on analytics?
-%How does a strong data protection policy influence analytics?
-%\item When considering a pipeline, is it more advantageous to perform data protection transformations at each step rather than filtering all data at the outset? 
 \item When considering a (big data) pipeline, should data protection be implemented at each pipeline step rather than filtering all data at the outset? 
 \item In a scenario where a user has the option to choose among various candidate services, how might these choices affect the analytics?
 \end{enumerate}
 
 Based on the aforementioned considerations, we propose a data governance framework for modern data-driven pipelines, designed to mitigate privacy and security risks. The primary objective of this framework is to support the selection and assembly of data processing services within the pipeline, with a central focus on the selection of those services that optimize data quality, while upholding privacy and security requirements. 
 To this aim, each element of the pipeline is \textit{annotated} with \emph{i)} data protection requirements expressing transformation on data and \emph{ii)} functional specifications on services expressing data manipulations carried out during each service execution. 
-%Each element in the pipeline, there is a catalog of candidate services among which the user running it can choose. Services may be functionally equivalent (i.e., they perform the same tasks), but have different security policies, more or less restrictive depending on the organization or service provider they belong to.
 Though applicable to a generic scenario, our data governance approach starts from the assumption that maintaining a larger volume of data leads to higher data quality; as a consequence, its service selection algorithm focuses on maximizing data quality by retaining the maximum amount of information when applying data protection transformations. 
-%We have a running example on which we conducted experiments to provide an initial answer to the questions highlighted earlier.
 
 The primary contributions of the paper can be summarized as follows:
 \begin{enumerate*}
-  \item Defining a data governance framework supporting selection and assembly of data processing services enriched with meta-data that describes both data protection and functional requirements;
+  \item Defining a data governance framework supporting selection and assembly of data processing services enriched with metadata that describe both data protection and functional requirements;
   \item Proposing a parametric heuristic tailored to address the computational complexity of the NP-hard service selection problem;
   \item Evaluating the performance and quality of the algorithm through experiments conducted using the dataset from the running example.
 \end{enumerate*}
-
 
 The remainder of the paper is structured as follows: Section 2, presents our system model, illustrating a reference scenario where data is owned by multiple organizations. Section \ref{sec:template} introduces the pipeline template and describe data protection and functional annotations. Section \ref{sec:instance} describes the process of building a pipeline instance from a pipeline template according to service selection. Section \ref{sec:heuristics} introduces the quality metrics used in service selection and the heuristic solving the service selection problem. Section \ref{sec:experiment} presents our experimental results. Section \ref{sec:related} discusses the state of the art and Section \ref{sec:conclusions} draws our concluding remarks.
