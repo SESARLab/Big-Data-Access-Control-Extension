@@ -1,0 +1,307 @@
+% please place your own definitions here and don't use \def but
+% \newcommand{}{}
+\newcommand\CH[1]{\textcolor{blue}{{CHIARA - }{#1}}}
+\newcommand\CL[1]{\textcolor{red}{{CLAUDIO - }{#1}}}
+\newcommand\MC[1]{\textcolor{green}{{MARCO - }{#1}}}
+\newcommand\AG[1]{\textcolor{orange}{{AG - }{#1}}}
+\newcommand{\job}[1]{\ensuremath{J_{#1}}}
+\newcommand{\trans}[1]{\ensuremath{T_{#1}}}
+\newcommand{\coalition}[1]{\ensuremath{C_{#1}}}
+\newcommand{\org}[1]{\ensuremath{o_{#1}}}
+\newcommand{\Org}[1]{\ensuremath{O_{#1}}}
+\newcommand{\s}[1]{\ensuremath{s_{#1}}}
+\newcommand{\si}[1]{\ensuremath{s_{#1}}}
+\newcommand{\sii}[1]{\ensuremath{s'_{#1}}}
+\newcommand{\dataset}[1]{\ensuremath{D_{#1}}}
+\newcommand{\origdataset}{\ensuremath{X}}
+\newcommand{\transdataset}{\ensuremath{Y}}
+
+\newcommand{\T}{\ensuremath{T}}
+\newcommand{\TP}{\ensuremath{T^{P}}}
+\newcommand{\TF}[1]{\ensuremath{T^F_{#1}}}
+\newcommand{\tf}[1]{\ensuremath{t^f_{#1}}}
+\newcommand{\tp}[1]{\ensuremath{t^p_{#1}}}
+
+\newcommand{\G}{\ensuremath{G}}
+
+\newcommand{\F}[1]{\ensuremath{F_{#1}}}
+
+\newcommand{\plusOperator}{\ensuremath{\oplus}}
+\newcommand{\timesOperator}{\ensuremath{\otimes}}
+
+\newcommand{\V}{\ensuremath{V}}
+\newcommand{\Vp}{\ensuremath{V'}}
+\newcommand{\Vplus}{\ensuremath{V_{\plusOperator}}}
+\newcommand{\Vtimes}{\ensuremath{V_{\timesOperator}}}
+\newcommand{\Vpplus}{\ensuremath{V'_{\plusOperator}}}
+\newcommand{\Vptimes}{\ensuremath{V'_{\timesOperator}}}
+
+
+\newcommand{\vi}[1]{\ensuremath{v_{#1}}}
+\newcommand{\vii}[1]{\ensuremath{v'_{#1}}}
+
+\newcommand{\E}{\ensuremath{E}}
+
+\newcommand{\myLambda}{\ensuremath{\lambda}\,}
+\newcommand{\myGamma}{\ensuremath{\gamma}\,}
+\newcommand{\templateChartAnnotation}{\ensuremath{\myLambda,\myGamma}}
+\newcommand{\instanceChartAnnotation}{\ensuremath{\myLambda}}
+\renewcommand{\P}[1]{\ensuremath{P_{#1}}}
+\newcommand{\p}[1]{\ensuremath{p_{#1}}}
+% \newcommand{\TF}{\ensuremath{T_{\fChartFunction}}}
+\newcommand{\user}{user\,}
+\newcommand{\User}{User\,}
+\newcommand{\profile}{\emph{prf}}
+
+\newcommand{\fChartFunction}{\ensuremath{\myLambda{}}}
+
+\newcommand{\tChartFunction}{\ensuremath{G^{\myLambda,\myGamma}(\V,\E,\myLambda,\myGamma)}\xspace}
+% \newcommand{\iChartFunction}{\ensuremath{\fChartFunction,\myGamma{},\myLambda{}}}
+\newcommand{\iChartFunction}{\ensuremath{G'(\V',\E,\myLambda)}\xspace}
+\newcommand{\windowsize}{\ensuremath{|w|}}
+\newcommand{\bestcombination}{$G^*_w$}
+\newcommand{\currentcombination}{$G'_w$}
+
+
+\newcommand{\pipeline}{Pipeline\xspace}
+\newcommand{\pipelineTemplate}{Pipeline Template\xspace}
+\newcommand{\pipelineInstance}{Pipeline Instance\xspace}
+\newcommand{\quality}{\textit{quality}\xspace}
+\newcommand{\Quality}{\textit{Quality}\xspace}
+\newcommand{\pipquality}{\textit{pipeline quality}\xspace}
+\newcommand{\PipQuality}{\textit{Pipeline Quality}\xspace}
+\newcommand{\q}{\textit{Q}\xspace}
+\newcommand{\pone}{$(service\_owner=dataset\_owner)$}
+\newcommand{\ptwo}{$(service\_owner=partner(dataset\_owner))$}
+\newcommand{\pthree}{$\langle service\_owner \neq dataset\_owner AND owner \neq partner(dataset\_owner)$}
+% \newcommand{\function}{$\instanceChartAnnotation{}$}
+% \newcommand{\function}{$\templateChartAnnotation$}
+\newcommand{\average}{\textit{average}\xspace}
+\newcommand{\wide}{\textit{wide}\xspace}
+\newcommand{\problem}{Pipeline Instantiation Process }
+\newcommand{\xmark}{\ding{55}}%
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\chia}[1]{{\color{red}#1}}
+\newcommand{\policy}[5]{
+  $\langle \text{#1},{#2},{#3},\ensuremath{#4},\ensuremath{#5} \rangle$
+}
+
+
+
+
+
+%\newcommand{\servicename}[1]{\emph{#1}\/}
+\newcommand{\attrvalue}[1]{\emph{#1}\/}
+\newcommand{\attrname}[1]{\emph{#1}\/}
+\newcommand{\dimensionname}[1]{\emph{#1}\/}
+
+
+%\newcommand{\cmshort}{\emph{CM}\/}
+% certificate
+%\newcommand{\cert}{Certificate}
+% ct math
+\newcommand{\mathct}{\ensuremath{\mathcal{M}}}
+% cert math
+\newcommand{\mathcert}{\ensuremath{\mathcal{C}}}
+%
+%
+% new macro for categories
+%
+% dimension
+%\newcommand{\mathdimensionname}[1]{\ensuremath{D_{#1}}}
+%\newcommand{\mathdimension}[1]{\ensuremath{D_{#1}}}
+\newcommand{\mathdimension}{\ensuremath{D}}
+%\newcommand{\mathdimensioninstance}{\ensuremath{d}}
+
+%
+\newcommand{\mathproperty}{\ensuremath{p}}
+\newcommand{\mathpropertyname}{\ensuremath{\hat{p}}}
+
+% arguments are 1) dimension, 2) property
+\newcommand{\mathlatticerel}{\ensuremath{\succeq}}
+% need to provide the dimension including D, e.g., \mathlattice{D_{dev}}{conf}
+\newcommand{\mathlattice}[2]{\ensuremath{(\mathcal{D}_{#1}, \mathlatticerel_{#2})}}
+\newcommand{\mathdimlattice}{\ensuremath{\mathcal{D}}}
+% need to provide only the subscript of D, e.g., \mathlatticedim{dev}{conf}
+%\newcommand{\mathlatticedim}[2]{\ensuremath{(\mathcal{D}_{#1}, \mathlatticerel{#2})}}
+
+\newcommand{\mathtarget}{\ensuremath{ToC}}
+
+\newcommand{\mathattrvalue}{\ensuremath{v}}
+
+\newcommand{\evid}{\ensuremath{ev}}
+%\newcommand{\mathevidset}[1]{\ensuremath{EV_{#1}}}
+\newcommand{\mathevidcollection}{\ensuremath{\mathcal{E}}}
+%\newcommand{\mathevidcollectionset}[1]{\ensuremath{\mathcal{X}_{#1}}}
+\newcommand{\mathevidsuccess}[1]{\ensuremath{\textit{Succ}(\evid_{#1})}}
+
+% symbol to represent a mechanism
+\newcommand{\mechanismsymbol}{\ensuremath{\theta}}
+% symbol to represent a set of mechanisms
+\newcommand{\mechanismsetsymbol}{\ensuremath{\Theta}}
+
+% mechanism_ARG
+\newcommand{\mathmechanism}[1]{\ensuremath{\mechanismsymbol_{#1}}}
+% set of mechanism_ARG
+\newcommand{\mathmechanismset}[1]{\ensuremath{\mechanismsetsymbol_{#1}}}
+% binding functions between evidence and attributes
+\newcommand{\mathbindingfn}{\ensuremath{\mathcal{B}}}
+%\newcommand{\termbindingfn}{binding function}
+
+%\newcommand{\termevid}{evidence}
+%\newcommand{\termevidemph}{\emph{Evidence}}
+%\newcommand{\termevidcollectm}{Evidence Collection Model}
+%\newcommand{\termevidcollectmemph}{\emph{Evidence Collection Model}}
+
+\newcommand{\evresult}{\ensuremath{tr}}
+\newcommand{\evoutput}{\ensuremath{to}}
+\newcommand{\success}{\emph{Success}}
+\newcommand{\failure}{\emph{Failure}}
+
+%\newcommand{\termview}{view}
+\newcommand{\mathview}{\ensuremath{\mathcal{V}}}
+
+\newcommand{\mathattribute}{\ensuremath{a}}
+%\newcommand{\Mathattribute}{\ensuremath{A}}
+\newcommand{\mathattributevalue}{\ensuremath{v}}
+%\newcommand{\mathattributevalue}[1]{\ensuremath{a.\mathattributevalueonly{#1}}}
+%\newcommand{\mathattributevaluee}[2]{\ensuremath{\mathattribute_{#1}.\mathattributevalueonly{#2}}}
+
+\newcommand{\mathattributedomain}[1]{\ensuremath{A_{D_{#1}}}}
+\newcommand{\mathmechanismdomain}[1]{\ensuremath{A_{\theta_{#1}}}}
+\newcommand{\mathattributevaluedomain}[1]{\ensuremath{V_{\mathattribute_{#1}}}}
+
+\newcommand{\mathattributege}[1]{\ensuremath{>_{\mathattribute_{#1}}}}
+%\newcommand{\mathdimensionge}[1]{\ensuremath{\succeq_{\mathattribute{#1}}}}
+
+\newcommand{\mathevidcollectiontest}[1]{\ensuremath{t_{#1}}}
+
+\newcommand{\mathrankingfn}{\ensuremath{R}}
+\newcommand{\mathlevelfn}{\ensuremath{L}}
+
+\newcommand{\mathevalfn}{\ensuremath{\mathcal{F}}}
+%\newcommand{\mathevalcmfn}[1]{\ensuremath{\mathevalfn{CM}}}
+%\newcommand{\mathevalviewfn}[1]{\ensuremath{\mathevalfn{V}}}
+
+%\newcommand{\termevalfn}{Evaluation Function}
+%\newcommand{\termevalviewfn}{View Evaluation Function}
+%\newcommand{\mathevalviewfn}[1]{\ensuremath{\mathcal{EF}_{V_{#1}}}}
+%\newcommand{\termevalcmfn}{Certification Model Evaluation Function}
+%\newcommand{\mathevalcmfn}[1]{\ensuremath{\mathcal{EF}_{#1}}}
+
+%\newcommand{\termevalpolicy}{Certification Evaluation Policy}
+%\newcommand{\termevalpolicies}{Certification Evaluation Policies}
+
+%\newcommand{\termdimension}{dimension}
+%\newcommand{\termattribute}{attribute}
+%\newcommand{\termcm}{Certification Model}
+%\newcommand{\termcert}{Certificate}
+
+\newcommand{\glb}{\ensuremath{glb}}
+\newcommand{\lub}{\ensuremath{lub}}
+
+\newcommand{\mathweightfn}[1]{\ensuremath{W_{#1}}}
+\newcommand{\mathweightvector}{\ensuremath{W}}
+\newcommand{\mathweightsingle}[2]{\ensuremath{W_{#1}[#2]}}
+
+\newcommand{\mathidealpos}[1]{\ensuremath{\mathrankingfn_{#1}^{+}}}
+\newcommand{\mathidealneg}[1]{\ensuremath{\mathrankingfn_{#1}^{-}}}
+
+\newcommand{\mathmaxutility}[1]{\ensuremath{U_{#1}}}
+\newcommand{\mathminregret}[1]{\ensuremath{Z_{#1}}}
+
+\newcommand{\mathlmetric}[2]{\ensuremath{L_{#1,#2}}}
+
+% arg 1: index of the certificate, arg 2: index of the dimension
+% i.e., \mathdimofcert{j}{i}
+%\newcommand{\mathdimofcert}[2]{\ensuremath{\mathcert_{#1}.\mathct{}.p.\mathdimensioninstance_{#2}}}
+\newcommand{\mathdimofcert}[2]{\ensuremath{\mathcert_{#1}.\mathct{}.p.\mathdimension_{#2}}}
+
+\newcommand{\mathsortingidx}{\ensuremath{Q}}
+
+\newcommand{\mathmetricname}[1]{\ensuremath{m_{#1}}}
+\newcommand{\mathcertstrength}{\ensuremath{\mu}}
+
+\newcommand{\mathpenaltysymbol}{\ensuremath{P}}
+\newcommand{\mathpenalty}[1]{\ensuremath{\mathpenaltysymbol(#1)}}
+\newcommand{\mathqualitysymbol}{\ensuremath{QU}}
+\newcommand{\mathquality}[1]{\ensuremath{\mathqualitysymbol(#1)}}
+\newcommand{\mathpenaltycontribsymbol}{\ensuremath{}}
+\newcommand{\mathpenaltycontrib}[1]{\ensuremath{\mathpenaltycontribsymbol(#1)}}
+
+
+% macro for pseudocode
+\newcommand{\tabone}{\>}
+\newcommand{\tabtwo}{\>\>}
+\newcommand{\tabthree}{\>\>\>}
+\newcommand{\tabfour}{\>\>\>\>}
+\newcommand{\tabfive}{\>\>\>\>\>}
+\newcommand{\tabsix}{\>\>\>\>\>\>}
+
+\newcommand{\return}[1]{\com{return}({#1})}
+\newcommand{\mynull}{\mbox{\sc null\/}}
+\newcommand{\var}[1]{{\it #1\/}}
+\newcommand{\com}[1]{\mbox{\bf #1\/}}
+
+\newcommand{\INPUT}{{\bf INPUT}}
+\newcommand{\OUTPUT}{{\bf OUTPUT}}
+\newcommand{\funcname}[1]{\textbf{#1}}
+
+\newcommand{\commentall}[1]{\emph{/* #1*/}}
+\newcommand{\commentopen}[1]{\emph{/* #1}}
+\newcommand{\commentclose}[1]{\emph{#1*/}}
+\newcommand{\commentin}[1]{\emph{#1}}
+
+\newcommand{\kendalltau}{\ensuremath{K}}
+\newcommand{\spearmanrule}{\ensuremath{S}}
+
+\newcommand{\rankingoptimumsymbol}{\ensuremath{q}}
+\newcommand{\rankingvikorsymbol}{\ensuremath{v}}
+\newcommand{\rankingstateofartsymbol}{\ensuremath{s}}
+
+\newcommand{\rankingoptimum}{\ensuremath{\sigma_\rankingoptimumsymbol}}
+\newcommand{\rankingvikor}{\ensuremath{\sigma_\rankingvikorsymbol}}
+\newcommand{\rankingstateofart}{\ensuremath{\sigma_\rankingstateofartsymbol}}
+
+\newcommand{\stateofart}{state\-/of\-/the\-/art}
+
+\newcommand{\expropreliability}{\ensuremath{\mathproperty_{rel}}}
+%\newcommand{\extarget}[1]{\ensuremath{\mathtarget_{\servicename{#1}}}}
+% da risistemare
+
+\newcommand{\exevidcollectiontargetdim}[2]{\ensuremath{\mathevidcollection_{#2}^{\mathservice{#1}}}}
+\newcommand{\exevidcollectiondim}[1]{\ensuremath{\mathevidcollection_{#1}}}
+\newcommand{\exevidcollectiontarget}[1]{\ensuremath{\mathevidcollection^{\mathservice{#1}}}}
+
+\newcommand{\exmathtarget}[2]{%
+    \ifthenelse{\isempty{#2}}{\ensuremath{\mathtarget^{\mathservice{#1}}}}{\ensuremath{\mathtarget^{\mathservice{#1}}}}%
+}
+\newcommand{\excm}[1]{\ensuremath{\mathcm_{}}}
+
+\newcommand{\mathservice}{\ensuremath{s}}
+
+
+\newcommand{\condition}[1]{\emph{#1)}}
+%\newcommand{\conditionpar}[1]{\condition{#1)}}
+
+\newcommand{\exart}{\ensuremath{art}}
+\newcommand{\exdev}{\ensuremath{dev}}
+\newcommand{\exver}{\ensuremath{eval}}
+\newcommand{\mathdimensionart}{\ensuremath{\mathdimension_{\exart}}}
+\newcommand{\mathdimensiondev}{\ensuremath{\mathdimension_{\exdev}}}
+\newcommand{\mathdimensionver}{\ensuremath{\mathdimension_{\exver}}}
+\newcommand{\mathdimensioninstanceart}{\ensuremath{\mathdimensioninstance_{\exart}}}
+\newcommand{\mathdimensioninstancedev}{\ensuremath{\mathdimensioninstance_{\exdev}}}
+\newcommand{\mathdimensioninstancever}{\ensuremath{\mathdimensioninstance_{\exver}}}
+
+\newcommand{\assumption}[1]{A#1)}
+
+\newcommand{\step}[1]{(#1)}
+
+\newcommand{\mathattributeandvalue}[2]{\ensuremath{\mathattribute_{#1}.\mathattributevalue_{#2}}}
+
+
+
+
+
+
