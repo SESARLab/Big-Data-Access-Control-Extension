@@ -1,0 +1,150 @@
+\section{Maximizing the Pipeline Instance Quality}\label{sec:heuristics}
+Our goal is to generate a pipeline instance with maximum quality, addressing data protection requirements throughout the pipeline execution. To this aim, we first discuss the quality metrics used to measure and monitor data quality, which guide the generation of the pipeline instance with maximum quality. Then, we prove that the problem of generating a pipeline instance with maximum quality is NP-hard (\cref{sec:nphard}). Finally, we introduce a parametric heuristic (\cref{subsec:heuristics}) designed to tackle the computational complexity associated with enumerating all possible combinations within a given set. The main objective of the heuristic is to approximate the optimal path for service interactions and transformations, especially within the realm of complex pipelines consisting of numerous vertices and candidate services. Our focus extends beyond identifying optimal combinations to include an understanding of the quality changes introduced during the transformation processes.
+
+\subsection{Quality Metrics}\label{subsec:metrics}
+Ensuring data quality is mandatory to implement data pipelines that provide accurate results and decision-making along the whole pipeline execution. Quality metrics measure the data quality preserved at each step of the data pipeline, and can be classified as \emph{quantitative} or \emph{qualitative}. 
+Quantitative metrics monitor the amount of data lost during data transformations to model the quality difference between datasets \origdataset\ and \transdataset.
+Qualitative metrics evaluate changes in the properties of datasets \origdataset\ and \transdataset. For instance, qualitative metrics can measure the changes in the statistical distribution of the two datasets.
+
+In this paper, we use two metrics, one quantitative and one qualitative, to compare the input dataset \origdataset\ and the dataset \transdataset\ obtained by enforcing data protection requirements (i.e., our policy-driven transformation described in \cref{sec:instance}) on \origdataset\ at each step of the pipeline. We note that a complete taxonomy of possible metrics is outside the scope of this paper and will be the target of our future work.
+
+\subsubsection{Quantitative metric}
+We propose a quantitative metric $M_J$ based on the Jaccard coefficient that assesses the similarity between two datasets. The Jaccard coefficient is defined as follows \cite{RAHMAN20102707}: \[J(X,Y) = \frac{|X \cap Y|}{|X \cup Y|}\]
+where X and Y are two datasets of the same size.
+
+The coefficient is calculated by dividing the cardinality of the intersection of two datasets by the cardinality of their union. It ranges from 0 to 1, with 0 indicating no similarity (minimum quality) and 1 indicating complete similarity (maximum quality) between the datasets. It has several advantages. Unlike other similarity measures, such as Euclidean distance, it is not affected by the magnitude of the values in the dataset. It is suitable for datasets with categorical variables or nominal data, where the values do not have a meaningful numerical interpretation.
+
+Metric $M_J$ extends the Jaccard coefficient with weights that model the importance of each element in the dataset as follows:\[M_J(X,Y) = \frac{\sum_{i=1}^{n}w_i(x_i \cap y_i)}{\sum_{i=1}^{n}w_i(x_i \cup y_i)}\]
+where $x_i$$\in$X ($y_i$$\in$Y, resp.) is the $i$-th feature of dataset X (Y, resp.), and $w_i$ the weight modeling the importance of the $i$-th feature.
+
+It is computed by dividing the cardinality of the intersection of two datasets by the cardinality of their union, weighted by the importance of each feature in the datasets. It provides a more accurate measure of similarity. 
+
+\subsubsection{Qualitative Metric}
+We propose a qualitative metric $M_{JSD}$ based on the Jensen-Shannon Divergence (JSD) that assesses the similarity (distance) between the probability distributions of two datasets.
+
+JSD is a symmetrized version of the KL divergence~\cite{Fuglede} and is applicable to a pair of statistical distributions only. It is defined as follows:
+\[JSD(X, Y) = \frac{1}{2} \left( KL(X || M)
+  + KL(Y || M) \right)\]
+%
+where X and Y are two distributions of the same size, and M$=$0.5*(X+Y) is the average distribution.
+JSD incorporates both the KL divergence from X to M and from Y to M.
+
+To make JSD applicable to datasets, where each feature in the dataset has its own statistical distribution, metric $M_{JSD}$ applies JSD to each column of the dataset. The obtained results are then aggregated using a weighted average, thus enabling the prioritization of important features that can be lost during the policy-driven transformation in \cref{sec:heuristics}, as follows: \[M_{JSD} = 1 - \sum_{i=1}^n w_i \cdot \text{JSD}(x_i,y_i)\]
+where $\sum_{i=1}^n w_i$$=$1 and each \(\text{JSD}(x_i,y_i)\) accounts for the Jensen-Shannon Divergence computed for the \(i\)-th feature in datasets X and Y. It ranges from 0 to 1, with 0 indicating no similarity (minimum quality) and 1 indicating complete similarity (maximum quality) between the datasets.
+
+$M_{JSD}$ provides a weighted measure of similarity, which is symmetric and accounts for the contribution from both datasets and specific features. It can compare the similarity of the two datasets, providing a symmetric and normalized measure that considers the overall data distributions.
+
+
+\subsubsection{Pipeline Quality}
+Metrics $M_J$ and $M_{JSD}$ contribute to the calculation of the pipeline quality \q\ as follows. 
+\vspace{0.5em}
+
+\begin{definition}[\emph{\PipQuality}]\label{def:quality}
+Given a metric $M$$\in$$\{M_J,M_{JSD}$\} modeling data quality, the pipeline quality \q is equal to $\sum_{i=1}^{|S|}M_{ij}$, with $M_{ij}$ the value of the quality metric computed at each vertex \vii{i}$\in$$\V'_S$ of the pipeline instance $G'$ with respect to the service instance \sii{j}, with $1 \leq j <  |S^c_{i}|$.
+\end{definition}
+
+\vspace{0.5em}
+We also use the notation $\q_{ij}$, with $\q_{ij}$$=$$M_{ij}$, to specify the \quality at vertex \vii{i}$\in$$\V'_S$ of $G'$ for service \sii{j}.
+
+\subsection{NP-Hardness of the Max-Quality Pipeline Instantiation Problem}\label{sec:nphard}
+The process of computing a pipeline instance (\cref{def:instance}) with maximum quality \q\ can be formally defined as follows.
+\vspace{0.5em}
+
+\begin{definition}[Max-Quality Problem]\label{def:MaXQualityInstance}
+Given a pipeline template $G^{\myLambda,\myGamma}$ and a set $S^c$ of candidate services, find a max-quality pipeline instance $G'$ such that:
+  \begin{itemize}
+    \item $G'$ satisfies conditions in \cref{def:instance},
+    \item $\nexists$ a pipeline instance $G''$ that satisfies conditions in \cref{def:instance} and such that quality \q($G''$)$>$\q($G'$), where \q($\cdot$) is the pipeline quality in Definition~\ref{def:quality}.
+  \end{itemize}
+\end{definition}
+
+\vspace{0.5em}
+
+The Max-Quality problem is a combinatorial selection problem and is NP-hard, as stated by \cref{theorem:NP}. However, while the overall problem is NP-hard, the filtering step of the process, is solvable in polynomial time. 
+It can be done by iterating over each vertex and each service, checking if the service matches the vertex policy. This process takes polynomial time complexity $O(|V_S|*|S|)$.
+
+\vspace{0.5em}
+
+\begin{theorem}\label{theorem:NP}
+  The Max-Quality problem is NP-Hard.
+\end{theorem}
+\emph{Proof: }
+The proof is a reduction from the multiple-choice knapsack problem (MCKP), a classified NP-hard combinatorial optimization problem, which is a generalization of the simple knapsack problem (KP) \cite{Kellerer2004}. In the MCKP problem, there are $t$ mutually disjoint classes $N_1,N_2,\ldots,N_t$ of items to pack in some knapsack of capacity $C$, class $N_i$ having size $n_i$. Each item $j$$\in$$N_i$ has a profit $p_{ij}$ and a weight $w_{ij}$; the problem is to choose one item from each class such that the profit sum is maximized without having the weight sum to exceed C.
+
+The MCKP can be reduced to the Max-Quality \problem in polynomial time, with $N_1,N_2,\ldots,N_t$ corresponding to the sets of compatible services $S^c_{1}, S^c_{2}, \ldots, S^c_{u}$, with $t$$=$$u$ and $n_i$ also the size of each set $S^c_{i}$. The profit $p_{ij}$ of item $j$$\in$$N_i$ corresponds to quality \textit{\q}$_{ij}$ computed for each candidate service $s_j$$\in$$S^c_{i}$, while $w_{ij}$ is uniformly 1 (thus, C is always equal to the cardinality of $V_C$). It is evident that the solution to one problem is also the solution to the other (and vice versa). Since the reduction can be done in polynomial time, the Max-Quality problem is also NP-hard. 
+
+\vspace{0.5em}
+
+\begin{example}[Max-Quality Pipeline Instance]
+  We extend \cref{ex:instance} with the selection algorithm in \cref{sec:instance} built on pipeline quality \q. The selection algorithm is applied to the set $S'_*$ of compatible services and returns three service rankings, one for each vertex \vi{4}, \vi{5}, \vi{6}, according to quality metric $M_J$ measuring the amount of preserved data after anonymization. The ranking is presented in \cref{tab:instance_example_maxquality}(b), according to the transformation function in the corresponding policies.
+  We assume that the more restrictive the transformation function (i.e., it anonymizes more data), the lower is the service position in the ranking.
+  For example, \s{11} is ranked first because it anonymizes less data than \s{12} and \s{13}, that is, $Q_{11}$$>$$Q_{12}$ and $Q_{11}$$>$$Q_{13}$.  The same applies for the ranking of \s{22} and \s{23}.
+  The ranking of \s{31} and \s{32} is affected by the environment state at the time of the ranking.   For example, if the environment where the visualization is performed is a CT facility, then \s{31} is ranked first and \s{32} second because the facility is considered less risky than the cloud, and $Q_{31}$$>$$Q_{32}$.
+\end{example}
+
+\subsection{Heuristic}\label{subsec:heuristics}
+We design and implement a heuristic algorithm built on a \emph{sliding window} for computing the pipeline instance maximizing quality \q.
+At each iteration $i$, a window of size \windowsize\ selects a subset of vertices in the pipeline template $\tChartFunction$, from vertices at depth $i$ to vertices at depth \windowsize$+$$i$$-$1.
+Service filtering and selection in \cref{sec:instance} are then executed to maximize quality $Q_w$ in window $w$. The heuristic returns as output the list of services instantiating all vertices at depth $i$. The sliding window $w$ is then shifted by 1 (i.e., $i$$=$$i$+1) and the filtering and selection process executed until \windowsize$+$$i$$-$1 is equal to length $l$ (max depth) of $\tChartFunction$, that is, the sliding window reaches the end of the template. In the latter case, the heuristic instantiates all remaining vertices and returns the pipeline instance $G'$.
+This strategy ensures that only services with low information loss are selected at each step, maximizing the pipeline quality \q.
+\newenvironment{redtext}{\footnotesize	\color{gray}}{~~}
+\begin{figure}[!t]
+        \hrule\vspace{3pt}
+                \begin{tabbing}
+                    \INPUT\\
+                    $G^{\myLambda,\myGamma}$: Pipeline Template\\
+                    \windowsize: Window Size\\
+                        ~\\[1pt]
+                    \OUTPUT\\
+                        $G'$: Pipeline Instance\\
+                        $M$: Quality Metric\\
+                        ~\\[1pt]
+                    \funcname{Sliding\_Window\_Heuristic ($G^{\myLambda,\myGamma}$, \windowsize)}\\
+                    \\
+                    \begin{redtext}1\end{redtext}\commentall{For each window frame choose the best combination of services}\\
+                    \begin{redtext}2\end{redtext}\com{for} \= i = 0 to l - \windowsize + 1;\\
+                        \begin{redtext}3\end{redtext}\tabone $G'$ = $G'$ $\cup$ Select\_Service(j, \windowsize);\\
+                        \begin{redtext}4\end{redtext}\com{endfor};\\
+                    \\
+                    \begin{redtext}5\end{redtext}\commentall{Calculate the total quality metric}\\
+                    \begin{redtext}6\end{redtext}\com{for} \= j = 0 to $|V'_S|$;\\
+                    \begin{redtext}7\end{redtext}\tabone $M$=$M$+$M(\sii{j})$;\\
+                    \begin{redtext}8\end{redtext}\com{endfor};\\
+                    \\
+                    \begin{redtext}9\end{redtext}\com{return}  $G'$, $M$;\\
+                    \\
+                    \\
+                    \begin{redtext}10\end{redtext}\funcname{Select\_Service (j,\windowsize)}\\
+                    \\
+                    \begin{redtext}11\end{redtext}\bestcombination = best combination (\textit{empty});\\
+                    \begin{redtext}12\end{redtext}\commentall{Select the best combination of services}\\
+                    \begin{redtext}13\end{redtext}\com{for}\=~\currentcombination $\in$  $\bigotimes_{k=j}^{j+|w|-1} verticesList[k]$\\
+                    \begin{redtext}14\end{redtext}\tabone \com{if}\=~M(\currentcombination) $<$ M(\bestcombination)\\
+                    \begin{redtext}15\end{redtext}\tabtwo \bestcombination = \currentcombination\\
+
+                    \begin{redtext}16\end{redtext}\com{endfor};\\
+                    \\
+                    \begin{redtext}17\end{redtext}\commentall{If it is the last window frame, return all services }\\
+                    \begin{redtext}18\end{redtext}\com{if}\=~isLastWindowFrame()\\
+                    \begin{redtext}19\end{redtext}\tabone\com{return} \bestcombination\\
+                    \begin{redtext}20\end{redtext}\com{else}\\
+                    \begin{redtext}21\end{redtext}\tabone\com{return} \bestcombination[0]\\
+
+
+
+                \end{tabbing}
+        \hrule
+        \vspace{10pt}
+        \caption{\label{fig:slidingwindow-pseudocode} Pseudocode of the sliding window heuristic algorithm.}
+\end{figure}
+
+The pseudocode of the heuristic algorithm is presented in \cref{fig:slidingwindow-pseudocode}.
+Function \textbf{SlidingWindowHeuristic} implements our heuristic; it takes the pipeline template $\tChartFunction$ and the window size \windowsize\ as input and returns the pipeline instance $G'$ and corresponding metric $M$ as output. Function \textbf{SlidingWindowHeuristic} retrieves the optimal service combination composing $G'$, considering the candidate services associated with each vertex in $\tChartFunction$ and the constraints (policies) in \emph{verticesList}.
+
+It iterates all sliding windows $w$ step 1 until the end of the pipeline template is reached (\textbf{for cycle} in line 2). Adding the service(s) selected at step $i$ to $G'$ by function \textbf{SelectService} (definied in line 10).
+
+Function \textbf{SelectService} takes as input index $i$ representing the starting depth of the window and the corresponding window size \windowsize. It initializes the best combination of services to \textit{empty} (line 11). It iterates through all possible combinations of services in the window using the Cartesian product of the service lists (\textbf{for cycle} in lines 13-16). If the current combination has quality metric M($G'_w$) higher than the best quality metric M($G^*_w$), current combination $G'_w$ updates the best combination $G^*_w$ (lines 14-15).
+
+Function \textbf{SelectService} then checks whether it is processing the last window (line 18). If yes, it returns the best combination $G^*_w$ (line 19). Otherwise, it returns the first service in the best combination $G^*_w$ (line 21).
+
+Within each window, function \textbf{SlidingWindowHeuristic} finally iterates through the selected services to calculate the total quality metric $M$ (\textbf{for cycle} in lines 6-8). This metric is updated by summing the quality metrics of the selected services. The function concludes by returning the best pipeline instance $G'$ and the corresponding quality metric $M$ (line 9).
