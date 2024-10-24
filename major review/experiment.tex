@@ -142,9 +142,9 @@ The simulator first defines the pipeline template as a sequence of vertices, wit
     \end{subfigure}
     \label{fig:time_window_perce_average}
   \end{figure}
-  
+
   \subsection{Quality}\label{subsec:experiments_quality}
-  We finally evaluated the quality of our heuristic algorithm with different \windowsize\ comparing, where possible, its results with the optimal solution retrieved by executing the exhaustive approach. 
+  We finally evaluated the quality of our heuristic algorithm with different \windowsize\ comparing, where possible, its results with the optimal solution retrieved by executing the exhaustive approach.
   The quality $Q$ of the heuristic has been normalized between 0 and 1 by dividing it by the quality $Q^*$ retrieved by the exhaustive approach.
 
   We run our experiments varying: \emph{i)} the length $l$ of the pipeline template in [3,7], that is, the depth of the pipeline template as the number of vertices composed in a sequence, \emph{ii)} the window size \windowsize\ in [1,$l$], and \emph{iii)} the number of candidate services for each vertex in the pipeline template in [2, 7]. Each vertex is associated with a (set of) policy that applies a filtering transformation that either remove a percentage of data in $[0.5,0.8]$ (\average) or in $[0.2,1]$ (\wide).
@@ -171,16 +171,16 @@ The simulator first defines the pipeline template as a sequence of vertices, wit
     \begin{subfigure}{\textwidth}
       \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_perce_n7_s7_20_100_n5}
       \caption{\wide 5 vertices}
-  
+
       \label{fig:quality_window_wide_perce_n5}
     \end{subfigure}
-  
+
       \begin{subfigure}{\textwidth}
       \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_perce_n7_s7_20_100_n6}
       \caption{\wide 6 vertices}
       \label{fig:quality_window_wide_perce_n6}
     \end{subfigure}
-  
+
     \begin{subfigure}{\textwidth}
       \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_perce_n7_s7_20_100_n7}
       \caption{\wide 7 vertices}
@@ -191,14 +191,14 @@ The simulator first defines the pipeline template as a sequence of vertices, wit
     \begin{subfigure}{\textwidth}
       \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_perce_n7_s7_50_89_n3}
       \caption{\average 3 vertices}
-  
+
       \label{fig:quality_window_average_perce_n3}
     \end{subfigure}
-  
+
     \begin{subfigure}{\textwidth}
       \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_perce_n7_s7_50_89_n4}
       \caption{\average 4 vertices}
-  
+
       \label{fig:quality_window_average_perce_n4}
     \end{subfigure}
     \begin{subfigure}{\textwidth}
@@ -206,22 +206,22 @@ The simulator first defines the pipeline template as a sequence of vertices, wit
       \caption{\average 5 vertices}
       \label{fig:quality_window_average_perce_n5}
     \end{subfigure}
-  
+
     \begin{subfigure}{\textwidth}
       \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_perce_n7_s7_50_89_n6}
       \caption{\average 6 vertices}
       \label{fig:quality_window_average_perce_n6}
     \end{subfigure}
-  
-  
+
+
     \begin{subfigure}{\textwidth}
       \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_perce_n7_s7_50_89_n7}
       \caption{\average 7 vertices}
       \label{fig:quality_window_average_perce_n7}
     \end{subfigure}
-  
+
   \end{subfigure}
-  
+
     \caption{Evaluation of Quality Using the \emph{Qualitative} Metric in a \wide (\cref{fig:quality_window_wide_perce_n3,fig:quality_window_wide_perce_n4,fig:quality_window_wide_perce_n5,fig:quality_window_wide_perce_n6,fig:quality_window_wide_perce_n7}) and \average (\cref{fig:quality_window_average_perce_n3,fig:quality_window_average_perce_n4,fig:quality_window_average_perce_n5,fig:quality_window_average_perce_n6,fig:quality_window_average_perce_n7}) Profile Configuration.}  \label{fig:quality_window_perce}
   \end{adjustbox}
   \end{figure}
@@ -231,7 +231,7 @@ The simulator first defines the pipeline template as a sequence of vertices, wit
 
   \cref{fig:quality_window_qualitative} present our quality results using metric $M_{JSD}$ in \cref{subsec:metrics} for settings \wide and \average, respectively.
 
-  When considering setting \wide, the greedy approach (\windowsize=1) provides good results on average (0.92, 0.97), limiting oscillations observed with metric $M_J$; for instance, the quality varies between 0.951 and 0.989 for 3 vertices, 0.941 and 0.988 for 4 vertices, 0.919 and 0.974 for 5 vertices, 0.911 and 0.971 for 6 vertices, 0.877 and 0.924 for 7 vertices. 
+  When considering setting \wide, the greedy approach (\windowsize=1) provides good results on average (0.92, 0.97), limiting oscillations observed with metric $M_J$; for instance, the quality varies between 0.951 and 0.989 for 3 vertices, 0.941 and 0.988 for 4 vertices, 0.919 and 0.974 for 5 vertices, 0.911 and 0.971 for 6 vertices, 0.877 and 0.924 for 7 vertices.
   The worst quality results are obtained with window size equal to 1, while the oscillations are negligible when the window size is >2. For instance, when \windowsize=$l$-2, the quality varies between, 0.982 and 0.996 for 4 vertices, 0.981 and 0.998 for 5 vertices, 0.988 and 1.0 for 6 vertices, 0.976 and 0.999 for 7 vertices. When \windowsize=$l$-1, the quality varies between  0.987 and  0.998 for 3 vertices, 0.993 and 1.0 for 4 vertices, 0.985 and 0.999 for 5 vertices, 0.997 and 1.0 for 6 vertices, 0.995 and 1.0  for 7 vertices.
 
   \begin{figure}[H]
@@ -304,9 +304,9 @@ The simulator first defines the pipeline template as a sequence of vertices, wit
   \end{figure}
 
   When considering setting \average, the greedy approach (\windowsize=1) provides results similar to setting \wide. On average, quality varies from 0.920 to 0.969, limiting oscillations; for instance, the quality varies between 0.951 and 0.989 for 3 vertices, 0.942 and 0.988 for 4 vertices, 0.919 and 0.975 for 5 vertices, 0.912 and 0.972 for 6 vertices, 0.878 and 0.925 for 7 vertices. The \average configuration provides even tighter quality oscillations than the \wide configuration. Notably, the poorest quality outcomes are observed when the window size is set to 1. Conversely, these oscillations become negligible when the window size exceeds 1 in configurations with three and four vertices, and when it exceeds 2 in configurations involving five, six, and seven vertices.  For instance, when \windowsize=3, the quality varies between  0.993 and 1 for 4 vertices, 0.981 and 0.998 for 5 vertices, 0.982 and 997 for 6 vertices, 0.960 and 0.991 for 7 vertices.
-
+\subsection{Lessons Learnt}
   Our results suggest that the proposed heuristic well approximates the results obtained by the exhaustive approach. While larger window sizes generally lead to better performance, there exists a breakpoint where the balance between window size and performance is optimized. Beyond this point, the incremental gains in metric values may not justify the additional computational burden or complexity introduced by larger windows. It is worth noting that lower window sizes are more unstable, especially with setting \wide, meaning that the quality varies significantly among different configurations. This effect stabilizes with higher window sizes (e.g., \windowsize$\geq$$l$/2).
-  
+
 
 
 

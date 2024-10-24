@@ -2,7 +2,7 @@
 Our goal is to generate a pipeline instance with maximum quality, addressing data protection requirements throughout the pipeline execution. To this aim, we first discuss the quality metrics used to measure and monitor data quality, which guide the generation of the pipeline instance with maximum quality. Then, we prove that the problem of generating a pipeline instance with maximum quality is NP-hard (\cref{sec:nphard}). Finally, we introduce a parametric heuristic (\cref{subsec:heuristics}) designed to tackle the computational complexity associated with enumerating all possible combinations within a given set. The main objective of the heuristic is to approximate the optimal path for service interactions and transformations, especially within the realm of complex pipelines consisting of numerous vertices and candidate services. Our focus extends beyond identifying optimal combinations to include an understanding of the quality changes introduced during the transformation processes.
 
 \subsection{Quality Metrics}\label{subsec:metrics}
-Ensuring data quality is mandatory to implement data pipelines that provide accurate results and decision-making along the whole pipeline execution. Quality metrics measure the data quality preserved at each step of the data pipeline, and can be classified as \emph{quantitative} or \emph{qualitative}. 
+Ensuring data quality is mandatory to implement data pipelines that provide accurate results and decision-making along the whole pipeline execution. Quality metrics measure the data quality preserved at each step of the data pipeline, and can be classified as \emph{quantitative} or \emph{qualitative}.
 Quantitative metrics monitor the amount of data lost during data transformations to model the quality difference between datasets \origdataset\ and \transdataset.
 Qualitative metrics evaluate changes in the properties of datasets \origdataset\ and \transdataset. For instance, qualitative metrics can measure the changes in the statistical distribution of the two datasets.
 
@@ -17,7 +17,7 @@ The coefficient is calculated by dividing the cardinality of the intersection of
 Metric $M_J$ extends the Jaccard coefficient with weights that model the importance of each element in the dataset as follows:\[M_J(X,Y) = \frac{\sum_{i=1}^{n}w_i(x_i \cap y_i)}{\sum_{i=1}^{n}w_i(x_i \cup y_i)}\]
 where $x_i$$\in$X ($y_i$$\in$Y, resp.) is the $i$-th feature of dataset X (Y, resp.), and $w_i$ the weight modeling the importance of the $i$-th feature.
 
-It is computed by dividing the cardinality of the intersection of two datasets by the cardinality of their union, weighted by the importance of each feature in the datasets. It provides a more accurate measure of similarity. 
+It is computed by dividing the cardinality of the intersection of two datasets by the cardinality of their union, weighted by the importance of each feature in the datasets. It provides a more accurate measure of similarity.
 
 \subsubsection{Qualitative Metric}
 We propose a qualitative metric $M_{JSD}$ based on the Jensen-Shannon Divergence (JSD) that assesses the similarity (distance) between the probability distributions of two datasets.
@@ -36,7 +36,7 @@ $M_{JSD}$ provides a weighted measure of similarity, which is symmetric and acco
 
 
 \subsubsection{Pipeline Quality}
-Metrics $M_J$ and $M_{JSD}$ contribute to the calculation of the pipeline quality \q\ as follows. 
+Metrics $M_J$ and $M_{JSD}$ contribute to the calculation of the pipeline quality \q\ as follows.
 \vspace{0.5em}
 
 \begin{definition}[\emph{\PipQuality}]\label{def:quality}
@@ -60,7 +60,7 @@ Given a pipeline template $G^{\myLambda,\myGamma}$ and a set $S^c$ of candidate 
 
 \vspace{0.5em}
 
-The Max-Quality problem is a combinatorial selection problem and is NP-hard, as stated by \cref{theorem:NP}. However, while the overall problem is NP-hard, the filtering step of the process, is solvable in polynomial time. 
+The Max-Quality problem is a combinatorial selection problem and is NP-hard, as stated by \cref{theorem:NP}. However, while the overall problem is NP-hard, the filtering step of the process, is solvable in polynomial time.
 It can be done by iterating over each vertex and each service, checking if the service matches the vertex policy. This process takes polynomial time complexity $O(|V_S|*|S|)$.
 
 \vspace{0.5em}
@@ -71,7 +71,7 @@ It can be done by iterating over each vertex and each service, checking if the s
 \emph{Proof: }
 The proof is a reduction from the multiple-choice knapsack problem (MCKP), a classified NP-hard combinatorial optimization problem, which is a generalization of the simple knapsack problem (KP) \cite{Kellerer2004}. In the MCKP problem, there are $t$ mutually disjoint classes $N_1,N_2,\ldots,N_t$ of items to pack in some knapsack of capacity $C$, class $N_i$ having size $n_i$. Each item $j$$\in$$N_i$ has a profit $p_{ij}$ and a weight $w_{ij}$; the problem is to choose one item from each class such that the profit sum is maximized without having the weight sum to exceed C.
 
-The MCKP can be reduced to the Max-Quality \problem in polynomial time, with $N_1,N_2,\ldots,N_t$ corresponding to the sets of compatible services $S^c_{1}, S^c_{2}, \ldots, S^c_{u}$, with $t$$=$$u$ and $n_i$ also the size of each set $S^c_{i}$. The profit $p_{ij}$ of item $j$$\in$$N_i$ corresponds to quality \textit{\q}$_{ij}$ computed for each candidate service $s_j$$\in$$S^c_{i}$, while $w_{ij}$ is uniformly 1 (thus, C is always equal to the cardinality of $V_C$). It is evident that the solution to one problem is also the solution to the other (and vice versa). Since the reduction can be done in polynomial time, the Max-Quality problem is also NP-hard. 
+The MCKP can be reduced to the Max-Quality \problem in polynomial time, with $N_1,N_2,\ldots,N_t$ corresponding to the sets of compatible services $S^c_{1}, S^c_{2}, \ldots, S^c_{u}$, with $t$$=$$u$ and $n_i$ also the size of each set $S^c_{i}$. The profit $p_{ij}$ of item $j$$\in$$N_i$ corresponds to quality \textit{\q}$_{ij}$ computed for each candidate service $s_j$$\in$$S^c_{i}$, while $w_{ij}$ is uniformly 1 (thus, C is always equal to the cardinality of $V_C$). It is evident that the solution to one problem is also the solution to the other (and vice versa). Since the reduction can be done in polynomial time, the Max-Quality problem is also NP-hard.
 
 \vspace{0.5em}
 
@@ -87,7 +87,7 @@ We design and implement a heuristic algorithm built on a \emph{sliding window} f
 At each iteration $i$, a window of size \windowsize\ selects a subset of vertices in the pipeline template $\tChartFunction$, from vertices at depth $i$ to vertices at depth \windowsize$+$$i$$-$1.
 Service filtering and selection in \cref{sec:instance} are then executed to maximize quality $Q_w$ in window $w$. The heuristic returns as output the list of services instantiating all vertices at depth $i$. The sliding window $w$ is then shifted by 1 (i.e., $i$$=$$i$+1) and the filtering and selection process executed until \windowsize$+$$i$$-$1 is equal to length $l$ (max depth) of $\tChartFunction$, that is, the sliding window reaches the end of the template. In the latter case, the heuristic instantiates all remaining vertices and returns the pipeline instance $G'$.
 This strategy ensures that only services with low information loss are selected at each step, maximizing the pipeline quality \q.
-\newenvironment{redtext}{\footnotesize	\color{gray}}{~~}
+% \newenvironment{redtext}{\footnotesize	\color{gray}}{~~}
 \begin{figure}[!t]
         \hrule\vspace{3pt}
                 \begin{tabbing}
@@ -137,6 +137,7 @@ This strategy ensures that only services with low information loss are selected 
         \vspace{10pt}
         \caption{\label{fig:slidingwindow-pseudocode} Pseudocode of the sliding window heuristic algorithm.}
 \end{figure}
+
 
 The pseudocode of the heuristic algorithm is presented in \cref{fig:slidingwindow-pseudocode}.
 Function \textbf{SlidingWindowHeuristic} implements our heuristic; it takes the pipeline template $\tChartFunction$ and the window size \windowsize\ as input and returns the pipeline instance $G'$ and corresponding metric $M$ as output. Function \textbf{SlidingWindowHeuristic} retrieves the optimal service combination composing $G'$, considering the candidate services associated with each vertex in $\tChartFunction$ and the constraints (policies) in \emph{verticesList}.
