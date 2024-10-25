@@ -1,13 +1,13 @@
-\begin{table*}[!t]
+\begin{figure}[ht!]
+  \centering
   \def\arraystretch{1.5}
   \centering
-  \caption{Anonymization policies (a) and data transformations (b)}\label{tab:anonymization}
 
   \resizebox{\textwidth}{!}{
     \begin{tabular}[t]{cc}
       \begin{tabular}[t]{c|c|l}
-        \textbf{Vertex}      & \textbf{Policy} & \policy{subject}{object}{action}{environment}{transformation}                           \\ \hline
-        \vi{1},\vi{2},\vi{3} & $\p{0}$         & \policy{ANY}{dataset}{READ}{ANY}{\tp{0}}                                                \\
+        \textbf{Vertex}      & \textbf{Annotation \myLambda} & p = \policy{subject}{object}{action}{environment}{transformation}                           \\ \hline
+        \vi{1},\vi{2},\vi{3} & \myLambda{(\vi{1})},\myLambda{(\vi{2})},\myLambda{(\vi{3})}        & $p_0$ = \policy{ANY}{dataset}{READ}{ANY}{\tp{0}}                                                \\
         \vi{4},\vi{5}        & $\p{1}$         & \policy{\{\pone\}}{dataset}{READ}{ANY}{\tp{0}}                                              \\
         \vi{4},\vi{5}        & $\p{2}$         & \policy{\{\ptwo\}}{dataset}{READ}{ANY}{\tp{1}}                                              \\
         \vi{6}               & $\p{3}$         & \policy{\{$(service\_region=dataset\_origin)$\}}{dataset}{WRITE}{ANY}{\tp{0}} \\
@@ -29,7 +29,58 @@
       \footnotesize (a) &                                                                                          \\
     \end{tabular}
   }
-\end{table*}
+\\
+  \newcommand{\function}[1]{$\scriptstyle\ensuremath{\myLambda({#1}),\myGamma(#1)}$}
+  \begin{tikzpicture}[
+    node distance=0.8cm and 0.8cm,
+    scale=0.8,
+    box/.style={draw, circle,minimum size=1.5em}]
+    % vertexes
+    \node[box, fill,text=white,minimum size=1 ] (sr) at (0,0) {};
+    \node[box, plus] (plus) at (1.5,0) {};
+    \node[box, right=of plus] (s2) {$\vi{2}$};
+    \node[box, below=of s2] (s3) {$\vi{3}$};
+    \node[box, above=of s2 ] (s1) {$\vi{1}$};
+    \node[box, right=of s2] (s4) {$\vi{4}$};
+    \node[box, right=of s4] (s5) {$\vi{5}$};
+    \node[box, right=of s5] (s7) {$\vi{6}$};
+    \node[box, right=of s7] (s8) {$\vi{7}$};
+    % Text on top
+    \node[above] at (sr.north)  {$\vi{r}$};
+
+    % \node[above] at (s1.north)  {\tp{3}};
+    % \node[above] at (s2.north)  {\tp{1}};
+    % \node[above] at (s3.north)  {\tp{2}};
+    % \node[above] at (s4.north)  {\tp{4}};
+    % \node[above] at (s5.north)  {\tp{5}};
+    % \node[above] at (s7.north)  {\tp{6}};
+    % \node[above] at (s8.north)  {\tp{7}};
+
+    \node[above] at (s1.north)  {\function{1}};
+    \node[above] at (s2.north)  {\function{2}};
+    \node[below] at (s3.south)  {\function{3}};
+    \node[above] at (s4.north)  {\function{4}};
+    \node[above] at (s5.north)  {\function{5}};
+    \node[above] at (s7.north)  {\function{6}};
+    \node[above] at (s8.north)  {\function{7}};
+    % Connection
+
+    \draw[->] (sr) -- (plus);
+    \draw[->] (plus) -- (s1);
+    \draw[->] (plus) -- (s2);
+    \draw[->] (plus) -- (s3);
+
+    \draw[->] (s1) -- (s4);
+    \draw[->] (s2) -- (s4);
+    \draw[->] (s3) -- (s4);
+    \draw[->] (s4) -- (s5);
+    \draw[->] (s5) -- (s7);
+    \draw[->] (s7) -- (s8);
+
+  \end{tikzpicture}
+  \caption{Anonymization policies (a) and data transformations (b) Pipeline Template Example (c)}\label{tab:anonymization}
+  \label{fig:service_composition_template}
+\end{figure}
 
 \begin{example}[\bf \pipelineTemplate]\label{ex:template}
 Let us consider the reference scenario introduced in \cref{sec:systemmodel}.
@@ -66,39 +117,39 @@ If the environment is not risky (\p{6}), the data are anonymized at level $r_1$ 
 Functional requirement \F{8} prescribes a dataset as input and data visualization interface (possibly in the form of JSON file) as output.
 \end{example}
 
-\begin{figure}
-  \centering
-  % \resizebox{\columnwidth}{!}{%
-  \begin{tikzpicture}[
-    box/.style={draw, circle},
-    arrow/.style={->, >=stealth, thick},
-    scale=0.9
-]
-% Nodes for the stages
-\node[box] (v1) {$\vi{1}$};
-\node[box, below=of v1] (v2) {$\vi{2}$};
-\node[box, below=of v2] (v3) {$\vi{3}$};
-\node[box, right=of v2, xshift=1cm] (v4) {$\vi{4}$};
-\node[box, right=of v4] (v5) {$\vi{5}$};
-\node[box, right=of v5] (v6) {$\vi{6}$};
-\node[box, right=of v6] (v7) {$\vi{7}$};
+% \begin{figure}
+%   \centering
+%   % \resizebox{\columnwidth}{!}{%
+%   \begin{tikzpicture}[
+%     box/.style={draw, circle},
+%     arrow/.style={->, >=stealth, thick},
+%     scale=0.9
+% ]
+% % Nodes for the stages
+% \node[box] (v1) {$\vi{1}$};
+% \node[box, below=of v1] (v2) {$\vi{2}$};
+% \node[box, below=of v2] (v3) {$\vi{3}$};
+% \node[box, right=of v2, xshift=1cm] (v4) {$\vi{4}$};
+% \node[box, right=of v4] (v5) {$\vi{5}$};
+% \node[box, right=of v5] (v6) {$\vi{6}$};
+% \node[box, right=of v6] (v7) {$\vi{7}$};
 
-\node[above] at (v1.north)  {(\p{0}, \tp{0})};
-\node[above] at (v2.north)  {(\p{0}, \tp{0})};
-\node[above] at (v3.north)  {(\p{0}, \tp{0})};
-\node[above] at (v4.north)  {(\p{1}, \tp{2})};
-\node[above] at (v5.north)  {(\p{1}, \tp{2})};
-\node[above] at (v6.north)  {(\p{3}, \tp{4})};
-\node[above] at (v7.north)  {(\p{5}, \tp{6})};
-% Arrows connecting the stages
-\draw[arrow] (v1) -- (v4);
-\draw[arrow] (v2) -- (v4);
-\draw[arrow] (v3) -- (v4);
-\draw[arrow] (v4) -- (v5);
-\draw[arrow] (v5) -- (v6);
-\draw[arrow] (v6) -- (v7);
+% \node[above] at (v1.north)  {(\p{0}, \tp{0})};
+% \node[above] at (v2.north)  {(\p{0}, \tp{0})};
+% \node[above] at (v3.north)  {(\p{0}, \tp{0})};
+% \node[above] at (v4.north)  {(\p{1}, \tp{2})};
+% \node[above] at (v5.north)  {(\p{1}, \tp{2})};
+% \node[above] at (v6.north)  {(\p{3}, \tp{4})};
+% \node[above] at (v7.north)  {(\p{5}, \tp{6})};
+% % Arrows connecting the stages
+% \draw[arrow] (v1) -- (v4);
+% \draw[arrow] (v2) -- (v4);
+% \draw[arrow] (v3) -- (v4);
+% \draw[arrow] (v4) -- (v5);
+% \draw[arrow] (v5) -- (v6);
+% \draw[arrow] (v6) -- (v7);
 
-\end{tikzpicture}
-  % }
-  \caption{\label{fig:pipeline_template_example}Example of pipeline template}
-\end{figure}
+% \end{tikzpicture}
+%   % }
+%   \caption{\label{fig:pipeline_template_example}Example of pipeline template}
+% \end{figure}

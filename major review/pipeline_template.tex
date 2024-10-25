@@ -25,55 +25,9 @@ The template is formally defined as follows.
 
 \vspace{0.5em}
 
-We note that, at this stage, the template is not yet linked to any service. We also note that policies $p_j$$\in$\P{i} in \myLambda(\vi{i}) are combined using logical OR, meaning that the access decision is positive if at least one policy $p_j$ evaluates to \emph{true}. The pipeline template of the service pipeline of \cref{fig:reference_scenario} is depicted in \cref{fig:service_composition_template}.
-
-      \begin{figure}[ht!]
-        \centering
-        \newcommand{\function}[1]{$\ensuremath{\myLambda_{#1},\myGamma_{#1}}$}
-        \begin{tikzpicture}[scale=0.9]
-          % vertexes
-          \node[draw, circle, fill,text=white,minimum size=1 ] (sr) at (0,0) {};
-          \node[draw, circle, plus,minimum size=1.5em] (plus) at (1.5,0) {};
-          \node[draw, circle] (s1) at (3,1.7) {$\vi{3}$};
-          \node[draw, circle] (s2) at (3,-1.7) {$\vi{1}$};
-          \node[draw, circle] (s3) at (3,0) {$\vi{2}$};
-
-
-          \node[draw, circle] (s4) at (4.5,0) {$\vi{4}$};
-
-          \node[draw, circle] (s5) at (6,0) {$\vi{5}$};
-
-          \node[draw, circle] (s7) at (7.5,0) {$\vi{6}$};
-          \node[draw, circle] (s8) at (9,0) {$\vi{7}$};
-          % Text on top
-          \node[above] at (sr.north)  {$\vi{r}$};
-
-          \node[above] at (s1.north)  {\function{3}};
-
-          \node[above] at (s2.north)  {\function{1}};
-          \node[above] at (s3.north)  {\function{2}};
-          \node[above] at (s4.north)  {\function{4}};
-          \node[above] at (s5.north)  {\function{5}};
-          \node[above] at (s7.north)  {\function{6}};
-          \node[above] at (s8.north)  {\function{7}};
-          % Connection
-
-          \draw[->] (sr) -- (plus);
-          \draw[->] (plus) -- (s1);
-          \draw[->] (plus) -- (s2);
-          \draw[->] (plus) -- (s3);
-
-          \draw[->] (s1) -- (s4);
-          \draw[->] (s2) -- (s4);
-          \draw[->] (s3) -- (s4);
-          \draw[->] (s4) -- (s5);
-          \draw[->] (s5) -- (s7);
-          \draw[->] (s7) -- (s8);
-
-        \end{tikzpicture}
-        \caption{Pipeline Template}
-        \label{fig:service_composition_template}
-      \end{figure}
+We note that, at this stage, the template is not yet linked to any service.
+We also note that policies $p_j$$\in$\P{i} in \myLambda(\vi{i}) are combined using logical OR, meaning that the access decision is positive if at least one policy $p_j$ evaluates to \emph{true}.
+% The pipeline template of the service pipeline of \cref{fig:reference_scenario} is depicted in \cref{fig:service_composition_template}.
 
       \subsection{Data Protection Annotation}\label{sec:nonfuncannotation}
       Data Protection Annotation \myLambda\ expresses data protection requirements in the form of access control policies. We consider an attribute-based access control model that offers flexible fine-grained authorization and adapts its standard key components to address the unique characteristics of a big data environment. Access requirements are expressed in the form of policy conditions that are defined as follows.
