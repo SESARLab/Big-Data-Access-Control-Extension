@@ -37,30 +37,30 @@ Upon selecting the most suitable service for each component service in the pipel
 Our reference scenario considers a service pipeline analyzing a dataset of individuals detained in the Department of Correction facilities in the state of Connecticut while awaiting trial\footnote{https://data.ct.gov/Public-Safety/Accused-Pre-Trial-Inmates-in-Correctional-Faciliti/b674-jy6w}.
 {\color{OurColor} In the adopted dataset each row represents an inmate}; each column includes the following attributes: date of download, a unique identifier, last entry date, race, gender, age of the individual, the bound value, offense, entry facility, and detainer. To serve the objectives of our study, we extended this dataset by introducing randomly generated first and last names.
 
-% \begin{table*}[!t]
-%   \caption{Dataset sample}
-%   \label{tab:dataset}
-%   \centering
-%   \begin{adjustbox}{max totalsize={.99\linewidth}{\textheight},center}
-%     \bgroup
-%     \def\arraystretch{1.5}
-%     \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|}
-%       \hline
-%       \textbf{DOWNLOAD DATE} & \textbf{ID} & \textbf{FNAME} & \textbf{LNAME} & \textbf{LAD} & \textbf{RACE} & \textbf{GENDER} & \textbf{AGE} & \textbf{BOND} & \textbf{OFFENSE}     & \textbf{\dots} \\ \hline
-%       05/15/2020             & ZZHCZBZZ    & ROBERT         & PIERCE         & 08/16/2018   & BLACK         & M               & 27           & 150000        & CRIMINAL POSS \dots  & \dots          \\ \hline
-%       05/15/2020             & ZZHZZRLR    & KYLE           & LESTER         & 03/28/2019   & HISPANIC      & M               & 41           & 30100         & VIOLATION OF P\dots  & \dots          \\ \hline
-%       05/15/2020             & ZZSRJBEE    & JASON          & HAMMOND        & 04/03/2020   & HISPANIC      & M               & 21           & 150000        & CRIMINAL ATTEM\dots  & \dots          \\ \hline
-%       05/15/2020             & ZZHBJLRZ    & ERIC           & TOWNSEND       & 01/15/2020   & WHITE         & M               & 36           & 50500         & CRIM VIOL OF P\dots  & \dots          \\ \hline
-%       05/15/2020             & ZZSRRCHH    & MICHAEL        & WHITE          & 12/26/2018   & HISPANIC      & M               & 29           & 100000        & CRIMINAL ATTEM\dots  & \dots          \\ \hline
-%       05/15/2020             & ZZEJCZWW    & JOHN           & HARPER         & 01/03/2020   & WHITE         & M               & 54           & 100000        & CRIM VIOL OF P\dots  & \dots          \\ \hline
-%       05/15/2020             & ZZHJBJBR    & KENNETH        & JUAREZ         & 03/19/2020   & HISPANIC      & M               & 35           & 100000        & CRIM VIOL ST C\dots  & \dots          \\ \hline
-%       05/15/2020             & ZZESESZW    & MICHAEL        & SANTOS         & 12/03/2018   & WHITE         & M               & 55           & 50000         & ASSAULT 2ND, V\dots  & \dots          \\ \hline
-%       05/15/2020             & ZZRCSHCZ    & CHRISTOPHER    & JONES          & 05/13/2020   & BLACK         & M               & 43           & 10000         & INTERFERING WIT\dots & \dots          \\ \hline
-%     \end{tabular}
-%     \egroup
-%   \end{adjustbox}
+\begin{table*}[!t]
+  \caption{Dataset sample}
+  \label{tab:dataset}
+  \centering
+  \begin{adjustbox}{max totalsize={.99\linewidth}{\textheight},center}
+    \bgroup
+    \def\arraystretch{1.5}
+    \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|}
+      \hline
+      \textbf{DOWNLOAD DATE} & \textbf{ID} & \textbf{FNAME} & \textbf{LNAME} & \textbf{LAD} & \textbf{RACE} & \textbf{GENDER} & \textbf{AGE} & \textbf{BOND} & \textbf{OFFENSE}     & \textbf{\dots} \\ \hline
+      05/15/2020             & ZZHCZBZZ    & ROBERT         & PIERCE         & 08/16/2018   & BLACK         & M               & 27           & 150000        & CRIMINAL POSS \dots  & \dots          \\ \hline
+      05/15/2020             & ZZHZZRLR    & KYLE           & LESTER         & 03/28/2019   & HISPANIC      & M               & 41           & 30100         & VIOLATION OF P\dots  & \dots          \\ \hline
+      05/15/2020             & ZZSRJBEE    & JASON          & HAMMOND        & 04/03/2020   & HISPANIC      & M               & 21           & 150000        & CRIMINAL ATTEM\dots  & \dots          \\ \hline
+      05/15/2020             & ZZHBJLRZ    & ERIC           & TOWNSEND       & 01/15/2020   & WHITE         & M               & 36           & 50500         & CRIM VIOL OF P\dots  & \dots          \\ \hline
+      05/15/2020             & ZZSRRCHH    & MICHAEL        & WHITE          & 12/26/2018   & HISPANIC      & M               & 29           & 100000        & CRIMINAL ATTEM\dots  & \dots          \\ \hline
+      05/15/2020             & ZZEJCZWW    & JOHN           & HARPER         & 01/03/2020   & WHITE         & M               & 54           & 100000        & CRIM VIOL OF P\dots  & \dots          \\ \hline
+      05/15/2020             & ZZHJBJBR    & KENNETH        & JUAREZ         & 03/19/2020   & HISPANIC      & M               & 35           & 100000        & CRIM VIOL ST C\dots  & \dots          \\ \hline
+      05/15/2020             & ZZESESZW    & MICHAEL        & SANTOS         & 12/03/2018   & WHITE         & M               & 55           & 50000         & ASSAULT 2ND, V\dots  & \dots          \\ \hline
+      05/15/2020             & ZZRCSHCZ    & CHRISTOPHER    & JONES          & 05/13/2020   & BLACK         & M               & 43           & 10000         & INTERFERING WIT\dots & \dots          \\ \hline
+    \end{tabular}
+    \egroup
+  \end{adjustbox}
 
-% \end{table*}
+\end{table*}
 
 In this context, the user, a member of the Connecticut Department of Correction (DOC), is interested to compare the admission trends in Connecticut prisons with the ones in New York and New Hampshire. We assume that the three DOCs are partners and share data according to their privacy policies. Moreover, the policy specifies that the entire service execution must occur within the Connecticut Department of Correction. In case data transmission extends beyond Connecticut's borders, data protection measures must be implemented.
 
