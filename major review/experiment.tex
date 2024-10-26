@@ -9,6 +9,12 @@ The simulator first defines the pipeline template as a sequence of vertices, wit
     We recall that alternative vertices are modeled in different pipeline templates, while parallel vertices are not considered in our experiments since they only add a fixed execution time that is negligible and do not affect the performance and quality of our solution.
     Each vertex is associated with a (set of) policy that applies a filtering transformation that remove a given percentage of data.
 
+
+\hl{
+  For the best of our knowledge, no existing alternative solutions or industry standards sufficiently address the balance between data quality and privacy in big data pipelines. In the absence of such frameworks, our study employs a classical greedy approach as a baseline. This method identifies, at each stage of the data pipeline, the data service that optimises quality for that specific step. In this approach, the window size is set to 1, whereby each decision is made with the objective of optimising immediate quality without consideration of subsequent stages.
+
+In addition to the aforementioned baseline, we incorporated heuristic sliding window approach. We also computed the optimal solution by examining all possible service combinations, employing a window size equal to the entire pipeline. This exhaustive approach allows us to benchmark our results relative to both the greedy baseline and the theoretical optimum, thereby illustrating the potential efficiency of our heuristics within realistic computational limits.
+}
     The simulator then starts the instantiation process.
     At each step $i$, it selects the subset \{\vi{i},$\ldots$,$v_{\windowsize+i-1}$\} of vertices with their corresponding candidate services, and generates all possible service combinations.
     The simulator calculates quality $Q$ for all combinations and instantiates \vi{i} with service \sii{i} from the optimal combination with maximum $Q$.
@@ -222,7 +228,7 @@ The simulator first defines the pipeline template as a sequence of vertices, wit
 
   \end{subfigure}
 
-    \caption{Evaluation of Quality Using the \emph{Qualitative} Metric in a \wide (\cref{fig:quality_window_wide_perce_n3,fig:quality_window_wide_perce_n4,fig:quality_window_wide_perce_n5,fig:quality_window_wide_perce_n6,fig:quality_window_wide_perce_n7}) and \average (\cref{fig:quality_window_average_perce_n3,fig:quality_window_average_perce_n4,fig:quality_window_average_perce_n5,fig:quality_window_average_perce_n6,fig:quality_window_average_perce_n7}) Profile Configuration.}  \label{fig:quality_window_perce}
+    \caption{Evaluation of Quality Using the \emph{Quantitative} Metric in a \wide (\cref{fig:quality_window_wide_perce_n3,fig:quality_window_wide_perce_n4,fig:quality_window_wide_perce_n5,fig:quality_window_wide_perce_n6,fig:quality_window_wide_perce_n7}) and \average (\cref{fig:quality_window_average_perce_n3,fig:quality_window_average_perce_n4,fig:quality_window_average_perce_n5,fig:quality_window_average_perce_n6,fig:quality_window_average_perce_n7}) Profile Configuration.}  \label{fig:quality_window_perce}
   \end{adjustbox}
   \end{figure}
 

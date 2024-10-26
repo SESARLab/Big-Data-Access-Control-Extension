@@ -35,8 +35,11 @@ do for [i=3:7] {
 
   set output sprintf('%s_n%d.eps', file_base,i)
   set label sprintf("%d Vert", i) at graph 0.5, graph -0.3 center
-  plot for [j=1:i] base_path.sprintf('%s_n%d_w%d.dat',file_base, i, j) using 1:2 title sprintf('  W Size %d', j) with linespoints pointtype (j)
-  set output
+  # plot for [j=1:i] base_path.sprintf('%s_n%d_w%d.dat',file_base, i, j) using 1:2 title sprintf('  W Size %d', j) with linespoints pointtype (j)
+    plot for [j=1:i] base_path.sprintf('%s_n%d_w%d.dat',file_base, i, j) using 1:2 \
+      title (j == 1 ? 'W Size 1 - Baseline' : sprintf('W Size %d', j)) \
+      with linespoints pointtype (j)
+  # set output
   unset label
 }
 

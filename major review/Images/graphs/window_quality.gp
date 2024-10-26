@@ -20,7 +20,9 @@ set lmargin 15
 do for [file in file_bases] {
     do for [i=3:7] {
         set output sprintf('%s_n%d.eps', file, i)
-        plot for [j=1:i] base_path.sprintf('%s_n%d_w%d.dat', file, i, j) using 1:2 title sprintf('W Size %d', j) with linespoints pointtype (j) pointsize 3
-        set output
+        # plot for [j=1:i] base_path.sprintf('%s_n%d_w%d.dat', file, i, j) using 1:2 title sprintf('W Size %d', j) with linespoints pointtype (j) pointsize 3
+            plot for [j=1:i] base_path.sprintf('%s_n%d_w%d.dat',file, i, j) using 1:2 \
+      title (j == 1 ? 'W Size 1 - Baseline' : sprintf('W Size %d', j)) \
+      with linespoints pointtype (j) pointsize 3
     }
 }
