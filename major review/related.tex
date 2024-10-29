@@ -33,13 +33,54 @@ Our definition of pipeline template addresses the various challenges by allowing
 \subsection{Service Selection based on data quality}\label{sec:servicesel}
 %%%%%%%%%%%%%%%%%%%
 
-The selection and composition of services is a recent topic in the era of big data, originating from the Web service scenario but facing additional challenges due to the volume and velocity of data, as well as to the heterogeneity of services, domains, and hosting infrastructures. In the context of big data, Quality of Service (QoS) is particularly crucial for service selection: as organizations leverage vast amounts of data to enhance decision-making and operational efficiency, it is imperative to choose appropriate services for processing, analyzing, and interpreting this data. In particular, the selection process must account for both functional and non-functional requirements, including performance, scalability, reliability, and security standards. Despite its critical nature, security is often one of the least considered metrics in service selection \cite{SELLAMI2020102732}. Even when security is taken into account, it is not always evaluated in relation to data quality. 
+The selection and composition of services is a recent topic in the era of big data, originating from the Web service scenario but facing additional challenges due to the volume and velocity of data, as well as to the heterogeneity of services, domains, and hosting infrastructures. In the context of big data, Quality of Service (QoS) is particularly crucial for service selection: as organizations leverage vast amounts of data to enhance decision-making and operational efficiency, it is imperative to choose appropriate services for processing, analyzing, and interpreting this data. In particular, the selection process must account for both functional and non-functional requirements, including performance, scalability, reliability, and security standards. Despite its critical nature, security is often one of the least considered metrics in service selection \cite{SELLAMI2020102732}. Even when security is taken into account, it is not always evaluated in relation to data quality.
 
 Related works include \cite{secureWScomposition}, where Web services are composed according to the security requirements of both service requestors and providers. However, the range of expressible requirements is limited, such as the type of encryption algorithm or authentication method (e.g., SSO), and data sanitization is not considered. Thus, the selection algorithm is just a matching rather than a ranking with respect to a security metrics.
 
 Another relevant study \cite{9844845} implements a certification-based service selection process, ranking services according to their certified non-functional properties and corresponding user requirements. In this approach, certified services are assumed to be functionally equivalent, offering the same functionality while meeting users' functional requirements.
- 
-The most related work to ours is \cite{SELLAMI2020102732}, where the authors address the challenges of big service composition, particularly QoS and security issues. Similarly to what we do with our pipeline template, they define a quality model for big services by extending the traditional QoS model of Web services to include ``big data"-related characteristics, and Quality of Data (QoD) attributes, such as completeness, accuracy, and timeliness. In order to address security issues, in their model, each service is assigned an L-Severity level \cite{Lseverity} that represents the potential severity of data leakages when consuming its data chunks. 
-Their approach aims to select the optimal composition plan that not only maximizes QoS and QoD attributes such as timeliness (TL), completeness (CP), and consistency (CS), but it also minimizes L-Severity (LS), data sources and communication costs. 
+
+The most related work to ours is \cite{SELLAMI2020102732}, where the authors address the challenges of big service composition, particularly QoS and security issues. Similarly to what we do with our pipeline template, they define a quality model for big services by extending the traditional QoS model of Web services to include ``big data"-related characteristics, and Quality of Data (QoD) attributes, such as completeness, accuracy, and timeliness. In order to address security issues, in their model, each service is assigned an L-Severity level \cite{Lseverity} that represents the potential severity of data leakages when consuming its data chunks.
+Their approach aims to select the optimal composition plan that not only maximizes QoS and QoD attributes such as timeliness (TL), completeness (CP), and consistency (CS), but it also minimizes L-Severity (LS), data sources and communication costs.
+\subsection{Comparison}
+In conclusion, In \cref{tab:comparative} we present a comparative analysis of our solution against both industrial and academic approaches. The comparison is conducted against the following key requirements:
+
+\begin{itemize}
+    \item \textbf{Service-Based Pipeline Support in Cloud-Edge Continuum:} The ability to effectively operate within distributed environments spanning cloud and edge infrastructure.
+    \item \textbf{Quality-Aware Service Selection with Data Protection:} The capacity to optimize service selection processes while maintaining both data quality across the pipeline and ensuring robust data protection measures.
+
+    \item \textbf{Framework Agnosticism:} The flexibility to operate independently of specific data protection frameworks, enabling broader applicability and adaptation to varying regulatory requirements.
+
+    \item \textbf{Automatic Protection Requirement Tuning:} The capability to dynamically adjust data protection enforcement based on service profiles, enabling contextual adaptation of privacy measures.
+
+    \item \textbf{Policy Expressiveness:} The degree to which each approach supports fine-grained specification of policies or privacy measures.
+\end{itemize}
+
+\begin{table}[ht!]
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \resizebox{\textwidth}{!}{%
+
+    \begin{tabular}{p{4cm}p{3cm}p{3.5cm}p{3cm}p{3cm}p{2.5cm}}
+        \toprule
+        \textbf{Tool/Approach} & \textbf{Supports Cloud-Edge Continuum in Service-Based Pipelines} & \textbf{Optimizes Service Selection for Data Quality and Protection} & \textbf{Framework-Agnostic for Data Protection} & \textbf{Automatic Tuning of Data Protection by Service Profile} & \textbf{Expressiveness} \\
+        \midrule
+        \textbf{Microsoft Presidio} & Yes, can integrate within cloud-edge pipelines & Limited; focuses on data redaction & Yes, compatible with diverse frameworks & Limited; requires configuration but supports partial automation & Moderate; pre-built PII detectors with configurable policies \\
+
+        \textbf{Apache Ranger} & Limited to mostly cloud settings & No; provides access control rather than service optimization & Yes, integrates with various platforms & No; follows static policy-based enforcement & High; highly expressive with fine-grained policy control \\
+
+        \textbf{Differential Privacy} & Yes, adaptable across pipelines with cloud-edge implementation & No; high privacy can reduce data utility & Yes, adaptable to various frameworks & Limited; requires manual setting of privacy budget & Moderate; flexible for numeric data with controlled noise addition \\
+
+        \textbf{\(k\)-Anonymity} & Yes, adaptable to cloud-edge for basic privacy & No; anonymization compromises data quality & Yes, generalizable & No; manual tuning required for each dataset & Low; lacks flexibility beyond basic anonymization level \\
+
+        \textbf{\(l\)-Diversity} & Yes, adaptable to cloud-edge for basic privacy & No; anonymization reduces data granularity & Yes, generalizable & No; fixed anonymization approach & Low; provides only limited expressiveness with enhanced privacy over \( k \)-anonymity \\
+
+        \textbf{Heuristic Framework (Paper’s Approach)} & Yes, suitable for distributed, multi-tenant environments & Yes, enables selection of services that optimize data quality while ensuring data protection & Yes, applies general data protection annotations & Yes, through heuristic-based tuning that aligns with service profiles and data protection needs & High; flexible metadata annotations enable fine-grained, multi-stage policy enforcement \\
+        \bottomrule
+
+    \end{tabular}
+    }
+    \caption{Comparative Analysis of Tools for Data Quality and Privacy in Service-Based Pipelines}
+    \label{tab:comparative}
+\end{table}
 
 %TWEB??
