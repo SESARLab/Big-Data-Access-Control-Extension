@@ -6,8 +6,8 @@ We experimentally evaluated the performance and quality of our methodology (heur
 \subsection{Testing Infrastructure and Experimental Settings}\label{subsec:experiments_infrastructure}
 Our testing infrastructure is a Swift-based simulator of a service-based ecosystem, including service execution, selection, and composition.
 The simulator first defines the pipeline template as a sequence of vertices, with $l$ the length of the pipeline template, and defines the size \windowsize\ of the sliding window, such that \windowsize$\leq$$l$.
-    We recall that alternative vertices are modeled in different pipeline templates, while parallel vertices are not considered in our experiments since they only add a fixed execution time that is negligible and do not affect the performance and quality of our solution.
-    Each vertex is associated with a (set of) policy that applies a filtering transformation that remove a given percentage of data.
+    We recall that alternative vertices are modeled in different pipeline templates, while parallel vertices are not considered in our experiments since they only add a fixed execution time that is negligible and does not affect the performance and quality of our solution.
+    Each vertex is associated with a (set of) policy that applies a filtering transformation that removes a given percentage of data.
 
 
 \hl{
@@ -15,6 +15,13 @@ The simulator first defines the pipeline template as a sequence of vertices, wit
 
 In addition to the aforementioned baseline, we incorporated heuristic sliding window approach. We also computed the optimal solution by examining all possible service combinations, employing a window size equal to the entire pipeline. This exhaustive approach allows us to benchmark our results relative to both the greedy baseline and the theoretical optimum, thereby illustrating the potential efficiency of our heuristics within realistic computational limits.
 }
+
+\hl{VERSIONE RIVEDUTA:
+In our study, we selected a classical greedy approach as our baseline, as the existing alternative solutions or industry standards do not sufficiently address the balance between data quality and privacy in big data pipelines. The greedy method identifies, at each stage of the pipeline, the data service that optimizes quality for that specific step, using a decision window size of 1, thus not considering the possible impact on subsequent stages. Instead, the optimal solution is computed by examining all possible service combinations, employing a window size equal $l$, i.e., the entire pipeline size.
+%
+Since our heuristic algorithm follows a sliding window approach expanding the decision-making window to balance quality and privacy over multiple stages, we were able to benchmark our results against both the greedy baseline and the theoretical optimum, illustrating the potential efficiency of our heuristics within realistic computational limits.
+}
+
     The simulator then starts the instantiation process.
     At each step $i$, it selects the subset \{\vi{i},$\ldots$,$v_{\windowsize+i-1}$\} of vertices with their corresponding candidate services, and generates all possible service combinations.
     The simulator calculates quality $Q$ for all combinations and instantiates \vi{i} with service \sii{i} from the optimal combination with maximum $Q$.
