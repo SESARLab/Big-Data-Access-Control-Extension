@@ -60,21 +60,21 @@ In conclusion, In \cref{tab:comparative} we present a comparative analysis of ou
     \renewcommand{\arraystretch}{1.5}
     \resizebox{\textwidth}{!}{%
 
-    \begin{tabular}{p{4cm}p{3cm}p{3.5cm}p{3cm}p{3cm}p{2.5cm}}
+    \begin{tabular}{lp{3cm}p{3.5cm}p{3cm}p{3cm}p{2.5cm}}
         \toprule
         \textbf{Tool/Approach} & \textbf{Supports Cloud-Edge Continuum in Service-Based Pipelines} & \textbf{Optimizes Service Selection for Data Quality and Protection} & \textbf{Framework-Agnostic for Data Protection} & \textbf{Automatic Tuning of Data Protection by Service Profile} & \textbf{Expressiveness} \\
         \midrule
-        \textbf{Microsoft Presidio} & Yes, can integrate within cloud-edge pipelines & Limited; focuses on data redaction & Yes, compatible with diverse frameworks & Limited; requires configuration but supports partial automation & Moderate; pre-built PII detectors with configurable policies \\
+        \textbf{Microsoft Presidio \cite{microsoft_presidio}} & \cmark, can integrate within cloud-edge pipelines & Limited; focuses on data redaction & \cmark, compatible with diverse frameworks & Limited; requires configuration but supports partial automation & \tmark; pre-built PII detectors with configurable policies \\
 
-        \textbf{Apache Ranger} & Limited to mostly cloud settings & No; provides access control rather than service optimization & Yes, integrates with various platforms & No; follows static policy-based enforcement & High; highly expressive with fine-grained policy control \\
+        \textbf{Apache Ranger \cite{apache_ranger}} & Limited to mostly cloud settings & \xmark, provides access control rather than service optimization & \cmark, integrates with various platforms & \xmark, follows static policy-based enforcement & \cmark; highly expressive with fine-grained policy control \\
 
-        \textbf{Differential Privacy} & Yes, adaptable across pipelines with cloud-edge implementation & No; high privacy can reduce data utility & Yes, adaptable to various frameworks & Limited; requires manual setting of privacy budget & Moderate; flexible for numeric data with controlled noise addition \\
+        \textbf{Differential Privacy \cite{dwork2008differential}} & \cmark, adaptable across pipelines with cloud-edge implementation & \xmark, high privacy can reduce data utility & \cmark, adaptable to various frameworks & \tmark; requires manual setting of privacy budget & \tmark; flexible for numeric data with controlled noise addition \\
 
-        \textbf{\(k\)-Anonymity} & Yes, adaptable to cloud-edge for basic privacy & No; anonymization compromises data quality & Yes, generalizable & No; manual tuning required for each dataset & Low; lacks flexibility beyond basic anonymization level \\
+        \textbf{\(k\)-Anonymity \cite{k-anon}} & \cmark, adaptable to cloud-edge for basic privacy & \xmark, anonymization compromises data quality & \cmark, generalizable & \xmark, manual tuning required for each dataset & \cmark; lacks flexibility beyond basic anonymization level \\
 
-        \textbf{\(l\)-Diversity} & Yes, adaptable to cloud-edge for basic privacy & No; anonymization reduces data granularity & Yes, generalizable & No; fixed anonymization approach & Low; provides only limited expressiveness with enhanced privacy over \( k \)-anonymity \\
+        \textbf{\(l\)-Diversity \cite{l-diversity}} & \cmark, adaptable to cloud-edge for basic privacy & \xmark, anonymization reduces data granularity & \cmark, generalizable & \xmark, fixed anonymization approach & \xmark; provides only limited expressiveness with enhanced privacy over \( k \)-anonymity \\
 
-        \textbf{Heuristic Framework (Paper’s Approach)} & Yes, suitable for distributed, multi-tenant environments & Yes, enables selection of services that optimize data quality while ensuring data protection & Yes, applies general data protection annotations & Yes, through heuristic-based tuning that aligns with service profiles and data protection needs & High; flexible metadata annotations enable fine-grained, multi-stage policy enforcement \\
+        \textbf{Paper’s Approach} & \cmark, suitable for distributed, multi-tenant environments & \cmark, enables selection of services that optimize data quality while ensuring data protection & \cmark, applies general data protection annotations & \cmark, through heuristic-based tuning that aligns with service profiles and data protection needs & \cmark; flexible metadata annotations enable fine-grained, multi-stage policy enforcement \\
         \bottomrule
 
     \end{tabular}
