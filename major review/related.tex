@@ -1,9 +1,10 @@
 \section{Related Work}\label{sec:related}
 
 {\color{OurColor}
-In this related work section, we address two fundamental challenges in the field of data protection for service-based pipelines.
+We present an overview of the related work and a comparison with existing relevant tools and solutions in literature.
+% In this related work section, we address two fundamental challenges in the field of data protection for service-based pipelines.
 
-In Section  \ref{sec:dataquality}, we address the issue of the lack of consensus on the definition of data quality and, consequently, on data quality metrics when applying data protection transformations. In Section \ref{sec:datagov}, we examine existing data governance solutions that tackle the problem of data protection when sharing data among different services.
+% In Section  \ref{sec:dataquality}, we address the issue of the lack of consensus on the definition of data quality and, consequently, on data quality metrics when applying data protection transformations. In Section \ref{sec:datagov}, we examine existing data governance solutions that tackle the problem of data protection when sharing data among different services.
 }
 %%%%%%%%%%%%%%%%%%%%
 \subsection{Data quality and data protection}\label{sec:dataquality}
@@ -28,7 +29,7 @@ A common consideration across all contexts is that accuracy is closely related t
 
 As organizations increasingly realize the practical benefits and significant value of big data, they also acknowledge the limitations of current big data ecosystems, especially in terms of data governance. In this context, the need for privacy-aware systems enforcing sensitive data protection without compromising data quality throughout the entire data lifecycle arises. Recently, both industry and academia have begun to investigate the issue, recognizing the need of new security requirements \cite{Colombo:JournCybersec:2019} and the importance of addressing the conflict between the need to share and the need to protect information \cite{balancingact,VANDENBROEK2018330,balancingInMedicine,needtobalance,dataProtection}, from a data governance perspective \cite{al2018exploring,aissa2020decide}, and, more in general, to ensure compliance of (big) data pipelines with generic non-functional requirements \cite{ABBJ.ICWS2022,ABHKKS.BD2023}.
 
-The pipeline template proposed in this work addresses these challenges by enabling to express the security policies at the right level of granularity, considering individual services in the pipeline. It can also be easily mapped onto specific platforms, such as Apache-based systems, as we have demonstrated in \cite{medes2021}.
+{\color{OurColor}The pipeline template proposed in this work addresses these challenges by enabling to express the security policies at the right level of granularity, considering individual services in the pipeline. It can also be easily mapped onto specific platforms, such as Apache-based systems, as we have demonstrated in \cite{medes2021}.
 Table \ref{tab:comparative} provides a comparative analysis with relevant existing approaches, highlighting how few industrial solutions compare to our framework according to the following critical features:
 \begin{itemize}
     \item \textbf{F1 -- Service-Based Pipeline Support in the Cloud-Edge Continuum:} The ability to effectively operate within distributed environments spanning cloud and edge infrastructure.
@@ -48,7 +49,7 @@ Table \ref{tab:comparative} provides a comparative analysis with relevant existi
         \midrule
         \textbf{Microsoft Presidio \cite{microsoft_presidio}} & \cmark, can integrate within cloud-edge pipelines & \tmark, focuses on data redaction & \cmark, compatible with diverse techniques & \tmark, pre-built PII detectors with configurable policies \\
 
-        \textbf{Apache Ranger \cite{apache_ranger}} & \tmark, limited to mostly cloud settings & \xmark, provides access control rather than service optimization & \cmark, integrates with various techniques & \cmark; high expressiveness with fine-grained policy control \\
+        \textbf{Apache Ranger \cite{apache_ranger}} & \tmark, mostly limited to cloud settings & \xmark, provides access control rather than service optimization & \cmark, integrates with various techniques & \cmark; high expressiveness with fine-grained policy control \\
 
 
         \textbf{Google Cloud DLP \cite{google_cloud_dlp}} & \cmark, primarily within Google Cloud & \tmark, focuses on redaction and anonymization & \cmark, works across data types & \tmark, flexible templates for data masking and redaction policies \\
@@ -65,18 +66,15 @@ Table \ref{tab:comparative} provides a comparative analysis with relevant existi
 
     \end{tabular}
     }
-    \caption{Comparative analysis with relevant existing approaches}
-    \caption*{\cmark - Fully supported
-    \tmark - Partially supported or limited in scope
-    \xmark - Not supported}
+    \caption{Comparative analysis with relevant existing approaches. Feature support is classified according to \cmark (fully supported), \tmark (partially supported or limited in scope), \xmark (not supported)}
     \label{tab:comparative}
 \end{table}
 
-\hl{Of all evaluated tools, Microsoft Presidio aligns most closely with our approach, as it supports cloud-edge integration, offers compatibility with diverse techniques, and includes configurable policies for PII detection. However, our tool uniquely allows for the optimization of data quality alongside privacy through a service selection feature. Additionally, unlike other solutions that are cloud-specific, our tool maintains compatibility across hybrid environments, addressing both cloud-edge and on-premise scenarios.}
+According to Table \ref{tab:comparative}, most of competitor solutions have full support for F3, while no solution has full support for F2. All solutions provide partial or full support for F1 and F4, with F4 fully supported by just two of the competitors.  Microsoft Presidio aligns most closely with our approach, as it supports cloud-edge integration, offers compatibility with diverse techniques, and includes configurable policies for PII detection. However, our tool uniquely supports the optimization of data quality alongside privacy through a service selection feature and across the entire pipeline lifecycle. Additionally, unlike other solutions that are cloud-specific, our tool maintains compatibility across hybrid environments, addressing both cloud-edge and on-premise scenarios.}
 
 Additional solutions address individual aspects of these requirements. For example, several proposals address data protection by implementing robust access control on big data platforms. Some approaches are platform-specific, tailored to single systems like MongoDB or Hadoop, and leverage the native access control features of these platforms \cite{rathore2017hadoop,anisetti2018privacy,FederationAC:Journ:2020,Sandhu:ABAC:2018,GuptaSandu:2017}. Other approaches focus on specific databases, such as NoSQL or graph databases, or specific types of analytical pipelines \cite{AConGraphDB:2021, AConMongoDB:2022, ABACforHBase:2019}. However, these solutions often rely on query rewriting mechanisms, resulting in high complexity and low efficiency. Some solutions are designed for specific scenarios, such as federated cloud environments, edge microservices, or IoT, and lack the flexibility to adapt to multiple contexts \cite{MultipartyAC:2019, IoTSecurity}.
 %
-The most similar to our approach are platform-independent solutions that adopt Attribute-Based Access Control (ABAC) \cite{XACML3.0} as a common underlying model, given its ability to support highly flexible and dynamic forms of data protection for business-critical data. A relevant work by Hu et al.  \cite{ HUFerraiolo:2014} introduced a generalized access control model for big data processing frameworks that can be extended to the Hadoop environment. However, their work discusses the issues only from a high-level architectural perspective and does not offer a tangible solution or address data quality issues.
+The most similar to our approach are platform-independent solutions that adopt Attribute-Based Access Control (ABAC) \cite{XACML3.0} as a common underlying model, given its ability to support highly flexible and dynamic forms of data protection for business-critical data. {\color{OurColor}For instance, Hu et al. \cite{ HUFerraiolo:2014} introduced a generalized access control model for big data processing frameworks that can be extended to the Hadoop environment. However, their work discusses the issues only from a high-level architectural perspective and does not offer a tangible solution or address data quality issues.}
 
 To conclude, the selection and composition of services, originally discussed in the Web service scenario, face additional challenges in the era of big data due to the volume and velocity of data, as well as to the heterogeneity of services, domains, and hosting infrastructures. Despite its critical nature, security is often one of the least considered metrics in service selection \cite{SELLAMI2020102732}. Even when security is taken into account, it is not always coupled with data quality.
 Related work in this area includes approaches (e.g., \cite{secureWScomposition}) where Web services are composed according to the security requirements of both service requestors and providers. However, the range of expressible requirements is limited, such as the type of encryption algorithm or authentication method (e.g., SSO), and data sanitization is not considered. Thus, the selection algorithm is just a matching rather than a ranking with respect to a security metrics.
