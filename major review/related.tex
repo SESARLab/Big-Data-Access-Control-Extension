@@ -38,6 +38,7 @@ Table \ref{tab:comparative} provides a comparative analysis with relevant existi
 
 \begin{table}[t!]
     \centering
+
     \renewcommand{\arraystretch}{1.5}
     \resizebox{\textwidth}{!}{%
     \begin{tabular}{lp{3cm}p{3cm}p{3.5cm}p{3cm}p{2.5cm}}
@@ -49,13 +50,13 @@ Table \ref{tab:comparative} provides a comparative analysis with relevant existi
         \textbf{Apache Ranger \cite{apache_ranger}} & \tmark, limited to mostly cloud settings & \xmark, provides access control rather than service optimization & \cmark, integrates with various techniques & \cmark; high expressiveness with fine-grained policy control \\
 
 
-        Google Cloud DLP & \cmark, primarily within Google Cloud & \tmark, focuses on redaction and anonymization & \cmark, works across data types & \tmark, flexible templates for data masking and redaction policies \\
+        \textbf{Google Cloud DLP \cite{google_cloud_dlp}} & \cmark, primarily within Google Cloud & \tmark, focuses on redaction and anonymization & \cmark, works across data types & \tmark, flexible templates for data masking and redaction policies \\
 
-        AWS Macie & \tmark, suited for AWS cloud infrastructure & \tmark, prioritizes data protection & \cmark, AWS-centric  & \tmark, supports predefined PII types but less customizable \\
+        \textbf{AWS Macie \cite{aws_macie}} & \tmark, suited for AWS cloud infrastructure & \tmark, prioritizes data protection & \cmark, AWS-centric  & \tmark, supports predefined PII types but less customizable \\
 
-        IBM Guardium & \cmark, supports hybrid cloud and on-prem setups & \xmark, focuses on monitoring and access control & \cmark, adaptable to multiple frameworks &  \cmark, extensive policy-based access control and monitoring \\
+        \textbf{IBM Guardium \cite{ibm_guardium}} & \cmark, supports hybrid cloud and on-prem setups & \xmark, focuses on monitoring and access control & \cmark, adaptable to multiple frameworks &  \cmark, extensive policy-based access control and monitoring \\
 
-        Apache Sentry & \tmark, Hadoop ecosystems & \xmark, static access control & \xmark, closely tied to Hadoop & \tmark, supports column and row-level access control \\
+        \textbf{Apache Sentry \cite{apache_sentry}} & \tmark, Hadoop ecosystems & \xmark, static access control & \xmark, closely tied to Hadoop & \tmark, supports column and row-level access control \\
 
         \textbf{Our paper} & \cmark, suitable for cloud-edge environments & \cmark, enables selection of services that optimize data quality while ensuring data protection & \cmark, data-protection techniques agnostic & \cmark, high expressiveness with fine-grained policy control \\
 
@@ -74,7 +75,7 @@ Table \ref{tab:comparative} provides a comparative analysis with relevant existi
 
 Additional solutions address individual aspects of these requirements. For example, several proposals address data protection by implementing robust access control on big data platforms. Some approaches are platform-specific, tailored to single systems like MongoDB or Hadoop, and leverage the native access control features of these platforms \cite{rathore2017hadoop,anisetti2018privacy,FederationAC:Journ:2020,Sandhu:ABAC:2018,GuptaSandu:2017}. Other approaches focus on specific databases, such as NoSQL or graph databases, or specific types of analytical pipelines \cite{AConGraphDB:2021, AConMongoDB:2022, ABACforHBase:2019}. However, these solutions often rely on query rewriting mechanisms, resulting in high complexity and low efficiency. Some solutions are designed for specific scenarios, such as federated cloud environments, edge microservices, or IoT, and lack the flexibility to adapt to multiple contexts \cite{MultipartyAC:2019, IoTSecurity}.
 %
-The most similar to our approach are platform-independent solutions that adopt Attribute-Based Access Control (ABAC) \cite{XACML3.0} as a common underlying model, given its ability to support highly flexible and dynamic forms of data protection for business-critical data. They have the advantage of being more general than platform-specific solutions, while they do not provide a complete framework like the one in this paper.
+The most similar to our approach are platform-independent solutions that adopt Attribute-Based Access Control (ABAC) \cite{XACML3.0} as a common underlying model, given its ability to support highly flexible and dynamic forms of data protection for business-critical data. A relevant work by Hu et al.  \cite{ HUFerraiolo:2014} introduced a generalized access control model for big data processing frameworks that can be extended to the Hadoop environment. However, their work discusses the issues only from a high-level architectural perspective and does not offer a tangible solution or address data quality issues.
 
 To conclude, the selection and composition of services, originally discussed in the Web service scenario, face additional challenges in the era of big data due to the volume and velocity of data, as well as to the heterogeneity of services, domains, and hosting infrastructures. Despite its critical nature, security is often one of the least considered metrics in service selection \cite{SELLAMI2020102732}. Even when security is taken into account, it is not always coupled with data quality.
 Related work in this area includes approaches (e.g., \cite{secureWScomposition}) where Web services are composed according to the security requirements of both service requestors and providers. However, the range of expressible requirements is limited, such as the type of encryption algorithm or authentication method (e.g., SSO), and data sanitization is not considered. Thus, the selection algorithm is just a matching rather than a ranking with respect to a security metrics.
