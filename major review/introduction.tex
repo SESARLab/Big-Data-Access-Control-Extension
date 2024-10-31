@@ -2,7 +2,7 @@
 {\color{OurColor}The wide success and adoption of cloud-edge infrastructures and their intrinsic multitenancy radically change the way in which distributed systems are developed, deployed, and executed, redefining IT scalability, flexibility, and efficiency.} Multitenancy in fact enables multiple users to share resources, such as computing power, storage, and services, optimizing their utilization and reducing operational costs.
 
 {\color{OurColor}The increasing ability of collecting and managing huge volume of data, coupled with a paradigm shift in service delivery models, has also significantly enhanced scalability and efficiency in data analytics. Data are treated as digital products, which are managed and analyzed by multiple services orchestrated in pipelines. This shift is fostering the emergence of new platforms and environments, such as data marketplaces and data spaces, where data in critical domains (e.g., law enforcement, healthcare, transportation) can be pooled and shared to maximize data quality and trustworthiness,
-and distributed data management systems support data storing, versioning, and sharing for complex analytics processes.}\footnote{\url{https://joinup.ec.europa.eu/collection/elise-europeanlocation-
+and distributed data management systems supporting data storing, versioning, and sharing for complex analytics processes.}\footnote{\url{https://joinup.ec.europa.eu/collection/elise-europeanlocation-
 interoperability-solutions-e-government/glossary/
 term/data-marketplace}, \url{https://internationaldataspaces.org/}, \url{https://digitalstrategy.
 ec.europa.eu/en/library/staff-working-documentdata-spaces}}
@@ -25,7 +25,7 @@ When evaluating a solution meeting the above criteria, the following questions n
 \end{enumerate}
 
 Based on the aforementioned considerations, we propose a data governance framework for {\color{OurColor}service-based data pipelines}. 
-The primary objective of our framework is to support the selection of data processing services within the pipeline, with a central focus on the selection of those services that {\color{OurColor}maximize} data quality, while upholding security and privacy requirements.\footnote{{\color{OurColor}We note that the assembly of the selected services in an executable pipeline is out of the scope of this paper. Our approach however is agnostic to the specific executable environment.}}
+The primary objective of our framework is to support the selection of data processing services within the pipeline, with a central focus on the selection of those services that {\color{OurColor}maximize} data quality, while upholding security and privacy requirements.\footnote{{\color{OurColor}We note that the assembly of the selected services in an executable pipeline is out of the scope of this paper. However, our approach is agnostic to the specific executable environment.}}
 To this aim, each element of the pipeline is \textit{annotated} with \emph{i)} data protection requirements expressing transformation on data and \emph{ii)} functional specifications on services expressing data manipulations carried out during each service execution.
 Though applicable to a generic scenario, our data governance approach starts from the assumption that maintaining a larger volume of data leads to higher data quality; as a consequence, its service selection algorithm focuses on maximizing data quality {\color{OurColor}in terms of data completeness} by retaining the maximum amount of information when applying data protection transformations.
 
