@@ -39,10 +39,13 @@ Table \ref{tab:comparative} provides a comparative analysis with relevant existi
 
 \begin{table}[t!]
     \centering
-
+    \caption{Comparative analysis with relevant existing approaches   \label{tab:comparative}}
     \renewcommand{\arraystretch}{1.5}
-    \resizebox{\textwidth}{!}{%
-    \begin{tabular}{lp{3cm}p{3cm}p{3.5cm}p{3cm}p{2.5cm}}
+    %  \resizebox{\textwidth}{!}
+
+{\footnotesize
+
+    \begin{tabular}{p{2cm}p{2cm}p{2.5cm}p{2cm}p{2.5cm}}
         \toprule
         \textbf{Solution} & \textbf{F1} & \textbf{F2} & \textbf{F3} & \textbf{F4} \\
         \midrule
@@ -65,13 +68,12 @@ Table \ref{tab:comparative} provides a comparative analysis with relevant existi
 
     \end{tabular}
     }
-    \caption{Comparative analysis with relevant existing approaches}
-    \caption*{\cmark - Fully supported
-    \tmark - Partially supported or limited in scope
-    \xmark - Not supported}
-    \label{tab:comparative}
-\end{table}
 
+    \caption*{\cmark~Fully supported
+    ~-~\tmark~Partially supported or limited in scope
+    ~-~\xmark~Not supported}
+
+\end{table}
 \hl{Of all evaluated tools, Microsoft Presidio aligns most closely with our approach, as it supports cloud-edge integration, offers compatibility with diverse techniques, and includes configurable policies for PII detection. However, our tool uniquely allows for the optimization of data quality alongside privacy through a service selection feature. Additionally, unlike other solutions that are cloud-specific, our tool maintains compatibility across hybrid environments, addressing both cloud-edge and on-premise scenarios.}
 
 Additional solutions address individual aspects of these requirements. For example, several proposals address data protection by implementing robust access control on big data platforms. Some approaches are platform-specific, tailored to single systems like MongoDB or Hadoop, and leverage the native access control features of these platforms \cite{rathore2017hadoop,anisetti2018privacy,FederationAC:Journ:2020,Sandhu:ABAC:2018,GuptaSandu:2017}. Other approaches focus on specific databases, such as NoSQL or graph databases, or specific types of analytical pipelines \cite{AConGraphDB:2021, AConMongoDB:2022, ABACforHBase:2019}. However, these solutions often rely on query rewriting mechanisms, resulting in high complexity and low efficiency. Some solutions are designed for specific scenarios, such as federated cloud environments, edge microservices, or IoT, and lack the flexibility to adapt to multiple contexts \cite{MultipartyAC:2019, IoTSecurity}.
