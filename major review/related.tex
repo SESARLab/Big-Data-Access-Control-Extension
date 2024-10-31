@@ -1,9 +1,9 @@
 \section{Related Work}\label{sec:related}
 
 {\color{OurColor}
-In this related work section, we address two fundamental challenges in the field of data protection for service-based pipelines.
+    In this related work section, we address two fundamental challenges in the field of data protection for service-based pipelines.
 
-In Section  \ref{sec:dataquality}, we address the issue of the lack of consensus on the definition of data quality and, consequently, on data quality metrics when applying data protection transformations. In Section \ref{sec:datagov}, we examine existing data governance solutions that tackle the problem of data protection when sharing data among different services.
+    In Section  \ref{sec:dataquality}, we address the issue of the lack of consensus on the definition of data quality and, consequently, on data quality metrics when applying data protection transformations. In Section \ref{sec:datagov}, we examine existing data governance solutions that tackle the problem of data protection when sharing data among different services.
 }
 %%%%%%%%%%%%%%%%%%%%
 \subsection{Data quality and data protection}\label{sec:dataquality}
@@ -11,16 +11,16 @@ In Section  \ref{sec:dataquality}, we address the issue of the lack of consensus
 
 %Data quality is a widely studied research topic across various communities and perspectives, such as the database community or when evaluating privacy preserving data mining techniques. In the context of big data, data quality primarily refers to the extent to which big data meets the requirements and expectations of its intended use, encompassing various dimensions and characteristics to ensure the data is reliable, accurate, and valuable for analysis and decision-making. Specifically, accuracy denotes the correctness of the data, ensuring it accurately represents the real-world entities and events it models.
 Data quality is a widely studied research topic studied across various communities and perspectives. In the context of (big) data pipelines, data quality primarily refers to the extent to which (big) data meets the requirements and expectations of its intended use, encompassing various dimensions and characteristics to ensure the data are reliable, accurate, and valuable for analysis and decision-making. Specifically, accuracy denotes the correctness of the data, ensuring it accurately represents the real-world entities and events it models.
-{\color{OurColor}
-With the increasing need to protect sensitive data, the notion of data quality has expanded to include a broader concept of accuracy, particularly in terms of the proximity of a sanitized value to the original value.
-This shift has emphasized the need of metrics to assess the quality of data resulting from anonymization processes.
-Differential privacy \cite{dwork2008differential}, k-anonymity \cite{k-anon}, and l-diversity \cite{l-diversity} are three distinct techniques used to provide data anonymization, with different protection levels and results on data quality. For example, differential privacy is highly effective in maintaining confidentiality, but the noise added can reduce data precision, impacting analytical accuracy, whereas k-anonymity and l-diversity generally maintain higher data quality than differential privacy, but they might still be unable to protect against sophisticated attacks.
-}
+    {\color{OurColor}
+        With the increasing need to protect sensitive data, the notion of data quality has expanded to include a broader concept of accuracy, particularly in terms of the proximity of a sanitized value to the original value.
+        This shift has emphasized the need of metrics to assess the quality of data resulting from anonymization processes.
+        Differential privacy \cite{dwork2008differential}, k-anonymity \cite{k-anon}, and l-diversity \cite{l-diversity} are three distinct techniques used to provide data anonymization, with different protection levels and results on data quality. For example, differential privacy is highly effective in maintaining confidentiality, but the noise added can reduce data precision, impacting analytical accuracy, whereas k-anonymity and l-diversity generally maintain higher data quality than differential privacy, but they might still be unable to protect against sophisticated attacks.
+    }
 Various data quality metrics have been proposed in existing literature, including generalized information loss (\textit{GenILoss}), discernability metric, minimal distortions, and average equivalence class size ($C_{AVG}$), which may either have broad applicability or be tailored to specific data scenarios \cite{Majeed2021AnonymizationTF,bookMetrics,reviewMetrics}. However, there is currently no metric that is widely accepted by the research community. The main challenge with data quality is its relative nature: its evaluation typically depends on the context in which the data is used and often involves both objective and subjective parameters \cite{dataAccuracy,dataQuality}.
 %
 A common consideration across all contexts is that accuracy is closely related to the information loss resulting from the anonymization strategy: the lower the information loss, the higher the data quality. In our scenario, we have opted for two generic metrics rooted in data loss assessment (i.e., data completeness) - one quantitative and one qualitative. Nonetheless, our framework and heuristic are designed to be modular and flexible, accommodating the chosen metric.
 
-{\color{OurColor} While existing techniques have provided sound and effective solutions that guarantees data quality and data protection, they often unsuit to scenarios aiming to maximize data quality while ensuring data protection, have limited expressiveness (e.g., the definition of $k$ when $k$-anonymity is used to protect data), are not applicable to pipelines orchestrating services owned by different providers. Our solution fills in the above gaps, by providing a framework for service-based data pipelines that support the selection of data processing services that maximize data quality, while upholding privacy and security requirements. Service selection is driven by high-expressive policies, where data transformations built on data protection techniques (e.g., $k$-anonymity) are applied to data before they are used in the pipeline.}
+    {\color{OurColor} While existing techniques have provided sound and effective solutions that guarantees data quality and data protection, they often unsuit to scenarios aiming to maximize data quality while ensuring data protection, have limited expressiveness (e.g., the definition of $k$ when $k$-anonymity is used to protect data), are not applicable to pipelines orchestrating services owned by different providers. Our solution fills in the above gaps, by providing a framework for service-based data pipelines that support the selection of data processing services that maximize data quality, while upholding privacy and security requirements. Service selection is driven by high-expressive policies, where data transformations built on data protection techniques (e.g., $k$-anonymity) are applied to data before they are used in the pipeline.}
 
 %%%%%%%%%%%%%%%%%%
 \subsection{Data quality and data protection in service-based pipelines}\label{sec:datagov}
@@ -41,37 +41,33 @@ Table \ref{tab:comparative} provides a comparative analysis with relevant existi
     \centering
     \caption{Comparative analysis with relevant existing approaches   \label{tab:comparative}}
     \renewcommand{\arraystretch}{1.5}
-    %  \resizebox{\textwidth}{!}
+    \footnotesize{
+        \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X}
+            \toprule
+            \textbf{Solution}                                     & \textbf{F1}                                       & \textbf{F2}                                                                   & \textbf{F3}                                 & \textbf{F4}                                                        \\
+            \midrule
+            \textbf{Microsoft Presidio \cite{microsoft_presidio}} & \cmark, can integrate within cloud-edge pipelines & \tmark, focuses on data redaction                                             & \cmark, compatible with diverse techniques  & \tmark, pre-built PII detectors with configurable policies         \\
 
-{\footnotesize
-
-    \begin{tabular}{p{2cm}p{2cm}p{2.5cm}p{2cm}p{2.5cm}}
-        \toprule
-        \textbf{Solution} & \textbf{F1} & \textbf{F2} & \textbf{F3} & \textbf{F4} \\
-        \midrule
-        \textbf{Microsoft Presidio \cite{microsoft_presidio}} & \cmark, can integrate within cloud-edge pipelines & \tmark, focuses on data redaction & \cmark, compatible with diverse techniques & \tmark, pre-built PII detectors with configurable policies \\
-
-        \textbf{Apache Ranger \cite{apache_ranger}} & \tmark, limited to mostly cloud settings & \xmark, provides access control rather than service optimization & \cmark, integrates with various techniques & \cmark; high expressiveness with fine-grained policy control \\
+            \textbf{Apache Ranger \cite{apache_ranger}}           & \tmark, limited to mostly cloud settings          & \xmark, provides access control rather than service optimization              & \cmark, integrates with various techniques  & \cmark; high expressiveness with fine-grained policy control       \\
 
 
-        \textbf{Google Cloud DLP \cite{google_cloud_dlp}} & \cmark, primarily within Google Cloud & \tmark, focuses on redaction and anonymization & \cmark, works across data types & \tmark, flexible templates for data masking and redaction policies \\
+            \textbf{Google Cloud DLP \cite{google_cloud_dlp}}     & \cmark, primarily within Google Cloud             & \tmark, focuses on redaction and anonymization                                & \cmark, works across data types             & \tmark, flexible templates for data masking and redaction policies \\
 
-        \textbf{AWS Macie \cite{aws_macie}} & \tmark, suited for AWS cloud infrastructure & \tmark, prioritizes data protection & \cmark, AWS-centric  & \tmark, supports predefined PII types but less customizable \\
+            \textbf{AWS Macie \cite{aws_macie}}                   & \tmark, suited for AWS cloud infrastructure       & \tmark, prioritizes data protection                                           & \cmark, AWS-centric                         & \tmark, supports predefined PII types but less customizable        \\
 
-        \textbf{IBM Guardium \cite{ibm_guardium}} & \cmark, supports hybrid cloud and on-prem setups & \xmark, focuses on monitoring and access control & \cmark, adaptable to multiple frameworks &  \cmark, extensive policy-based access control and monitoring \\
+            \textbf{IBM Guardium \cite{ibm_guardium}}             & \cmark, supports hybrid cloud and on-prem setups  & \xmark, focuses on monitoring and access control                              & \cmark, adaptable to multiple frameworks    & \cmark, extensive policy-based access control and monitoring       \\
 
-        \textbf{Apache Sentry \cite{apache_sentry}} & \tmark, Hadoop ecosystems & \xmark, static access control & \xmark, closely tied to Hadoop & \tmark, supports column and row-level access control \\
+            \textbf{Apache Sentry \cite{apache_sentry}}           & \tmark, Hadoop ecosystems                         & \xmark, static access control                                                 & \xmark, closely tied to Hadoop              & \tmark, supports column and row-level access control               \\
 
-        \textbf{Our paper} & \cmark, suitable for cloud-edge environments & \cmark, enables selection of services that optimize data quality while ensuring data protection & \cmark, data-protection techniques agnostic & \cmark, high expressiveness with fine-grained policy control \\
+            \textbf{Our paper}                                    & \cmark, suitable for cloud-edge environments      & \cmark, selection of services that optimize quality while ensuring protection & \cmark, data-protection techniques agnostic & \cmark, high expressiveness with fine-grained policy control       \\
 
-        \bottomrule
-
-    \end{tabular}
+            \bottomrule
+        \end{tabularx}
     }
 
     \caption*{\cmark~Fully supported
-    ~-~\tmark~Partially supported or limited in scope
-    ~-~\xmark~Not supported}
+        ~-~\tmark~Partially supported or limited in scope
+        ~-~\xmark~Not supported}
 
 \end{table}
 \hl{Of all evaluated tools, Microsoft Presidio aligns most closely with our approach, as it supports cloud-edge integration, offers compatibility with diverse techniques, and includes configurable policies for PII detection. However, our tool uniquely allows for the optimization of data quality alongside privacy through a service selection feature. Additionally, unlike other solutions that are cloud-specific, our tool maintains compatibility across hybrid environments, addressing both cloud-edge and on-premise scenarios.}
