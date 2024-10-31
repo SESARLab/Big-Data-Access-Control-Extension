@@ -28,7 +28,7 @@ A common consideration across all contexts is that accuracy is closely related t
 As organizations increasingly realize the practical benefits and significant value of big data, they also acknowledge the limitations of current big data ecosystems, especially in terms of data governance. In this context, the need for privacy-aware systems enforcing sensitive data protection without compromising data quality throughout the entire data lifecycle arises. Recently, both industry and academia have begun to investigate the issue, recognizing the need of new security requirements \cite{Colombo:JournCybersec:2019} and the importance of addressing the conflict between the need to share and the need to protect information \cite{balancingact,VANDENBROEK2018330,balancingInMedicine,needtobalance,dataProtection}, from a data governance perspective \cite{al2018exploring,aissa2020decide}, and, more in general, to ensure compliance of (big) data pipelines with generic non-functional requirements \cite{ABBJ.ICWS2022,ABHKKS.BD2023}.
 
 The pipeline template proposed in this work addresses these challenges by enabling to express the security policies at the right level of granularity, considering individual services in the pipeline. It can also be easily mapped onto specific platforms, such as Apache-based systems, as we have demonstrated in \cite{medes2021}.
-Table \ref{tab:comparative} provides a comparative analysis of existing approaches, highlighting how few industrial solutions compare to our framework according to the following critical features:
+Table \ref{tab:comparative} provides a comparative analysis with relevant existing approaches, highlighting how few industrial solutions compare to our framework according to the following critical features:
 \begin{itemize}
     \item \textbf{F1 -- Service-Based Pipeline Support in the Cloud-Edge Continuum:} The ability to effectively operate within distributed environments spanning cloud and edge infrastructure.
     \item \textbf{F2 -- Quality-Aware Service Selection Ensuring Data Protection:} The capacity to optimize service selection processes, maintaining data quality across the pipeline and ensuring robust data protection measures.
@@ -45,16 +45,16 @@ Table \ref{tab:comparative} provides a comparative analysis of existing approach
         \toprule
         \textbf{Solution} & \textbf{F1} & \textbf{F2} & \textbf{F3} & \textbf{F4} \\
         \midrule
-        \textbf{Microsoft Presidio \cite{microsoft_presidio}} & \cmark, can integrate within cloud-edge pipelines & \tmark, focuses on data redaction & \cmark, compatible with diverse frameworks & \tmark, pre-built PII detectors with configurable policies \\
+        \textbf{Microsoft Presidio \cite{microsoft_presidio}} & \cmark, can integrate within cloud-edge pipelines & \tmark, focuses on data redaction & \cmark, compatible with diverse techniques & \tmark, pre-built PII detectors with configurable policies \\
 
-        \textbf{Apache Ranger \cite{apache_ranger}} & \tmark, limited to mostly cloud settings & \xmark, provides access control rather than service optimization & \cmark, integrates with various platforms & \cmark; highly expressive with fine-grained policy control \\
+        \textbf{Apache Ranger \cite{apache_ranger}} & \tmark, limited to mostly cloud settings & \xmark, provides access control rather than service optimization & \cmark, integrates with various techniques & \cmark; high expressiveness with fine-grained policy control \\
 
-        \textbf{Paper’s Approach} & \cmark, suitable for distributed, multi-tenant environments & \cmark, enables selection of services that optimize data quality while ensuring data protection & \cmark, applies general data protection annotations & \cmark; flexible metadata annotations enable fine-grained, multi-stage policy enforcement \\
+        \textbf{Our paper} & \cmark, suitable for cloud-edge environments & \cmark, enables selection of services that optimize data quality while ensuring data protection & \cmark, data-protection techniques agnostic & \cmark; high expressiveness with fine-grained policy control \\
         \bottomrule
 
     \end{tabular}
     }
-    \caption{Comparative analysis of tools addressing data quality and privacy in service-based pipelines}
+    \caption{Comparative analysis with relevant existing approaches}
     \label{tab:comparative}
 \end{table}
 
