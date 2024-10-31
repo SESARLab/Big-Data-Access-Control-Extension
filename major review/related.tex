@@ -40,12 +40,12 @@ Table \ref{tab:comparative} provides a comparative analysis with relevant existi
 
 \begin{table}[t!]
     \centering
-    \caption{Comparative analysis with relevant existing approaches   \label{tab:comparative}}
+    \caption{Comparative analysis with relevant existing approaches. Feature support is classified according to \cmark (fully supported), \tmark (partially supported or limited in scope), \xmark (not supported)   \label{tab:comparative}}
     \renewcommand{\arraystretch}{1.5}
     \footnotesize{
         \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X}
             \toprule
-            \textbf{Solution}                                     & \textbf{F1}                                       & \textbf{F2}                                                                   & \textbf{F3}                                 & \textbf{F4}                                                        \\
+            \textbf{Solution} & \textbf{F1} & \textbf{F2} & \textbf{F3} & \textbf{F4} \\
             \midrule
             \textbf{Microsoft Presidio \cite{microsoft_presidio}} & \cmark, can integrate within cloud-edge pipelines & \tmark, focuses on data redaction                                             & \cmark, compatible with diverse techniques  & \tmark, pre-built PII detectors with configurable policies         \\
 
@@ -64,8 +64,6 @@ Table \ref{tab:comparative} provides a comparative analysis with relevant existi
             \bottomrule
         \end{tabularx}
     }
-    \caption{Comparative analysis with relevant existing approaches. Feature support is classified according to \cmark (fully supported), \tmark (partially supported or limited in scope), \xmark (not supported)}
-    \label{tab:comparative}
 \end{table}
 
 According to Table \ref{tab:comparative}, most of competitor solutions have full support for F3, while no solution has full support for F2. All solutions provide partial or full support for F1 and F4, with F4 fully supported by just two of the competitors.  Microsoft Presidio aligns most closely with our approach, as it supports cloud-edge integration, offers compatibility with diverse techniques, and includes configurable policies for PII detection. However, our tool uniquely supports the optimization of data quality alongside privacy through a service selection feature and across the entire pipeline lifecycle. Additionally, unlike other solutions that are cloud-specific, our tool maintains compatibility across hybrid environments, addressing both cloud-edge and on-premise scenarios.}
