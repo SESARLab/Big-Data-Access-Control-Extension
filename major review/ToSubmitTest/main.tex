@@ -1,0 +1,101 @@
+\documentclass[sn-mathphys-num,referee]{sn-jnl}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{psfrag}
+\usepackage{anyfontsize}
+\usepackage{url}
+\usepackage{color}
+\usepackage{balance}
+\usepackage[all]{xy}
+\usepackage{xspace}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array,booktabs,arydshln,xcolor}
+\usepackage{tikz}
+\usetikzlibrary{shapes,patterns,calc,shapes.geometric,arrows,positioning,backgrounds}
+\usepackage{float}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage{amsthm}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage[capitalise]{cleveref}
+\usepackage{soul}
+\usepackage[inline]{enumitem}
+\usepackage{xcolor}
+\usepackage{amssymb}
+\usepackage{pifont}
+\usepackage{epstopdf}
+\usepackage{subcaption}
+\colorlet{OurColor}{blue}
+\graphicspath{{Images/}}
+
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}[section]
+
+\input{macro}
+
+\begin{document}
+
+\title[Maximizing Data Quality While Ensuring Data Protection in Service-Based Data Pipelines]{Maximizing Data Quality While Ensuring Data Protection in Service-Based Data Pipelines}
+\keywords{Access Control, Big Data, Data Pipelines, Data Protection, Data Quality, Privacy}
+
+\author[1]{\fnm{Antongiacomo} \sur{Polimeno}}\email{antongiacomo.polimeno@unimi.it}
+\author[1]{\fnm{Chiara} \sur{Braghin}}\email{chiara.braghin@unimi.it}
+\author[1]{\fnm{Marco} \sur{Anisetti}}\email{marco.anisetti@unimi.it}
+\author*[1]{\fnm{Claudio A.} \sur{Ardagna}}\email{claudio.ardagna@unimi.it}
+
+\affil[1]{\orgdiv{Dipartimento di Informatica}, \orgname{Università degli Studi di Milano}, \orgaddress{\city{Milano}, \country{Italy}}}
+
+\maketitle
+
+\begin{abstract}
+~Today, the increasing ability of collecting and managing huge volume of data, coupled with a paradigm shift in service delivery models, has significantly enhanced scalability and efficiency in data analytics, particularly in multi-tenant environments. Data are today treated as digital products, which are managed and analyzed by multiple services orchestrated in data pipelines. {\color{OurColor} This paradigm shift towards distributed systems, structured as service-based data pipelines, lacks corresponding advancements in data governance techniques that effectively manage data throughout the pipeline lifecycle. This gap highlights the need for innovative data pipeline management solutions that prioritize balancing data quality with data protection. Departing from the state of the art that traditionally focuses on monolithic services and systems, and treats data protection and data quality as independent factors}, we propose a framework that enhance service selection and composition in service-based data pipelines to maximize data quality, while ensuring a minimum level of data protection. Our approach first retrieves a set of candidate services compatible with data protection requirements in the form of access control policies; it then selects the subset of compatible services, to be integrated within the data pipeline, which maximizes the overall data quality. Being our approach NP-hard, a sliding-window heuristic is defined and experimentally evaluated in terms of performance and quality with respect to the exhaustive approach {\color{OurColor}and a baseline modeling the state of the art}. Our results demonstrate a significant reduction in computational overhead, while maintaining high data quality.
+\end{abstract}
+
+\tikzset{
+  do path picture/.style={%
+      path picture={%
+          \pgfpointdiff{\pgfpointanchor{path picture bounding box}{south west}}%
+          {\pgfpointanchor{path picture bounding box}{north east}}%
+          \pgfgetlastxy\x\y%
+          \tikzset{x=\x/2,y=\y/2}%
+          #1
+        }
+    },
+  cross/.style={do path picture={
+          \draw [line cap=round ] (-1,-1) -- (1,1) (-1,1) -- (1,-1);
+        }},
+  plus/.style={do path picture={
+          \draw [line cap=round] (-3/4,0) -- (3/4,0) (0,-3/4) -- (0,3/4);
+        }}
+}
+
+\input{introduction}
+\input{system_model}
+\input{pipeline_template.tex}
+\input{pipeline_template_example.tex}
+\input{pipeline_instance.tex}
+\input{pipeline_instance_example.tex}
+\input{metrics}
+\input{experiment}
+\input{related}
+
+
+\section{Conclusions and Future Work}\label{sec:conclusions}
+In the realm of distributed data service pipelines, managing pipelines while ensuring both data quality and data protection presents numerous challenges. This paper proposed a framework specifically designed to address this dual concern. Our data governance model employs policies and continuous monitoring to address data security and privacy challenges, while maximizing data quality, in service pipeline generation. The key point of the framework is in its ability to annotate each element of the pipeline with specific data protection requirements and functional specifications, then driving service pipeline construction. This method enhances compliance with regulatory standards and improves data quality by preserving maximum information across pipeline execution. Experimental results confirmed the effectiveness of our sliding window heuristic in addressing the computationally complex NP-hard service selection problem at the basis of service pipeline construction. Making use of a realistic dataset, our experiments evaluated the framework's ability to sustain high data quality while ensuring robust data protection, which is essential for pipelines where both data utility and privacy must coexist.
+
+{\color{OurColor}
+The paper leaves space for future work. First, we will extend our methodology with a taxonomy of possible quality dimensions and metrics supporting the definition of a multidimensional data quality. Multiple dimensions and metrics will be adopted and weighted according to user priorities or task-specific requirements to better address the inherent multidimensional nature of data quality. This extension will enable more sophisticated monitoring and optimization mechanisms throughout the entire pipeline lifecycle. Second, we will evaluate the impact of different datasets and larger sets of services and configurations on our methodology. The primary objective is to identify generalizable patterns and recurring schemes that transcend specific experimental settings, thereby enhancing the broader applicability of our findings. Third, we will evaluate our methodology in different real-world production scenarios with the scope of evaluating its practical usability and utility, bridging the gap between theoretical and practical efficiency. Moreover, we plan to explore adaptive techniques based on machine learning for dynamic service selection, to increase the stability of data quality and privacy in varying operational conditions. Finally, we will extend our methodology to consider service quality assessment as a means to complement data quality evaluation, thus enabling the development of hybrid scenarios.}
+
+\input{declarations}
+
+\clearpage
+\bibliography{bib_on_BigDataAccessControl}
+
+\end{document}
+
