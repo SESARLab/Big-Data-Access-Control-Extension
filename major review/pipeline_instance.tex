@@ -46,12 +46,11 @@ Finally, for each vertex \vi{i}$\in$$\V_S$, a two-step approach is executed as f
       \begin{redtext}4\end{redtext}\com{for} \= each $v$ in $G^{\myLambda,\myGamma}$\\
       \begin{redtext}5\end{redtext}\tabone \vii{} = \funcname{Generate\_Vertex($v$)};\\
       \begin{redtext}6\end{redtext}\tabone $G'$ = $G'$ $\cup$ \vii;\\
-      % \begin{redtext}7\end{redtext}\commentall{For each service vertex, filter and select a service}\\
-      % \begin{redtext}8\end{redtext}\tabone\com{if} \= $v$ is a service vertex:\\
+
       \begin{redtext}7\end{redtext}\tabone $S'$ = \funcname{Filter\_Services($S^c[v]$, $v$.policies)};\\
       \begin{redtext}8\end{redtext}\tabone selectedService = \funcname{Select\_A\_Service($S'$)};\\
       \begin{redtext}9\end{redtext}\tabone \vii{}.service = selectedService;\\
-      % \begin{redtext}12\end{redtext}\tabone\com{endif};\\
+
       \begin{redtext}10\end{redtext}\com{endfor};\\
       \begin{redtext}11\end{redtext}\com{return} $G'$;\\
       \\
@@ -65,11 +64,9 @@ Finally, for each vertex \vi{i}$\in$$\V_S$, a two-step approach is executed as f
       \begin{redtext}18\end{redtext}\tabone\com{endif};\\
       \begin{redtext}18\end{redtext}\com{endfor};\\
       \begin{redtext}19\end{redtext}\com{return} $S'$;\\
-      % \\
-      % \begin{redtext}27\end{redtext}\funcname{selectService(compatibleServices)}\\
-      % \begin{redtext}28\end{redtext}\commentall{Select the best service based on a quality metric}\\
+
     \end{tabbing}
-          % \begin{redtext}29\end{redtext}\tabone\com{return} service with highest quality metric;\\
+
   \end{ourcolor}
   \hrule
   \vspace{10pt}
@@ -82,50 +79,3 @@ Finally, for each vertex \vi{i}$\in$$\V_S$, a two-step approach is executed as f
 \end{enumerate}
 
 When all vertices $\vi{i}$$\in$$V$ in $G^{\myLambda,\myGamma}$ have been visited, the \pipelineInstance $G'$ is generated {\color{OurColor}(line 11)}, with a service instance $s'_i$ for each \vii{i}$\in$\Vp. Vertex \vii{i} is annotated with policies in \P{i} according to \myLambda, because policies in \P{i} are evaluated and enforced at runtime, only when the pipeline instance is triggered and before any service is executed. When policy evaluation returns \emph{true}, data transformation \TP$\in$\P{i} is applied, otherwise a default transformation that removes all data is applied.
-
-% \begin{figure}[!t]
-%   \centering
-%   \newcommand{\function}[1]{$\instanceChartAnnotation{}_{#1}$}
-%   \begin{tikzpicture}[scale=0.7]
-%     % vertexes
-%     \node[draw, circle, fill,text=white,minimum size=1 ] (sr) at (0,0) {};
-
-%     \node[draw, circle, plus,minimum size=1.5em] (plus) at (1.5,0) {};
-
-%     \node[draw, circle] (s2) at (3.5,-2) {$\sii{1}$};
-%     \node[draw, circle] (s3) at (3.5,0) {$\sii{2}$};
-%     \node[draw, circle] (s1) at (3.5,2) {$\sii{3}$};
-
-%     \node[draw, circle] (s4) at (5,0) {$\sii{4}$};
-%     \node[draw, circle] (s5) at (6.5,0) {$\sii{5}$};
-
-%     \node[draw, circle] (s6) at (8.0,0) {$\sii{6}$};
-%     \node[draw, circle] (s7) at (9.5,0) {$\sii{7}$};
-%     % Text on top
-%     \node[above] at (sr.north)  {$\vi{r}$};
-%     \node[above] at (s1.north)  {\function{3}};
-
-%     \node[above] at (s2.north)  {\function{1}};
-%     \node[above] at (s3.north)  {\function{2}};
-%     \node[above] at (s4.north)  {\function{4}};
-%     \node[above] at (s5.north)  {\function{5}};
-%     \node[above] at (s6.north)  {\function{6}};
-%     \node[above] at (s7.north)  {\function{7}};
-%     % Connection
-
-%     \draw[->] (sr) -- (plus);
-%     \draw[->] (plus) -- (s1);
-%     \draw[->] (plus) -- (s2);
-%     \draw[->] (plus) -- (s3);
-
-%     \draw[->] (s1) -- (s4);
-%     \draw[->] (s2) -- (s4);
-%     \draw[->] (s3) -- (s4);
-%     \draw[->] (s4) -- (s5);
-%     \draw[->] (s5) -- (s6);
-%     \draw[->] (s6) -- (s7);
-
-%   \end{tikzpicture}
-%   \caption{Service composition instance}
-%   \label{fig:service_composition_instance}
-% \end{figure}

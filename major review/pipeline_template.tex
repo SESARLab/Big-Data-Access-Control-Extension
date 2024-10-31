@@ -17,7 +17,7 @@ The template is formally defined as follows.
 
 \begin{definition}[Pipeline Template] \label{def:template}
   Given a service pipeline G(\V,\E), a Pipeline Template \tChartFunction is a direct acyclic graph extended with two annotation functions:
-  \begin{enumerate}%[label=\textit{\roman*}]
+  \begin{enumerate}
     \item \emph{Data Protection Annotation} \myLambda that assigns a label \myLambda(\vi{i}) to each vertex $\vi{i}\in\V_S$. Label \myLambda(\vi{i}) corresponds to a set \P{i} of policies $p_j$ to be satisfied by service $s_i$ represented by \vi{i};
     \item \emph{Functional Annotation} \myGamma that assigns a label \myGamma(\vi{i}) to each vertex $\vi{i}\in\V_S$. Label \myGamma(\vi{i}) corresponds to the functional description $F_i$ of service $s_i$ represented by \vi{i}.
   \end{enumerate}
@@ -27,8 +27,6 @@ The template is formally defined as follows.
 
 We note that, at this stage, the template is not yet linked to any service.
 We also note that policies $p_j$$\in$\P{i} in \myLambda(\vi{i}) are combined using logical OR, meaning that the access decision is positive if at least one policy $p_j$ evaluates to \emph{true}.
-% The pipeline template of the service pipeline of \cref{fig:reference_scenario} is depicted in \cref{fig:service_composition_template}.
-
       \subsection{Data Protection Annotation}\label{sec:nonfuncannotation}
       Data Protection Annotation \myLambda\ expresses data protection requirements in the form of access control policies. We consider an attribute-based access control model that offers flexible fine-grained authorization and adapts its standard key components to address the unique characteristics of a big data environment. Access requirements are expressed in the form of policy conditions that are defined as follows.
 
@@ -64,15 +62,15 @@ We also note that policies $p_j$$\in$\P{i} in \myLambda(\vi{i}) are combined usi
         \item level \emph{l2} (\tp{2}): full anonymization with first name, last name, identifier and age being anonymized.
       \end{enumerate*}
 
-Access control policies $p_j$$\in$\P{i} annotating a vertex \vi{i} in a pipeline template $G^{\myLambda,\myGamma}$ specify the data protection requirements that a candidate service must fulfill to be selected in the pipeline instance. Section~\ref{sec:instance} describes the selection process and the pipeline instance generation.
+      Access control policies $p_j$$\in$\P{i} annotating a vertex \vi{i} in a pipeline template $G^{\myLambda,\myGamma}$ specify the data protection requirements that a candidate service must fulfill to be selected in the pipeline instance. Section~\ref{sec:instance} describes the selection process and the pipeline instance generation.
 
-\subsection{Functional Annotations}\label{sec:funcannotation}
-A proper data management approach must track functional data manipulations across the entire pipeline execution, defining the functional requirements of each service operating on data.
-To this aim, each vertex \vi{i}$\in\V_S$ is annotated with a label \myGamma(\vi{i}), corresponding to the functional description $F_i$ of the service $s_i$ represented by \vi{i}.
-$F_i$ describes the functional requirements, such as API, inputs, expected outputs.
-It also specifies a set \TF{} of data transformation functions \tf{i}, which can be triggered during the execution of the corresponding service $s_i$.
+    \subsection{Functional Annotations}\label{sec:funcannotation}
+    A proper data management approach must track functional data manipulations across the entire pipeline execution, defining the functional requirements of each service operating on data.
+    To this aim, each vertex \vi{i}$\in\V_S$ is annotated with a label \myGamma(\vi{i}), corresponding to the functional description $F_i$ of the service $s_i$ represented by \vi{i}.
+  $F_i$ describes the functional requirements, such as API, inputs, expected outputs.
+    It also specifies a set \TF{} of data transformation functions \tf{i}, which can be triggered during the execution of the corresponding service $s_i$.
 
-Function $\tf{i}$$\in$$\TF{}$ can be:
+    Function $\tf{i}$$\in$$\TF{}$ can be:
 \begin{enumerate*}[label=\textit{\roman*})]
   \item an empty function \tf{\epsilon} that applies no transformation or processing on the data;
   \item an additive function \tf{a} that expands the amount of data received, for example, by integrating data from other sources;

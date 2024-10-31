@@ -88,7 +88,7 @@ We design and implement a heuristic algorithm built on a \emph{sliding window} f
 At each iteration $i$, a window of size \windowsize\ selects a subset of vertices in the pipeline template $\tChartFunction$, from vertices at depth $i$ to vertices at depth \windowsize$+$$i$$-$1.
 Service filtering and selection in \cref{sec:instance} are then executed to maximize quality $Q_w$ in window $w$. The heuristic returns as output the list of services instantiating all vertices at depth $i$. The sliding window $w$ is then shifted by 1 (i.e., $i$$=$$i$+1) and the filtering and selection process executed until \windowsize$+$$i$$-$1 is equal to length $l$ (max depth) of $\tChartFunction$, that is, the sliding window reaches the end of the template. In the latter case, the heuristic instantiates all remaining vertices and returns the pipeline instance $G'$.
 This strategy ensures that only services with low information loss are selected at each step, maximizing the pipeline quality \q.
-% \newenvironment{redtext}{\footnotesize	\color{gray}}{~~}
+
 \begin{figure}[!t]
         \hrule\vspace{3pt}
                 \begin{tabbing}
