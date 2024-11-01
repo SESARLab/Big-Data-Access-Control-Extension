@@ -2,7 +2,7 @@
 
 {\color{OurColor}
 We present an overview of the related work and a comparison with existing relevant tools and solutions in literature.
-
+}
 \subsection{Data quality and data protection}\label{sec:dataquality}
 
 Data quality is a widely studied research topic studied across various communities and perspectives. In the context of (big) data pipelines, data quality primarily refers to the extent to which (big) data meets the requirements and expectations of its intended use, encompassing various dimensions and characteristics to ensure the data are reliable, accurate, and valuable for analysis and decision-making. Specifically, accuracy denotes the correctness of the data, ensuring it accurately represents the real-world entities and events it models.
@@ -60,7 +60,8 @@ Table \ref{tab:comparative} provides a comparative analysis with relevant existi
     }
 \end{table}
 
-According to Table \ref{tab:comparative}, most of competitor solutions have full support for F3, while no solution has full support for F2. All solutions provide partial or full support for F1 and F4, with F4 fully supported by just two of the competitors.  Microsoft Presidio aligns most closely with our approach, as it supports cloud-edge integration, offers compatibility with diverse techniques, and includes configurable policies for PII detection. However, our tool uniquely supports the optimization of data quality alongside privacy through a service selection feature and across the entire pipeline lifecycle. Additionally, unlike other solutions that are cloud-specific, our tool maintains compatibility across hybrid environments, addressing both cloud-edge and on-premise scenarios.}
+According to Table \ref{tab:comparative}, most of competitor solutions have full support for F3, while no solution has full support for F2. All solutions provide partial or full support for F1 and F4, with F4 fully supported by just two of the competitors.  Microsoft Presidio aligns most closely with our approach, as it supports cloud-edge integration, offers compatibility with diverse techniques, and includes configurable policies for PII detection. However, our tool uniquely supports the optimization of data quality alongside privacy through a service selection feature and across the entire pipeline lifecycle. Additionally, unlike other solutions that are cloud-specific, our tool maintains compatibility across hybrid environments, addressing both cloud-edge and on-premise scenarios.
+}
 
 Additional solutions address individual aspects of these requirements. For example, several proposals address data protection by implementing robust access control on big data platforms. Some approaches are platform-specific, tailored to single systems like MongoDB or Hadoop, and leverage the native access control features of these platforms \cite{rathore2017hadoop,anisetti2018privacy,FederationAC:Journ:2020,Sandhu:ABAC:2018,GuptaSandu:2017}. Other approaches focus on specific databases, such as NoSQL or graph databases, or specific types of analytical pipelines \cite{AConGraphDB:2021, AConMongoDB:2022, ABACforHBase:2019}. However, these solutions often rely on query rewriting mechanisms, resulting in high complexity and low efficiency. Some solutions are designed for specific scenarios, such as federated cloud environments, edge microservices, or IoT, and lack the flexibility to adapt to multiple contexts \cite{MultipartyAC:2019, IoTSecurity}.
 %
