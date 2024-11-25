@@ -30,7 +30,7 @@ jobs:
         with:
           file: mr2/main.tex
 #        - run: '(test -f main.pdf && echo PDF exists) || (echo PDF does not exist && exit 1)'
-
+      - run: tlmgr install zapfding
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
