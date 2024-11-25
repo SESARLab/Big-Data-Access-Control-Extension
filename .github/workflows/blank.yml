@@ -26,13 +26,13 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      - name: Generate PDF document
-        uses: hspaans/latexmk-action@v2.0.0
+      - uses: yegor256/latexmk-action@0.15.0
         with:
-          format: pdf
-          filename: "'major review2/main.tex'"
-          arguments: |
-            -cd
+          cmd: latexmk
+          path: 'major review2/main.tex'
+          opts: -pdf -cd
+          packages: natbib xcolor amsmath graphicx tikz geometry hyperref
+
 
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
