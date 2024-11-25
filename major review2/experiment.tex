@@ -8,7 +8,7 @@ Our testing infrastructure is a Swift-based simulator of a service-based ecosyst
 The simulator first defines the pipeline template as a sequence of vertices, with $l$ the length of the pipeline template, and defines the size \windowsize\ of the sliding window, such that \windowsize$\leq$$l$. We recall that alternative vertices are modeled in different pipeline templates, while parallel vertices are not considered in our experiments since they only add a fixed execution time that is negligible and does not affect the performance and quality of our solution. Each vertex is associated with a (set of) policy that applies a filtering transformation that removes a given percentage of data.
 
 
-The simulator then starts the instantiation process. At each step $i$, it selects the subset \{\vi{i},$\ldots$,$v_{\windowsize+i-1}$\} of vertices with their corresponding candidate services, and generates all possible service combinations. The simulator calculates quality $Q$ for all combinations and instantiates \vi{i} with service \sii{i} from the optimal combination with maximum $Q$. The window is shifted by 1 (i.e., $i$=$i$+1) and the instantiation process restarts. When the sliding window reaches the end of the pipeline template, that is, $v_{\windowsize+i-1}$$=$$\vi{l}$, the simulator computes the optimal service combination and instantiates the remaining vertices with the corresponding services. Figure~\ref{fig:execution_example} shows an example of a simulator execution with $i$$=$2 and \windowsize$=$3. Subset \{\vi{2},\vi{3},\vi{4}\} is selected, all combinations generated, and corresponding quality $Q$ calculated. Optimal service combination \{\sii{11},\sii{22},\sii{31}\} is retrieved and \vii{2} in the pipeline instance instantiated with \sii{11}.
+The simulator then starts the instantiation process. At each step $i$, it selects the subset \{\vi{i},$\ldots$,$v_{\windowsize+i-1}$\} of vertices with their corresponding candidate services, and generates all possible service combinations. The simulator calculates quality $Q$ for all combinations and instantiates \vi{i} with service \sii{i} from the optimal combination with maximum $Q$. The window is shifted by 1 (i.e., $i$=$i$+1) and the instantiation process restarts. When the sliding window reaches the end of the pipeline template, that is, $v_{\windowsize+i-1}$$=$$\vi{l}$, the simulator computes the optimal service combination and instantiates the remaining vertices with the corresponding services. \cref{fig:execution_example} shows an example of a simulator execution with $i$$=$2 and \windowsize$=$3. Subset \{\vi{2},\vi{3},\vi{4}\} is selected, all combinations generated, and corresponding quality $Q$ calculated. Optimal service combination \{\sii{11},\sii{22},\sii{31}\} is retrieved and \vii{2} in the pipeline instance instantiated with \sii{11}.
 
 \begin{figure}[!t]
   \centering
@@ -136,7 +136,8 @@ Our experiments have been run on a virtual machine equipped with a Intel(R) Xeon
       \caption{7 vertices}
       \label{fig:time_window_perce_wide_7n}
     \end{subfigure}
-    \label{fig:time_window_perce_average}
+    \caption{Evaluation of Performance Using the \emph{Qualitative} Metric in a \average Profile
+    \label{fig:time_window_perce_average}Configuration.}
   \end{figure}
 
   \subsection{Quality}\label{subsec:experiments_quality}
@@ -145,7 +146,7 @@ Our experiments have been run on a virtual machine equipped with a Intel(R) Xeon
 
   We run our experiments varying: \emph{i)} the length $l$ of the pipeline template in [3,7], that is, the depth of the pipeline template as the number of vertices composed in a sequence, \emph{ii)} the window size \windowsize\ in [1,$l$], and \emph{iii)} the number of candidate services for each vertex in the pipeline template in [2, 7]. Each vertex is associated with a (set of) policy that applies a filtering transformation that either remove a percentage of data in $[0.5,0.8]$ (\average) or in $[0.2,1]$ (\wide).
 
-  \cref{fig:quality_window_perce} present our quality results using metric $M_J$ in \cref{subsec:metrics} for settings \wide and \average.
+  \cref{fig:quality_window_perce} presents our quality results using metric $M_J$ in \cref{subsec:metrics} for settings \wide and \average.
   In general, we observe that the quality of our heuristic approach increases as the window size increases, providing a quality comparable to the exhaustive approach when the window size \windowsize\ approaches the length $l$ of the pipeline template.
 
   When considering setting \wide, the baseline (\windowsize=1) provides good results on average (0.71, 0.90), while showing substantial quality oscillations in specific runs: between 0.882 and 0.970 for 3 vertices, 0.810 and 0.942 for 4 vertices, 0.580 and 0.853 for 5 vertices, 0.682 and 0.943 for 6 vertices, 0.596 and 0.821 for 7 vertices. This same trend emerges when the window size is $<$$l$/2, while it starts approaching the optimum when the window size is $\geq$$l$/2. For instance, when \windowsize=$l$-1, the quality varies between 0.957 and 1.0 for 3 vertices, 0.982 and 1.0 for 4 vertices, 0.986 and 0.998 for 5 vertices, 0.977 and 1.0 for 6 vertices, 0.996 and 1.0 for 7 vertices.
@@ -225,7 +226,7 @@ Our experiments have been run on a virtual machine equipped with a Intel(R) Xeon
   When considering setting \average, the heuristic algorithm still provides good results, limiting the quality oscillations observed for setting \wide\ and approaching the quality of the exhaustive also for lower window sizes. The baseline (\windowsize=1) provides good results on average (from 0.842 to 0.944), as well as in specific runs: between 0.927 and 0.978 for 3 vertices, 0.903 and 0.962 for 4 vertices, 0.840 and 0.915 for 5 vertices, 0.815 and 0.934 for 6 vertices, 0.721 and 0.935 for 7 vertices.
   When \windowsize=$l$-1, the quality varies between 0.980 and 1.0 for 3 vertices, 0.978 and 1.0 for 4 vertices, 0.954 and 1 for 5 vertices, 0.987 and 1.0 for 6 vertices, 0.990 and 1.0 for 7 vertices.
 
-  \cref{fig:quality_window_qualitative} present our quality results using metric $M_{JSD}$ in \cref{subsec:metrics} for settings \wide and \average, respectively.
+  \cref{fig:quality_window_qualitative} presents our quality results using metric $M_{JSD}$ in \cref{subsec:metrics} for settings \wide and \average, respectively.
 
   When considering setting \wide, the baseline (\windowsize=1) provides good results on average (0.92, 0.97), limiting oscillations observed with metric $M_J$; for instance, the quality varies between 0.951 and 0.989 for 3 vertices, 0.941 and 0.988 for 4 vertices, 0.919 and 0.974 for 5 vertices, 0.911 and 0.971 for 6 vertices, 0.877 and 0.924 for 7 vertices.
   The worst quality results are obtained with the baseline, while the oscillations are negligible when the window size is $>$2. For instance, when \windowsize=$l$-2, the quality varies between, 0.982 and 0.996 for 4 vertices, 0.981 and 0.998 for 5 vertices, 0.988 and 1.0 for 6 vertices, 0.976 and 0.999 for 7 vertices. When \windowsize=$l$-1, the quality varies between  0.987 and  0.998 for 3 vertices, 0.993 and 1.0 for 4 vertices, 0.985 and 0.999 for 5 vertices, 0.997 and 1.0 for 6 vertices, 0.995 and 1.0  for 7 vertices.
