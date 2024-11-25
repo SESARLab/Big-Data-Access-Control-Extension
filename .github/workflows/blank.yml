@@ -26,11 +26,12 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
       - run: sudo apt-get install texlive-fonts-recommended
+      - run: tlmgr install zapfding
       - uses: antaljanosbenjamin/compile-latex@v1.0.0
         with:
           file: mr2/main.tex
 #        - run: '(test -f main.pdf && echo PDF exists) || (echo PDF does not exist && exit 1)'
-      - run: tlmgr install zapfding
+
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
