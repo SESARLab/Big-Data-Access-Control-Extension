@@ -136,8 +136,8 @@ Our experiments have been run on a virtual machine equipped with a Intel(R) Xeon
       \caption{7 vertices}
       \label{fig:time_window_perce_wide_7n}
     \end{subfigure}
-    \caption{Evaluation of Performance Using the \emph{Qualitative} Metric in a \average Profile
-    \label{fig:time_window_perce_average}Configuration.}
+    \caption{{\color{OurColor2}Evaluation of Performance Using the \emph{Qualitative} Metric in a \average Profile Configuration}}
+    \label{fig:time_window_perce_average}
   \end{figure}
 
   \subsection{Quality}\label{subsec:experiments_quality}
@@ -145,8 +145,8 @@ Our experiments have been run on a virtual machine equipped with a Intel(R) Xeon
   The quality $Q$ of the heuristic has been normalized between 0 and 1 by dividing it by the quality $Q^*$ retrieved by the exhaustive approach.
 
   We run our experiments varying: \emph{i)} the length $l$ of the pipeline template in [3,7], that is, the depth of the pipeline template as the number of vertices composed in a sequence, \emph{ii)} the window size \windowsize\ in [1,$l$], and \emph{iii)} the number of candidate services for each vertex in the pipeline template in [2, 7]. Each vertex is associated with a (set of) policy that applies a filtering transformation that either remove a percentage of data in $[0.5,0.8]$ (\average) or in $[0.2,1]$ (\wide).
-
-  \cref{fig:quality_window_perce} presents our quality results using metric $M_J$ in \cref{subsec:metrics} for settings \wide and \average.
+{\color{OurColor2}
+  \cref{fig:quality_window_perce}} presents our quality results using metric $M_J$ in \cref{subsec:metrics} for settings \wide and \average.
   In general, we observe that the quality of our heuristic approach increases as the window size increases, providing a quality comparable to the exhaustive approach when the window size \windowsize\ approaches the length $l$ of the pipeline template.
 
   When considering setting \wide, the baseline (\windowsize=1) provides good results on average (0.71, 0.90), while showing substantial quality oscillations in specific runs: between 0.882 and 0.970 for 3 vertices, 0.810 and 0.942 for 4 vertices, 0.580 and 0.853 for 5 vertices, 0.682 and 0.943 for 6 vertices, 0.596 and 0.821 for 7 vertices. This same trend emerges when the window size is $<$$l$/2, while it starts approaching the optimum when the window size is $\geq$$l$/2. For instance, when \windowsize=$l$-1, the quality varies between 0.957 and 1.0 for 3 vertices, 0.982 and 1.0 for 4 vertices, 0.986 and 0.998 for 5 vertices, 0.977 and 1.0 for 6 vertices, 0.996 and 1.0 for 7 vertices.
