@@ -15,14 +15,14 @@ The simulator first defines the pipeline template as a sequence of vertices, wit
       \label{tab:parameters}
       \centering
       {\color{OurColor2}
-      \begin{tabular}{l|l}
-        \textbf{Parameter}                  & \textbf{Values}  \\
-        \hline
-        Window Size (\textbar{}w\textbar{}) & 2, 3, 4, 5, 6, 7 \\
-        Profile                             & wide, average    \\
-        Services                            & 2, 3, 4, 5, 6, 7 \\
-        Vertices                            & 2, 3, 4, 5, 6, 7 \\
-      \end{tabular}
+        \begin{tabular}{l|l}
+          \textbf{Parameter}                  & \textbf{Values}  \\
+          \hline
+          Window Size (\textbar{}w\textbar{}) & 2, 3, 4, 5, 6, 7 \\
+          Profile                             & wide, average    \\
+          Services                            & 2, 3, 4, 5, 6, 7 \\
+          Vertices                            & 2, 3, 4, 5, 6, 7 \\
+        \end{tabular}
       }
     \end{table}
 
@@ -113,9 +113,9 @@ The simulator first defines the pipeline template as a sequence of vertices, wit
     To this aim, it assigns a dependency rate to each service \si{i} modeling the amount of the filtering transformation done at \si{i} that overlaps the one at \si{i-1}.
     For example, let us consider the pairs of services (\si{11},\si{21}) and (\si{11},\si{22}) with the following configurations: \emph{i)} service \si{11} introduces a filtering transformation that removes the 20\% of the dataset, \emph{ii)} service \si{21} introduces a filtering transformation that removes 10\% of the dataset and has dependency rate equal to 1, meaning that the filtering transformation made by \si{21} completely overlaps the one made by \si{11}, \emph{iii)} service \si{22} introduces a filtering transformation that removes 5\% of the dataset and has dependency rate equal to 0.5, meaning that the filtering transformation made by \si{22} overlaps half of the one made by \si{11}. Jaccard Metric $M_{J_{21}}$$=$0.8 at service \si{21}; $M_{J_{22}}$$=$0.775 at \si{22}, showing how dependencies can affect the pipeline quality and, in turn, the instantiation process.
 
-      {\color{OurColor}
-        Our simulator also supports the comparison of the performance and quality of our sliding-window heuristic with \emph{i)} a baseline modeling solutions in the state of the art and \emph{ii)} the exhaustive approach (i.e., the theoretical optimum). We modeled our baseline as a greedy approach that, for each node of the service pipeline, selects the best service that maximizes the data quality, while addressing data protection requirements in annotation $\myLambda$. The reason is that, to the best of our knowledge, existing (industry) solutions and standards do not support service-based data pipelines and are therefore unable to instantiate the service pipeline according to the pipeline structure and service dependencies. We therefore defined our baseline as the sliding window heuristic configured with window size $|$w$|$=1.
-        We implemented the exhaustive approach calculating the theoretical optimum as the sliding window heuristic configured with window size $|$w$|$=$l$, to illustrate the potential efficiency of our heuristics within realistic computational limits.}
+
+    Our simulator also supports the comparison of the performance and quality of our sliding-window heuristic with \emph{i)} a baseline modeling solutions in the state of the art and \emph{ii)} the exhaustive approach (i.e., the theoretical optimum). We modeled our baseline as a greedy approach that, for each node of the service pipeline, selects the best service that maximizes the data quality, while addressing data protection requirements in annotation $\myLambda$. The reason is that, to the best of our knowledge, existing (industry) solutions and standards do not support service-based data pipelines and are therefore unable to instantiate the service pipeline according to the pipeline structure and service dependencies. We therefore defined our baseline as the sliding window heuristic configured with window size $|$w$|$=1.
+    We implemented the exhaustive approach calculating the theoretical optimum as the sliding window heuristic configured with window size $|$w$|$=$l$, to illustrate the potential efficiency of our heuristics within realistic computational limits.
 
 
 
@@ -320,19 +320,25 @@ The simulator first defines the pipeline template as a sequence of vertices, wit
 
 When considering setting \average, the baseline (\windowsize=1) provides results similar to setting \wide. On average, quality varies from 0.920 to 0.969, limiting oscillations; for instance, the quality varies between 0.951 and 0.989 for 3 vertices, 0.942 and 0.988 for 4 vertices, 0.919 and 0.975 for 5 vertices, 0.912 and 0.972 for 6 vertices, 0.878 and 0.925 for 7 vertices. The \average configuration provides even tighter quality oscillations than the \wide configuration. Notably, the poorest quality outcomes are observed with the baseline. Conversely, these oscillations become negligible when the window size exceeds 1 in configurations with three and four vertices, and when it exceeds 2 in configurations involving five, six, and seven vertices.  For instance, when \windowsize=3, the quality varies between  0.993 and 1 for 4 vertices, 0.981 and 0.998 for 5 vertices, 0.982 and 997 for 6 vertices, 0.960 and 0.991 for 7 vertices.
 
-  {\color{OurColor}
-    \subsection{Discussion}
-    The experimental results we obtained yield several valuable insights that merit further discussion. Three key observations emerged as follows.
 
-    \vspace{0.5em}
+\subsection{Discussion}
+The experimental results we obtained yield several valuable insights that merit further discussion. Three key observations emerged as follows.
 
-    \noindent\textbf{Trade-off Between Execution Time and Quality.} As expected, the execution time improvement provided by our heuristic introduces a loss of quality with respect to the exhaustive approach. This loss causes an increase in the quality variance, especially when the window size (\windowsize) is small compared to the vertex count. A fine-grained tuning of heuristic parameters is needed to balance computational efficiency and data quality.
+\vspace{0.5em}
 
-    \vspace{0.5em}
+\noindent\textbf{Trade-off Between Execution Time and Quality.} As expected, the execution time improvement provided by our heuristic introduces a loss of quality with respect to the exhaustive approach. This loss causes an increase in the quality variance, especially when the window size (\windowsize) is small compared to the vertex count. A fine-grained tuning of heuristic is needed to balance computational efficiency and data quality.
 
-    \noindent\textbf{Impact of Window Size on Quality.} Our heuristic well approximates the exhaustive approach. While larger window sizes generally lead to better performance, there exists a breakpoint where the balance between window size and performance is optimal. Beyond this point, the incremental gain in data quality modeled by our quality metrics does not justify the additional computational effort introduced by larger window sizes. We also note that lower window sizes are more unstable, especially when the  \wide setting is used, meaning that the data quality varies significantly among different configurations. This effect stabilizes at larger window sizes, approximately half the size of the pipeline (e.g., \windowsize$=$$l$/2).
+\vspace{0.5em}
 
-    \vspace{0.5em}
+\noindent\textbf{Impact of Parameters on Quality.}
+{\color{OurColor2}
+  Our experiments demonstrate that parameters significantly influence the quality of the pipeline. Specifically, the number of service nodes and the window size emerged as key factors. Larger window sizes generally improve performance; however, there exists a balance point where the trade-off between computational cost and quality gain becomes suboptimal. Beyond this threshold, additional computational resources do not proportionately enhance data quality, as modeled by our metrics.
 
-    \noindent\textbf{Sliding Window Approach versus Global Awareness.} The intrinsic nature of our sliding window heuristic can sometimes lead to a local optimum, as the window size limits the candidate services for each pipeline stage to a restricted subset, which may prevent reaching the global optimum. This aspect is maximized when using the baseline representing the state of the art, where the sliding window heuristic is configured with a window size of \windowsize=1. Additionally, as dependencies between services increase, the likelihood of finding a sub-optimal solution rises. Our experiments show that \emph{i)} increasing the window size helps mitigate this issue and \emph{ii)} a broader decision-making scope becomes essential as service dependencies grow more complex.
-  }
+  We also note that lower window sizes exhibit higher instability, particularly under the \wide configuration, where data quality varies significantly across different setups. This variation diminishes when larger window sizes, approximately half the length of the pipeline (e.g., \windowsize$=$$l$/2), are used, leading to more stable and consistent results.
+
+  In addition, these findings highlight the necessity of exploring other parameters, such as the inclusion of diverse datasets, to understand their broader impact on performance. Investigating alternative quality metrics could also provide new insights and opportunities for improvement. Future experiments, as outlined in Section 9, will aim to address these aspects to provide a more comprehensive evaluation and enhance the applicability of our framework to real-world scenarios.
+}
+\vspace{0.5em}
+
+\noindent\textbf{Sliding Window Approach versus Global Awareness.} The intrinsic nature of our sliding window heuristic can sometimes lead to a local optimum, as the window size limits the candidate services for each pipeline stage to a restricted subset, which may prevent reaching the global optimum. This aspect is maximized when using the baseline representing the state of the art, where the sliding window heuristic is configured with a window size of \windowsize=1. Additionally, as dependencies between services increase, the likelihood of finding a sub-optimal solution rises. Our experiments show that \emph{i)} increasing the window size helps mitigate this issue and \emph{ii)} a broader decision-making scope becomes essential as service dependencies grow more complex.
+
