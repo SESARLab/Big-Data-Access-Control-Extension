@@ -20,8 +20,9 @@ The simulator first defines the pipeline template as a sequence of vertices, wit
           \hline
           Window Size (\textbar{}w\textbar{}) & 2, 3, 4, 5, 6, 7 \\
           Profile                             & wide, average    \\
-          Services                            & 2, 3, 4, 5, 6, 7 \\
-          Vertices                            & 2, 3, 4, 5, 6, 7 \\
+          Number of Candidate Services        & 2, 3, 4, 5, 6, 7 \\
+          Number of Service Nodes             & 2, 3, 4, 5, 6, 7 \\
+          Metrics                             & quantitative ($M_J$), qualitative ($M_{JSD}$) \\
         \end{tabular}
       }
     \end{table}
@@ -332,11 +333,16 @@ The experimental results we obtained yield several valuable insights that merit 
 
 \noindent\textbf{Impact of Parameters on Quality.}
 {\color{OurColor2}
-  Our experiments demonstrate that parameters significantly influence the quality of the pipeline. Specifically, the number of service nodes and the window size emerged as key factors. Larger window sizes generally improve performance; however, there exists a balance point where the trade-off between computational cost and quality gain becomes suboptimal. Beyond this threshold, additional computational resources do not proportionately enhance data quality, as modeled by our metrics.
 
+Our experiments demonstrate that parameters in Table~\ref{tab:parameters} can significantly influence the quality of the pipeline, with the number of service nodes and the window size emerging as key factors for both quality and performance. 
+
+Specifically, larger window sizes generally improve quality; however, there exists a balance point where the trade-off between computational cost and quality gain becomes suboptimal. Beyond this threshold, additional computational resources do not proportionately enhance data quality, as modeled by our metrics.
   We also note that lower window sizes exhibit higher instability, particularly under the \wide configuration, where data quality varies significantly across different setups. This variation diminishes when larger window sizes, approximately half the length of the pipeline (e.g., \windowsize$=$$l$/2), are used, leading to more stable and consistent results.
 
-  In addition, these findings highlight the necessity of exploring other parameters, such as the inclusion of diverse datasets, to understand their broader impact on performance. Investigating alternative quality metrics could also provide new insights and opportunities for improvement. Future experiments, as outlined in Section 9, will aim to address these aspects to provide a more comprehensive evaluation and enhance the applicability of our framework to real-world scenarios.
+We also note that the number of candidate services and service nodes increase the computation cost (performance), while having nearly no impact on quality.
+
+  In conclusion, our results demonstrate a significant reduction in computational overhead, while
+  maintaining high data quality. Further analysis is needed to explore the impact of additional parameters, first of all in terms of diverse datasets modeling additional real-world domains, to understand their broader impact on quality. Investigating alternative quality metrics could also provide new insights and opportunities for improvement. Future experiments, as outlined in Section 9, will aim to address these aspects to provide a step further in the evaluation of the soundness and applicability of our framework on a larger scale.
 }
 \vspace{0.5em}
 
