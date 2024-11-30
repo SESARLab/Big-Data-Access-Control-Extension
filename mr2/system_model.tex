@@ -4,7 +4,7 @@ We present our system model (Section \ref{sec:systemmodel}) and reference scenar
 \subsection{System Model}\label{sec:systemmodel}
 {\color{OurColor} We consider a service-based environment where a service-based data pipeline (service pipeline in the following) is designed to analyze data. Our service pipeline is enriched with metadata specifying data protection requirements and functional specifications, and models the data flow among component services, without posing any restrictions on the control flow.} It is composed of the following parties:
 \begin{itemize}
-  \item \emph{Service}, a software distributed by a service provider that performs a specific task;
+  \item \emph{Service}, software distributed by a service provider that performs a specific task;
   \item \emph{Service Pipeline}, a sequence of connected services that collect, prepare, process, and analyze data in a structured and automated manner;
   \item \emph{Data Governance Policy}, a structured set of privacy guidelines, rules, and procedures regulating data access, sharing, and protection;
   \item \emph{User}, executing a service pipeline on the data. We assume the user is authorized to perform this operation, either as the data owner or as a data processor with the owner's consent.
@@ -40,7 +40,7 @@ Upon selecting the most suitable service for each component service in the pipel
 \subsection{Reference Scenario}\label{sec:service_definition}
 
 {\color{OurColor}
-Our approach targets application domains involving sensitive data, such as Personally Identifiable Information (PII), that must be securely shared and protected across diverse and complex analytical processes involving multiple stakeholders. It is applicable across industrial use cases based on cloud-edge infrastructures, where data from third-party (IoT) devices are injected and shared via the cloud, as well as in data ecosystems across sectors such as healthcare, finance, law enforcement and justice.
+Our approach targets application domains involving sensitive data, such as Personally Identifiable Information (PII), that must be securely shared and protected across diverse and complex analytical processes involving multiple stakeholders. It is applicable across industrial use cases based on cloud-edge infrastructures, where data from third-party (IoT) devices are injected and shared via the cloud, as well as in data ecosystems across sectors such as healthcare, finance, law enforcement, and justice.
 
 Our reference scenario draws on commonly used dataspaces, such as dataspace on public administration, focusing specifically on the law enforcement domain. Using open data, we selected a scenario that includes real sensitive records of individuals detained in Connecticut Department of Correction facilities while awaiting trial.\footnote{https://data.ct.gov/Public-Safety/Accused-Pre-Trial-Inmates-in-Correctional-Faciliti/b674-jy6w} Various stakeholders may use these data for different objectives: public health agencies to monitor inmate health trends, judicial bodies to track case processing efficiency, advocacy groups to identify disparities in detention, policymakers to analyze the impacts on the criminal justice system, social services to prepare post-release support, researchers to study the broader social effects of pre-trial detention, and correctional departments to compare admission trends across facilities.
 

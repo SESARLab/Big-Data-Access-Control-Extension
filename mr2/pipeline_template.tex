@@ -5,7 +5,7 @@ These annotations enable the implementation of an advanced data lineage, trackin
 In the following, we first introduce the annotated service pipeline, called pipeline template (Section \ref{sec:templatedefinition}). We then present both functional annotations (Section \ref{sec:funcannotation}) and data protection annotations (Section \ref{sec:nonfuncannotation}), providing an example of a pipeline template in the context of the reference scenario in Section \ref{sec:service_definition}.
 
 \subsection{Pipeline Template Definition}\label{sec:templatedefinition}
-Given the service pipeline in Definition~\ref{def:pipeline}, we use annotations to express data protection requirements and functional requirements on the services to be integrated in the pipeline. Each service vertex in the service pipeline is labeled with two mapping functions forming a pipeline template:
+Given the service pipeline in Definition~\ref{def:pipeline}, we use annotations to express data protection requirements and functional requirements on the services to be integrated into the pipeline. Each service vertex in the service pipeline is labeled with two mapping functions forming a pipeline template:
 \begin{enumerate*}[label=\textit{\roman*})]
   \item an annotation function \myLambda:$\V_S\rightarrow$\P{} that associates a set of data protection requirements to be enforced on data, in the form of policies $p$$\in$\P{}, with each vertex \vi{i}$\in$$\V_S$;
   \item an annotation function \myGamma:$\V_S\rightarrow$\F{} that associates a functional service description $F_i\in\F{}$ with each vertex \vi{i}$\in$$\V_S$.
@@ -46,20 +46,20 @@ We also note that policies $p_j$$\in$\P{i} in \myLambda(\vi{i}) are combined usi
 
       \vspace{0.5em}
 
-      More in detail, \textit{subject subj} specifies a service $s_i$ issuing an access request to perform an action on an object. It is a set \{$pc_i$\} of \emph{Policy Conditions} as defined in Definition \ref{def:policy_cond}. For instance, (classifier$=$``SVM'') specifies a service providing a SVM classifier. We note that \textit{subj} can also specify conditions on the service owner (\textit{e.g.}, owner\_location$=$``EU'') and the service user (\textit{e.g.}, service\_user\_role$=$``DOC Director'').
+      More in detail, \textit{subject subj} specifies a service $s_i$ issuing an access request to perform an action on an object. It is a set \{$pc_i$\} of \emph{Policy Conditions} as defined in Definition \ref{def:policy_cond}. For instance, (classifier$=$``SVM'') specifies a service providing an SVM classifier. We note that \textit{subj} can also specify conditions on the service owner (\textit{e.g.}, owner\_location$=$``EU'') and the service user (\textit{e.g.}, service\_user\_role$=$``DOC Director'').
 
       \textit{Object obj} defines the data governed by the access policy. It is a set \{$pc_i$\} of \emph{Policy Conditions} on the object's attributes.
-      For instance, \{(type$=$``dataset''), (region$=$``CT'')\} refers to an object of type dataset and whose region is Connecticut.
+      For instance, \{(type$=$``dataset''), (region$=$``CT'')\} refers to an object of type dataset whose region is Connecticut.
 
       \textit{Action act} specifies the operations that can be performed within a big data environment, from traditional atomic operations on databases (e.g., CRUD operations) to coarser operations, such as an Apache Spark Direct Acyclic Graph (DAG), Hadoop MapReduce, an analytics function call, and an analytics pipeline.
 
       \textit{Environment env} defines a set of conditions on contextual attributes, such as time of the day, location, IP address, risk level, weather condition, holiday/workday, and emergency. It is a set \{$pc_i$\} of \emph{Policy Conditions} as defined in Definition \ref{def:policy_cond}. For instance, (time$=$``night") refers to a policy that is applicable only at night.
 
-      \textit{Data Transformation \TP} defines a set of security and privacy-aware transformations on \textit{obj} that must be enforced before any access to data is given. Transformations focus on data protection, as well as on compliance to regulations and standards, in addition to simple format conversions. For instance, let us define three transformations that can be applied to the dataset in \cref{tab:dataset}, each performing different levels of anonymization:
+      \textit{Data Transformation \TP} defines a set of security and privacy-aware transformations on \textit{obj} that must be enforced before any access to data is given. Transformations focus on data protection, as well as on compliance with regulations and standards, in addition to simple format conversions. For instance, let us define three transformations that can be applied to the dataset in \cref{tab:dataset}, each performing different levels of anonymization:
       \begin{enumerate*}[label=\roman*)]
         \item level \emph{l0} (\tp{0}): no anonymization;
         \item level \emph{l1} (\tp{1}): partial anonymization with only first and last name being anonymized;
-        \item level \emph{l2} (\tp{2}): full anonymization with first name, last name, identifier and age being anonymized.
+        \item level \emph{l2} (\tp{2}): full anonymization with first name, last name, identifier, and age being anonymized.
       \end{enumerate*}
 
       Access control policies $p_j$$\in$\P{i} annotating a vertex \vi{i} in a pipeline template $G^{\myLambda,\myGamma}$ specify the data protection requirements that a candidate service must fulfill to be selected in the pipeline instance. Section~\ref{sec:instance} describes the selection process and the pipeline instance generation.
