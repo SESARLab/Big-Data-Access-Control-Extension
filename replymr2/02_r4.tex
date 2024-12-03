@@ -10,7 +10,7 @@ The Abstract is not concise, and some of the parts could be moved to the Introdu
     \vspace{0.5em}
     
     \begin{adjustwidth}{10pt}{10pt}
-        \em``{\color{OurColor}The growing capacity to handle vast amounts of data, combined with a shift in service delivery models, has improved scalability and efficiency in data analytics, particularly in multi-tenant environments. Data are treated as digital products and processed through orchestrated service-based data pipelines. However, advancements in data analytics do not find a counterpart in data governance techniques, leaving a gap in the effective management of data throughout the pipeline lifecycle. This gap highlights the need for innovative data pipeline management solutions that prioritize balancing data quality and data protection. The framework proposed in this paper optimizes service selection and composition within data pipelines to maximize data quality while ensuring compliance with data protection requirements, expressed as access control policies. Given the NP-hard nature of the problem, a sliding-window heuristic is defined and evaluated against the exhaustive approach and a baseline modeling the state of the art. Our results demonstrate a significant reduction in computational overhead, while maintaining high data quality.}''
+        \em``{\color{OurColor}The growing capacity to handle vast amounts of data, combined with a shift in service delivery models, has improved scalability and efficiency in data analytics, particularly in multi-tenant environments. Data are treated as digital products and processed through orchestrated service-based data pipelines. However, advancements in data analytics do not find a counterpart in data governance techniques, leaving a gap in the effective management of data throughout the pipeline lifecycle. This gap highlights the need for innovative service-based data pipeline management solutions that prioritize balancing data quality and data protection. The framework proposed in this paper optimizes service selection and composition within service-based data pipelines to maximize data quality while ensuring compliance with data protection requirements, expressed as access control policies. Given the NP-hard nature of the problem, a sliding-window heuristic is defined and evaluated against the exhaustive approach and a baseline modeling the state of the art. Our results demonstrate a significant reduction in computational overhead, while maintaining high data quality.}''
         \vspace{0.5em}
     \end{adjustwidth}
 
@@ -29,9 +29,9 @@ There are some assumptions in the paper. For some assumptions, the paper does no
 
         \item[\textbf{A1:}] \textbf{The more the data, the higher the completeness.} Assumption A1 aligns with several studies in literature, particularly regarding the dimension completeness of data quality, which suggests that retaining more data often results in better analytical outcomes. 
         
-        This topic is discussed in detail in Section 7 Related Work, specifically in Section 7.1, Data Quality and Data Protection. Section 7.1 addresses the ongoing debate regarding the lack of consensus on the definition of data quality and, consequently, the metrics used to assess it when applying data transformations.
+        This topic is discussed in detail in Section 7 (Related Work), specifically in Section 7.1 (Data Quality and Data Protection). Section 7.1 addresses the ongoing debate regarding the lack of consensus on the definition of data quality and, consequently, the metrics used to assess it when applying data transformations.
         
-        We recognize that placing this discussion in Section Related Work at the end of the paper might limit its accessibility. To address this, we clarified this assumption earlier in Section 2, including additional references from the field of privacy-preserving machine learning. These studies emphasize the importance of balancing data utility and privacy, highlighting that information loss minimization during anonymization is essential for maintaining sufficient data quality for analytical purposes. 
+        However, thanks to the reviewer's comment, we noticed that placing this discussion in Section 7 was too late. We therefore clarified this assumption earlier in Section 2, including additional references from the field of privacy-preserving machine learning. These studies emphasize on the importance of balancing data utility and privacy, highlighting that information loss minimization during anonymization is essential for maintaining sufficient data quality for analytical purposes. 
 
         \vspace{0.5em}
         
@@ -40,7 +40,7 @@ There are some assumptions in the paper. For some assumptions, the paper does no
             \vspace{0.5em}
         \end{adjustwidth}
 
-        By incorporating these insights earlier, we aim to strengthen the rationale behind our assumption and provide better context for its application in this work.
+        By incorporating these insights earlier, we aimed to strengthen the rationale behind our assumption and provide better context for its application in this work.
 
         % \vspace{0.5em}
         
@@ -54,7 +54,7 @@ There are some assumptions in the paper. For some assumptions, the paper does no
         % \end{adjustwidth}
 
 
-        \item[\textbf{A2:}] \textbf{Modeling of alternative structures in pipelines.} In our work, alternative execution paths are modeled as different service pipelines, rather than specifying alternatives within a single pipeline. This simplifies our model with no impact on the generality of our approach. We clarified this assumption in Section 2 as follows:
+        \item[\textbf{A2:}] \textbf{Modeling of alternative structures in pipelines.} Our work models alternative execution paths as different service pipelines, rather than specifying them within a single pipeline. This simplifies our modeling with no impact on the generality of our approach. We clarified this assumption in Section 2 as follows:
         
               \vspace{0.5em}
         
@@ -64,23 +64,23 @@ There are some assumptions in the paper. For some assumptions, the paper does no
                   \vspace{0.5em}
               \end{adjustwidth}
               
-        \item[\textbf{A3}:] \textbf{Direct Acyclic Graph (DAG) representation.} Modeling the pipeline as a DAG ensures well-defined modeling of the data flow (the target of our paper) within the pipelines. This standard representation for workflows, including data pipelines, aligns with many real-world systems and solutions. We therefore added a clarification on this assumption in Section 2.1 as follows:
+        \item[\textbf{A3}:] \textbf{Direct Acyclic Graph (DAG) representation.} Modeling a service-based data pipeline as a DAG ensures well-defined modeling of the pipeline data flow (the target of our paper). This standard workflow representation aligns with many real-world systems and solutions, and addresses the peculiarities of service-based  data pipelines. We therefore added a clarification on this assumption in Section 2.1 as follows:
               
               \vspace{0.5em}
               
               \begin{adjustwidth}{10pt}{10pt}
                 ``A Service \pipeline is as a direct acyclic graph G(\V,\E), where \V\ is a set of vertices and \E\ is a set of edges connecting two vertices \vi{i},\vi{k}$\in$\V.
-  The graph has a root ($\bullet$) vertex \vi{r}$\in$\V, a vertex \vi{i}$\in$$V_S$ for each service $s_i$, an additional vertex \vi{f}$\in$\V\ for each parallel ($\plusOperator$) structure modeling the contemporary execution (\emph{fork}) of services.
-                  \em{\color{OurColor}Modeling the pipeline as a direct acyclic graph ensures a well-defined representation of data flow. This standard representation for workflows, including data pipelines, mirrors real-world systems.}''
+            The graph has a root ($\bullet$) vertex \vi{r}$\in$\V, a vertex \vi{i}$\in$$V_S$ for each service $s_i$, an additional vertex \vi{f}$\in$\V\ for each parallel ($\plusOperator$) structure modeling the contemporary execution (\emph{fork}) of services.
+                  \em{\color{OurColor}Modeling the pipeline as a direct acyclic graph ensures a well-defined representation of data flow. This standard representation for workflows, including service pipelines, mirrors real-world systems.}''
                   \vspace{0.5em}
               \end{adjustwidth}
               
-        \item[\textbf{A4}:] \textbf{Quality metrics selection.} Our methodology is independent of the specific set of quality metrics and dimensions, which have been extensively analyzed in the literature. In our paper, we focus on quality dimension completeness and two related metrics (Section 5), one qualitative and one quantitative, that have the peculiarity of being simple and unsophisticated. This choice put our experimental evaluation in a scenario that was not affected by the effectiveness of the adopted metrics and dimensions. Our use of completeness and statistical similarity as quality metrics then reflects the focus of our study on preserving data while meeting privacy constraints. While these metrics are widely applicable, we recognize that they may not cover all aspects of quality. We have added a note in Section 5.1 that discusses our assumption and possible extensions to other dimensions like timeliness or consistency.
+        \item[\textbf{A4}:] \textbf{Quality metric selection.} Our methodology is independent of the specific set of quality metrics and dimensions, which have been extensively analyzed in the literature. In our paper, we focus on quality dimension completeness and two related metrics (Section 5), one qualitative and one quantitative, that have the peculiarity of being simple and unsophisticated. This choice put our experimental evaluation in a scenario that was not affected by the effectiveness of the adopted metrics and dimensions. Our use of completeness and statistical similarity as quality metrics then reflects the focus of our study on preserving data while meeting privacy constraints. While these metrics are widely applicable, we recognize that they may not cover all aspects of quality. We have added a note in Section 5.1 that discusses our assumption and possible extensions to other dimensions like timeliness or consistency.
               \vspace{0.5em}
         
               \begin{adjustwidth}{10pt}{10pt}
                   \em``{\color{OurColor}
-                  It is important to note that providing a comprehensive taxonomy of all possible dimensions and metrics is beyond the scope of this paper. This subject is complex and multifaceted, and will be the topic of our future work. In our future work, we will examine the conceptual and practical aspects of classifying and defining relevant quality metrics, such as timeliness and consistency.
+                  It is important to note that providing a comprehensive taxonomy of all possible dimensions and metrics is beyond the scope of this paper. In our future work, we will examine the conceptual and practical aspects of classifying and defining relevant quality metrics, such as timeliness and consistency.
                   }''
                   \vspace{0.5em}
               \end{adjustwidth}
@@ -109,7 +109,7 @@ The evaluation for the proposed approach is still not enough. The performance of
 
 \hl{Indeed, our reference scenario is grounded in a real-world context and leverages publicly available open data. However, we intentionally prioritized a broad and horizontal experimental simulation over narrowly focused and vertical testing with specific workloads, pipelines, and policies. This decision aimed to assess the practical effectiveness of our approach in domain-agnostic scenario. By randomly generating policies and pipelines, we explored tens of distinct configurations, which would have been challenging to replicate with specific real workloads while also minimizing biases introduced by particular workload choices.}
     
-    To emphasize the significance of the reviewer's comment, which also emerges from our experimental results, we have revised Section 6.4 to discuss the impact of experimental parameters on the quality of the pipeline. Specifically, extended Section 6.4 highlights the cross-impact of window size, stability, and computational trade-offs on our experiments, and suggests a future path of analysis including diverse datasets and alternative quality metrics as follows. 
+However, to emphasize the significance of the reviewer's comment, which also emerges from our experimental results, we have revised Section 6.4 to discuss the impact of experimental parameters on the quality of the pipeline. Specifically, extended Section 6.4 highlights the cross-impact of window size, stability, and computational trade-offs on our experiments, and suggests a future path of analysis including diverse datasets and alternative quality metrics as follows. 
 
     \vspace{0.5em}
 
@@ -129,11 +129,10 @@ We also note that the number of candidate services and service nodes increases t
 
     \vspace{0.5em}
     
-Section 8 further clarifies that the our future work will analyze the impact of experimental parameters on wider settings to provide a more comprehensive perspective of the impact our approach has on real-world applications beyond the one analyzed in our current paper.
+Section 8 further clarifies that the our future work will analyze the impact of experimental parameters on wider settings to provide a more comprehensive perspective of the impact our approach could have on real-world applications beyond the one analyzed in our current paper.
 
  \begin{adjustwidth}{10pt}{10pt}
-        ``{\color{OurColor}In the realm of distributed data service pipelines, managing pipelines while ensuring both data quality and data protection presents numerous challenges. This paper proposed a framework specifically designed to address this dual concern. 
-Our data governance model integrates robust policies and continuous monitoring mechanisms to effectively address data security and privacy challenges. Simultaneously, it ensures the maximization of data quality to support efficient and reliable service pipeline generation. The key point of the framework is in its ability to annotate each element of the pipeline with specific data protection requirements and functional specifications, and then drive service pipeline construction. This method enhances compliance with regulatory standards and improves data quality by preserving maximum information across pipeline execution. Experimental results confirmed the effectiveness of our sliding window heuristic in addressing the computationally complex NP-hard service selection problem at the basis of service pipeline construction. Making use of a realistic dataset, our experiments evaluated the framework's ability to sustain high data quality while ensuring robust data protection, which is essential for pipelines where both data utility and privacy must coexist.}''
+        ``{\color{OurColor}In the realm of distributed service pipelines, ensuring both data quality and protection presents numerous challenges. This paper proposed a framework specifically designed to address this dual concern. Our data governance model integrates robust policies and continuous monitoring mechanisms to effectively address data security and privacy challenges. Simultaneously, it ensures the maximization of data quality to support efficient and reliable service pipeline generation. The key point of the framework is in its ability to annotate each element of the pipeline with specific data protection requirements and functional specifications, and then drive service pipeline construction. This method enhances compliance with regulatory standards and improves data quality by preserving maximum information across the pipeline execution. Experimental results confirmed the effectiveness of our sliding window heuristic in addressing the computationally complex NP-hard service selection problem at the basis of service pipeline construction. Making use of a realistic dataset, our experiments evaluated the framework's ability to sustain high data quality while ensuring robust data protection, which is essential for pipelines where both data utility and privacy must coexist.}''
     \end{adjustwidth}
 
 ~}
@@ -143,7 +142,10 @@ There are some parameters in the algorithms, and the performance of the proposed
 }
 
 \answer{%
-We do agree with the reviewer that the previous version of our paper did not sufficiently discuss our experimental settings and parameters. To address the reviewer’s concerns, we discussed in detail in Section 6.1 all the parameters at the basis of our experimental evaluation, summarizing them in the new Table 3 (see below). These parameters, including the window size (\textbar{}w\textbar{}), the number of candidate services, the number of service nodes, and the selected metrics, have been varied during the experimental evaluation as a first approach to sensitivity testing, to analyze their impact on the overall system performance and quality. This evaluation represents the groundwork for future extensions that may include a more extensive sensitivity testing. We discussed our experimental parameters and clarified corresponding settings in Section 6.1 as follows:
+We do agree with the reviewer that the previous version of our paper did not sufficiently discuss our experimental settings and parameters. To address the reviewer’s concerns, we discussed in detail in Section 6.1 all the parameters at the basis of our experimental evaluation, summarizing them in the new Table 3 (see below). These parameters, including the window size (\textbar{}w\textbar{}), the number of candidate services, the number of service nodes, and the selected metrics, have been varied during the experimental evaluation as a first approach to sensitivity testing, to analyze their impact on the overall system performance and quality. This evaluation represents the groundwork for future extensions that may include a more extensive sensitivity testing. We discussed our experimental parameters and clarified the corresponding settings in Section 6.1 as follows:
+
+\vspace{0.5em}
+
   \begin{adjustwidth}{10pt}{10pt}
    
     {\color{OurColor}
