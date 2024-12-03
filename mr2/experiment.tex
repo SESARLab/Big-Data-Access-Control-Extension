@@ -10,25 +10,6 @@ The simulator first defines the pipeline template as a sequence of vertices, wit
 
       The simulator then starts the instantiation process. At each step $i$, it selects the subset \{\vi{i},$\ldots$,$v_{\windowsize+i-1}$\} of vertices with their corresponding candidate services, and generates all possible service combinations. The simulator calculates quality $Q$ for all combinations and instantiates \vi{i} with service \sii{i} from the optimal combination with maximum $Q$. The window is shifted by 1 (i.e., $i$=$i$+1), and the instantiation process restarts. When the sliding window reaches the end of the pipeline template, that is, $v_{\windowsize+i-1}$$=$$\vi{l}$, the simulator computes the optimal service combination and instantiates the remaining vertices with the corresponding services. \cref{fig:execution_example} shows an example of a simulator execution with $i$$=$2 and \windowsize$=$3. Subset \{\vi{2},\vi{3},\vi{4}\} is selected, all combinations generated, and corresponding quality $Q$ calculated. Optimal service combination \{\sii{11},\sii{22},\sii{31}\} is retrieved and \vii{2} in the pipeline instance instantiated with \sii{11}.
 
-      \begin{table}[h!]
-        \caption{Experimental Parameters}
-        \label{tab:parameters}
-        \centering
-        {\color{OurColor2}
-          \begin{tabular}{l|l}
-            \textbf{Parameter}                  & \textbf{Values}  \\
-            \hline
-            Window Size (\textbar{}w\textbar{}) & 2, 3, 4, 5, 6, 7 \\
-            Profile                             & wide, average    \\
-            Number of Candidate Services        & 2, 3, 4, 5, 6, 7 \\
-            Number of Pipeline Vertices            & 2, 3, 4, 5, 6, 7 \\
-            Metrics                             & quantitative ($M_J$), qualitative ($M_{JSD}$) \\
-          \end{tabular}
-        }
-      \end{table}
-    {\color{OurColor2}
-    \cref{tab:parameters} summarizes the parameters and corresponding values used in our experimental evaluation. The window size (\textbar{}w\textbar{}), ranging from 2 to 7, represents different configurations of our heuristic approach. The profile captures two representative data anonymization strategies: \textit{wide} and \textit{average}. Additionally, the number of candidate services and pipeline vertices, also varying from 2 to 7, models diverse configurations of service pipelines. The evaluation metrics include both quantitative ($M_J$) and qualitative ($M_{JSD}$) measures for the completeness dimension of quality, offering insights into the impact of data protection transformations on overall pipeline quality.
-    }
     \begin{figure}[!t]
       \centering
       \resizebox{0.7\columnwidth}{!}{%
@@ -124,6 +105,27 @@ The simulator first defines the pipeline template as a sequence of vertices, wit
 
     Our experiments have been run on a virtual machine equipped with an Intel(R) Xeon(R) CPU E5-2620 v4 @ 2.10GHz CPU and 32GB RAM. Each experiment was repeated 10 times and the results averaged to improve the reliability of findings.
 
+
+
+    \begin{table}[h!]
+      \caption{Experimental Parameters}
+      \label{tab:parameters}
+      \centering
+      {\color{OurColor2}
+        \begin{tabular}{l|l}
+          \textbf{Parameter}                  & \textbf{Values}  \\
+          \hline
+          Window Size (\textbar{}w\textbar{}) & 2, 3, 4, 5, 6, 7 \\
+          Profile                             & wide, average    \\
+          Number of Candidate Services        & 2, 3, 4, 5, 6, 7 \\
+          Number of Pipeline Vertices            & 2, 3, 4, 5, 6, 7 \\
+          Metrics                             & quantitative ($M_J$), qualitative ($M_{JSD}$) \\
+        \end{tabular}
+      }
+    \end{table}
+  {\color{OurColor2}
+  \cref{tab:parameters} summarizes the parameters and corresponding values used in our experimental evaluation. The window size (\textbar{}w\textbar{}), ranging from 2 to 7, represents different configurations of our heuristic approach. The profile captures two representative data anonymization strategies: \textit{wide} and \textit{average}. Additionally, the number of candidate services and pipeline vertices, also varying from 2 to 7, models diverse configurations of service pipelines. The evaluation metrics include both quantitative ($M_J$) and qualitative ($M_{JSD}$) measures for the completeness dimension of quality, offering insights into the impact of data protection transformations on overall pipeline quality.
+  }
     \subsection{Performance}\label{subsec:experiments_performance}
     We first measured the performance (execution time) of our exhaustive, baseline, and heuristic solutions by varying the number of vertices in the pipeline template from 2 to 7 and the number of services per vertex from 2 to 7. \cref{fig:time_window_perce_average} presents our results.
     The exhaustive approach can provide the optimal solution for all configurations, but its execution time grows exponentially with the number of vertices and services, making it impractical for large instances. For \windowsize\ from 1 to 3 (step 1), we observed a substantial reduction in execution time, with the heuristic always able to produce an instance in less than $\approx2.7\times10^5ms$ . The worst heuristic performance (7 vertices, 7 services, \windowsize=6) is $\approx3.8\times10^7ms$, one order of magnitude lower than the best exhaustive performance (7 vertices, 7 services, \windowsize=7) $\approx1.35\times10^8ms$. {\color{OurColor} As expected, the baseline (i.e., our heuristic with \windowsize$=$1) shows the best performance in all settings.}
