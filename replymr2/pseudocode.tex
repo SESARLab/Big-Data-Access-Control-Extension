@@ -1,0 +1,45 @@
+\newenvironment{redtext}{\footnotesize	\color{gray}}{~~}
+\newenvironment{ourcolor}{\color{OurColor}}{~~}
+
+  \begin{ourcolor}
+  \begin{tabbing}
+      \INPUT\\
+      $G^{\myLambda,\myGamma}$: Pipeline Template\\
+      $S^c$: Candidate Services\\
+      ~\\[1pt]
+      \OUTPUT\\
+      $G'$: Pipeline Instance\\
+      ~\\[1pt]
+      \funcname{Instantiate\_Pipeline($G^{\myLambda,\myGamma}$, $S^c$)}\\
+      \\
+      \begin{redtext}1\end{redtext}\commentall{Initialize the pipeline instance}\\
+      \begin{redtext}2\end{redtext}$G'$ = $\{\}$;\\
+      \begin{redtext}3\end{redtext}\commentall{Traverse the pipeline template using BFS}\\
+      \begin{redtext}4\end{redtext}\com{for} \= each $v$ in $G^{\myLambda,\myGamma}$\\
+      \begin{redtext}5\end{redtext}\tabone \vii{} = \funcname{Generate\_Vertex($v$)};\\
+      \begin{redtext}6\end{redtext}\tabone $G'$ = $G'$ $\cup$ \vii;\\
+      % \begin{redtext}7\end{redtext}\commentall{For each service vertex, filter and select a service}\\
+      % \begin{redtext}8\end{redtext}\tabone\com{if} \= $v$ is a service vertex:\\
+      \begin{redtext}7\end{redtext}\tabone $S'$ = \funcname{Filter\_Services($S^c[v]$, $v$.policies)};\\
+      \begin{redtext}8\end{redtext}\tabone selectedService = \funcname{Select\_A\_Service($S'$)};\\
+      \begin{redtext}9\end{redtext}\tabone \vii{}.service = selectedService;\\
+      % \begin{redtext}12\end{redtext}\tabone\com{endif};\\
+      \begin{redtext}10\end{redtext}\com{endfor};\\
+      \begin{redtext}11\end{redtext}\com{return} $G'$;\\
+      \\
+      \\
+      \begin{redtext}12\end{redtext}\funcname{Filter\_Services($S^c[v]$, policies)}\\
+      \begin{redtext}13\end{redtext}\commentall{Filter candidate services based on policies}\\
+      \begin{redtext}14\end{redtext}$S'$ = $\{\}$;\\
+      \begin{redtext}15\end{redtext}\com{for} \= each service $s$ in $S^c[v]$:\\
+      \begin{redtext}16\end{redtext}\tabone \com{if} \= $s$.profile satisfies any policy:\\
+      \begin{redtext}17\end{redtext}\tabtwo $S'$ = $S'$ $\cup$ $s$;\\
+      \begin{redtext}18\end{redtext}\tabone\com{endif};\\
+      \begin{redtext}18\end{redtext}\com{endfor};\\
+      \begin{redtext}19\end{redtext}\com{return} $S'$;\\
+      % \\
+      % \begin{redtext}27\end{redtext}\funcname{selectService(compatibleServices)}\\
+      % \begin{redtext}28\end{redtext}\commentall{Select the best service based on a quality metric}\\
+    \end{tabbing}
+          % \begin{redtext}29\end{redtext}\tabone\com{return} service with highest quality metric;\\
+  \end{ourcolor}

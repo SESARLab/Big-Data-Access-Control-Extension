@@ -1,0 +1,129 @@
+\documentclass{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{csquotes}
+%\usepackage{soul, color}
+\usepackage[shortcuts]{extdash}
+\usepackage{color}
+\usepackage{graphics}
+\usepackage[normalem]{ulem}
+\usepackage{setspace}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{url}
+\usepackage{float}
+\usepackage{xspace}
+\usepackage{tabularx}
+
+
+\usepackage{adjustbox}
+%\usepackage[dvipsnames,table]{xcolor}
+%\colorlet{OurColor}{MidnightBlue}
+\usepackage[]{xcolor}
+\colorlet{OurColor}{blue}
+%\colorlet{Nicola}{green!70!black}
+%\colorlet{MinorColor}{violet}
+\usepackage[skip=2pt]{parskip}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{makecell}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{pifont}
+\usepackage{url}
+\usepackage{calc}
+\usepackage{booktabs}
+\usepackage{ifthen}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, backgrounds, calc, fit, %graphs, graphdrawing,
+shapes.misc}
+
+\usepackage{soul, color}
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ %total={170mm,257mm},
+ left=30mm,
+ right=30mm,
+ top=23mm,
+}
+
+\usepackage[hidelinks,
+  pdfauthor={Antongiacomo Polimeno, Chiara Braghin, Marco Anisetti, Claudio A. Ardagna},
+  pdftitle={Revision to the Paper Balancing Data Quality and Protection in Distributed Big Data Pipelines (Original Title)\\
+(Current Title)},]{hyperref}
+
+\usepackage[inline]{enumitem}
+\usepackage{changepage}
+\usepackage{cleveref}
+
+\setlist*[enumerate]{label=\emph{\roman*)}}
+
+\parindent 0in
+
+\newcommand{\old}[1]{\sout{#1}}
+\newcommand{\new}[1]{\uline{#1\/}}
+
+\newcommand{\comment}[1]{\noindent \textbf{Comment:} #1\\}
+\newcommand{\answer}[1]{\noindent \textbf{Response:} {\it #1\/}\\\hrule ~\\}
+\newcommand{\answerwithout}[1]{\noindent \textbf{Response:} {\it #1\/}\\}
+
+\newcommand{\reference}[1]{[#1]}
+
+
+\begin{document}
+
+\input{00_macro.tex}
+
+\newcommand{\customTheoremBlock}[2]{\begin{adjustwidth}{25pt}{25pt}\textbf{\emph{#1}} #2\end{adjustwidth}}
+\newcommand{\customFigCaption}[2]{{\footnotesize Fig. #1.~#2}}
+\newcommand{\customSecName}[2]{{\large \textbf{#1~#2}}}
+\newcommand{\customTableCaption}[2]{{\centering TABLE~#1 #2}}
+
+\title{\large \textbf{Revision to the Paper ID b5d6583f-1abe-4325-9459-588bcec2cdad\\Maximizing Data Quality While Ensuring Data
+Protection in Service-Based Data Pipelines\\}}
+
+\author{Antongiacomo~Polimeno, Chiara~Braghin, Marco~Anisetti, Claudio~A.~Ardagna}
+
+\date{}
+
+\maketitle
+
+First, we would like to thank the associate editor and reviewers for their valuable and helpful reviews. We revised the paper according to their comments.
+
+This letter is organized into two sections, one dedicated to each reviewer, where we provide detailed responses and explain the rationale behind the modifications made to the manuscript.
+%In this letter, we provide 2 different sections (one for each of the reviewers), containing our replies and the rationale for our modifications.
+
+
+\newpage
+
+\vspace{.4cm}
+%----------------------------------------------------%
+
+\input{01_ae}
+
+\newpage
+\vspace{.4cm}
+
+%----------------------------------------------------%
+%----------------------------------------------------%
+
+\input{01_r3}
+
+\newpage
+\vspace{.4cm}
+
+%----------------------------------------------------%
+
+\input{02_r4}
+
+\newpage
+\vspace{.4cm}
+
+%----------------------------------------------------%
+
+\end{document}

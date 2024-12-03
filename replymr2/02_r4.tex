@@ -1,0 +1,183 @@
+\section{Response to Reviewer~4}\label{sec:rev-2}
+
+\comment{%
+The Abstract is not concise, and some of the parts could be moved to the Introduction section.
+}
+
+\answer{%
+    According to the reviewer's comment, we have revised the abstract to make it more concise and focused on the core contributions of the paper.
+
+    \vspace{0.5em}
+    
+    \begin{adjustwidth}{10pt}{10pt}
+        \em``{\color{OurColor}The growing capacity to handle vast amounts of data, combined with a shift in service delivery models, has improved scalability and efficiency in data analytics, particularly in multi-tenant environments. Data are treated as digital products and processed through orchestrated service-based data pipelines. However, advancements in data analytics do not find a counterpart in data governance techniques, leaving a gap in the effective management of data throughout the pipeline lifecycle. This gap highlights the need for innovative data pipeline management solutions that prioritize balancing data quality and data protection. The framework proposed in this paper optimizes service selection and composition within data pipelines to maximize data quality while ensuring compliance with data protection requirements, expressed as access control policies. Given the NP-hard nature of the problem, a sliding-window heuristic is defined and evaluated against the exhaustive approach and a baseline modeling the state of the art. Our results demonstrate a significant reduction in computational overhead, while maintaining high data quality.}''
+        \vspace{0.5em}
+    \end{adjustwidth}
+
+
+    ~}
+
+
+\comment{%
+There are some assumptions in the paper. For some assumptions, the paper does not provide the support/comments. The readers may wonder if the assumptions are true in practical scenarios. It could be better if the paper can provide some support or some comments about the assumptions.
+}
+
+\answer{%
+    Following the reviewer's comment, we had a complete pass on the paper and clarified some key assumptions (A1--A4 in the following) as follows. 
+    \begin{enumerate}
+        %\item \textbf{The more the data, the higher the completeness}: This assumption aligns with several works in literature and, specifically, with the dimension completeness of data quality, which states that retaining more data often leads to better analytical outcomes. We clarified this assumption in \hl{Section 2} adding some relevant citations. 
+
+        \item[\textbf{A1:}] \textbf{The more the data, the higher the completeness.} Assumption A1 aligns with several studies in literature, particularly regarding the dimension completeness of data quality, which suggests that retaining more data often results in better analytical outcomes. 
+        
+        This topic is discussed in detail in Section 7 Related Work, specifically in Section 7.1, Data Quality and Data Protection. Section 7.1 addresses the ongoing debate regarding the lack of consensus on the definition of data quality and, consequently, the metrics used to assess it when applying data transformations.
+        
+        We recognize that placing this discussion in Section Related Work at the end of the paper might limit its accessibility. To address this, we clarified this assumption earlier in Section 2, including additional references from the field of privacy-preserving machine learning. These studies emphasize the importance of balancing data utility and privacy, highlighting that information loss minimization during anonymization is essential for maintaining sufficient data quality for analytical purposes. 
+
+        \vspace{0.5em}
+        
+        \begin{adjustwidth}{10pt}{10pt}
+            \em``{\color{OurColor}Indeed, our data governance approach, though applicable in a generic scenario, operates under the assumption that \textit{preserving a larger quantity of data correlates with enhanced data quality}, a principle that represents many real-world scenarios [9,10]. }''
+            \vspace{0.5em}
+        \end{adjustwidth}
+
+        By incorporating these insights earlier, we aim to strengthen the rationale behind our assumption and provide better context for its application in this work.
+
+        % \vspace{0.5em}
+        
+        % \hl{QUI SI POSSONO METTERE CITAZIONI SUI LAVORI PER LA GENERAZIONE DI DATI SINTETICI, MA NON SO SE METTEREI IL DISCORSO NEL PAPER, MI SEMBREREBBE DI ANDARE OUT OF SCOPE We also clarified that, while this may hold in many contexts, in certain scenarios, additional data might introduce noise or irrelevant information.}
+
+        % \vspace{0.5em}
+        
+        % \begin{adjustwidth}{10pt}{10pt}
+        %     \em``{\color{OurColor}\hl{to do}}''
+        %     \vspace{0.5em}
+        % \end{adjustwidth}
+
+
+        \item[\textbf{A2:}] \textbf{Modeling of alternative structures in pipelines.} In our work, alternative execution paths are modeled as different service pipelines, rather than specifying alternatives within a single pipeline. This simplifies our model with no impact on the generality of our approach. We clarified this assumption in Section 2 as follows:
+        
+              \vspace{0.5em}
+        
+              \begin{adjustwidth}{10pt}{10pt}
+                  \em``{\color{OurColor}
+                  We note that \V$=$\{\vi{r},\vi{f}\}$\cup$$V_S$, with vertices \vi{f} modeling branching for parallel structures, and root \vi{r} possibly representing the orchestrator. To simplify the explanation and maintain clarity, we model alternative execution paths as distinct service pipelines rather than embedding alternative structures within a single pipeline. This representation is equivalent to having alternative structures within a single pipeline, as each distinct pipeline corresponds to one possible execution path. By separating these paths into individual pipelines, we avoid the additional complexity of modeling alternatives within the same structure, while still fully capturing all execution possibilities.}''
+                  \vspace{0.5em}
+              \end{adjustwidth}
+              
+        \item[\textbf{A3}:] \textbf{Direct Acyclic Graph (DAG) representation.} Modeling the pipeline as a DAG ensures well-defined modeling of the data flow (the target of our paper) within the pipelines. This standard representation for workflows, including data pipelines, aligns with many real-world systems and solutions. We therefore added a clarification on this assumption in Section 2.1 as follows:
+              
+              \vspace{0.5em}
+              
+              \begin{adjustwidth}{10pt}{10pt}
+                ``A Service \pipeline is as a direct acyclic graph G(\V,\E), where \V\ is a set of vertices and \E\ is a set of edges connecting two vertices \vi{i},\vi{k}$\in$\V.
+  The graph has a root ($\bullet$) vertex \vi{r}$\in$\V, a vertex \vi{i}$\in$$V_S$ for each service $s_i$, an additional vertex \vi{f}$\in$\V\ for each parallel ($\plusOperator$) structure modeling the contemporary execution (\emph{fork}) of services.
+                  \em{\color{OurColor}Modeling the pipeline as a direct acyclic graph ensures a well-defined representation of data flow. This standard representation for workflows, including data pipelines, mirrors real-world systems.}''
+                  \vspace{0.5em}
+              \end{adjustwidth}
+              
+        \item[\textbf{A4}:] \textbf{Quality metrics selection.} Our methodology is independent of the specific set of quality metrics and dimensions, which have been extensively analyzed in the literature. In our paper, we focus on quality dimension completeness and two related metrics (Section 5), one qualitative and one quantitative, that have the peculiarity of being simple and unsophisticated. This choice put our experimental evaluation in a scenario that was not affected by the effectiveness of the adopted metrics and dimensions. Our use of completeness and statistical similarity as quality metrics then reflects the focus of our study on preserving data while meeting privacy constraints. While these metrics are widely applicable, we recognize that they may not cover all aspects of quality. We have added a note in Section 5.1 that discusses our assumption and possible extensions to other dimensions like timeliness or consistency.
+              \vspace{0.5em}
+        
+              \begin{adjustwidth}{10pt}{10pt}
+                  \em``{\color{OurColor}
+                  It is important to note that providing a comprehensive taxonomy of all possible dimensions and metrics is beyond the scope of this paper. This subject is complex and multifaceted, and will be the topic of our future work. In our future work, we will examine the conceptual and practical aspects of classifying and defining relevant quality metrics, such as timeliness and consistency.
+                  }''
+                  \vspace{0.5em}
+              \end{adjustwidth}
+
+
+              
+    \end{enumerate}
+    
+    We hope the modification we made addressed the reviewer's comment. In case additional assumptions are not covered yet, we would ask the reviewer to explicitly list them for the next round of revision.} 
+
+\comment{%
+The caption of Fig. 6 is missing. Also, Fig. 6 is not referred to in the paper.
+}
+
+\answer{%
+    We would like to thank the reviewer for bringing this to our attention. The appropriate caption for Fig. 6 has now been added and the figure referenced in the text.
+    ~}
+
+\comment{%
+The evaluation for the proposed approach is still not enough. The performance of the proposed approach should be extensively validated. Although, the work has tested its performance on some metrics, the proposed system should be fully tested on various evaluation metrics in various scenarios so that the real performance can be verified. Considering that the real-world application is more complex, the readers could wonder if the proposed approach is practical to be applied to real-world applications (or how practical the proposed method can be applied to real-world applications). I understand that I may introduce some extra work. In the future work, the authors may consider it.
+}
+
+\answer{%
+
+    We thank the reviewer for the positive feedback and appreciate his/her suggestion to consider this aspect in our future work. To further stress the importance of the comment, which also emerges from our experimental results, we have revised Section 6.4 to discuss the impact of experimental parameters on the quality of the pipeline. Specifically, extended Section 6.4 highlights the cross-impact of window size, stability, and computational trade-offs on our experiments, and suggests a future path of analysis including diverse datasets and alternative quality metrics as follows. 
+
+    \vspace{0.5em}
+
+\begin{adjustwidth}{10pt}{10pt}
+    \noindent\textbf{Impact of Parameters on Quality.} {\color{OurColor}
+Our experiments demonstrate that parameters in Table~3 can significantly influence the quality of the pipeline, with the number of service nodes and the window size emerging as key factors for both quality and performance. 
+
+Specifically, larger window sizes generally improve quality; however, there exists a balance point where the trade-off between computational cost and quality gain becomes suboptimal. Beyond this threshold, additional computational resources do not proportionately enhance data quality, as modeled by our metrics.
+  We also note that lower window sizes exhibit higher instability, particularly under the \wide configuration, where data quality varies significantly across different setups. This variation diminishes when larger window sizes, approximately half the length of the pipeline (e.g., \windowsize$=$$l$/2), are used, leading to more stable and consistent results.
+
+We also note that the number of candidate services and service nodes increases the computation cost (performance) with nearly no impact on quality.
+
+  In conclusion, our results demonstrate a significant reduction in computational overhead, while
+  maintaining high data quality. Further analysis is needed to explore the impact of additional parameters, first of all in terms of diverse datasets modeling additional real-world domains, to understand their broader impact on quality. Investigating alternative quality metrics could also provide new insights and opportunities for improvement. Future experiments, as outlined in Section 9, will aim to address these aspects to provide a step further in the evaluation of the soundness and applicability of our framework on a larger scale.
+}
+\end{adjustwidth}
+
+    \vspace{0.5em}
+    
+Section 8 further clarifies that the our future work will analyze the impact of experimental parameters on wider settings to provide a more comprehensive perspective of the impact our approach has on real-world applications beyond the one analyzed in our current paper.
+
+ \begin{adjustwidth}{10pt}{10pt}
+        ``{\color{OurColor}In the realm of distributed data service pipelines, managing pipelines while ensuring both data quality and data protection presents numerous challenges. This paper proposed a framework specifically designed to address this dual concern. 
+Our data governance model integrates robust policies and continuous monitoring mechanisms to effectively address data security and privacy challenges. Simultaneously, it ensures the maximization of data quality to support efficient and reliable service pipeline generation. The key point of the framework is in its ability to annotate each element of the pipeline with specific data protection requirements and functional specifications, and then drive service pipeline construction. This method enhances compliance with regulatory standards and improves data quality by preserving maximum information across pipeline execution. Experimental results confirmed the effectiveness of our sliding window heuristic in addressing the computationally complex NP-hard service selection problem at the basis of service pipeline construction. Making use of a realistic dataset, our experiments evaluated the framework's ability to sustain high data quality while ensuring robust data protection, which is essential for pipelines where both data utility and privacy must coexist.}''
+    \end{adjustwidth}
+
+~}
+
+\comment{%
+There are some parameters in the algorithms, and the performance of the proposed solution could be affected by the settings of the parameters. The readers may wonder if the paper needs some sensitivity testing so that it can better reflect the real performance of the proposed solution. This can help to fully verify the performance of the proposed solution, and enhance the quality of work.
+}
+
+\answer{%
+We do agree with the reviewer that the previous version of our paper did not sufficiently discuss our experimental settings and parameters. To address the reviewer’s concerns, we discussed in detail in Section 6.1 all the parameters at the basis of our experimental evaluation, summarizing them in the new Table 3 (see below). These parameters, including the window size (\textbar{}w\textbar{}), the number of candidate services, the number of service nodes, and the selected metrics, have been varied during the experimental evaluation as a first approach to sensitivity testing, to analyze their impact on the overall system performance and quality. This evaluation represents the groundwork for future extensions that may include a more extensive sensitivity testing. We discussed our experimental parameters and clarified corresponding settings in Section 6.1 as follows:
+  \begin{adjustwidth}{10pt}{10pt}
+   
+    {\color{OurColor}
+   Table 3 outlines the parameters and corresponding values used in our experimental evaluation. The window size (\textbar{}w\textbar{}), varying from 2 to 7, models different configurations of our heuristic. The profile captures two representative data anonymization approaches: \textit{wide} and \textit{average}. The number of candidate services and pipeline vertices, varying from 2 to 7, model different configurations of our service pipelines. The metrics include both quantitative ($M_J$) and qualitative ($M_{JSD}$) metrics for quality dimension completeness, providing insights about the impact of data protection transformations on the pipeline quality.}
+    \end{adjustwidth}
+     \begin{table}[h!]
+      \caption*{\textbf{Table 3:} Experimental Parameters}
+      \label{tab:parameters}
+      \centering
+      {\color{OurColor}
+        \begin{tabular}{l|l}
+          \textbf{Parameter}                  & \textbf{Values}  \\
+          \hline
+          Window Size (\textbar{}w\textbar{}) & 2, 3, 4, 5, 6, 7 \\
+          Profile                             & wide, average    \\
+          Number of Candidate Services        & 2, 3, 4, 5, 6, 7 \\
+          Number of Pipeline Vertices            & 2, 3, 4, 5, 6, 7 \\
+          Metrics                             & quantitative ($M_J$), qualitative ($M_{JSD}$) \\
+        \end{tabular}
+      }
+    \end{table}
+~}
+
+\comment{The paper needs proofreading, and the presentation of the paper could be improved. There are some typos or grammar errors in the paper. Here are some examples.
+
+i) Page 2, Abstract, line 2: “enhance” could be changed to “can enhance”\\
+ii)   Page 31, paragraph 3: “present” could be changed to “presents” \\
+iii) Page 33, paragraph 2: “present” could be changed to “presents”}
+
+\answer{Thanks, we did a complete English proofread addressing typos and grammar errors.}
+
+\comment{Some figures (e.g., Figure 6, Figure 7, Figure 8, ) in the paper are small (e.g., font size) in the printed version, which makes it a little difficult for the readers to clearly see the content in the figures.
+}
+
+\answer{}
+
+\comment{ Some terms in the paper are not always consistent. For example, sometimes the paper uses “Fig.”, but sometimes it uses “Figure”.}
+
+\answer{
+    We did a complete pass on the paper implementing all necessary corrections to ensure consistent terminology across the entire paper.
+}
