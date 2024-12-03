@@ -10,23 +10,25 @@ The simulator first defines the pipeline template as a sequence of vertices, wit
 
       The simulator then starts the instantiation process. At each step $i$, it selects the subset \{\vi{i},$\ldots$,$v_{\windowsize+i-1}$\} of vertices with their corresponding candidate services, and generates all possible service combinations. The simulator calculates quality $Q$ for all combinations and instantiates \vi{i} with service \sii{i} from the optimal combination with maximum $Q$. The window is shifted by 1 (i.e., $i$=$i$+1), and the instantiation process restarts. When the sliding window reaches the end of the pipeline template, that is, $v_{\windowsize+i-1}$$=$$\vi{l}$, the simulator computes the optimal service combination and instantiates the remaining vertices with the corresponding services. \cref{fig:execution_example} shows an example of a simulator execution with $i$$=$2 and \windowsize$=$3. Subset \{\vi{2},\vi{3},\vi{4}\} is selected, all combinations generated, and corresponding quality $Q$ calculated. Optimal service combination \{\sii{11},\sii{22},\sii{31}\} is retrieved and \vii{2} in the pipeline instance instantiated with \sii{11}.
 
-    \begin{table}
-      \caption{Experimental Parameters}
-      \label{tab:parameters}
-      \centering
-      {\color{OurColor2}
-        \begin{tabular}{l|l}
-          \textbf{Parameter}                  & \textbf{Values}  \\
-          \hline
-          Window Size (\textbar{}w\textbar{}) & 2, 3, 4, 5, 6, 7 \\
-          Profile                             & wide, average    \\
-          Number of Candidate Services        & 2, 3, 4, 5, 6, 7 \\
-          Number of Service Nodes             & 2, 3, 4, 5, 6, 7 \\
-          Metrics                             & quantitative ($M_J$), qualitative ($M_{JSD}$) \\
-        \end{tabular}
-      }
-    \end{table}
-
+      \begin{table}[h!]
+        \caption{Experimental Parameters}
+        \label{tab:parameters}
+        \centering
+        {\color{OurColor2}
+          \begin{tabular}{l|l}
+            \textbf{Parameter}                  & \textbf{Values}  \\
+            \hline
+            Window Size (\textbar{}w\textbar{}) & 2, 3, 4, 5, 6, 7 \\
+            Profile                             & wide, average    \\
+            Number of Candidate Services        & 2, 3, 4, 5, 6, 7 \\
+            Number of Pipeline Vertices            & 2, 3, 4, 5, 6, 7 \\
+            Metrics                             & quantitative ($M_J$), qualitative ($M_{JSD}$) \\
+          \end{tabular}
+        }
+      \end{table}
+    {\color{OurColor2}
+    \cref{tab:parameters} outlines the parameters and corresponding values used in our experimental evaluation. The window size (\textbar{}w\textbar{}), varying from 2 to 7, models different configurations of our heuristic. The profile captures two representative data anonymization approaches: \textit{wide} and \textit{average}. The number of candidate services and pipeline vertices, varying from 2 to 7, model different configurations of our service pipelines. The metrics include both quantitative ($M_J$) and qualitative ($M_{JSD}$) metrics for quality dimension completeness, providing insights about the impact of data protection transformations on the pipeline quality.
+    }
     \begin{figure}[!t]
       \centering
       \resizebox{0.7\columnwidth}{!}{%
@@ -334,7 +336,7 @@ The experimental results we obtained yield several valuable insights that merit 
 \noindent\textbf{Impact of Parameters on Quality.}
 {\color{OurColor2}
 
-Our experiments demonstrate that parameters in Table~\ref{tab:parameters} can significantly influence the quality of the pipeline, with the number of service nodes and the window size emerging as key factors for both quality and performance. 
+Our experiments demonstrate that parameters in Table~3 can significantly influence the quality of the pipeline, with the number of service nodes and the window size emerging as key factors for both quality and performance.
 
 Specifically, larger window sizes generally improve quality; however, there exists a balance point where the trade-off between computational cost and quality gain becomes suboptimal. Beyond this threshold, additional computational resources do not proportionately enhance data quality, as modeled by our metrics.
   We also note that lower window sizes exhibit higher instability, particularly under the \wide configuration, where data quality varies significantly across different setups. This variation diminishes when larger window sizes, approximately half the length of the pipeline (e.g., \windowsize$=$$l$/2), are used, leading to more stable and consistent results.

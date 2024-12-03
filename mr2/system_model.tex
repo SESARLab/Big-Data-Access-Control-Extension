@@ -20,13 +20,14 @@ A service pipeline is a graph formally defined as follows.
 \begin{definition}[Service \pipeline]\label{def:pipeline}
   A Service \pipeline is as a direct acyclic graph G(\V,\E), where \V\ is a set of vertices and \E\ is a set of edges connecting two vertices \vi{i},\vi{k}$\in$\V.
   The graph has a root ($\bullet$) vertex \vi{r}$\in$\V, a vertex \vi{i}$\in$$V_S$ for each service $s_i$, an additional vertex \vi{f}$\in$\V\ for each parallel ($\plusOperator$) structure modeling the contemporary execution (\emph{fork}) of services.
+
+{\color{OurColor2}
+  Modeling the pipeline as a direct acyclic graph ensures a well-defined representation of data flow. This standard representation for workflows, including data pipelines, mirrors real-world systems.
+}
 \end{definition}
 
 \vspace{0.5em}
 
-We note that \V$=$\{\vi{r},\vi{f}\}$\cup$$V_S$, with vertices \vi{f} modeling branching for parallel structures, and root \vi{r} possibly representing the orchestrator. In addition, for simplicity but no lack of generality, alternative structures modeling the alternative execution of services are specified as alternative service pipelines, that is, there is no alternative structure in a single service pipeline.
-
-\vspace{0.5em}
 {\color{OurColor2}
 We note that \V$=$\{\vi{r},\vi{f}\}$\cup$$V_S$, with vertices \vi{f} modeling branching for parallel structures, and root \vi{r} possibly representing the orchestrator. To simplify the explanation and maintain clarity, we model alternative execution paths as distinct service pipelines rather than embedding alternative structures within a single pipeline. This representation is equivalent to having alternative structures within a single pipeline, as each distinct pipeline corresponds to one possible execution path. By separating these paths into individual pipelines, we avoid the additional complexity of modeling alternatives within the same structure, while still fully capturing all execution possibilities.
 }
