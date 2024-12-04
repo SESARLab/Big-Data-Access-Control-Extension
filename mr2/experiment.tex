@@ -166,7 +166,7 @@ The simulator first defines the pipeline template as a sequence of $l$ vertices,
 
     We run our experiments varying: \emph{i)} pipeline template length $l$ in [3, 7], \emph{ii)} the window size \windowsize\ in [1,$l$], and \emph{iii)} the number of candidate services $|S^c|$ in [2, 7]. Each vertex is associated with a (set of) policy that applies filtering configuration \wide (removing a percentage of data in $[0.2,1]$) or \average (removing a percentage of data in $[0.5,0.8]$).
 
-    {\color{OurColor2}\cref{fig:quality_window_perce_wide,fig:quality_window_perce_average} presents} our quality results using metric $M_J$ in \cref{subsec:metrics} for configurations \wide and \average, respectively.
+    {\color{OurColor2}\cref{fig:quality_window_perce_wide,fig:quality_window_perce_average} present} our quality results using metric $M_J$ in \cref{subsec:metrics} for configurations \wide and \average, respectively.
     In general, we observe that the quality of our heuristic approach increases as the window size increases, providing a quality comparable to the exhaustive approach when the window size \windowsize\ approaches the length $l$ of the pipeline template.
     \begin{figure}[ht!]
       \centering
@@ -250,7 +250,7 @@ The simulator first defines the pipeline template as a sequence of $l$ vertices,
     When considering configuration \average (\cref{fig:quality_window_perce_average}), the heuristic algorithm still provides good results, limiting the quality oscillations observed for configuration \wide\ and approaching the quality of the exhaustive also for lower window sizes. The baseline (\windowsize=1) provides good results on average (from 0.842 to 0.944), as well as in specific runs: between 0.927 and 0.978 for $l$=3, 0.903 and 0.962 for $l$=4, 0.840 and 0.915 for $l$=5, 0.815 and 0.934 for $l$=6, 0.721 and 0.935 for $l$=7.
     When \windowsize=$l$-1, the quality varies between 0.980 and 1.0 for $l$=3, 0.978 and 1.0 for $l$=4, 0.954 and 1 for $l$=5, 0.987 and 1.0 for $l$=6, 0.990 and 1.0 for $l$=7.
 
-    \cref{fig:quality_window_qualitative_wide,fig:quality_window_qualitative_average} {\color{OurColor2}presents} our quality results using metric $M_{JSD}$ in \cref{subsec:metrics} for configurations \wide and \average, respectively.
+    \cref{fig:quality_window_qualitative_wide,fig:quality_window_qualitative_average} {\color{OurColor2}present} our quality results using metric $M_{JSD}$ in \cref{subsec:metrics} for configurations \wide and \average, respectively.
 
 
     %QUAAAAAAAAAAAAAAAAAAAA
