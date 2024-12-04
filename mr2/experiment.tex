@@ -107,7 +107,7 @@ The simulator first defines the pipeline template as a sequence of vertices, wit
 
 
 
-    \begin{table}[h!]
+    \begin{table}[!t]
       \caption{Experimental Parameters}
       \label{tab:parameters}
       \centering
@@ -116,7 +116,7 @@ The simulator first defines the pipeline template as a sequence of vertices, wit
           \textbf{Parameter}                  & \textbf{Values}  \\
           \hline
           Window Size (\textbar{}w\textbar{}) & 2, 3, 4, 5, 6, 7 \\
-          Profile                             & wide, average    \\
+          Filtering configuration                & wide [0.2,1], average [0.5,0.8]\\
           Number of Candidate Services        & 2, 3, 4, 5, 6, 7 \\
           Number of Pipeline Vertices            & 2, 3, 4, 5, 6, 7 \\
           Metrics                             & quantitative ($M_J$), qualitative ($M_{JSD}$) \\
@@ -124,7 +124,7 @@ The simulator first defines the pipeline template as a sequence of vertices, wit
       }
     \end{table}
   {\color{OurColor2}
-  \cref{tab:parameters} summarizes the parameters and corresponding values used in our experimental evaluation. The window size (\textbar{}w\textbar{}), ranging from 2 to 7, represents different configurations of our heuristic approach. The profile captures two representative data anonymization strategies: \textit{wide} and \textit{average}. Additionally, the number of candidate services and pipeline vertices, also varying from 2 to 7, models diverse configurations of service pipelines. The evaluation metrics include both quantitative ($M_J$) and qualitative ($M_{JSD}$) measures for the completeness dimension of quality, offering insights into the impact of data protection transformations on overall pipeline quality.
+  \cref{tab:parameters} summarizes the parameters and corresponding values used in our experimental evaluation. The window size (\textbar{}w\textbar{}), ranging from 2 to 7, represents different configurations of our heuristic approach. The filtering configuration defines two representative filtering transformations: \textit{wide} removing a percentage of data in [0.2,1] and \textit{average} in [0.5,0.8]. Additionally, the number of candidate services and pipeline vertices, also varying from 2 to 7, models diverse configurations of service pipelines. The evaluation metrics include both quantitative ($M_J$) and qualitative ($M_{JSD}$) measures for the completeness dimension of quality, offering insights into the impact of data protection transformations on overall pipeline quality.
   }
     \subsection{Performance}\label{subsec:experiments_performance}
     We first measured the performance (execution time) of our exhaustive, baseline, and heuristic solutions by varying the number of vertices in the pipeline template from 2 to 7 and the number of services per vertex from 2 to 7. \cref{fig:time_window_perce_average} presents our results.
@@ -159,7 +159,7 @@ The simulator first defines the pipeline template as a sequence of vertices, wit
         \caption{7 vertices}
         \label{fig:time_window_perce_wide_7n}
       \end{subfigure}
-      \caption{{\color{OurColor2}Evaluation of Performance Using the \emph{Qualitative} Metric in a \average Profile Configuration}}
+      \caption{{\color{OurColor2}Evaluation of Performance Using the \emph{Qualitative} Metric in a \average Configuration}}
       \label{fig:time_window_perce_average}
     \end{figure}
 
@@ -242,7 +242,7 @@ The simulator first defines the pipeline template as a sequence of vertices, wit
 
         \end{subfigure}
 
-        \caption{Evaluation of Quality Using the \emph{Quantitative} Metric in a \wide (\cref{fig:quality_window_wide_perce_n3,fig:quality_window_wide_perce_n4,fig:quality_window_wide_perce_n5,fig:quality_window_wide_perce_n6,fig:quality_window_wide_perce_n7}) and \average (\cref{fig:quality_window_average_perce_n3,fig:quality_window_average_perce_n4,fig:quality_window_average_perce_n5,fig:quality_window_average_perce_n6,fig:quality_window_average_perce_n7}) Profile Configuration.}  \label{fig:quality_window_perce}
+        \caption{Evaluation of Quality Using the \emph{Quantitative} Metric in a \wide (\cref{fig:quality_window_wide_perce_n3,fig:quality_window_wide_perce_n4,fig:quality_window_wide_perce_n5,fig:quality_window_wide_perce_n6,fig:quality_window_wide_perce_n7}) and \average (\cref{fig:quality_window_average_perce_n3,fig:quality_window_average_perce_n4,fig:quality_window_average_perce_n5,fig:quality_window_average_perce_n6,fig:quality_window_average_perce_n7}) Configuration.}  \label{fig:quality_window_perce}
       \end{adjustbox}
     \end{figure}
 
@@ -319,7 +319,7 @@ The simulator first defines the pipeline template as a sequence of vertices, wit
 
     \end{subfigure}
 
-    \caption{Evaluation of Quality Using the \emph{Qualitative} Metric in a \wide (\cref{fig:quality_window_wide_qualitative_n3,fig:quality_window_wide_qualitative_n4,fig:quality_window_wide_qualitative_n5,fig:quality_window_wide_qualitative_n6,fig:quality_window_wide_qualitative_n7}) and \average (\cref{fig:quality_window_average_qualitative_n3,fig:quality_window_average_qualitative_n4,fig:quality_window_average_qualitative_n5,fig:quality_window_average_qualitative_n6,fig:quality_window_average_qualitative_n7}) Profile Configuration.}  \label{fig:quality_window_qualitative}
+    \caption{Evaluation of Quality Using the \emph{Qualitative} Metric in a \wide (\cref{fig:quality_window_wide_qualitative_n3,fig:quality_window_wide_qualitative_n4,fig:quality_window_wide_qualitative_n5,fig:quality_window_wide_qualitative_n6,fig:quality_window_wide_qualitative_n7}) and \average (\cref{fig:quality_window_average_qualitative_n3,fig:quality_window_average_qualitative_n4,fig:quality_window_average_qualitative_n5,fig:quality_window_average_qualitative_n6,fig:quality_window_average_qualitative_n7}) Configuration.}  \label{fig:quality_window_qualitative}
   \end{adjustbox}
 \end{figure}
 
