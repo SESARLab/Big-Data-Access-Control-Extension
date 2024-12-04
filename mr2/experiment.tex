@@ -159,7 +159,8 @@ The simulator first defines the pipeline template as a sequence of vertices, wit
         \caption{7 vertices}
         \label{fig:time_window_perce_wide_7n}
       \end{subfigure}
-      \caption{{\color{OurColor2}Evaluation of Performance Using the \emph{Qualitative} Metric in a \average Configuration}}
+      \caption{{\color{OurColor2}Evaluation of Performance Using the \emph{Qualitative} Metric in 
+      Configuration \average}}
       \label{fig:time_window_perce_average}
     \end{figure}
 
@@ -167,12 +168,12 @@ The simulator first defines the pipeline template as a sequence of vertices, wit
     We evaluated the quality of our heuristic algorithm with different \windowsize\ comparing its results with the baseline and, where possible, with the optimal solution retrieved by executing the exhaustive approach.
     The quality $Q$ of the heuristic has been normalized between 0 and 1 by dividing it by the quality $Q^*$ retrieved by the exhaustive approach.
 
-    We run our experiments varying: \emph{i)} the length $l$ of the pipeline template in [3,7], that is, the depth of the pipeline template as the number of vertices composed in a sequence, \emph{ii)} the window size \windowsize\ in [1,$l$], and \emph{iii)} the number of candidate services for each vertex in the pipeline template in [2, 7]. Each vertex is associated with a (set of) policy that applies a filtering transformation that either removes a percentage of data in $[0.5,0.8]$ (\average) or in $[0.2,1]$ (\wide).
+    We run our experiments varying: \emph{i)} the length $l$ of the pipeline template in [3,7], that is, the depth of the pipeline template as the number of vertices composed in a sequence, \emph{ii)} the window size \windowsize\ in [1,$l$], and \emph{iii)} the number of candidate services for each vertex in the pipeline template in [2, 7]. Each vertex is associated with a (set of) policy that applies filtering configuration \wide (removing a percentage of data in $[0.2,1]$) or \average (removing a percentage of data in $[0.5,0.8]$).
 
-      {\color{OurColor2}\cref{fig:quality_window_perce} presents}  our quality results using metric $M_J$ in \cref{subsec:metrics} for settings \wide and \average.
+      {\color{OurColor2}\cref{fig:quality_window_perce} presents}  our quality results using metric $M_J$ in \cref{subsec:metrics} for configurations \wide and \average.
     In general, we observe that the quality of our heuristic approach increases as the window size increases, providing a quality comparable to the exhaustive approach when the window size \windowsize\ approaches the length $l$ of the pipeline template.
 
-    When considering setting \wide, the baseline (\windowsize=1) provides good results on average (0.71, 0.90), while showing substantial quality oscillations in specific runs: between 0.882 and 0.970 for 3 vertices, 0.810 and 0.942 for 4 vertices, 0.580 and 0.853 for 5 vertices, 0.682 and 0.943 for 6 vertices, 0.596 and 0.821 for 7 vertices. This same trend emerges when the window size is $<$$l$/2, while it starts approaching the optimum when the window size is $\geq$$l$/2. For instance, when \windowsize=$l$-1, the quality varies between 0.957 and 1.0 for 3 vertices, 0.982 and 1.0 for 4 vertices, 0.986 and 0.998 for 5 vertices, 0.977 and 1.0 for 6 vertices, 0.996 and 1.0 for 7 vertices.
+    When considering configuration \wide, the baseline (\windowsize=1) provides good results on average (0.71, 0.90), while showing substantial quality oscillations in specific runs: between 0.882 and 0.970 for 3 vertices, 0.810 and 0.942 for 4 vertices, 0.580 and 0.853 for 5 vertices, 0.682 and 0.943 for 6 vertices, 0.596 and 0.821 for 7 vertices. This same trend emerges when the window size is $<$$l$/2, while it starts approaching the optimum when the window size is $\geq$$l$/2. For instance, when \windowsize=$l$-1, the quality varies between 0.957 and 1.0 for 3 vertices, 0.982 and 1.0 for 4 vertices, 0.986 and 0.998 for 5 vertices, 0.977 and 1.0 for 6 vertices, 0.996 and 1.0 for 7 vertices.
 
     \begin{figure}[H]
       \centering
@@ -242,16 +243,16 @@ The simulator first defines the pipeline template as a sequence of vertices, wit
 
         \end{subfigure}
 
-        \caption{Evaluation of Quality Using the \emph{Quantitative} Metric in a \wide (\cref{fig:quality_window_wide_perce_n3,fig:quality_window_wide_perce_n4,fig:quality_window_wide_perce_n5,fig:quality_window_wide_perce_n6,fig:quality_window_wide_perce_n7}) and \average (\cref{fig:quality_window_average_perce_n3,fig:quality_window_average_perce_n4,fig:quality_window_average_perce_n5,fig:quality_window_average_perce_n6,fig:quality_window_average_perce_n7}) Configuration.}  \label{fig:quality_window_perce}
+        \caption{Evaluation of Quality Using the \emph{Quantitative} Metric in Configuration \wide (\cref{fig:quality_window_wide_perce_n3,fig:quality_window_wide_perce_n4,fig:quality_window_wide_perce_n5,fig:quality_window_wide_perce_n6,fig:quality_window_wide_perce_n7}) and \average (\cref{fig:quality_window_average_perce_n3,fig:quality_window_average_perce_n4,fig:quality_window_average_perce_n5,fig:quality_window_average_perce_n6,fig:quality_window_average_perce_n7}).}  \label{fig:quality_window_perce}
       \end{adjustbox}
     \end{figure}
 
-    When considering setting \average, the heuristic algorithm still provides good results, limiting the quality oscillations observed for setting \wide\ and approaching the quality of the exhaustive also for lower window sizes. The baseline (\windowsize=1) provides good results on average (from 0.842 to 0.944), as well as in specific runs: between 0.927 and 0.978 for 3 vertices, 0.903 and 0.962 for 4 vertices, 0.840 and 0.915 for 5 vertices, 0.815 and 0.934 for 6 vertices, 0.721 and 0.935 for 7 vertices.
+    When considering configuration \average, the heuristic algorithm still provides good results, limiting the quality oscillations observed for configuration \wide\ and approaching the quality of the exhaustive also for lower window sizes. The baseline (\windowsize=1) provides good results on average (from 0.842 to 0.944), as well as in specific runs: between 0.927 and 0.978 for 3 vertices, 0.903 and 0.962 for 4 vertices, 0.840 and 0.915 for 5 vertices, 0.815 and 0.934 for 6 vertices, 0.721 and 0.935 for 7 vertices.
     When \windowsize=$l$-1, the quality varies between 0.980 and 1.0 for 3 vertices, 0.978 and 1.0 for 4 vertices, 0.954 and 1 for 5 vertices, 0.987 and 1.0 for 6 vertices, 0.990 and 1.0 for 7 vertices.
 
-    \cref{fig:quality_window_qualitative} {\color{OurColor2}presents} our quality results using metric $M_{JSD}$ in \cref{subsec:metrics} for settings \wide and \average, respectively.
+    \cref{fig:quality_window_qualitative} {\color{OurColor2}presents} our quality results using metric $M_{JSD}$ in \cref{subsec:metrics} for configurations \wide and \average, respectively.
 
-    When considering setting \wide, the baseline (\windowsize=1) provides good results on average (0.92, 0.97), limiting oscillations observed with metric $M_J$; for instance, the quality varies between 0.951 and 0.989 for 3 vertices, 0.941 and 0.988 for 4 vertices, 0.919 and 0.974 for 5 vertices, 0.911 and 0.971 for 6 vertices, 0.877 and 0.924 for 7 vertices.
+    When considering configuration \wide, the baseline (\windowsize=1) provides good results on average (0.92, 0.97), limiting oscillations observed with metric $M_J$; for instance, the quality varies between 0.951 and 0.989 for 3 vertices, 0.941 and 0.988 for 4 vertices, 0.919 and 0.974 for 5 vertices, 0.911 and 0.971 for 6 vertices, 0.877 and 0.924 for 7 vertices.
     The worst quality results are obtained with the baseline, while the oscillations are negligible when the window size is $>$2. For instance, when \windowsize=$l$-2, the quality varies between, 0.982 and 0.996 for 4 vertices, 0.981 and 0.998 for 5 vertices, 0.988 and 1.0 for 6 vertices, 0.976 and 0.999 for 7 vertices. When \windowsize=$l$-1, the quality varies between  0.987 and  0.998 for 3 vertices, 0.993 and 1.0 for 4 vertices, 0.985 and 0.999 for 5 vertices, 0.997 and 1.0 for 6 vertices, 0.995 and 1.0  for 7 vertices.
 
 \begin{figure}[H]
@@ -319,11 +320,11 @@ The simulator first defines the pipeline template as a sequence of vertices, wit
 
     \end{subfigure}
 
-    \caption{Evaluation of Quality Using the \emph{Qualitative} Metric in a \wide (\cref{fig:quality_window_wide_qualitative_n3,fig:quality_window_wide_qualitative_n4,fig:quality_window_wide_qualitative_n5,fig:quality_window_wide_qualitative_n6,fig:quality_window_wide_qualitative_n7}) and \average (\cref{fig:quality_window_average_qualitative_n3,fig:quality_window_average_qualitative_n4,fig:quality_window_average_qualitative_n5,fig:quality_window_average_qualitative_n6,fig:quality_window_average_qualitative_n7}) Configuration.}  \label{fig:quality_window_qualitative}
+    \caption{Evaluation of Quality Using the \emph{Qualitative} Metric in Configuration \wide (\cref{fig:quality_window_wide_qualitative_n3,fig:quality_window_wide_qualitative_n4,fig:quality_window_wide_qualitative_n5,fig:quality_window_wide_qualitative_n6,fig:quality_window_wide_qualitative_n7}) and \average (\cref{fig:quality_window_average_qualitative_n3,fig:quality_window_average_qualitative_n4,fig:quality_window_average_qualitative_n5,fig:quality_window_average_qualitative_n6,fig:quality_window_average_qualitative_n7}).}  \label{fig:quality_window_qualitative}
   \end{adjustbox}
 \end{figure}
 
-When considering setting \average, the baseline (\windowsize=1) provides results similar to setting \wide. On average, quality varies from 0.920 to 0.969, limiting oscillations; for instance, the quality varies between 0.951 and 0.989 for 3 vertices, 0.942 and 0.988 for 4 vertices, 0.919 and 0.975 for 5 vertices, 0.912 and 0.972 for 6 vertices, 0.878 and 0.925 for 7 vertices. The \average configuration provides even tighter quality oscillations than the \wide configuration. Notably, the poorest quality outcomes are observed with the baseline. Conversely, these oscillations become negligible when the window size exceeds 1 in configurations with three and four vertices, and when it exceeds 2 in configurations involving five, six, and seven vertices.  For instance, when \windowsize=3, the quality varies between  0.993 and 1 for 4 vertices, 0.981 and 0.998 for 5 vertices, 0.982 and 997 for 6 vertices, 0.960 and 0.991 for 7 vertices.
+When considering configuration \average, the baseline (\windowsize=1) provides results similar to configuration \wide. On average, quality varies from 0.920 to 0.969, limiting oscillations; for instance, the quality varies between 0.951 and 0.989 for 3 vertices, 0.942 and 0.988 for 4 vertices, 0.919 and 0.975 for 5 vertices, 0.912 and 0.972 for 6 vertices, 0.878 and 0.925 for 7 vertices. The \average configuration provides even tighter quality oscillations than the \wide configuration. Notably, the poorest quality outcomes are observed with the baseline. Conversely, these oscillations become negligible when the window size exceeds 1 in configurations with three and four vertices, and when it exceeds 2 in configurations involving five, six, and seven vertices.  For instance, when \windowsize=3, the quality varies between  0.993 and 1 for 4 vertices, 0.981 and 0.998 for 5 vertices, 0.982 and 997 for 6 vertices, 0.960 and 0.991 for 7 vertices.
 
 
 \subsection{Discussion}
