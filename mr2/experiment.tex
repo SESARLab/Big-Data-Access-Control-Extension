@@ -106,19 +106,19 @@ The simulator first defines the pipeline template as a sequence of $l$ vertices,
       \label{tab:parameters}
       \centering
       {\color{OurColor2}
-        \begin{tabular}{l|l}
-          \textbf{Parameter}                   & \textbf{Values}                               \\
-          \hline
-          Window Size \textbar{}w\textbar{}    & 1, 2, 3, 4, 5, 6, 7                           \\
-          Pipeline Template Length $l$         & 3, 4, 5, 6, 7                                 \\
-          Number of Candidate Services $|S^c|$ & 2, 3, 4, 5, 6, 7                              \\
-          Filtering Configuration              & wide, average                                 \\
-          Metric                               & quantitative ($M_J$), qualitative ($M_{JSD}$) \\
-        \end{tabular}
+      \begin{tabular}{l|l}
+        \textbf{Parameter}                  & \textbf{Values}  \\
+        \hline
+        Window Size \textbar{}w\textbar{} & 1, 2, 3, 4, 5, 6, 7 \\
+        Pipeline Template Length $l$        & 3, 4, 5, 6, 7 \\
+        Number of Candidate Services $|S^c|$ & 2, 3, 4, 5, 6, 7 \\
+        Filtering Configuration             & wide, average    \\
+        Metric                             & quantitative ($M_J$), qualitative ($M_{JSD}$) \\
+      \end{tabular}
       }
     \end{table}
     {\color{OurColor2}
-    \cref{tab:parameters} outlines the parameters and corresponding values used in our experimental evaluation. Paremeter \emph{Window Size} (\textbar{}w\textbar{}), varying from 1 to 7, models different configurations of our heuristic. Parameter \emph{Pipeline Template Length $l$}, varying from 3 to 7, models the depth of the pipeline template as the number of vertices composed in a sequence. Parameter \emph{Number of Candidate Services $|S^c|$}, varying from 2 to 7, models the number of alternative services at each vertex of the pipeline template. Parameter \emph{Filtering Configuration} considers two representative filtering transformations: \textit{wide} removing a percentage of data in [0.2,1] and \textit{average} in [0.5,0.8]. Parameter \emph{Metric} considers two quality metrics: quantitative ($M_J$) and qualitative ($M_{JSD}$).}
+    \cref{tab:parameters} outlines the parameters and corresponding values used in our experimental evaluation. Paremeter \emph{Window Size} (\textbar{}w\textbar{}), varying from 1 to 7, models different configurations of our heuristic. Parameter \emph{Pipeline Template Length $l$}, varying from 3 to 7, models the depth of the pipeline template as the number of vertices composed in a sequence. Parameter \emph{Number of Candidate Services}, varying from 2 to 7, models the number of alternative services at each vertex of the pipeline template. Parameter \emph{Filtering Configuration} considers two representative filtering transformations: \textit{wide} removing a percentage of data in [0.2,1] and \textit{average} in [0.5,0.8]. Parameter \emph{Metric} considers two quality metrics: quantitative ($M_J$) and qualitative ($M_{JSD}$).}
 
     Our experiments have been run on a virtual machine equipped with an Intel(R) Xeon(R) CPU E5-2620 v4 @ 2.10GHz CPU and 32GB RAM. Each experiment was repeated 10 times and the results averaged to improve the reliability of findings.
 
@@ -173,36 +173,37 @@ The simulator first defines the pipeline template as a sequence of $l$ vertices,
       \centering
       \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_perce_n7_s7_20_100_n3}
-        \caption{Pipeline Template Length = 3, \wide}
+        \caption{Pipeline Template Length = 3}
         \label{fig:quality_window_wide_perce_n3}
       \end{subfigure}
       \hfill
       \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_perce_n7_s7_20_100_n4}
-        \caption{Pipeline Template Length = 4, \wide}
+        \caption{Pipeline Template Length = 4}
         \label{fig:quality_window_wide_perce_n4}
       \end{subfigure}
       \hfill
       \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_perce_n7_s7_20_100_n5}
-        \caption{Pipeline Template Length = 5, \wide}
+        \caption{Pipeline Template Length = 5}
 
         \label{fig:quality_window_wide_perce_n5}
       \end{subfigure}
       \hfill
       \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_perce_n7_s7_20_100_n6}
-        \caption{Pipeline Template Length = 6, \wide}
+        \caption{Pipeline Template Length = 6}
         \label{fig:quality_window_wide_perce_n6}
       \end{subfigure}
       \hfill
       \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_perce_n7_s7_20_100_n7}
-        \caption{Pipeline Template Length = 7, \wide}
+        \caption{Pipeline Template Length = 7}
         \label{fig:quality_window_wide_perce_n7}
       \end{subfigure}
 
-      \caption{Evaluation of Quality Using the \emph{Quantitative} Metric in a \wide (\cref{fig:quality_window_wide_perce_n3,fig:quality_window_wide_perce_n4,fig:quality_window_wide_perce_n5,fig:quality_window_wide_perce_n6,fig:quality_window_wide_perce_n7}) Profile Configuration.}  \label{fig:quality_window_perce_wide}
+      \caption{Evaluation of Quality Using the \emph{Quantitative} Metric in a \wide (\cref{fig:quality_window_wide_perce_n3,fig:quality_window_wide_perce_n4,fig:quality_window_wide_perce_n5,fig:quality_window_wide_perce_n6,fig:quality_window_wide_perce_n7}) Profile Configuration.}
+      \label{fig:quality_window_perce_wide}
 
     \end{figure}
 
@@ -212,33 +213,33 @@ The simulator first defines the pipeline template as a sequence of $l$ vertices,
       \centering
       \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_perce_n7_s7_50_89_n3}
-        \caption{Pipeline Template Length = 3, \average}
+        \caption{Pipeline Template Length = 3}
 
         \label{fig:quality_window_average_perce_n3}
       \end{subfigure}
       \hfill
       \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_perce_n7_s7_50_89_n4}
-        \caption{Pipeline Template Length = 4, \average }
+        \caption{Pipeline Template Length = 4}
 
         \label{fig:quality_window_average_perce_n4}
       \end{subfigure}
       \hfill
       \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_perce_n7_s7_50_89_n5}
-        \caption{Pipeline Template Length = 5, \average}
+        \caption{Pipeline Template Length = 5}
         \label{fig:quality_window_average_perce_n5}
       \end{subfigure}
       \hfill
       \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_perce_n7_s7_50_89_n6}
-        \caption{Pipeline Template Length = 6 vertice, \average}
+        \caption{Pipeline Template Length = 6}
         \label{fig:quality_window_average_perce_n6}
       \end{subfigure}
       \hfill
       \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_perce_n7_s7_50_89_n7}
-        \caption{Pipeline Template Length = 7 vertices, \average}
+        \caption{Pipeline Template Length = 7}
         \label{fig:quality_window_average_perce_n7}
       \end{subfigure}
 
@@ -258,31 +259,31 @@ The simulator first defines the pipeline template as a sequence of $l$ vertices,
       \centering
       \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_qual_n7_s7_20_100_n3}
-        \caption{Pipeline Template Length = 3, \wide}
+        \caption{Pipeline Template Length = 3}
         \label{fig:quality_window_wide_qualitative_n3}
       \end{subfigure}
       \hfill
       \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_qual_n7_s7_20_100_n4}
-        \caption{Pipeline Template Length = 4, \wide}
+        \caption{Pipeline Template Length = 4}
         \label{fig:quality_window_wide_qualitative_n4}
       \end{subfigure}
       \hfill
       \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_qual_n7_s7_20_100_n5}
-        \caption{Pipeline Template Length = 5, \wide}
+        \caption{Pipeline Template Length = 5}
         \label{fig:quality_window_wide_qualitative_n5}
       \end{subfigure}
       \hfill
       \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_qual_n7_s7_20_100_n6}
-        \caption{Pipeline Template Length = 6, \wide}
+        \caption{Pipeline Template Length = 6}
         \label{fig:quality_window_wide_qualitative_n6}
       \end{subfigure}
       \hfill
       \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_qual_n7_s7_20_100_n7}
-        \caption{Pipeline Template Length = 7, \wide }
+        \caption{Pipeline Template Length = 7}
         \label{fig:quality_window_wide_qualitative_n7}
       \end{subfigure}
 
@@ -298,31 +299,31 @@ The simulator first defines the pipeline template as a sequence of $l$ vertices,
       \centering
       \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_qual_n7_s7_50_80_n3}
-        \caption{Pipeline Template Length = 3, \average}
+        \caption{Pipeline Template Length = 3}
         \label{fig:quality_window_average_qualitative_n3}
       \end{subfigure}
       \hfill
       \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_qual_n7_s7_50_80_n4}
-        \caption{Pipeline Template Length = 4, \average }
+        \caption{Pipeline Template Length = 4}
         \label{fig:quality_window_average_qualitative_n4}
       \end{subfigure}
       \hfill
       \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_qual_n7_s7_50_80_n5}
-        \caption{Pipeline Template Length = 5, \average}
+        \caption{Pipeline Template Length = 5}
         \label{fig:quality_window_average_qualitative_n5}
       \end{subfigure}
       \hfill
       \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_qual_n7_s7_50_80_n6}
-        \caption{Pipeline Template Length = 6, \average}
+        \caption{Pipeline Template Length = 6}
         \label{fig:quality_window_average_qualitative_n6}
       \end{subfigure}
       \hfill
       \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_qual_n7_s7_50_80_n7}
-        \caption{Pipeline Template Length = 7, \average}
+        \caption{Pipeline Template Length = 7}
         \label{fig:quality_window_average_qualitative_n7}
       \end{subfigure}
 
@@ -345,16 +346,14 @@ The experimental results we obtained yield several valuable insights that merit 
 
 \noindent\textbf{Impact of Parameters on Quality.}
 {\color{OurColor2}
+  Our experiments show that the parameters listed in Table 3 significantly impact the quality of the pipeline, with the pipeline template length and the window size standing out as critical factors influencing both quality and performance.
 
-  Our experiments demonstrate that parameters in Table~3 can significantly influence the quality of the pipeline, with the pipeline template length and the window size emerging as key factors for both quality and performance.
-
-  Specifically, larger window sizes generally improve quality; however, there exists a balance point where the trade-off between computational cost and quality gain becomes suboptimal. Beyond this threshold, additional computational resources do not proportionately enhance data quality, as modeled by our metrics.
-  We also note that lower window sizes exhibit higher instability, particularly under the \wide configuration, where data quality varies significantly across different setups. This variation diminishes when larger window sizes, approximately half the length of the pipeline (e.g., \windowsize$=$$l$/2), are used, leading to more stable and consistent results.
+  Specifically, larger window sizes generally improve quality; however, there exists a point where the trade-off between computational cost and quality gain becomes suboptimal. Beyond this threshold, additional computational resources do not proportionately enhance data quality, as modeled by our metrics. We also note that lower window sizes exhibit higher instability, particularly under the \wide configuration, where data quality varies significantly across different setups. This variation diminishes when larger window sizes, approximately half the length of the pipeline (e.g., \windowsize$=$$l$/2), are used, leading to more stable and consistent results.
 
   We also note that the number of candidate services and service nodes increases the computation cost (performance) with a minor impact on quality (on average).
 
-  In conclusion, our results demonstrate a significant reduction in computational overhead, while
-  maintaining high data quality. Further analysis is needed to explore the impact of additional parameters, first of all in terms of diverse datasets modeling additional real-world domains, to understand their broader impact on quality. Investigating alternative quality metrics could also provide new insights and opportunities for improvement. Future experiments, as outlined in Section 9, will aim to address these aspects to provide a step further in the evaluation of the soundness and applicability of our framework on a larger scale.
+  In conclusion, our results demonstrate a significant reduction in the computational cost, while maintaining high data quality. Further analysis is needed to explore the impact of additional parameters, particularly in terms of datasets modeling additional real-world domains, to understand their broader effects on quality.
+  Investigating alternative quality metrics could also provide new insights and opportunities for improvement. Future experiments, as outlined in Section 9, will aim to address these aspects to provide a step further in the evaluation of the soundness and applicability of our framework on a larger scale.
 }
 \vspace{0.5em}
 
