@@ -4,9 +4,10 @@ file_base = 'window_time_performance_qualitative_n7_s7_50_80'
 
 # set terminal png enhancedà
 set terminal postscript eps color enhanced
+set termoption font ',26'
 set key box top left inside Left samplen 1 spacing 1.15
 set key enhanced
-set key font ",16"
+set key font ",24"
 
 set xtics autofreq 1
 set ytics autofreq
@@ -16,15 +17,15 @@ set yrange [*:150000000]
 set size 1,1
 set origin 0,0
 set border 3
-set ylabel "Execution Time (ms)"
-set xlabel "Number Of Services"
+set ylabel "Execution Time (ms)" #font ",26" offset -2
+set xlabel "Number Of Candiate Services" #font ",26" offset -1
 set logscale y
 
 
 # set grid
 set tics nomirror
 
-set tics font ",18"
+set tics font ",26"
 #set key outside
 
 
@@ -37,7 +38,7 @@ do for [i=3:7] {
   set label sprintf("%d Vert", i) at graph 0.5, graph -0.3 center
   # plot for [j=1:i] base_path.sprintf('%s_n%d_w%d.dat',file_base, i, j) using 1:2 title sprintf('  W Size %d', j) with linespoints pointtype (j)
     plot for [j=1:i] base_path.sprintf('%s_n%d_w%d.dat',file_base, i, j) using 1:2 \
-      title (j == 1 ? 'W Size 1 - Baseline' : sprintf('W Size %d', j)) \
+      title (j == 1 ? '|w|=1' : sprintf('|w|=%d', j)) \
       with linespoints pointtype (j)
   # set output
   unset label
