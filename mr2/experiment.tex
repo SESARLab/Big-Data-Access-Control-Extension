@@ -117,8 +117,9 @@ The simulator first defines the pipeline template as a sequence of $l$ vertices,
       \end{tabular}
       }
     \end{table}
+
     {\color{OurColor2}
-    \cref{tab:parameters} outlines the parameters and corresponding values used in our experimental evaluation. Paremeter \emph{Window Size} (\textbar{}w\textbar{}), varying from 1 to 7, models different configurations of our heuristic. Parameter \emph{Pipeline Template Length $l$}, varying from 3 to 7, models the depth of the pipeline template as the number of vertices composed in a sequence. Parameter \emph{Number of Candidate Services}, varying from 2 to 7, models the number of alternative services at each vertex of the pipeline template. Parameter \emph{Filtering Configuration} considers two representative filtering transformations: \textit{wide} removing a percentage of data in [0.2,1] and \textit{average} in [0.5,0.8]. Parameter \emph{Metric} considers two quality metrics: quantitative ($M_J$) and qualitative ($M_{JSD}$).}
+    \cref{tab:parameters} outlines the parameters and corresponding values used in our experimental evaluation. Parameter \emph{Window Size} \textbar{}w\textbar{}, varying from 1 to 7, models different configurations of our heuristic including our baseline and the exhaustive approach. Parameter \emph{Pipeline Template Length $l$}, varying from 3 to 7, models the depth of the pipeline template as the number of vertices composed in a sequence. Parameter \emph{Number of Candidate Services}, varying from 2 to 7, models the number of alternative services at each vertex of the pipeline template. Parameter \emph{Filtering Configuration} considers two representative filtering transformations: \textit{wide} removing a percentage of data in [0.2,1] and \textit{average} in [0.5,0.8]. Parameter \emph{Metric} considers two quality metrics: quantitative ($M_J$) and qualitative ($M_{JSD}$).}
 
     Our experiments have been run on a virtual machine equipped with an Intel(R) Xeon(R) CPU E5-2620 v4 @ 2.10GHz CPU and 32GB RAM. Each experiment was repeated 10 times and the results averaged to improve the reliability of findings.
 
@@ -126,38 +127,38 @@ The simulator first defines the pipeline template as a sequence of $l$ vertices,
       \centering
       \begin{subfigure}{0.45\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_time_performance_qualitative_n7_s7_50_80_n3}
-        \caption{3 vertices}
+        \caption{Pipeline Template Length $l$$=$3}
         \label{fig:time_window_perce_wide_3n}
       \end{subfigure}
       \hfill
       \begin{subfigure}{0.45\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_time_performance_qualitative_n7_s7_50_80_n4}
-        \caption{4 vertices}
+        \caption{Pipeline Template Length $l$$=$4}
         \label{fig:time_window_perce_wide_4n}
       \end{subfigure}
       \hfill
       \begin{subfigure}{0.45\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_time_performance_qualitative_n7_s7_50_80_n5}
-        \caption{5 vertices}
+        \caption{Pipeline Template Length $l$$=$5}
         \label{fig:time_window_perce_wide_5n}
       \end{subfigure}
       \hfill
       \begin{subfigure}{0.45\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_time_performance_qualitative_n7_s7_50_80_n6}
-        \caption{6 vertices}
+        \caption{Pipeline Template Length $l$$=$6}
         \label{fig:time_window_perce_wide_6n}
       \end{subfigure}
       \begin{subfigure}{0.45\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_time_performance_qualitative_n7_s7_50_80_n7}
-        \caption{7 vertices}
+        \caption{Pipeline Template Length $l$$=$7}
         \label{fig:time_window_perce_wide_7n}
       \end{subfigure}
-      \caption{{\color{OurColor2}Evaluation of Performance Using the \emph{Qualitative} Metric in an  \average Configuration}}
+      \caption{{\color{OurColor2}Evaluation of Performance Using the \emph{Qualitative} Metric in Configuration \average}}
       \label{fig:time_window_perce_average}
     \end{figure}
     \subsection{Performance}\label{subsec:experiments_performance}
     We first measured the performance (execution time) of our exhaustive, baseline, and heuristic solutions by varying the pipeline template length $l$ in [3, 7] and the number of candidate services $|S^c|$ in [2, 7]. \cref{fig:time_window_perce_average} presents our results.
-    The exhaustive approach can provide the optimal solution for all settings, but its execution time grows exponentially with the pipeline length and number of candidate services, making it impractical for large instances. For \windowsize\ from 1 to 3 (step 1), we observed a substantial reduction in execution time, with the heuristic always able to produce an instance in less than $\approx2.7\times10^5ms$ . The worst heuristic performance ($l$=7, $|S^c|$=7, \windowsize=6) is $\approx3.8\times10^7ms$, one order of magnitude lower than the best exhaustive performance ($l$=7, $|S^c|$=7, \windowsize=7) $\approx1.35\times10^8ms$. {\color{OurColor} As expected, the baseline (i.e., our heuristic with \windowsize$=$1) shows the best performance in all settings.}
+    The exhaustive approach can provide the optimal solution for all settings, but its execution time grows exponentially with the pipeline length and number of candidate services, making it impractical for large instances. For \windowsize\ from 1 to 3 (step 1), we observed a substantial reduction in execution time, with the heuristic always able to produce an instance in less than $\approx2.7\times10^5ms$ . The worst heuristic performance ($l$=7, $|S^c|$=7, \windowsize=6) is $\approx3.8\times10^7ms$, one order of magnitude lower than the corresponding exhaustive performance ($l$=7, $|S^c|$=7, \windowsize=7) $\approx1.35\times10^8ms$. {\color{OurColor} As expected, the baseline (i.e., our heuristic with \windowsize$=$1) shows the best performance in all settings.}
 
 
     \subsection{Quality}\label{subsec:experiments_quality}
@@ -172,126 +173,125 @@ The simulator first defines the pipeline template as a sequence of $l$ vertices,
       \centering
       \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_perce_n7_s7_20_100_n3}
-        \caption{Pipeline Template Length = 3}
+        \caption{Pipeline Template Length $l$$=$3}
         \label{fig:quality_window_wide_perce_n3}
       \end{subfigure}
       \hfill
       \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_perce_n7_s7_20_100_n4}
-        \caption{Pipeline Template Length = 4}
+        \caption{Pipeline Template Length $l$$=$4}
         \label{fig:quality_window_wide_perce_n4}
       \end{subfigure}
       \hfill
       \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_perce_n7_s7_20_100_n5}
-        \caption{Pipeline Template Length = 5}
+        \caption{Pipeline Template Length $l$$=$5}
 
         \label{fig:quality_window_wide_perce_n5}
       \end{subfigure}
       \hfill
       \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_perce_n7_s7_20_100_n6}
-        \caption{Pipeline Template Length = 6}
+        \caption{Pipeline Template Length $l$$=$6}
         \label{fig:quality_window_wide_perce_n6}
       \end{subfigure}
       \hfill
       \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_perce_n7_s7_20_100_n7}
-        \caption{Pipeline Template Length = 7}
+        \caption{Pipeline Template Length $l$$=$7}
         \label{fig:quality_window_wide_perce_n7}
       \end{subfigure}
 
-      \caption{Evaluation of Quality Using the \emph{Quantitative} Metric in a \wide Configuration.}
+      \caption{Evaluation of Quality Using the \emph{Quantitative} Metric in Configuration \wide.}
       \label{fig:quality_window_perce_wide}
 
     \end{figure}
 
-    When considering configuration \wide (\cref{fig:quality_window_perce_wide}), the baseline (\windowsize=1) provides good results on average (0.71, 0.90), while showing substantial quality oscillations in specific runs: between 0.882 and 0.970 for pipeline template $l$=3, 0.810 and 0.942 for $l$=4, 0.580 and 0.853 for $l$=5, 0.682 and 0.943 for $l$=6, 0.596 and 0.821 for $l$=7. This same trend emerges when the window size is $<$$l$/2, while it starts approaching the optimum when the window size is $\geq$$l$/2. For instance, when \windowsize=$l$-1, the quality varies between 0.957 and 1.0 for $l$=3, 0.982 and 1.0 for $l$=4, 0.986 and 0.998 for $l$=5, 0.977 and 1.0 for $l$=6, 0.996 and 1.0 for $l$=7.
+    When considering configuration \wide (\cref{fig:quality_window_perce_wide}), the baseline (\windowsize=1) provides good results on average (0.71, 0.90), while showing substantial quality oscillations in specific runs: between 0.882 and 0.970 for pipeline template length $l$=3, 0.810 and 0.942 for $l$=4, 0.580 and 0.853 for $l$=5, 0.682 and 0.943 for $l$=6, 0.596 and 0.821 for $l$=7. This same trend emerges when the window size is $<$$l$/2, while it starts approaching the optimum when the window size is $\geq$$l$/2. For instance, when \windowsize=$l$-1, the quality varies between 0.957 and 1.0 for $l$=3, 0.982 and 1.0 for $l$=4, 0.986 and 0.998 for $l$=5, 0.977 and 1.0 for $l$=6, 0.996 and 1.0 for $l$=7.
+
+    When considering configuration \average (\cref{fig:quality_window_perce_average}), the heuristic algorithm still provides good results, limiting the quality oscillations observed for configuration \wide\ and approaching the quality of the exhaustive also for lower window sizes. The baseline (\windowsize=1) provides good results on average (from 0.842 to 0.944), as well as in specific runs: between 0.927 and 0.978 for $l$=3, 0.903 and 0.962 for $l$=4, 0.840 and 0.915 for $l$=5, 0.815 and 0.934 for $l$=6, 0.721 and 0.935 for $l$=7.
+    When \windowsize=$l$-1, the quality varies between 0.980 and 1.0 for $l$=3, 0.978 and 1.0 for $l$=4, 0.954 and 1 for $l$=5, 0.987 and 1.0 for $l$=6, 0.990 and 1.0 for $l$=7.
 
     \begin{figure}[ht!]
       \centering
       \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_perce_n7_s7_50_89_n3}
-        \caption{Pipeline Template Length = 3}
+        \caption{Pipeline Template Length $l$$=$3}
 
         \label{fig:quality_window_average_perce_n3}
       \end{subfigure}
       \hfill
       \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_perce_n7_s7_50_89_n4}
-        \caption{Pipeline Template Length = 4}
+        \caption{Pipeline Template Length $l$$=$4}
 
         \label{fig:quality_window_average_perce_n4}
       \end{subfigure}
       \hfill
       \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_perce_n7_s7_50_89_n5}
-        \caption{Pipeline Template Length = 5}
+        \caption{Pipeline Template Length $l$$=$5}
         \label{fig:quality_window_average_perce_n5}
       \end{subfigure}
       \hfill
       \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_perce_n7_s7_50_89_n6}
-        \caption{Pipeline Template Length = 6}
+        \caption{Pipeline Template Length $l$$=$6}
         \label{fig:quality_window_average_perce_n6}
       \end{subfigure}
       \hfill
       \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_perce_n7_s7_50_89_n7}
-        \caption{Pipeline Template Length = 7}
+        \caption{Pipeline Template Length $l$$=$7}
         \label{fig:quality_window_average_perce_n7}
       \end{subfigure}
 
 
-      \caption{Evaluation of Quality Using the \emph{Quantitative} Metric in an \average Configuration.}  \label{fig:quality_window_perce_average}
+      \caption{Evaluation of Quality Using the \emph{Quantitative} Metric in Configuration \average.}  \label{fig:quality_window_perce_average}
 
     \end{figure}
-
-    When considering configuration \average (\cref{fig:quality_window_perce_average}), the heuristic algorithm still provides good results, limiting the quality oscillations observed for configuration \wide\ and approaching the quality of the exhaustive also for lower window sizes. The baseline (\windowsize=1) provides good results on average (from 0.842 to 0.944), as well as in specific runs: between 0.927 and 0.978 for $l$=3, 0.903 and 0.962 for $l$=4, 0.840 and 0.915 for $l$=5, 0.815 and 0.934 for $l$=6, 0.721 and 0.935 for $l$=7.
-    When \windowsize=$l$-1, the quality varies between 0.980 and 1.0 for $l$=3, 0.978 and 1.0 for $l$=4, 0.954 and 1 for $l$=5, 0.987 and 1.0 for $l$=6, 0.990 and 1.0 for $l$=7.
 
     \cref{fig:quality_window_qualitative_wide,fig:quality_window_qualitative_average} {\color{OurColor2}present} our quality results using metric $M_{JSD}$ in \cref{subsec:metrics} for configurations \wide and \average, respectively.
 
 
-    %QUAAAAAAAAAAAAAAAAAAAA
+    When considering configuration \wide (\cref{fig:quality_window_qualitative_wide}), the baseline (\windowsize=1) provides good results on average (0.92, 0.97), limiting oscillations observed with metric $M_J$; for instance, the quality varies between 0.951 and 0.989 for $l$=3, 0.941 and 0.988 for $l$=4, 0.919 and 0.974 for $l$=5, 0.911 and 0.971 for $l$=6, 0.877 and 0.924 for $l$=7.
+    The worst quality results are obtained with the baseline, while the oscillations are negligible when the window size is $>$2. For instance, when \windowsize=$l$-2, the quality varies between, 0.982 and 0.996 for $l$=4, 0.981 and 0.998 for $l$=5, 0.988 and 1.0 for $l$=6, 0.976 and 0.999 for $l$=7. When \windowsize=$l$-1, the quality varies between  0.987 and  0.998 for $l$=3, 0.993 and 1.0 for $l$=4, 0.985 and 0.999 for $l$=5, 0.997 and 1.0 for $l$=6, 0.995 and 1.0  for $l$=7.
+
     \begin{figure}[ht!]
       \centering
       \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_qual_n7_s7_20_100_n3}
-        \caption{Pipeline Template Length = 3}
+        \caption{Pipeline Template Length $l$$=$3}
         \label{fig:quality_window_wide_qualitative_n3}
       \end{subfigure}
       \hfill
       \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_qual_n7_s7_20_100_n4}
-        \caption{Pipeline Template Length = 4}
+        \caption{Pipeline Template Length $l$$=$4}
         \label{fig:quality_window_wide_qualitative_n4}
       \end{subfigure}
       \hfill
       \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_qual_n7_s7_20_100_n5}
-        \caption{Pipeline Template Length = 5}
+        \caption{Pipeline Template Length $l$$=$5}
         \label{fig:quality_window_wide_qualitative_n5}
       \end{subfigure}
       \hfill
       \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_qual_n7_s7_20_100_n6}
-        \caption{Pipeline Template Length = 6}
+        \caption{Pipeline Template Length $l$$=$6}
         \label{fig:quality_window_wide_qualitative_n6}
       \end{subfigure}
       \hfill
       \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{Images/graphs/window_quality_performance_diff_qual_n7_s7_20_100_n7}
-        \caption{Pipeline Template Length = 7}
+        \caption{Pipeline Template Length $l$$=$7}
         \label{fig:quality_window_wide_qualitative_n7}
       \end{subfigure}
 
 
-      \caption{Evaluation of Quality Using the \emph{Qualitative} Metric in a \wide Configuration.}  \label{fig:quality_window_qualitative_wide}
+      \caption{Evaluation of Quality Using the \emph{Qualitative} Metric in Configuration \wide.}  \label{fig:quality_window_qualitative_wide}
     \end{figure}
-
-    When considering configuration \wide (\cref{fig:quality_window_qualitative_wide}), the baseline (\windowsize=1) provides good results on average (0.92, 0.97), limiting oscillations observed with metric $M_J$; for instance, the quality varies between 0.951 and 0.989 for $l$=3, 0.941 and 0.988 for $l$=4, 0.919 and 0.974 for $l$=5, 0.911 and 0.971 for $l$=6, 0.877 and 0.924 for $l$=7.
-    The worst quality results are obtained with the baseline, while the oscillations are negligible when the window size is $>$2. For instance, when \windowsize=$l$-2, the quality varies between, 0.982 and 0.996 for $l$=4, 0.981 and 0.998 for $l$=5, 0.988 and 1.0 for $l$=6, 0.976 and 0.999 for $l$=7. When \windowsize=$l$-1, the quality varies between  0.987 and  0.998 for $l$=3, 0.993 and 1.0 for $l$=4, 0.985 and 0.999 for $l$=5, 0.997 and 1.0 for $l$=6, 0.995 and 1.0  for $l$=7.
 
 
     \begin{figure}[ht!]
@@ -333,6 +333,7 @@ The simulator first defines the pipeline template as a sequence of $l$ vertices,
 
     When considering configuration \average (\cref{fig:quality_window_qualitative_average}), the baseline (\windowsize=1) provides results similar to configuration \wide. On average, quality varies from 0.920 to 0.969, limiting oscillations; for instance, the quality varies between 0.951 and 0.989 for $l$=3, 0.942 and 0.988 for $l$=4, 0.919 and 0.975 for $l$=5, 0.912 and 0.972 for $l$=6, 0.878 and 0.925 for $l$=7. The \average configuration provides even tighter quality oscillations than the \wide configuration. Notably, the poorest quality outcomes are observed with the baseline. Conversely, these oscillations become negligible when the window size exceeds 1 in configurations with three and four vertices, and when it exceeds 2 in configurations involving five, six, and seven vertices.  For instance, when \windowsize=3, the quality varies between  0.993 and 1 for $l$=4, 0.981 and 0.998 for $l$=5, 0.982 and 997 for $l$=6, 0.960 and 0.991 for $l$=7.
 
+    To conclude, our results (on average) show that the impact of the number of services on the retrieved quality is positive in all settings as the number of services increase, though negligible with respect to the impact provided by the pipeline template length and window size. 
 
 \subsection{Discussion}
 The experimental results we obtained yield several valuable insights that merit further discussion. Three key observations emerged as follows.
