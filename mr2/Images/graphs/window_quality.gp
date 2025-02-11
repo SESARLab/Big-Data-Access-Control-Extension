@@ -13,7 +13,7 @@ set size 1.2,1.2
 set origin 0,0
 set border 3
 set ylabel "Metric Value" font ",28" offset -2
-set xlabel "Number Of Candiate Services" font ",28" offset -1
+set xlabel "Number of Candiate Services |S^c|" font ",28" offset -1
 set tics nomirror
 set key bottom right
 set key enhanced

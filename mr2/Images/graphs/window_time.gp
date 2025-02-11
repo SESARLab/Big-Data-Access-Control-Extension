@@ -18,7 +18,7 @@ set size 1,1
 set origin 0,0
 set border 3
 set ylabel "Execution Time (ms)" #font ",26" offset -2
-set xlabel "Number Of Candiate Services" #font ",26" offset -1
+set xlabel "Number of Candiate Services |S^c|" #font ",26" offset -1
 set logscale y
 
 
@@ -35,7 +35,6 @@ set tics font ",26"
 do for [i=3:7] {
 
   set output sprintf('%s_n%d.eps', file_base,i)
-  set label sprintf("%d Vert", i) at graph 0.5, graph -0.3 center
   # plot for [j=1:i] base_path.sprintf('%s_n%d_w%d.dat',file_base, i, j) using 1:2 title sprintf('  W Size %d', j) with linespoints pointtype (j)
     plot for [j=1:i] base_path.sprintf('%s_n%d_w%d.dat',file_base, i, j) using 1:2 \
       title (j == 1 ? '|w|=1' : sprintf('|w|=%d', j)) \
